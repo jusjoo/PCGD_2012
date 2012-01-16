@@ -16,11 +16,13 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Player extends Creature {
 
-	protected final float speed = 0.4f;
-	protected final float jumpHeight = 9.2f;
-	
-	public Player(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations) {
+	protected float speed = 0.1f;
+	protected float jumpHeight = 3.2f;
+
+	public Player(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations, float speed, float jumpHeight) {
 		super(world, position, size, animations);
+		this.speed = speed;
+		this.jumpHeight = jumpHeight;
 	}
 	
 	//@Override
