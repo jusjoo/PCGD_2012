@@ -3,6 +3,8 @@ package sov;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import sov.AnimatedSprite.AnimationState;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -10,6 +12,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -56,13 +59,15 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		debugRenderer = new Box2DDebugRenderer();
 		
-		Texture spritesTexture = new Texture(new FileHandle("assets/mrEggEverything.png"));
+		
+		//TextureRegion spritesTextureRegion = TextureRegion.
+		
 		
 		map = TiledLoader.createMap(new FileHandle("assets/map1.tmx"));
 		
 		SimpleTileAtlas atlas = new SimpleTileAtlas(map, new FileHandle("assets/"));
 		
-		tileMapRenderer = new TileMapRenderer(map, atlas, 4, 4);
+		tileMapRenderer = new TileMapRenderer(map, atlas, 5, 5);
 		
 		
 		int[][] tiles = map.layers.get(0).tiles;
@@ -88,16 +93,48 @@ public class CoffeeGDX implements ApplicationListener {
 		ArrayList<TiledObject> dynTiles = map.objectGroups.get(0).objects;
 		dynMapTiles = new ArrayList<MovingSprite>();
 		
+		
+		//TextureRegion textureRegion = 
+		
+		
+		
+		
 		for(TiledObject object : dynTiles) {
-			System.out.println(object.x + " " + object.y);
-			dynMapTiles.add(new MovingSprite(atlas.getRegion(object.gid), world,
-					new Vector2(object.x*2/MovingSprite.PIXELS_PER_METER, -(object.y*2/MovingSprite.PIXELS_PER_METER)+tiles.length), new Vector2(14.5f,14.5f)));
+			
+			
+			HashMap<AnimatedSprite.AnimationState, Animation> tileAnimations = new HashMap<AnimatedSprite.AnimationState, Animation>();
+			ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
+			textureRegions.add(atlas.getRegion(object.gid));
+			tileAnimations.put(AnimationState.IDLE, new Animation(0.1f, textureRegions));
+			
+			dynMapTiles.add(new MovingSprite(world,
+					new Vector2(object.x*2/MovingSprite.PIXELS_PER_METER, -(object.y*2/MovingSprite.PIXELS_PER_METER)+tiles.length), new Vector2(14.5f,14.5f),
+					tileAnimations));
 					//new Vector2(object.x, object.y)));
 					//new Vector2(object.x, object.y)));
 		}
 		
-		int amountOfFrames = 5; 
-		mrEgg = new Player(new TextureRegion(spritesTexture, 0, 0, amountOfFrames*16, 16), world, new Vector2(19, 4), new Vector2(10,12));
+		//int amountOfFrames = 5; 
+		Texture spritesTexture = new Texture(new FileHandle("assets/sprites_human_barbarian.png"));
+		HashMap<AnimatedSprite.AnimationState, Animation> spriteAnimations = new HashMap<AnimatedSprite.AnimationState, Animation>();
+		ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
+		TextureRegion frames[][] = TextureRegion.split(spritesTexture, 16, 32);
+		textureRegions.add(frames[0][2]);
+		//textureRegions.add(atlas.getRegion(object.gid));
+		spriteAnimations.put(AnimationState.IDLE, new Animation(0.1f, textureRegions));
+		textureRegions.clear();
+		textureRegions.add(frames[0][3]);
+		textureRegions.add(frames[0][4]);
+		textureRegions.add(frames[0][5]);
+		textureRegions.add(frames[0][6]);
+		textureRegions.add(frames[0][7]);
+		textureRegions.add(frames[0][8]);
+		spriteAnimations.put(AnimationState.RUN, new Animation(0.1f, textureRegions));
+		textureRegions.clear();
+		textureRegions.add(frames[0][3]);
+		spriteAnimations.put(AnimationState.JUMP, new Animation(0.1f, textureRegions));
+		mrEgg = new Player(world,
+				new Vector2(19, 4), new Vector2(13,30), spriteAnimations);
 		
 		//mrEgg.setRegion(0, 0, 16, 16);
 		
@@ -125,8 +162,11 @@ public class CoffeeGDX implements ApplicationListener {
 	@Override
 	public void render() {
 		update();
-		
+		//float colourMultiplier = 1/(600-cam.position.y);
+		float colourMultiplier = 1;
+		Gdx.gl.glClearColor(0.5f*colourMultiplier, 0.7f*colourMultiplier, 0.88f*colourMultiplier, 1.0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		
 		
 		float interpolationAmount = 0.012f;
 		
@@ -158,10 +198,11 @@ public class CoffeeGDX implements ApplicationListener {
 		spriteBatch.end();
 		
 		tileMapRenderer.render(cam);
+		//tileMapRenderer.
 		
 		
-		//debugRenderer.render(world, cam.combined.scale(MovingSprite.PIXELS_PER_METER, MovingSprite.PIXELS_PER_METER,
-        //		MovingSprite.PIXELS_PER_METER));
+		debugRenderer.render(world, cam.combined.scale(MovingSprite.PIXELS_PER_METER, MovingSprite.PIXELS_PER_METER,
+        		MovingSprite.PIXELS_PER_METER));
 		
 		
 	}

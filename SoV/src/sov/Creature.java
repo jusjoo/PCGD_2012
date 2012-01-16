@@ -2,6 +2,8 @@ package sov;
 
 import java.util.HashMap;
 
+import sov.AnimatedSprite.AnimationState;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -11,8 +13,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Creature extends MovingSprite {
 	
-	public Creature(TextureRegion textureRegion, World world, Vector2 position, Vector2 size) {
-		super(textureRegion, world, position, size);
+	public Creature(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations) {
+		super(world, position, size, animations);
 		
 		//Vector2 sensorsize = new Vector2(9, 14);
 		
@@ -29,6 +31,22 @@ public class Creature extends MovingSprite {
 		
 		body.setUserData(this);
 		
+		body.setFixedRotation(true);
+		
+	}
+	
+	public void update(float deltaTime) {
+		
+		super.update(deltaTime);
+		
+		Vector2 currentVelocity = body.getLinearVelocity();
+		if(Math.abs(currentVelocity.x) > 0.1f && allowJumping) {
+			currentAnimationState = AnimationState.RUN;
+		} else if (Math.abs(currentVelocity.y) >= 0.5f) {
+			currentAnimationState = AnimationState.JUMP;
+		} else {
+			currentAnimationState = AnimationState.IDLE;
+		}
 	}
 
 }

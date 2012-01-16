@@ -2,5 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="/home/speak/workspace/libraries/libgdx-0.9.2/gdx.jar" sourcepath="/CoffeeGDX/C:/Ohjelmat/libraries/libgdx-0.9.2/gdx-sources.jar"/>
+	<classpathentry kind="lib" path="/home/speak/workspace/libraries/libgdx-0.9.2/gdx-backend-lwjgl.jar" sourcepath="/home/speak/workspace/libraries/libgdx-0.9.2/gdx-backend-lwjgl-sources.jar"/>
+	<classpathentry kind="lib" path="/home/speak/workspace/libraries/libgdx-0.9.2/gdx-backend-lwjgl-natives.jar" sourcepath="/home/speak/workspace/libraries/libgdx-0.9.2/gdx-backend-lwjgl-sources.jar"/>
+	<classpathentry kind="lib" path="/home/speak/workspace/libraries/libgdx-0.9.2/gdx-natives.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

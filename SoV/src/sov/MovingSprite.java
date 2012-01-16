@@ -21,27 +21,26 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class MovingSprite extends AnimatedSprite {
-	Sprite sprite; // Picture for the creature
 	Body body; // A Box2D body for collision
 	
 	Body bottomSensor; // A sensor for the "feet" of the creature
 	boolean allowJumping = true;
 	
-	
 	float stateTime = 0;
-	
-	
-	
 	
 	
 	protected static final int PIXELS_PER_METER = 32;
 	
 	protected final float maxVelocity = 3.0f;
 	
-	public MovingSprite(TextureRegion textureRegion, World world, Vector2 position, Vector2 size) {
+	public MovingSprite(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations) {
+		super(animations);
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
 		bodyDef.position.set(position.x/2, position.y/2);
+		
+		this.size = size;
+		
 		//bodyDef.position.set(Gdx.graphics.getWidth() / PIXELS_PER_METER /2, Gdx.graphics.getHeight() / PIXELS_PER_METER /2);
 		
 		body = world.createBody(bodyDef);
@@ -102,33 +101,6 @@ public class MovingSprite extends AnimatedSprite {
 		
 		
 		
-		TextureRegion frames[][] = textureRegion.split(16, 16);
-		
-		/*ArrayList<TextureRegion> idle = new ArrayList<TextureRegion>();
-		idle.add(frames[0][0]);
-		
-		ArrayList<TextureRegion> run = new ArrayList<TextureRegion>();
-		for(int i=1; i<4; i++) {
-			run.add(frames[0][i]);
-		}
-		
-		ArrayList<TextureRegion> jump = new ArrayList<TextureRegion>();
-		jump.add(frames[0][4]);
-		
-		animations.put(AnimationState.IDLE, new Animation(1f, idle));
-		animations.put(AnimationState.RUN, new Animation(0.1f, run));
-		animations.put(AnimationState.JUMP, new Animation(1f, jump));
-		*/
-		
-		ArrayList<TextureRegion> idle = new ArrayList<TextureRegion>();
-		idle.add(frames[0][0]);
-		animations.put(AnimationState.IDLE, new Animation(1f, idle));
-		animations.put(AnimationState.RUN, new Animation(0.1f, idle));
-		animations.put(AnimationState.JUMP, new Animation(1f, idle));
-		
-		
-		
-		sprite = new Sprite(animations.get(currentAnimationState).getKeyFrame(0, true));
 		
 	}
 	
@@ -139,7 +111,8 @@ public class MovingSprite extends AnimatedSprite {
 		//sprite = animations.get(0).
 		
 		sprite.setPosition(body.getPosition().x * PIXELS_PER_METER,
-				body.getPosition().y * PIXELS_PER_METER - sprite.getHeight());
+				body.getPosition().y * PIXELS_PER_METER - sprite.getHeight()*(1-(size.y/(PIXELS_PER_METER*5))));
+		//System.out.println(sprite.getHeight());
 		
 		sprite.setRotation((float) (body.getAngle()*180/Math.PI));
 		
@@ -150,6 +123,7 @@ public class MovingSprite extends AnimatedSprite {
 		//return body.getPosition();
 		//return new Vector2(sprite.getX()+sprite.getWidth(), sprite.getY()+sprite.getHeight()/2);
 		return new Vector2(sprite.getX(), sprite.getY());
+		
 		//return new Vector2(body.getPosition().x, body.getPosition().y);
 		
 	}
@@ -168,13 +142,7 @@ public class MovingSprite extends AnimatedSprite {
 		
 		Vector2 currentVelocity = body.getLinearVelocity();
 		
-		if(Math.abs(currentVelocity.x) > 0.1f && allowJumping) {
-			currentAnimationState = AnimationState.RUN;
-		} else if (Math.abs(currentVelocity.y) >= 0.5f) {
-			currentAnimationState = AnimationState.JUMP;
-		} else {
-			currentAnimationState = AnimationState.IDLE;
-		}
+		
 		
 		if(currentVelocity.x >= 0) {
 			sprite.flip(false, false);
