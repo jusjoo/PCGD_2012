@@ -29,6 +29,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class CoffeeGDX implements ApplicationListener {
 	
+	GameConfiguration config;
+	
 	Vector2 oldPosition = new Vector2(0,0);
 	
 	Player mrEgg = null;
@@ -50,6 +52,9 @@ public class CoffeeGDX implements ApplicationListener {
 
 	@Override
 	public void create() {
+		
+		config = new GameConfiguration();
+		
 		
 		world = new World(new Vector2(0.0f,-10.0f), true);
 		cam = new OrthographicCamera(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
@@ -97,7 +102,7 @@ public class CoffeeGDX implements ApplicationListener {
 		}
 		
 		int amountOfFrames = 5; 
-		mrEgg = new Player(new TextureRegion(spritesTexture, 0, 0, amountOfFrames*16, 16), world, new Vector2(19, 4), new Vector2(10,12));
+		mrEgg = new Player(new TextureRegion(spritesTexture, 0, 0, amountOfFrames*16, 16), world, new Vector2(19, 4), new Vector2(10,12), config.speed, config.jumpHeight);
 		
 		//mrEgg.setRegion(0, 0, 16, 16);
 		
@@ -128,7 +133,7 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		float interpolationAmount = 0.012f;
+		float interpolationAmount = config.interpolationAmount;
 		
 		//oldPosition = new Vector2(mrEgg.getPosition().x, mrEgg.getPosition().y);
 		oldPosition = new Vector2(cam.position.x, cam.position.y);
@@ -193,6 +198,7 @@ public class CoffeeGDX implements ApplicationListener {
 	}
 	
 	public static void main (String[] args) {
+		
         new LwjglApplication(new CoffeeGDX(), "Game", 800, 600, false);
 		//new LwjglApplication(new CoffeeGDX(), "Game", , 600, false);
 		//new Lwjg
