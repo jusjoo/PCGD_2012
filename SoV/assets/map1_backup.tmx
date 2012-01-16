@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="30" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="Tiles" tilewidth="16" tileheight="16">
+  <image source="mrEggTiles.png" width="416" height="16"/>
+  <tile id="6">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Foreground" width="100" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztWtluwyAQ5C19d47G//+hLVJGWk324ojjtB5pZQfMYYbdAZOllLIctis7sA8cfLwH54cxDj62B7hYyjMnBx/b4VxsvwCYj/VxvZOtid9au7CbYvJ5rd+XX/sOTHvHxblHOesZq/+zrZTnfqMvsj93yuffnOflfyp610TXxDNaO3clDeD5fqd0LY/ve+H58ZbwYvgoPxVSPyyOgMg/pE8wV38FER+Zstl9BY+9xQf0QeoEPzPiH7LNvfgFIMdkxl5NloUuyjyr7QptrK08GbvW8qxTXPdJSdsjvP4xT5FmZOqL9IOvVgzL+kd2bnl+4q1TZB8sa4HlG/yMpxdafV5bXC+wUj7HLNwXKvNq/YhiLzDKhayXx1uu1SPt5vJRW+i7tb7qsV5k9KMlDoz2ydOOrLW2JX/vPZ5XZP0DyHJhfUPC1VtneabtfzWL9OOdiL4j4Dqy1gHq2uJi1NHDh5fX4kt74sNDq394qFxg/XdV8pGW5QO4iTwPFh+afrwDs/XDg+TCeveeehF7WvGf/UPjQvMPLaZo+4zM3sPTDrTl6UfvekLuOXvxav1gLmb4R6Yuj69P9Y9RQLvl3Mb8ZrB+tGi3laaVKZT/Cv2oMaH6Yn3/r2SZrG/d4kfM+r04w7DGNTtWGZ+I/GMGJ5WL+q4XxSqis5jZ0PQi4uNUYj4y5oH5eMX+A36xF6A/Fg/atyaZXpS8zL03nlvpx0wu1ofxuWzLN7KIi+xcHuVD24t7fEj9kGfWFq5k2ll4K3icwQcj+z1K7rt7Y4u2Bu5BT0yL5kjlKKvLGWhnW7O+DVt6EfkJY0Q3eiyjH/AVXHs54fG25v8oNL/I/L9gli/MgsYHeJCmcRLN61PZ5mw94xetceMdkPpx2H7sB9prUq8=
+  </data>
+ </layer>
+ <layer name="Background" width="100" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztmusOgyAMhftXnYKa7P0fdTMZGbKCoIWhni8xTm5iaDktGREAAACQnz6izeBpH9PXoJl+PTPGQHkYnN++97h17vwmyUmBauFsE4C7UsoXcu3/EozOdZSav/XMmFhDWWUldFvCRyaSn6uErcYAzawXY1Mp6yO1lrHjwHbAWbC1ZbFbTWv7RZ4IwLWBXt0Tbd17Wse9dpylaK0To1VnMOeNivZphnaeuZzSnWNpkOfeF7XdhKWErbYF3nE15vf1/Nxn4bEfB/q6++BZsTXDPW/c8gnp9WgCdchvwhgfkSS0HuCXxUb3ntXHxCzdjnG3qC2n2KvfIB++eF4T/z8LOydJsa+UuP0fetASH8P5ykFeGuI1yld+VVL2zFBb438hnw1pW0dfjVKe8ph5ACDFC8pDBw0=
+  </data>
+ </layer>
+</map>
