@@ -23,5 +23,58 @@
    eJztzkENgDAUBcEmSKsTUiMcaoTgBGN9DnqCf5lJ9r6tAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD840lvuqtHADZmOtJVPQKwMVJPZ/UIAAAAAAB8YAFddQQc
   </data>
  </layer>
- <objectgroup name="DynamicTiles" width="300" height="50"/>
+ <objectgroup name="DynamicTiles" width="300" height="50">
+  <object gid="2" x="593" y="654"/>
+  <object gid="2" x="609" y="636"/>
+  <object gid="2" x="588" y="616"/>
+  <object gid="2" x="577" y="643"/>
+  <object gid="2" x="575" y="657"/>
+  <object gid="2" x="569" y="671"/>
+  <object gid="2" x="565" y="675"/>
+  <object gid="2" x="556" y="671"/>
+  <object gid="2" x="549" y="667"/>
+  <object gid="2" x="543" y="660"/>
+  <object gid="2" x="545" y="643"/>
+  <object gid="2" x="551" y="633"/>
+  <object gid="2" x="320" y="663"/>
+  <object gid="2" x="315" y="617"/>
+  <object gid="2" x="305" y="617"/>
+  <object gid="2" x="386" y="643"/>
+  <object gid="2" x="339" y="645"/>
+  <object gid="2" x="343" y="656"/>
+  <object gid="2" x="355" y="678"/>
+  <object gid="2" x="325" y="663"/>
+  <object gid="2" x="322" y="671"/>
+  <object gid="2" x="307" y="652"/>
+  <object gid="2" x="336" y="637"/>
+  <object gid="2" x="345" y="643"/>
+  <object gid="2" x="354" y="658"/>
+  <object gid="2" x="365" y="654"/>
+  <object gid="2" x="365" y="624"/>
+  <object gid="2" x="346" y="625"/>
+  <object gid="2" x="327" y="628"/>
+  <object gid="2" x="312" y="627"/>
+  <object gid="2" x="290" y="624"/>
+  <object gid="2" x="313" y="644"/>
+  <object gid="2" x="317" y="651"/>
+  <object gid="2" x="326" y="660"/>
+  <object gid="2" x="334" y="670"/>
+  <object gid="2" x="343" y="680"/>
+  <object gid="2" x="354" y="659"/>
+  <object gid="2" x="342" y="641"/>
+  <object gid="2" x="341" y="641"/>
+  <object gid="2" x="336" y="643"/>
+  <object gid="2" x="325" y="650"/>
+  <object gid="2" x="315" y="643"/>
+  <object gid="2" x="326" y="643"/>
+  <object gid="2" x="333" y="657"/>
+  <object gid="2" x="334" y="654"/>
+  <object gid="2" x="344" y="646"/>
+  <object gid="2" x="338" y="649"/>
+  <object gid="2" x="338" y="651"/>
+  <object gid="2" x="335" y="649"/>
+  <object gid="2" x="332" y="649"/>
+  <object gid="2" x="328" y="650"/>
+  <object gid="2" x="325" y="655"/>
+ </objectgroup>
 </map>

@@ -1,0 +1,16 @@
+
+Mappispeksi v0.01
+
+- tilesetit:
+	- tilesetit samaan kansioon mappien kanssa
+	- vinojen palikoiden asetuksiin lisättävä avain "slope", jolle arvoksi left tai right
+
+- layerit sisältää:
+	- Tile Layerit:
+		- Foreground: Pelaajan peittävät palikat, joihin ei törmää
+		- Map: Staattiset palikat, johon pelaaja törmää
+		- Background: Pelaajan alla olevat palikat, joihin ei törmää
+		
+	- Object Layerit:
+		- DynamicTiles: Liikkuvat palikat, yms
+		- Creatures: Otuksien spawn-pointit
