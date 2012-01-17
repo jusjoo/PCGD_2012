@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import sov.AnimatedSprite.AnimationState;
+import sov.GameMap.LayerType;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -25,10 +26,6 @@ public class CoffeeGDX implements ApplicationListener {
 	GameConfiguration config;
 	
 	Vector2 oldPosition = new Vector2(0,0);
-	
-	Player mrEgg = null;
-	
-	
 	
 	Texture spritesTexture = null;
 	SpriteBatch spriteBatch = null;
@@ -78,10 +75,9 @@ public class CoffeeGDX implements ApplicationListener {
 		textureRegions.clear();
 		textureRegions.add(frames[0][3]);
 		spriteAnimations.put(AnimationState.JUMP, new Animation(0.1f, textureRegions));
-		mrEgg = new Player(world,
-				new Vector2(40f, 60f), new Vector2(13f,32f), spriteAnimations, config.speed, config.jumpHeight);
 
-		
+		map.addCreature(new Player(world,
+				new Vector2(40f, 60f), new Vector2(13f,32f), spriteAnimations, config.speed, config.jumpHeight));
 		
 		spriteBatch = new SpriteBatch();
 		
@@ -110,33 +106,14 @@ public class CoffeeGDX implements ApplicationListener {
 		oldPosition = new Vector2(cam.position.x, cam.position.y);
 		//oldPosition.mul(interpolationAmount);
 		
+		Player player = map.getPlayer();
 		
-		
-		Vector2 newPosition = new Vector2(	oldPosition.x + interpolationAmount*(mrEgg.getPosition().x - oldPosition.x),
-											oldPosition.y + interpolationAmount*(mrEgg.getPosition().y - oldPosition.y));
+		Vector2 newPosition = new Vector2(	oldPosition.x + interpolationAmount*(player.getPosition().x - oldPosition.x),
+											oldPosition.y + interpolationAmount*(player.getPosition().y - oldPosition.y));
 		cam.position.set(newPosition.x, newPosition.y, 0);
-		
-		
-        
-        
-        //cam.apply(Gdx.gl20);
-        
-        	
-        
-        //cam.project(new Vector3(4,4,4));
-        
-        spriteBatch.setProjectionMatrix(cam.combined);
-		spriteBatch.begin();
-		mrEgg.render(spriteBatch);
-		for(MovingSprite sprite : map.getDynMapTiles()) {
-			sprite.render(spriteBatch);
-		}
-		spriteBatch.end();
-		
-		map.getTileMapRenderer().render(cam);
-		
-		
 		cam.apply(Gdx.gl10);
+		
+		map.render(cam, spriteBatch);
 		
 		
 
@@ -170,7 +147,7 @@ public class CoffeeGDX implements ApplicationListener {
 	public void update() {
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		
-		mrEgg.update(deltaTime);
+		map.update(deltaTime);
 		
 		world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
 	}
