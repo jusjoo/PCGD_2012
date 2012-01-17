@@ -68,6 +68,7 @@ public class MovingSprite extends AnimatedSprite {
 		Vector2[] shape = new Vector2[8];
 		//float shapeSize = 13f;
 		float rounding = 0.8f;
+		
 		shape[0] = new Vector2(-size.x / PIXELS_PER_METER/2,	-size.y*rounding / PIXELS_PER_METER/2);
 		shape[1] = new Vector2(-size.x*rounding / PIXELS_PER_METER/2,	-size.y / PIXELS_PER_METER/2);
 		shape[2] = new Vector2(size.x*rounding / PIXELS_PER_METER/2,	-size.y / PIXELS_PER_METER/2);
@@ -115,7 +116,7 @@ public class MovingSprite extends AnimatedSprite {
 		//		body.getPosition().y * PIXELS_PER_METER - sprite.getHeight()*(1-(size.y/(PIXELS_PER_METER*4))));
 		//sprite.setPosition(body.getPosition().x * PIXELS_PER_METER,
 		//		body.getPosition().y * PIXELS_PER_METER - sprite.getHeight()*0.75f);
-		sprite.setPosition(body.getPosition().x * PIXELS_PER_METER, body.getPosition().y * PIXELS_PER_METER);
+		sprite.setPosition(body.getWorldCenter().x * PIXELS_PER_METER, body.getWorldCenter().y * PIXELS_PER_METER - sprite.getOriginY() - 8);
 		//System.out.println(sprite.getHeight());
 		
 		sprite.setRotation((float) (body.getAngle()*180/Math.PI));
