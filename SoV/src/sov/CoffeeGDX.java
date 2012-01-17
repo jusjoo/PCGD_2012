@@ -113,10 +113,13 @@ public class CoffeeGDX implements ApplicationListener {
 			tileAnimations.put(AnimationState.IDLE, new Animation(0.1f, textureRegions));
 			
 			dynMapTiles.add(new MovingSprite(world,
-					new Vector2(object.x*2/MovingSprite.PIXELS_PER_METER, -(object.y*2/MovingSprite.PIXELS_PER_METER)+tiles.length), new Vector2(14.5f,14.5f),
+					//new Vector2(object.x*2, -object.y*2+tiles.length), new Vector2(16f,16f),
+					new Vector2(object.x, (-(object.y*1/16)+tiles.length)), new Vector2(16f,16f),
 					tileAnimations));
 					//new Vector2(object.x, object.y)));
 					//new Vector2(object.x, object.y)));
+					System.out.println(-object.y*2+tiles.length/2);
+					//-(object.y*2/MovingSprite.PIXELS_PER_METER)+tiles.length)
 		}
 		
 		//int amountOfFrames = 5; 
@@ -139,7 +142,7 @@ public class CoffeeGDX implements ApplicationListener {
 		textureRegions.add(frames[0][3]);
 		spriteAnimations.put(AnimationState.JUMP, new Animation(0.1f, textureRegions));
 		mrEgg = new Player(world,
-				new Vector2(19, 4), new Vector2(13,30), spriteAnimations, config.speed, config.jumpHeight);
+				new Vector2(40f, 40f), new Vector2(13,30), spriteAnimations, config.speed, config.jumpHeight);
 
 		//int amountOfFrames = 5; 
 		//mrEgg = new Player(new TextureRegion(spritesTexture, 0, 0, amountOfFrames*16, 16), world, new Vector2(19, 4), new Vector2(10,12), config.speed, config.jumpHeight);
@@ -208,8 +211,8 @@ public class CoffeeGDX implements ApplicationListener {
 		tileMapRenderer.render(cam);
 		
 		
-		debugRenderer.render(world, cam.combined.scale(MovingSprite.PIXELS_PER_METER, MovingSprite.PIXELS_PER_METER,
-        		MovingSprite.PIXELS_PER_METER));
+		//debugRenderer.render(world, cam.combined.scale(MovingSprite.PIXELS_PER_METER, MovingSprite.PIXELS_PER_METER,
+        //		MovingSprite.PIXELS_PER_METER));
 		
 		
 	}
