@@ -34,10 +34,10 @@ public class Player extends Creature {
 	protected void takeInput() {
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 			body.applyLinearImpulse(new Vector2(speed, 0.0f), body.getWorldCenter());
-
-			
+			facingRight = true;
 		} else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			body.applyLinearImpulse(new Vector2(-speed, 0.0f), body.getWorldCenter());
+			facingRight = false;
 		}
  
 		if (Gdx.input.isKeyPressed(Input.Keys.UP) && Math.abs(body.getLinearVelocity().y) < 1.7f

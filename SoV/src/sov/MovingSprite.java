@@ -26,6 +26,8 @@ public class MovingSprite extends AnimatedSprite {
 	Body bottomSensor; // A sensor for the "feet" of the creature
 	boolean allowJumping = true;
 	
+	boolean facingRight = true;
+	
 	float stateTime = 0;
 	
 	
@@ -116,6 +118,13 @@ public class MovingSprite extends AnimatedSprite {
 		//		body.getPosition().y * PIXELS_PER_METER - sprite.getHeight()*(1-(size.y/(PIXELS_PER_METER*4))));
 		//sprite.setPosition(body.getPosition().x * PIXELS_PER_METER,
 		//		body.getPosition().y * PIXELS_PER_METER - sprite.getHeight()*0.75f);
+		
+		if(facingRight) {
+			sprite.flip(false, false);
+		} else {
+			sprite.flip(true, false);
+		}
+		
 		sprite.setPosition(body.getWorldCenter().x * PIXELS_PER_METER, body.getWorldCenter().y * PIXELS_PER_METER - sprite.getOriginY() - 8);
 		//System.out.println(sprite.getHeight());
 		
@@ -149,11 +158,7 @@ public class MovingSprite extends AnimatedSprite {
 		
 		
 		
-		if(currentVelocity.x >= 0) {
-			sprite.flip(false, false);
-		} else {
-			sprite.flip(true, false);
-		}
+		
 			
 		
 		if(currentVelocity.x > maxVelocity) {
