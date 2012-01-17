@@ -6,7 +6,7 @@ package sov;
 public class GameConfiguration {
 
 	// debug mode
-	public boolean debugMode = true;
+	public boolean debugMode = false;
 	// TODO: developer cheats
 	public boolean devMode = false;
 	
