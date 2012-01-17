@@ -14,7 +14,7 @@ public class GameConfiguration {
 	
 	// world
 	public String firstMap = "desert_test.tmx";
-	public float interpolationAmount = 0.012f;
+	public float interpolationAmount = 0.022f;
 		
 	// player
 	public float speed = 0.8f;

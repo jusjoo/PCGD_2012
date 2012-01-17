@@ -166,7 +166,7 @@ public class GameMap {
 		renderLayer(LayerType.Creatures, cam, spriteBatch);
 		renderLayer(LayerType.StaticTiles, cam, spriteBatch);
 		renderLayer(LayerType.DynamicTiles, cam, spriteBatch);
-		//renderLayer(LayerType.Foreground, cam, spriteBatch);
+		renderLayer(LayerType.Foreground, cam, spriteBatch);
 	}
 	
 	

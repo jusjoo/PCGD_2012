@@ -12,62 +12,35 @@
     <property name="slope" value="right"/>
    </properties>
   </tile>
+  <tile id="161">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="163">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
  </tileset>
- <layer name="StaticTiles" width="300" height="50">
-  <data encoding="base64" compression="zlib">
-   eJzt1sENwjAQRUGjIG6URll0Qic0RizkiwngRAneoBnpn72nJ6cEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADz3Mbdq12qAURwHTdU0ysgoqleDV0vAnh1TM//k14BkZVWTQ0gik+t0isgim+t0isggpZW6RVQ9GpCa6v0Csh6dCJ36tTwtl4B2ZxWrNWNJZ3SK+BXvSqNWtop3QK26MUaPdInYGvaBOyBPgF7cO59APA3DsEG8M4DGUs/rA==
-  </data>
- </layer>
  <layer name="Background" width="300" height="50">
   <data encoding="base64" compression="zlib">
-   eJztzkENgDAUBcEmSKsTUiMcaoTgBGN9DnqCf5lJ9r6tAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD840lvuqtHADZmOtJVPQKwMVJPZ/UIAAAAAAB8YAFddQQc
+   eJzt18sJgDAQBNBIKvdgI2IlamGuiCCCn5OJ8B7MfU/DTkoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN8YIlOkL30IwIMukiNt6UMAbqy/1Zy2vhqTHwuoz74B8ykAtdk3oI4CanbcgPoK4J3mIsC/LERFCVQ=
+  </data>
+ </layer>
+ <layer name="StaticTiles" width="300" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2FFKAzEUBdCA1b9xJ3YTfttFiC6kH25EdCW6MBPIw8c4pdNamVrOgUtCJ0P6dcmkFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4C+81bwu/ScAJrR++ki56mlzvQWci9ZV7+W7o6ais4ClRVfdj/JcdBZwPlpXfdZsJ549lZ8d9niifVc1NzNzfaI9gf9hfDcVaV3Vzk1TfXWI3D/7+qWtvatZ19z2xHzTn8UYvwGXa9fd+a4c01e5o4aah54239VZ7Z3op+il3E15zGuAyxTfePs66jd3U613Wp9s+jj0Mc/HnRVdNaR1ua/ijDXuMX0Fy5p7d3NMXsrhXRVnrLl7DCnRM+vRvI3RWau+Nr7/hjTGfHzOyr0FLOcLU9IonA==
   </data>
  </layer>
  <objectgroup name="DynamicTiles" width="300" height="50">
-  <object gid="2" x="23" y="639"/>
-  <object gid="2" x="127" y="617"/>
-  <object gid="2" x="94" y="618"/>
-  <object gid="2" x="63" y="634"/>
-  <object gid="2" x="45" y="639"/>
-  <object gid="2" x="57" y="647"/>
-  <object gid="2" x="75" y="622"/>
-  <object gid="2" x="62" y="621"/>
-  <object gid="2" x="50" y="637"/>
-  <object gid="2" x="60" y="635"/>
-  <object gid="2" x="51" y="628"/>
-  <object gid="2" x="37" y="633"/>
-  <object gid="2" x="39" y="646"/>
-  <object gid="2" x="48" y="637"/>
-  <object gid="2" x="51" y="623"/>
-  <object gid="2" x="27" y="625"/>
-  <object gid="2" x="25" y="640"/>
-  <object gid="2" x="41" y="643"/>
-  <object gid="2" x="46" y="628"/>
-  <object gid="2" x="41" y="628"/>
-  <object gid="2" x="35" y="636"/>
-  <object gid="2" x="35" y="639"/>
-  <object gid="2" x="45" y="630"/>
-  <object gid="2" x="47" y="617"/>
-  <object gid="2" x="37" y="620"/>
-  <object gid="2" x="30" y="642"/>
-  <object gid="2" x="34" y="651"/>
-  <object gid="2" x="48" y="643"/>
-  <object gid="2" x="41" y="635"/>
-  <object gid="2" x="26" y="640"/>
-  <object gid="2" x="30" y="648"/>
-  <object gid="2" x="43" y="645"/>
-  <object gid="2" x="45" y="640"/>
-  <object gid="2" x="31" y="632"/>
-  <object gid="2" x="34" y="640"/>
-  <object gid="2" x="46" y="642"/>
-  <object gid="2" x="50" y="649"/>
-  <object gid="2" x="42" y="659"/>
-  <object gid="2" x="39" y="659"/>
-  <object gid="2" x="31" y="657"/>
-  <object gid="2" x="41" y="647"/>
-  <object gid="2" x="43" y="643"/>
-  <object gid="2" x="38" y="640"/>
-  <object gid="2" x="35" y="640"/>
-  <object gid="2" x="41" y="629"/>
+  <object gid="8" x="613" y="781"/>
+  <object gid="8" x="1044" y="715"/>
+  <object gid="8" x="1063" y="716"/>
  </objectgroup>
+ <layer name="Foreground" width="300" height="50" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt10EKg0AQBMABv5o8xEMeEslL1Idlh0QUQdyDSiBV0Kedc9MbAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQI1XSXfCLcCRsn/Gkrby/lHyDJ0FXC/7p/lmr4Ombsvb2n4DOMqt5B6fDtqSPTXE3FWZPmws4HrTxtp7X8fGAn7J8g+4jo0F/+cNA/QSMA==
+  </data>
+ </layer>
 </map>
