@@ -73,7 +73,7 @@ public class CoffeeGDX implements ApplicationListener {
 		textureRegions.add(frames[0][8]);
 		spriteAnimations.put(AnimationState.RUN, new Animation(0.1f, textureRegions));
 		textureRegions.clear();
-		textureRegions.add(frames[0][3]);
+		textureRegions.add(frames[0][9]);
 		spriteAnimations.put(AnimationState.JUMP, new Animation(0.1f, textureRegions));
 
 		map.addCreature(new Player(world,
