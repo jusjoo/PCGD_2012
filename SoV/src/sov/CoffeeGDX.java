@@ -68,9 +68,9 @@ public class CoffeeGDX implements ApplicationListener {
 		//TextureRegion spritesTextureRegion = TextureRegion.
 		
 		
-		map = TiledLoader.createMap(new FileHandle("assets/map1.tmx"));
+		map = TiledLoader.createMap(new FileHandle("assets/maps/desert_test.tmx"));
 		
-		SimpleTileAtlas atlas = new SimpleTileAtlas(map, new FileHandle("assets/"));
+		SimpleTileAtlas atlas = new SimpleTileAtlas(map, new FileHandle("assets/maps/"));
 		
 		tileMapRenderer = new TileMapRenderer(map, atlas, 5, 5);
 		
@@ -113,14 +113,14 @@ public class CoffeeGDX implements ApplicationListener {
 			tileAnimations.put(AnimationState.IDLE, new Animation(0.1f, textureRegions));
 			
 			dynMapTiles.add(new MovingSprite(world,
-					new Vector2(object.x*2/MovingSprite.PIXELS_PER_METER, -(object.y*2/MovingSprite.PIXELS_PER_METER)+tiles.length), new Vector2(14.5f,14.5f),
+					new Vector2(object.x*2/MovingSprite.PIXELS_PER_METER, -(object.y*2/MovingSprite.PIXELS_PER_METER)+tiles.length), new Vector2(16,16),
 					tileAnimations));
 					//new Vector2(object.x, object.y)));
 					//new Vector2(object.x, object.y)));
 		}
 		
 		//int amountOfFrames = 5; 
-		Texture spritesTexture = new Texture(new FileHandle("assets/sprites_human_barbarian.png"));
+		Texture spritesTexture = new Texture(new FileHandle("assets/creatures/sprites_human_barbarian.png"));
 		HashMap<AnimatedSprite.AnimationState, Animation> spriteAnimations = new HashMap<AnimatedSprite.AnimationState, Animation>();
 		ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
 		TextureRegion frames[][] = TextureRegion.split(spritesTexture, 16, 32);
@@ -208,9 +208,11 @@ public class CoffeeGDX implements ApplicationListener {
 		tileMapRenderer.render(cam);
 		
 		
-		debugRenderer.render(world, cam.combined.scale(MovingSprite.PIXELS_PER_METER, MovingSprite.PIXELS_PER_METER,
+		// Debug render
+		if (config.debugMode) {
+			debugRenderer.render(world, cam.combined.scale(MovingSprite.PIXELS_PER_METER, MovingSprite.PIXELS_PER_METER,
         		MovingSprite.PIXELS_PER_METER));
-		
+		}
 		
 	}
 

@@ -5,7 +5,7 @@ package sov;
  */
 public class GameConfiguration {
 
-	// TODO: devcheats
+	// TODO: developer cheats
 	public boolean debugMode = false;
 	public boolean devMode = false;
 	
@@ -14,7 +14,7 @@ public class GameConfiguration {
 		
 	// player
 	public float speed = 0.1f;
-	public float jumpHeight = 3.2f;
+	public float jumpHeight = 6.2f;
 	
 	
 	
