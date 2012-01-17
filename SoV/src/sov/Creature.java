@@ -43,7 +43,7 @@ public class Creature extends MovingSprite {
 		Vector2 currentVelocity = body.getLinearVelocity();
 		if(Math.abs(currentVelocity.x) > 0.1f && allowJumping) {
 			currentAnimationState = AnimationState.RUN;
-		} else if (Math.abs(currentVelocity.y) >= 0.5f) {
+		} else if (Math.abs(currentVelocity.y) >= 0.5f && !allowJumping) {
 			currentAnimationState = AnimationState.JUMP;
 		} else {
 			currentAnimationState = AnimationState.IDLE;
