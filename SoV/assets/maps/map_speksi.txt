@@ -3,13 +3,13 @@ Mappispeksi v0.01
 
 - tilesetit:
 	- tilesetit samaan kansioon mappien kanssa
-	- vinojen palikoiden asetuksiin lis‰tt‰v‰ avain "slope", jolle arvoksi left tai right
+	- vinojen palikoiden asetuksiin lis√§tt√§v√§ avain "slope", jolle arvoksi left tai right
 
-- layerit sis‰lt‰‰:
+- layerit sis√§lt√§√§:
 	- Tile Layerit:
-		- Foreground: Pelaajan peitt‰v‰t palikat, joihin ei tˆrm‰‰
-		- Map: Staattiset palikat, johon pelaaja tˆrm‰‰
-		- Background: Pelaajan alla olevat palikat, joihin ei tˆrm‰‰
+		- Foreground: Pelaajan peitt√§v√§t palikat, joihin ei t√∂rm√§√§
+		- Map: Staattiset palikat, johon pelaaja t√∂rm√§√§
+		- Background: Pelaajan alla olevat palikat, joihin ei t√∂rm√§√§
 		
 	- Object Layerit:
 		- DynamicTiles: Liikkuvat palikat, yms
