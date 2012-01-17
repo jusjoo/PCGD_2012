@@ -30,7 +30,7 @@ public class GameMap {
 	 */
 	public GameMap(String tmxFile, World world) {
 			
-		map = TiledLoader.createMap(new FileHandle("assets/maps/desert_test.tmx"));
+		map = TiledLoader.createMap(new FileHandle("assets/maps/" + tmxFile));
 		
 		SimpleTileAtlas atlas = new SimpleTileAtlas(map, new FileHandle("assets/maps/"));
 		
