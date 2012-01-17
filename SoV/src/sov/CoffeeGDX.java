@@ -114,11 +114,13 @@ public class CoffeeGDX implements ApplicationListener {
 			
 			dynMapTiles.add(new MovingSprite(world,
 					//new Vector2(object.x*2, -object.y*2+tiles.length), new Vector2(16f,16f),
-					new Vector2(object.x, (-(object.y*1/16)+tiles.length)), new Vector2(16f,16f),
+					//new Vector2(object.x, (-(object.y*1/16)+tiles.length)), new Vector2(16f,16f),
+					new Vector2(object.x, -object.y+(tiles.length+1)*16f), new Vector2(16f,16f),
+					
 					tileAnimations));
 					//new Vector2(object.x, object.y)));
 					//new Vector2(object.x, object.y)));
-					System.out.println(-object.y*2+tiles.length/2);
+					System.out.println("X: " + object.x + " Y: " + object.y);
 					//-(object.y*2/MovingSprite.PIXELS_PER_METER)+tiles.length)
 		}
 		
