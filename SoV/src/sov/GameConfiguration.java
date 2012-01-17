@@ -5,16 +5,18 @@ package sov;
  */
 public class GameConfiguration {
 
+	// debug mode
+	public boolean debugMode = true;
 	// TODO: developer cheats
-	public boolean debugMode = false;
 	public boolean devMode = false;
 	
 	// world
 	public float interpolationAmount = 0.012f;
 		
 	// player
-	public float speed = 0.1f;
-	public float jumpHeight = 6.2f;
+	public float speed = 0.8f;
+	public float jumpHeight = 9.2f;
+
 	
 	
 	

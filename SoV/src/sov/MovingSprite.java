@@ -37,7 +37,8 @@ public class MovingSprite extends AnimatedSprite {
 		super(animations);
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
-		bodyDef.position.set(position.x/2, position.y/2);
+		// Setposition is /2 because tileSize/PIXELS_PER_METER = 2
+		bodyDef.position.set(position.x/PIXELS_PER_METER, position.y/PIXELS_PER_METER);
 		
 		this.size = size;
 		
@@ -110,8 +111,11 @@ public class MovingSprite extends AnimatedSprite {
 		
 		//sprite = animations.get(0).
 		
-		sprite.setPosition(body.getPosition().x * PIXELS_PER_METER,
-				body.getPosition().y * PIXELS_PER_METER - sprite.getHeight()*(1-(size.y/(PIXELS_PER_METER*5))));
+		//sprite.setPosition(body.getPosition().x * PIXELS_PER_METER,
+		//		body.getPosition().y * PIXELS_PER_METER - sprite.getHeight()*(1-(size.y/(PIXELS_PER_METER*4))));
+		//sprite.setPosition(body.getPosition().x * PIXELS_PER_METER,
+		//		body.getPosition().y * PIXELS_PER_METER - sprite.getHeight()*0.75f);
+		sprite.setPosition(body.getPosition().x * PIXELS_PER_METER, body.getPosition().y * PIXELS_PER_METER);
 		//System.out.println(sprite.getHeight());
 		
 		sprite.setRotation((float) (body.getAngle()*180/Math.PI));
