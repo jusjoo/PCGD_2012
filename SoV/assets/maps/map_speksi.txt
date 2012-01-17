@@ -8,7 +8,7 @@ Mappispeksi v0.01
 - layerit sisältää:
 	- Tile Layerit:
 		- Foreground: Pelaajan peittävät palikat, joihin ei törmää
-		- Map: Staattiset palikat, johon pelaaja törmää
+		- StaticTiles: Staattiset palikat, johon pelaaja törmää
 		- Background: Pelaajan alla olevat palikat, joihin ei törmää
 		
 	- Object Layerit:
