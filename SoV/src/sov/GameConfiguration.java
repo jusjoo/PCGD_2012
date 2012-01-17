@@ -1,5 +1,7 @@
 package sov;
 
+import java.util.ArrayList;
+
 /*
  * Keeps all the configuration data neatly in one place.
  */
@@ -11,6 +13,7 @@ public class GameConfiguration {
 	public boolean devMode = false;
 	
 	// world
+	public String firstMap = "desert_test.tmx";
 	public float interpolationAmount = 0.012f;
 		
 	// player
