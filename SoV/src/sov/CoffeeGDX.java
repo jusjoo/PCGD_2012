@@ -148,20 +148,8 @@ public class CoffeeGDX implements ApplicationListener {
 		textureRegions.add(frames[0][3]);
 		spriteAnimations.put(AnimationState.JUMP, new Animation(0.1f, textureRegions));
 		mrEgg = new Player(world,
-				new Vector2(40f, 40f), new Vector2(13,30), spriteAnimations, config.speed, config.jumpHeight);
+				new Vector2(40f, 60f), new Vector2(13f,32f), spriteAnimations, config.speed, config.jumpHeight);
 
-		//int amountOfFrames = 5; 
-		//mrEgg = new Player(new TextureRegion(spritesTexture, 0, 0, amountOfFrames*16, 16), world, new Vector2(19, 4), new Vector2(10,12), config.speed, config.jumpHeight);
-		
-		//mrEgg.setRegion(0, 0, 16, 16);
-		
-		//player.
-		//mrEgg.setR
-		//mrEgg.setScale(1, 2);
-		
-		//TextureRegion[][] spritesTextures = new TextureRegion(spritesTexture).split(16, 16);
-		
-		//mrEgg = new Sprite(spritesTextures[0][0]);
 		
 		
 		spriteBatch = new SpriteBatch();
@@ -172,13 +160,13 @@ public class CoffeeGDX implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void render() {
 		update();
+		cam.update();
 		//float colourMultiplier = 1/(600-cam.position.y);
 		float colourMultiplier = 1;
 		Gdx.gl.glClearColor(0.5f*colourMultiplier, 0.7f*colourMultiplier, 0.88f*colourMultiplier, 1.0f);
@@ -198,8 +186,8 @@ public class CoffeeGDX implements ApplicationListener {
 		cam.position.set(newPosition.x, newPosition.y, 0);
 		
 		
-        cam.update();
-        cam.apply(Gdx.gl10);
+        
+        
         //cam.apply(Gdx.gl20);
         
         	
@@ -216,11 +204,15 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		tileMapRenderer.render(cam);
 		
+		
+		cam.apply(Gdx.gl10);
+		
+		
 
 		// Debug render
 		if (config.debugMode) {
 			debugRenderer.render(world, cam.combined.scale(MovingSprite.PIXELS_PER_METER, MovingSprite.PIXELS_PER_METER,
-        		MovingSprite.PIXELS_PER_METER));
+        		MovingSprite.PIXELS_PER_METER).translate(0.25f, -0.25f, 0));
 		}
 
 		
