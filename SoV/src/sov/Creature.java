@@ -55,8 +55,11 @@ public class Creature extends AnimatedSpriteBody {
 		Vector2 currentVelocity = body.getLinearVelocity();
 		
 		// Set animation states
-		if(!allowJumping) {
-			animatedSprite.setCurrentAnimationState(AnimationState.JUMP);
+		if(!allowJumping) {			
+			if (currentVelocity.y < 0.0f)
+				animatedSprite.setCurrentAnimationState(AnimationState.FALL);
+			else
+				animatedSprite.setCurrentAnimationState(AnimationState.JUMP);
 		} else if(Math.abs(currentVelocity.x) > 0.5f) {
 			animatedSprite.setCurrentAnimationState(AnimationState.RUN);
 		} else {

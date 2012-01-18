@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 public class AnimatedSprite {
 	
 	// AnimationState dictates which Animation is going to be drawn and updated
-	public enum AnimationState { IDLE, RUN, JUMP, HURT }
+	public enum AnimationState { IDLE, RUN, JUMP, FALL, HURT }
 	protected AnimationState currentAnimationState = AnimationState.IDLE;
 	
 	// Links Animations with AnimationStates
