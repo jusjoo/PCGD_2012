@@ -77,7 +77,7 @@ public class CoffeeGDX implements ApplicationListener {
 		spriteAnimations.put(AnimationState.JUMP, new Animation(0.1f, textureRegions));
 
 		map.addCreature(new Player(world,
-				new Vector2(40f, 60f), new Vector2(13f,32f), spriteAnimations, config.speed, config.jumpHeight));
+				new Vector2(40f, 60f), new Vector2(13f,32f), spriteAnimations, 0.8f, false, config.speed, config.jumpHeight));
 		
 		spriteBatch = new SpriteBatch();
 		
@@ -92,20 +92,20 @@ public class CoffeeGDX implements ApplicationListener {
 
 	@Override
 	public void render() {
+		// Update all world entities
 		update();
+		// Update camera
 		cam.update();
-		//float colourMultiplier = 1/(600-cam.position.y);
+		
+		// Colourmultiplier dictates how bright the sky is
 		float colourMultiplier = 1;
 		Gdx.gl.glClearColor(0.5f*colourMultiplier, 0.7f*colourMultiplier, 0.88f*colourMultiplier, 1.0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		
 		float interpolationAmount = config.interpolationAmount;
 		
-		//oldPosition = new Vector2(mrEgg.getPosition().x, mrEgg.getPosition().y);
+		// Perform camera interpolation on player location
 		oldPosition = new Vector2(cam.position.x, cam.position.y);
-		//oldPosition.mul(interpolationAmount);
-		
 		Player player = map.getPlayer();
 		
 		Vector2 newPosition = new Vector2(	oldPosition.x + interpolationAmount*(player.getPosition().x - oldPosition.x),
@@ -119,8 +119,8 @@ public class CoffeeGDX implements ApplicationListener {
 
 		// Debug render
 		if (config.debugMode) {
-			debugRenderer.render(world, cam.combined.scale(MovingSprite.PIXELS_PER_METER, MovingSprite.PIXELS_PER_METER,
-        		MovingSprite.PIXELS_PER_METER).translate(0.25f, -0.25f, 0));
+			debugRenderer.render(world, cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
+					GameConfiguration.PIXELS_PER_METER).translate(0.25f, -0.25f, 0));
 		}
 
 		
@@ -128,20 +128,14 @@ public class CoffeeGDX implements ApplicationListener {
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
 	}
 	
 	public void update() {
@@ -153,11 +147,7 @@ public class CoffeeGDX implements ApplicationListener {
 	}
 	
 	public static void main (String[] args) {
-		
         new LwjglApplication(new CoffeeGDX(), "Game", 800, 600, false);
-		//new LwjglApplication(new CoffeeGDX(), "Game", , 600, false);
-		//new Lwjg
-        //new LwjglApplication(listener, config)
 }
 
 }

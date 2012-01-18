@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import sov.AnimatedSprite.AnimationState;
+import sov.BodyEntity.SlopeShape;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.tiled.SimpleTileAtlas;
+import com.badlogic.gdx.graphics.g2d.tiled.TileAtlas;
 import com.badlogic.gdx.graphics.g2d.tiled.TileMapRenderer;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledLayer;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledLoader;
@@ -22,35 +24,58 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class GameMap {
 	
+	// LayerTypes correspond to layers in Tiled-maps
 	enum LayerType { Foreground, Background, StaticTiles, DynamicTiles, Creatures };
 	
+	// Hold a reference to the player, for camera positioning etc.
 	Player player;
 	
+	// Map which is loaded from the Tiled map, has information on nearly everything!
 	TiledMap map;
-	ArrayList<MovingSprite> dynMapTiles = new ArrayList<MovingSprite>();
+	
+	// Dynamic map tiles are tiles which can be pushed around in the map.
+	ArrayList<AnimatedSpriteBody> dynMapTiles = new ArrayList<AnimatedSpriteBody>();
+	
+	// Holds all creatures, including the player.
 	ArrayList<Creature> creatures = new ArrayList<Creature>();
+	
+	// Renders only static tiles, dynamic tiles and creatures are rendered manually
+	// Excellent for static tiles because of optimizations.
 	TileMapRenderer tileMapRenderer;
 	
+	// Layer id-numbers to use with tileMapRenderer.
 	HashMap<LayerType, Integer> layerIds = new HashMap<LayerType, Integer>();
+	
+	// Tile size in pixels.
+	protected float tileSize = 16f;
 	
 	
 	/*
 	 * Loads a new map for the game
 	 */
 	public GameMap(String tmxFile, World world) {
-		
-		
 		map = TiledLoader.createMap(new FileHandle("assets/maps/" + tmxFile));
 		
-		
+		// Holds the textures for all tiles.
 		SimpleTileAtlas atlas = new SimpleTileAtlas(map, new FileHandle("assets/maps/"));
 		
 		tileMapRenderer = new TileMapRenderer(map, atlas, 5, 5);
 		
+		createStaticTiles(world);
+		createDynamicTiles(world, atlas);
 		
-			//layerIds.put(LayerType.Foreground, layer.)
-		
-		
+	}
+	
+	
+	/*  Create BodyEntities based on static tile positions. Used so that
+	 *  we can use tileMapRenderer for rendering, and Box2D for collision
+	 *  and physics handling.
+	 *  
+	 *  Background and foreground layers don't have collisions at all,
+	 *  for them we just assign with the correct LayerType based on their
+	 *  name in the TMX-file.
+	 */
+	protected void createStaticTiles(World world) {
 		for(int i=0; i<map.layers.size(); i++) {
 			
 			TiledLayer layer = map.layers.get(i);
@@ -59,25 +84,28 @@ public class GameMap {
 			
 			if(layer.name.equals("StaticTiles")) {
 				layerIds.put(LayerType.StaticTiles, i);
-				ArrayList<StaticTile> maptiles = new ArrayList<StaticTile>();
+				ArrayList<BodyEntity> maptiles = new ArrayList<BodyEntity>();
 				
 				for(int y=0; y<tiles.length; y++) {
 					for(int x=0; x<tiles[y].length; x++) {
 						if(tiles[y][x] != 0) {
 							String property = map.getTileProperty(tiles[y][x], "slope");
 							if(property != null && property.equals("left")) {
-								maptiles.add(new StaticTile(world, x, -y+map.height, StaticTile.Shape.LEFT));
+								maptiles.add(new BodyEntity(world, new Vector2(x*tileSize, -y*tileSize+map.height*tileSize),
+										new Vector2(tileSize, tileSize), true, 1.0f, false, BodyEntity.SlopeShape.Left));
 							} else if (property != null && property.equals("right")) {
-								maptiles.add(new StaticTile(world, x, -y+map.height, StaticTile.Shape.RIGHT));
+								maptiles.add(new BodyEntity(world, new Vector2(x*tileSize, -y*tileSize+map.height*tileSize),
+										new Vector2(tileSize, tileSize), true, 1.0f, false, BodyEntity.SlopeShape.Right));
 							} else {
-								maptiles.add(new StaticTile(world, x, -y+map.height, StaticTile.Shape.SQUARE));
+								maptiles.add(new BodyEntity(world, new Vector2(x*tileSize, -y*tileSize+map.height*tileSize),
+										new Vector2(tileSize, tileSize), true, 1.0f, false, BodyEntity.SlopeShape.Even));
 							}
 							
 						}
 					}
 				}
 				
-			} // END Foreground
+			} // END StaticTiles
 			
 			else if(layer.name.equals("Background")) {
 				layerIds.put(LayerType.Background, i);
@@ -88,7 +116,10 @@ public class GameMap {
 			
 			
 		}
-		
+	}
+	
+	// Create dynamic tiles.
+	protected void createDynamicTiles(World world, TileAtlas atlas) {
 		ArrayList<TiledObjectGroup> objectGroups = map.objectGroups;
 		
 		for(TiledObjectGroup objectGroup : objectGroups) {
@@ -103,11 +134,11 @@ public class GameMap {
 					textureRegions.add(atlas.getRegion(object.gid));
 					tileAnimations.put(AnimationState.IDLE, new Animation(0.1f, textureRegions));
 					
-					dynMapTiles.add(new MovingSprite(world,
+					dynMapTiles.add(new AnimatedSpriteBody(world,
 							new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight),
-							new Vector2(16f,16f),tileAnimations));
+							new Vector2(16f,16f),tileAnimations, false, 1.0f, false, SlopeShape.Even));
 				}
-			} // END DynamicTiles
+			}
 		}
 	}
 
@@ -115,7 +146,7 @@ public class GameMap {
 		return tileMapRenderer;
 	}
 
-	public ArrayList<MovingSprite> getDynMapTiles() {
+	public ArrayList<AnimatedSpriteBody> getDynMapTiles() {
 		return dynMapTiles;	
 	}
 	
@@ -138,7 +169,7 @@ public class GameMap {
 		if(type == LayerType.DynamicTiles) {
 			spriteBatch.setProjectionMatrix(cam.combined);
 			spriteBatch.begin();
-			for(MovingSprite sprite : dynMapTiles) {
+			for(AnimatedSpriteBody sprite : dynMapTiles) {
 				sprite.render(spriteBatch);
 			}
 			spriteBatch.end();
@@ -161,6 +192,7 @@ public class GameMap {
 		}
 	}
 	
+	// TODO: Add layer rendering order in an ordered list or array.
 	public void render(OrthographicCamera cam, SpriteBatch spriteBatch) {
 		renderLayer(LayerType.Background, cam, spriteBatch);
 		renderLayer(LayerType.Creatures, cam, spriteBatch);
