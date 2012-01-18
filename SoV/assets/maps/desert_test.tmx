@@ -22,25 +22,92 @@
     <property name="slope" value="left"/>
    </properties>
   </tile>
+  <tile id="481">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="482">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="485">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="486">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="489">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="490">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="512">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="515">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="516">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="519">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="520">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="523">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Background" width="300" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt18sJgDAQBNBIKvdgI2IlamGuiCCCn5OJ8B7MfU/DTkoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN8YIlOkL30IwIMukiNt6UMAbqy/1Zy2vhqTHwuoz74B8ykAtdk3oI4CanbcgPoK4J3mIsC/LERFCVQ=
+   eJzt20EKwjAQBdDoRuxN9CIexZu48CLiTeytTKEBKdUmSg3a9+BTClnMJsPMIiEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJZraBQBk2tcuAAAAAAAAAAAAYMQ15hZzqV0IwIRzTBtzyjx/6APwTd1s1T5kasZKveo4c12lNuvaFQBzSTtgO8iruemTXjX2/s+bQFiGbf99986nHTD1qJz9rjuTuzPm8CYQ/lu647vBf4nhDliim62aYDYClmf1JMBvuQP9OBb4
   </data>
  </layer>
  <layer name="StaticTiles" width="300" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt2FFKAzEUBdCA1b9xJ3YTfttFiC6kH25EdCW6MBPIw8c4pdNamVrOgUtCJ0P6dcmkFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4C+81bwu/ScAJrR++ki56mlzvQWci9ZV7+W7o6ais4ClRVfdj/JcdBZwPlpXfdZsJ549lZ8d9niifVc1NzNzfaI9gf9hfDcVaV3Vzk1TfXWI3D/7+qWtvatZ19z2xHzTn8UYvwGXa9fd+a4c01e5o4aah54239VZ7Z3op+il3E15zGuAyxTfePs66jd3U613Wp9s+jj0Mc/HnRVdNaR1ua/ijDXuMX0Fy5p7d3NMXsrhXRVnrLl7DCnRM+vRvI3RWau+Nr7/hjTGfHzOyr0FLOcLU9IonA==
+   eJzt3F1OE1EYBuDp8OcN7kGxlhtYBEjKjexBodFtcIP7MLoSWYkmug3PCeekh8lMnZZKW3ie5M1MOtOfqzffOS1UFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsEy/B1W1V1fVn8GqPwnAbJPQVbshX+pVfxKA++I8tWueAjbATX23/hubp4A107Y/dWP9B6yhuD91qJ+ANeT7PmBTjNL+lHkKWHejtJce56uuWWvWDBavjWc8J2YY8mID+nCn9l0orLO4X/UpddY4nTdnrcmMGazr2lk97atm5u2un6E/6vou2/+x94apr/Y2oFuB5TkrZqthS2flx9pmmUE97adZWXZ3DdN3DfoKnpdJS0fttXTX55ZuyH20VXTTQcibnj0W82uBNV38bOeps4Dnpfm7rb6/4yp7J3fWaci7dH4ZclLcc1ncu9XRX31mMetBYF4fesxPXb2Uu22R+SvPV/oKmNe/euuk0Vv5/KBx32XLc69aOsl8BSxbn/mrTz+V8m8Z9BWwzvL/oNBXwDor56qYkb4COnwL+bqi927OVTFjfQUksZ9+FNlKieeP2Vttc9Wh9SCQxK76Xk07qi2P0Vk7jZ7Kc9VYXwHVtKtuQ06LTKrH7ay2NaD9KyCLXXWb8rFx7aq631+nLfcsajtkt2d2qmln+XscePqae1M5safi3HT9wNcv+2enx71HIcchL1Py+UW6lo/5sdxX5/oKnpyuvfOuLNJXZUfth7yv7jomnnd1VnxO7qfcS2U3lcfyHr+/gqcpr/G6uukk5SF7U7F3Yp9cpGPsqKPiPB6bnZW7ar+4Lz6/HoT3j3tXg2lXlT2mr2C1+u7dLJK2LuqT6zneY79IXssdV9OZKD+WO2s73ZvXf/H8Vein1yEHRd6GjAZ3r1H2lr6C1fkLVGJavg==
   </data>
  </layer>
  <objectgroup name="DynamicTiles" width="300" height="50">
   <object gid="8" x="613" y="781"/>
   <object gid="8" x="1044" y="715"/>
   <object gid="8" x="1063" y="716"/>
+  <object gid="2" x="587" y="504"/>
+  <object gid="2" x="587" y="484"/>
+  <object gid="2" x="587" y="462"/>
+  <object gid="2" x="584" y="436"/>
+  <object gid="2" x="288" y="394"/>
+  <object gid="2" x="287" y="369"/>
+  <object gid="2" x="927" y="539"/>
  </objectgroup>
- <layer name="Foreground" width="300" height="50" visible="0">
+ <layer name="Foreground" width="300" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt10EKg0AQBMABv5o8xEMeEslL1Idlh0QUQdyDSiBV0Kedc9MbAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQI1XSXfCLcCRsn/Gkrby/lHyDJ0FXC/7p/lmr4Ombsvb2n4DOMqt5B6fDtqSPTXE3FWZPmws4HrTxtp7X8fGAn7J8g+4jo0F/+cNA/QSMA==
+   eJzt3E0KwjAQBtBAN+JJRG/hzVz0IEpPoh7MCo3Ekv4IatC+B0NpO4tZfSSFNAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADg01alBwCYaVN6AIBC1qUHAHjRrvQAAAA82FMCv2JbegAAAAAAAAAAAACAP9K0deo927/QC/AN9/y5tnVIng1l1V3d1jHILOC7YlZVXU1lUNp/yLz3PwZYlrFzvu88AxyzJ6omei/hOdvOwRoLli53znebXMfWMHPWNzF7oiqpIXWvT2YB79Zk7q+5xoz4jaq/Z8zVpSvZBf/vBqKxG8Y=
   </data>
  </layer>
 </map>
