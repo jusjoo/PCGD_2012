@@ -19,8 +19,11 @@ public class Player extends Creature {
 	protected float speed;
 	protected float jumpHeight;
 
-	public Player(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations, float speed, float jumpHeight) {
-		super(world, position, size, animations);
+	// Deliver size and position of the player in pixels.
+	public Player(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,
+			boolean circle, float speed, float jumpHeight) {
+		super(world, position, size, animations, rounding,
+				circle);
 		this.speed = speed;
 		this.jumpHeight = jumpHeight;
 	}
@@ -39,7 +42,8 @@ public class Player extends Creature {
 			body.applyLinearImpulse(new Vector2(-speed, 0.0f), body.getWorldCenter());
 			facingRight = false;
 		}
- 
+		
+		// Check for a maximum vertical speed and allowJumping to make sure jumping is allowed
 		if (Gdx.input.isKeyPressed(Input.Keys.UP) && Math.abs(body.getLinearVelocity().y) < 1.7f
 				&& allowJumping) {
 			body.applyLinearImpulse(new Vector2(0.0f, jumpHeight), body.getWorldCenter());
