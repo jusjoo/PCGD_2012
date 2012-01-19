@@ -29,7 +29,7 @@ public class BodyEntity {
 	public BodyEntity(World world, Vector2 position, Vector2 size,
 			boolean staticBody, float rounding, boolean circle, SlopeShape slopeShape) {
 		
-		int PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
+		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 		
 		BodyDef bodyDef = new BodyDef();
 		if(staticBody) {
@@ -37,6 +37,8 @@ public class BodyEntity {
 		} else {
 			bodyDef.type = BodyDef.BodyType.DynamicBody;
 		}
+
+
 
 		bodyDef.position.set( position.x/PIXELS_PER_METER , position.y/PIXELS_PER_METER );
 		
@@ -48,7 +50,7 @@ public class BodyEntity {
 		
 		if(circle) {
 			CircleShape circleShape = new CircleShape();
-			circleShape.setRadius(size.x);
+			circleShape.setRadius(size.x / PIXELS_PER_METER/2);
 			bodyFixtureDef.shape = circleShape;
 		} else {
 			PolygonShape polygonShape = new PolygonShape();

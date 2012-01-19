@@ -26,7 +26,7 @@ public class AnimatedSprite {
 	float stateTime = 0;
 	
 	// Size of the sprite in pixels
-	protected Vector2 size;
+	//protected Vector2 size;
 	
 	public Sprite getSprite() {
 		return currentFrame;
@@ -47,7 +47,7 @@ public class AnimatedSprite {
 	}
 	
 	// Position, rotate, flip the sprite, and then render it.
-	// Pre: SpriteBatch needs to be enabled before calling render.
+	// @Pre: SpriteBatch needs to be enabled before calling render.
 	public void render(SpriteBatch spriteBatch, boolean facingRight, float x, float y, float angle) {
 		if(facingRight) {
 			currentFrame.flip(false, false);
@@ -56,7 +56,15 @@ public class AnimatedSprite {
 		}
 		
 		/*
-		 * Lisää Joonaksen purkkaa, varo tätä
+		 * Lisï¿½ï¿½ Joonaksen purkkaa, varo tï¿½tï¿½
+		 * 
+		 * TODO: wtf?
+		 */
+		currentFrame.setPosition(x - currentFrame.getWidth()/2, y - currentFrame.getHeight()/2);
+
+		
+		/*
+		 * Lisï¿½ï¿½ Joonaksen purkkaa, varo tï¿½tï¿½
 		 * 
 		 * TODO: wtf?
 		 */

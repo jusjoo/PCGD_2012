@@ -160,7 +160,7 @@ public class CoffeeGDX implements ApplicationListener {
 	 * 
 	 * TODO: 	- add parameters for position
 	 * 			- move into gameMap?
-	 * 			- fix animation (joonaksen pää sanoo prii!) 
+	 * 			- fix animation (joonaksen pï¿½ï¿½ sanoo prii!) 
 	 */
 	public void addGoblin() {
 		Texture monsterSpritesTexture = new Texture(new FileHandle("assets/creatures/sprites_monster_goblin.png"));
@@ -173,8 +173,6 @@ public class CoffeeGDX implements ApplicationListener {
 		monsterSpriteAnimations.put(AnimationState.IDLE, new Animation(0.3f, monsterTextureRegions));
 		monsterTextureRegions.clear();
 		monsterTextureRegions.add(monsterframes[0][0]);
-		monsterTextureRegions.add(monsterframes[0][0]);
-		monsterTextureRegions.add(monsterframes[0][0]);
 		
 		monsterSpriteAnimations.put(AnimationState.RUN, new Animation(0.1f, monsterTextureRegions));
 		monsterTextureRegions.clear();
@@ -182,6 +180,7 @@ public class CoffeeGDX implements ApplicationListener {
 		monsterSpriteAnimations.put(AnimationState.JUMP, new Animation(0.1f, monsterTextureRegions));
 
 		map.addCreature(new Monster(world,
+
 		new Vector2(110f, 100f), new Vector2(48f, 32f), monsterSpriteAnimations, 0.8f, false));
 	}
 	
@@ -191,17 +190,19 @@ public class CoffeeGDX implements ApplicationListener {
 		ArrayList<TextureRegion> monsterTextureRegions = new ArrayList<TextureRegion>();
 		TextureRegion monsterframes[][] = TextureRegion.split(monsterSpritesTexture, 16, 32);
 		monsterTextureRegions.add(monsterframes[0][0]);
+
 		//textureRegions.add(atlas.getRegion(object.gid));
-		monsterSpriteAnimations.put(AnimationState.IDLE, new Animation(0.1f, monsterTextureRegions));
+		monsterSpriteAnimations.put(AnimationState.IDLE, new Animation(0.3f, monsterTextureRegions));
 		monsterTextureRegions.clear();
 		monsterTextureRegions.add(monsterframes[0][0]);
+		
 		monsterSpriteAnimations.put(AnimationState.RUN, new Animation(0.1f, monsterTextureRegions));
 		monsterTextureRegions.clear();
-		monsterTextureRegions.add(monsterframes[0][0]);
+		monsterTextureRegions.add(monsterframes[0][1]);
 		monsterSpriteAnimations.put(AnimationState.JUMP, new Animation(0.1f, monsterTextureRegions));
 
 		map.addCreature(new Monster(world,
-		new Vector2(110f, 100f), new Vector2(16f, 32f), monsterSpriteAnimations, 0.8f, false));
+		new Vector2(110f, 100f), new Vector2(48f, 32f), monsterSpriteAnimations, 0.8f, false));
 	}
 	
 	

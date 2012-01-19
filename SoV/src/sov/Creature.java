@@ -25,7 +25,7 @@ public class Creature extends AnimatedSpriteBody {
 		super(world, position, size, animations,
 				false, rounding, circle, SlopeShape.Even);
 		
-		int PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
+		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 		
 		// Create a sensor at the level of the feet for detecting if a creature is touching the ground.
 		// TODO: Transfer creating the body, shape and fixture to a static helper function.
@@ -44,7 +44,7 @@ public class Creature extends AnimatedSpriteBody {
 		body.setUserData(this);
 		
 		// Creatures shall not rotate according to physics!
-		body.setFixedRotation(true);
+		//body.setFixedRotation(true);
 		
 	}
 	
