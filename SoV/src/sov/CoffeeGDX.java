@@ -181,7 +181,7 @@ public class CoffeeGDX implements ApplicationListener {
 
 		map.addCreature(new Monster(world,
 
-		new Vector2(110f, 100f), new Vector2(48f, 32f), monsterSpriteAnimations, 0.8f, false));
+		new Vector2(110f, 100f), new Vector2(16f, 32f), monsterSpriteAnimations, 0.8f, false));
 	}
 	
 	public void addBarbarianMonster() {
@@ -202,7 +202,7 @@ public class CoffeeGDX implements ApplicationListener {
 		monsterSpriteAnimations.put(AnimationState.JUMP, new Animation(0.1f, monsterTextureRegions));
 
 		map.addCreature(new Monster(world,
-		new Vector2(110f, 100f), new Vector2(48f, 32f), monsterSpriteAnimations, 0.8f, false));
+		new Vector2(110f, 100f), new Vector2(16f, 32f), monsterSpriteAnimations, 0.8f, false));
 	}
 	
 	
