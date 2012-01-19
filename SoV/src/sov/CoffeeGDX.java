@@ -172,17 +172,17 @@ public class CoffeeGDX implements ApplicationListener {
 		//textureRegions.add(atlas.getRegion(object.gid));
 		monsterSpriteAnimations.put(AnimationState.IDLE, new Animation(0.3f, monsterTextureRegions));
 		monsterTextureRegions.clear();
-		monsterTextureRegions.add(monsterframes[0][0]);
-		monsterTextureRegions.add(monsterframes[0][0]);
-		monsterTextureRegions.add(monsterframes[0][0]);
+		monsterTextureRegions.add(monsterframes[0][1]);
+		monsterTextureRegions.add(monsterframes[0][2]);
+		monsterTextureRegions.add(monsterframes[0][3]);
 		
 		monsterSpriteAnimations.put(AnimationState.RUN, new Animation(0.1f, monsterTextureRegions));
 		monsterTextureRegions.clear();
-		monsterTextureRegions.add(monsterframes[0][1]);
+		monsterTextureRegions.add(monsterframes[0][0]);
 		monsterSpriteAnimations.put(AnimationState.JUMP, new Animation(0.1f, monsterTextureRegions));
 
 		map.addCreature(new Monster(world,
-		new Vector2(110f, 100f), new Vector2(48f, 32f), monsterSpriteAnimations, 0.8f, false));
+		new Vector2(110f, 100f), new Vector2(32f, 32f), monsterSpriteAnimations, 0.8f, false));
 	}
 	
 	public void addBarbarianMonster() {
