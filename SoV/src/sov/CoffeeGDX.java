@@ -160,7 +160,6 @@ public class CoffeeGDX implements ApplicationListener {
 	 * 
 	 * TODO: 	- add parameters for position
 	 * 			- move into gameMap?
-	 * 			- fix animation (joonaksen p�� sanoo prii!) 
 	 */
 	public void addGoblin() {
 		Texture monsterSpritesTexture = new Texture(new FileHandle("assets/creatures/sprites_monster_goblin.png"));
