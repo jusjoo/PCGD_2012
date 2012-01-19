@@ -30,8 +30,15 @@ public class AnimatedSpriteBody extends BodyEntity {
 		int PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 		
 		animatedSprite.render(spriteBatch, facingRight,
-				body.getWorldCenter().x * PIXELS_PER_METER,
-				body.getWorldCenter().y * PIXELS_PER_METER,
+				
+				/*
+				 * Warning: + and - 8 somehow center's the Sprites.
+				 * If there is trouble, check this one first...
+				 * 
+				 * TODO: wtf?
+				 */
+				body.getWorldCenter().x * PIXELS_PER_METER +8,
+				body.getWorldCenter().y * PIXELS_PER_METER -8,
 				(float) (body.getAngle()*180/Math.PI));
 	}
 	

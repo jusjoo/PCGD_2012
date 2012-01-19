@@ -54,7 +54,13 @@ public class AnimatedSprite {
 		} else {
 			currentFrame.flip(true, false);
 		}
-		currentFrame.setPosition(x, y - currentFrame.getOriginY() - 8);
+		
+		/*
+		 * Lis‰‰ Joonaksen purkkaa, varo t‰t‰
+		 * 
+		 * TODO: wtf?
+		 */
+		currentFrame.setPosition(x - currentFrame.getWidth()/2, y - currentFrame.getHeight()/2);
 		currentFrame.setRotation(angle);
 		currentFrame.draw(spriteBatch);
 	}

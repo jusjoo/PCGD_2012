@@ -38,7 +38,7 @@ public class BodyEntity {
 			bodyDef.type = BodyDef.BodyType.DynamicBody;
 		}
 
-		bodyDef.position.set(position.x/PIXELS_PER_METER, position.y/PIXELS_PER_METER);
+		bodyDef.position.set( position.x/PIXELS_PER_METER , position.y/PIXELS_PER_METER );
 		
 		this.size = size;
 		

@@ -84,6 +84,7 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		
 		//int amountOfFrames = 5; 
+		this.addBarbarianMonster();
 		this.addGoblin();
 		
 		spriteBatch = new SpriteBatch();
@@ -155,7 +156,7 @@ public class CoffeeGDX implements ApplicationListener {
 	
 	
 	/*
-	 * Adds a new monster to the game
+	 * Adds a new goblin to the game
 	 * 
 	 * TODO: 	- add parameters for position
 	 * 			- move into gameMap?
@@ -166,18 +167,41 @@ public class CoffeeGDX implements ApplicationListener {
 		HashMap<AnimatedSprite.AnimationState, Animation> monsterSpriteAnimations = new HashMap<AnimatedSprite.AnimationState, Animation>();
 		ArrayList<TextureRegion> monsterTextureRegions = new ArrayList<TextureRegion>();
 		TextureRegion monsterframes[][] = TextureRegion.split(monsterSpritesTexture, 48, 32);
-		monsterTextureRegions.add(monsterframes[0][2]);
+		monsterTextureRegions.add(monsterframes[0][0]);
+
 		//textureRegions.add(atlas.getRegion(object.gid));
-		monsterSpriteAnimations.put(AnimationState.IDLE, new Animation(0.1f, monsterTextureRegions));
+		monsterSpriteAnimations.put(AnimationState.IDLE, new Animation(0.3f, monsterTextureRegions));
 		monsterTextureRegions.clear();
 		monsterTextureRegions.add(monsterframes[0][0]);
+		monsterTextureRegions.add(monsterframes[0][0]);
+		monsterTextureRegions.add(monsterframes[0][0]);
+		
 		monsterSpriteAnimations.put(AnimationState.RUN, new Animation(0.1f, monsterTextureRegions));
 		monsterTextureRegions.clear();
 		monsterTextureRegions.add(monsterframes[0][1]);
 		monsterSpriteAnimations.put(AnimationState.JUMP, new Animation(0.1f, monsterTextureRegions));
 
 		map.addCreature(new Monster(world,
-		new Vector2(110f, 100f), new Vector2(32f,32f), monsterSpriteAnimations, 0.8f, false));
+		new Vector2(110f, 100f), new Vector2(48f, 32f), monsterSpriteAnimations, 0.8f, false));
+	}
+	
+	public void addBarbarianMonster() {
+		Texture monsterSpritesTexture = new Texture(new FileHandle("assets/creatures/sprites_human_ninja.png"));
+		HashMap<AnimatedSprite.AnimationState, Animation> monsterSpriteAnimations = new HashMap<AnimatedSprite.AnimationState, Animation>();
+		ArrayList<TextureRegion> monsterTextureRegions = new ArrayList<TextureRegion>();
+		TextureRegion monsterframes[][] = TextureRegion.split(monsterSpritesTexture, 16, 32);
+		monsterTextureRegions.add(monsterframes[0][0]);
+		//textureRegions.add(atlas.getRegion(object.gid));
+		monsterSpriteAnimations.put(AnimationState.IDLE, new Animation(0.1f, monsterTextureRegions));
+		monsterTextureRegions.clear();
+		monsterTextureRegions.add(monsterframes[0][0]);
+		monsterSpriteAnimations.put(AnimationState.RUN, new Animation(0.1f, monsterTextureRegions));
+		monsterTextureRegions.clear();
+		monsterTextureRegions.add(monsterframes[0][0]);
+		monsterSpriteAnimations.put(AnimationState.JUMP, new Animation(0.1f, monsterTextureRegions));
+
+		map.addCreature(new Monster(world,
+		new Vector2(110f, 100f), new Vector2(16f, 32f), monsterSpriteAnimations, 0.8f, false));
 	}
 	
 	
