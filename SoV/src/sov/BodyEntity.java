@@ -38,7 +38,9 @@ public class BodyEntity {
 			bodyDef.type = BodyDef.BodyType.DynamicBody;
 		}
 
-		//bodyDef.position.set(position.x/PIXELS_PER_METER, position.y/PIXELS_PER_METER);
+
+
+		bodyDef.position.set( position.x/PIXELS_PER_METER , position.y/PIXELS_PER_METER );
 		
 		this.size = size;
 		
@@ -68,7 +70,6 @@ public class BodyEntity {
 					shape[7] = new Vector2(-size.x / PIXELS_PER_METER/2,	size.y*rounding / PIXELS_PER_METER/2);
 					
 					polygonShape.set(shape);
-					//polygonShape.setAsBox(size.x / (2 * PIXELS_PER_METER), size.y / (2 * PIXELS_PER_METER));
 				} else {
 					polygonShape.setAsBox(size.x / (2 * PIXELS_PER_METER), size.y / (2 * PIXELS_PER_METER));
 				}
@@ -110,9 +111,6 @@ public class BodyEntity {
 		
 		// Linear damping dictates along with friction how quickly the entity is slowed down.
 		body.setLinearDamping(2.6f);
-		
-		
-		body.setTransform(position.x/PIXELS_PER_METER, position.y/PIXELS_PER_METER, 0f);
 		
 	}
 	

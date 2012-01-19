@@ -38,9 +38,6 @@ public class AnimatedSprite {
 	public AnimatedSprite(HashMap<AnimationState, Animation> animations) {
 		this.animations.putAll(animations);
 		currentFrame = new Sprite(animations.get(currentAnimationState).getKeyFrame(0, true));
-		//currentFrame.setOrigin(currentFrame.getWidth()/2, currentFrame.getHeight()/2);
-		//currentFrame.setOrigin(currentFrame.getU(), currentFrame.getV());
-		//currentFrame.setOrigin(currentFrame.getWidth()/2, currentFrame.getHeight());
 	}
 	
 	// Update current frame based on deltaTime.
@@ -57,13 +54,22 @@ public class AnimatedSprite {
 		} else {
 			currentFrame.flip(true, false);
 		}
-		/*currentFrame.setPosition(x,
-				y - currentFrame.getOriginY() - currentFrame.getHeight()/4);*/
-		//currentFrame.setPosition(x,y);
-		currentFrame.setRotation(angle);
-		currentFrame.setPosition(x,y);
-		//currentFrame.setBounds(x,y, 48f, 16f);
 		
+		/*
+		 * Lis�� Joonaksen purkkaa, varo t�t�
+		 * 
+		 * TODO: wtf?
+		 */
+		currentFrame.setPosition(x - currentFrame.getWidth()/2, y - currentFrame.getHeight()/2);
+
+		
+		/*
+		 * Lis�� Joonaksen purkkaa, varo t�t�
+		 * 
+		 * TODO: wtf?
+		 */
+		currentFrame.setPosition(x - currentFrame.getWidth()/2, y - currentFrame.getHeight()/2);
+		currentFrame.setRotation(angle);
 		currentFrame.draw(spriteBatch);
 	}
 	
