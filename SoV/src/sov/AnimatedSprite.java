@@ -54,17 +54,9 @@ public class AnimatedSprite {
 		} else {
 			currentFrame.flip(true, false);
 		}
-		
+				
 		/*
-		 * Lis�� Joonaksen purkkaa, varo t�t�
-		 * 
-		 * TODO: wtf?
-		 */
-		currentFrame.setPosition(x - currentFrame.getWidth()/2, y - currentFrame.getHeight()/2);
-
-		
-		/*
-		 * Lis�� Joonaksen purkkaa, varo t�t�
+		 * Lisää Joonaksen purkkaa, varo tätä
 		 * 
 		 * TODO: wtf?
 		 */

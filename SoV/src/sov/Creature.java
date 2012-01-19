@@ -44,7 +44,7 @@ public class Creature extends AnimatedSpriteBody {
 		body.setUserData(this);
 		
 		// Creatures shall not rotate according to physics!
-		//body.setFixedRotation(true);
+		body.setFixedRotation(true);
 		
 	}
 	
