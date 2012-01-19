@@ -12,15 +12,25 @@ public class MyContactListener implements ContactListener {
 		
 		Object fixtureUserData = contact.getFixtureA().getBody().getUserData();
 		
+		
+		
 		if(fixtureUserData != null && fixtureUserData.getClass() == Player.class) {
-			((Player)fixtureUserData).setAllowJumping(true);
+			// Test to make sure the collision is actually coming from the bottom
+			// TODO: Support different angles (ninja might be able to jump from walls)
+			if(contact.getWorldManifold().getNormal().y > 0) {
+				((Player)fixtureUserData).setAllowJumping(true);
+			}
 			
 		}
 		
 		fixtureUserData = contact.getFixtureB().getBody().getUserData();
 		
 		if(fixtureUserData != null && fixtureUserData.getClass() == Player.class) {
-			((Player)fixtureUserData).setAllowJumping(true);
+			// Test to make sure the collision is actually coming from the bottom
+			// TODO: Support different angles (ninja might be able to jump from walls)
+			if(contact.getWorldManifold().getNormal().y > 0) {
+				((Player)fixtureUserData).setAllowJumping(true);
+			}
 		}
 
 	}

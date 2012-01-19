@@ -27,7 +27,23 @@ public class AnimatedSpriteBody extends BodyEntity {
 	
 	public void render(SpriteBatch spriteBatch) {	
 		
-		int PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
+		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
+		
+		/*animatedSprite.render(spriteBatch, facingRight,
+				//body.getWorldCenter().x * PIXELS_PER_METER,
+				body.getWorldCenter().x * PIXELS_PER_METER - (1-(size.x / animatedSprite.getSprite().getWidth()))*24f ,
+				//body.getWorldCenter().x * PIXELS_PER_METER - (1-(size.x / animatedSprite.getSprite().getRegionWidth()*animatedSprite.getSprite().getRegionWidth())),
+				body.getWorldCenter().y * PIXELS_PER_METER,
+				(float) (body.getAngle()*180/Math.PI));*/
+		/*animatedSprite.render(spriteBatch, facingRight,
+		body.getWorldCenter().x * PIXELS_PER_METER,
+		body.getWorldCenter().y * PIXELS_PER_METER,
+		//body.getPosition().x * PIXELS_PER_METER - (size.x - animatedSprite.getSprite().getWidth())/2,
+		//body.getPosition().y * PIXELS_PER_METER,
+		(float) (body.getAngle()*180/Math.PI));
+		if(this.getClass() == Player.class || this.getClass() == Monster.class) {
+			System.out.println(animatedSprite.getSprite().getOriginX());
+		}*/
 		
 		animatedSprite.render(spriteBatch, facingRight,
 				
