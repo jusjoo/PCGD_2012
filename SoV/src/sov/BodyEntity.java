@@ -29,7 +29,7 @@ public class BodyEntity {
 	public BodyEntity(World world, Vector2 position, Vector2 size,
 			boolean staticBody, float rounding, boolean circle, SlopeShape slopeShape) {
 		
-		int PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
+		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 		
 		BodyDef bodyDef = new BodyDef();
 		if(staticBody) {
@@ -38,7 +38,7 @@ public class BodyEntity {
 			bodyDef.type = BodyDef.BodyType.DynamicBody;
 		}
 
-		bodyDef.position.set(position.x/PIXELS_PER_METER, position.y/PIXELS_PER_METER);
+		//bodyDef.position.set(position.x/PIXELS_PER_METER, position.y/PIXELS_PER_METER);
 		
 		this.size = size;
 		
@@ -48,7 +48,7 @@ public class BodyEntity {
 		
 		if(circle) {
 			CircleShape circleShape = new CircleShape();
-			circleShape.setRadius(size.x);
+			circleShape.setRadius(size.x / PIXELS_PER_METER/2);
 			bodyFixtureDef.shape = circleShape;
 		} else {
 			PolygonShape polygonShape = new PolygonShape();
@@ -68,6 +68,7 @@ public class BodyEntity {
 					shape[7] = new Vector2(-size.x / PIXELS_PER_METER/2,	size.y*rounding / PIXELS_PER_METER/2);
 					
 					polygonShape.set(shape);
+					//polygonShape.setAsBox(size.x / (2 * PIXELS_PER_METER), size.y / (2 * PIXELS_PER_METER));
 				} else {
 					polygonShape.setAsBox(size.x / (2 * PIXELS_PER_METER), size.y / (2 * PIXELS_PER_METER));
 				}
@@ -109,6 +110,9 @@ public class BodyEntity {
 		
 		// Linear damping dictates along with friction how quickly the entity is slowed down.
 		body.setLinearDamping(2.6f);
+		
+		
+		body.setTransform(position.x/PIXELS_PER_METER, position.y/PIXELS_PER_METER, 0f);
 		
 	}
 	

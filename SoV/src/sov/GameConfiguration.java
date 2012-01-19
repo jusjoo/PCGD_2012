@@ -16,7 +16,7 @@ public class GameConfiguration {
 	public float interpolationAmount = 0.022f;
 	
 	// Pixels per meter is used to translate Box2d coordinates into pixel coordinates.
-	public static final int PIXELS_PER_METER = 32;
+	public static final float PIXELS_PER_METER = 32;
 		
 	// player
 	public float speed = 0.8f;

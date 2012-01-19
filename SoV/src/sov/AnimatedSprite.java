@@ -26,7 +26,7 @@ public class AnimatedSprite {
 	float stateTime = 0;
 	
 	// Size of the sprite in pixels
-	protected Vector2 size;
+	//protected Vector2 size;
 	
 	public Sprite getSprite() {
 		return currentFrame;
@@ -38,6 +38,9 @@ public class AnimatedSprite {
 	public AnimatedSprite(HashMap<AnimationState, Animation> animations) {
 		this.animations.putAll(animations);
 		currentFrame = new Sprite(animations.get(currentAnimationState).getKeyFrame(0, true));
+		//currentFrame.setOrigin(currentFrame.getWidth()/2, currentFrame.getHeight()/2);
+		//currentFrame.setOrigin(currentFrame.getU(), currentFrame.getV());
+		//currentFrame.setOrigin(currentFrame.getWidth()/2, currentFrame.getHeight());
 	}
 	
 	// Update current frame based on deltaTime.
@@ -47,15 +50,20 @@ public class AnimatedSprite {
 	}
 	
 	// Position, rotate, flip the sprite, and then render it.
-	// Pre: SpriteBatch needs to be enabled before calling render.
+	// @Pre: SpriteBatch needs to be enabled before calling render.
 	public void render(SpriteBatch spriteBatch, boolean facingRight, float x, float y, float angle) {
 		if(facingRight) {
 			currentFrame.flip(false, false);
 		} else {
 			currentFrame.flip(true, false);
 		}
-		currentFrame.setPosition(x, y - currentFrame.getOriginY() - 8);
+		/*currentFrame.setPosition(x,
+				y - currentFrame.getOriginY() - currentFrame.getHeight()/4);*/
+		//currentFrame.setPosition(x,y);
 		currentFrame.setRotation(angle);
+		currentFrame.setPosition(x,y);
+		//currentFrame.setBounds(x,y, 48f, 16f);
+		
 		currentFrame.draw(spriteBatch);
 	}
 	

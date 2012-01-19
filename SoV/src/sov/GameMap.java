@@ -178,6 +178,7 @@ public class GameMap {
 		if(type == LayerType.Creatures) {
 			spriteBatch.setProjectionMatrix(cam.combined);
 			spriteBatch.begin();
+			spriteBatch.disableBlending();
 			for(Creature creature : creatures) {
 				creature.render(spriteBatch);
 			}

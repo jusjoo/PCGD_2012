@@ -80,7 +80,7 @@ public class CoffeeGDX implements ApplicationListener {
 		spriteAnimations.put(AnimationState.FALL, new Animation(0.1f, textureRegions));
 
 		map.addCreature(new Player(world,
-				new Vector2(40f, 60f), new Vector2(13f,32f), spriteAnimations, 0.8f, false, config.speed, config.jumpHeight));
+				new Vector2(40f, 60f), new Vector2(48f,30f), spriteAnimations, 0.8f, false, config.speed, config.jumpHeight));
 		
 		
 		//int amountOfFrames = 5; 
@@ -159,13 +159,13 @@ public class CoffeeGDX implements ApplicationListener {
 	 * 
 	 * TODO: 	- add parameters for position
 	 * 			- move into gameMap?
-	 * 			- fix animation (joonaksen pää sanoo prii!) 
+	 * 			- fix animation (joonaksen pï¿½ï¿½ sanoo prii!) 
 	 */
 	public void addGoblin() {
-		Texture monsterSpritesTexture = new Texture(new FileHandle("assets/creatures/sprites_monster_goblin.png"));
+		Texture monsterSpritesTexture = new Texture(new FileHandle("assets/creatures/sprites_monster_goblin_test.png"));
 		HashMap<AnimatedSprite.AnimationState, Animation> monsterSpriteAnimations = new HashMap<AnimatedSprite.AnimationState, Animation>();
 		ArrayList<TextureRegion> monsterTextureRegions = new ArrayList<TextureRegion>();
-		TextureRegion monsterframes[][] = TextureRegion.split(monsterSpritesTexture, 48, 32);
+		TextureRegion monsterframes[][] = TextureRegion.split(monsterSpritesTexture, 48, 24);
 		monsterTextureRegions.add(monsterframes[0][2]);
 		//textureRegions.add(atlas.getRegion(object.gid));
 		monsterSpriteAnimations.put(AnimationState.IDLE, new Animation(0.1f, monsterTextureRegions));
@@ -177,7 +177,7 @@ public class CoffeeGDX implements ApplicationListener {
 		monsterSpriteAnimations.put(AnimationState.JUMP, new Animation(0.1f, monsterTextureRegions));
 
 		map.addCreature(new Monster(world,
-		new Vector2(110f, 100f), new Vector2(32f,32f), monsterSpriteAnimations, 0.8f, false));
+		new Vector2(110f, 100f), new Vector2(64f,48f), monsterSpriteAnimations, 0.8f, false));
 	}
 	
 	
