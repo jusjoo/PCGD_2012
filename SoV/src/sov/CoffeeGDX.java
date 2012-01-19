@@ -80,7 +80,7 @@ public class CoffeeGDX implements ApplicationListener {
 		spriteAnimations.put(AnimationState.FALL, new Animation(0.1f, textureRegions));
 
 		map.addCreature(new Player(world,
-				new Vector2(40f, 60f), new Vector2(13f,32f), spriteAnimations, 0.8f, false, config.speed, config.jumpHeight));
+				new Vector2(40f, 60f), new Vector2(13f,30f), spriteAnimations, 0.8f, false, config.speed, config.jumpHeight));
 		
 		
 		//int amountOfFrames = 5; 
