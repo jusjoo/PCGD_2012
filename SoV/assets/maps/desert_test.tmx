@@ -12,6 +12,16 @@
     <property name="slope" value="right"/>
    </properties>
   </tile>
+  <tile id="108">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="110">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
   <tile id="161">
    <properties>
     <property name="slope" value="right"/>
@@ -19,7 +29,7 @@
   </tile>
   <tile id="162">
    <properties>
-    <property name="slope" value="left"/>
+    <property name="slope" value="right"/>
    </properties>
   </tile>
   <tile id="163">
@@ -29,7 +39,7 @@
   </tile>
   <tile id="164">
    <properties>
-    <property name="slope" value="right"/>
+    <property name="slope" value="left"/>
    </properties>
   </tile>
   <tile id="386">
