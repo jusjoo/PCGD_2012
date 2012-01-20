@@ -18,8 +18,7 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class Creature extends AnimatedSpriteBody {
 	
-	protected float attackTimer;
-	protected boolean attackTimerActive;
+	protected AttackTimer activeAttackTimer;
 	protected Fixture attackSensorFixture;
 	
 	
@@ -51,7 +50,7 @@ public class Creature extends AnimatedSpriteBody {
 		body.createFixture(sensorFixture);
 		
 		
-		
+		activeAttackTimer = new AttackTimer(this, 1.0f);
 
 		
 		
@@ -83,17 +82,7 @@ public class Creature extends AnimatedSpriteBody {
 			animatedSprite.setCurrentAnimationState(AnimationState.IDLE);
 		}
 		
-		// Update the attack timer
-		if (attackTimerActive) {
-			attackTimer -= deltaTime;
-			
-			// Initiate stopAttack() when attackTimer has passed
-			if (attackTimer <= 0) {
-				stopAttack();
-				attackTimerActive = false;
-			}
-			
-		}
+		this.activeAttackTimer.update(deltaTime);
 		
 	}
 	
@@ -104,7 +93,7 @@ public class Creature extends AnimatedSpriteBody {
 	public void attack(AttackType attackType) {
 		
 		if(canAttack) {
-			startAttackTimer(1.0f);
+			activeAttackTimer.startAttackTimer();
 			
 			
 			float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
@@ -131,8 +120,5 @@ public class Creature extends AnimatedSpriteBody {
 		//body.getFixtureList().remove(attackSensorFixture);
 	}
 
-	public void startAttackTimer(float time_seconds){
-		attackTimer = time_seconds;
-		attackTimerActive = true;
-	}
+
 }
