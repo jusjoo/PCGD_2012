@@ -15,11 +15,16 @@ public class AnimatedSpriteBody extends BodyEntity {
 	
 	boolean facingRight = true;	
 	AnimatedSprite animatedSprite;
+	
+	protected float hitPoints = 1;
+	boolean alive = true;
+	
+	boolean setToDie = false;
 
 	public AnimatedSpriteBody(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations,
 			boolean staticBody, float rounding, boolean circle, SlopeShape slopeShape) {
 		super(world, position, size,
-				staticBody, rounding, circle, slopeShape);
+				staticBody, rounding, circle, slopeShape, false);
 		
 		animatedSprite = new AnimatedSprite(animations);
 		
@@ -28,22 +33,6 @@ public class AnimatedSpriteBody extends BodyEntity {
 	public void render(SpriteBatch spriteBatch) {	
 		
 		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
-		
-		/*animatedSprite.render(spriteBatch, facingRight,
-				//body.getWorldCenter().x * PIXELS_PER_METER,
-				body.getWorldCenter().x * PIXELS_PER_METER - (1-(size.x / animatedSprite.getSprite().getWidth()))*24f ,
-				//body.getWorldCenter().x * PIXELS_PER_METER - (1-(size.x / animatedSprite.getSprite().getRegionWidth()*animatedSprite.getSprite().getRegionWidth())),
-				body.getWorldCenter().y * PIXELS_PER_METER,
-				(float) (body.getAngle()*180/Math.PI));*/
-		/*animatedSprite.render(spriteBatch, facingRight,
-		body.getWorldCenter().x * PIXELS_PER_METER,
-		body.getWorldCenter().y * PIXELS_PER_METER,
-		//body.getPosition().x * PIXELS_PER_METER - (size.x - animatedSprite.getSprite().getWidth())/2,
-		//body.getPosition().y * PIXELS_PER_METER,
-		(float) (body.getAngle()*180/Math.PI));
-		if(this.getClass() == Player.class || this.getClass() == Monster.class) {
-			System.out.println(animatedSprite.getSprite().getOriginX());
-		}*/
 		
 		animatedSprite.render(spriteBatch, facingRight,
 				
@@ -65,6 +54,26 @@ public class AnimatedSpriteBody extends BodyEntity {
 		}
 		else if(currentVelocity.x < -maxVelocity) {
 			body.setLinearVelocity(-maxVelocity, body.getLinearVelocity().y);
+		}
+		
+		if(setToDie) { die(); }
+	}
+	
+	public void takeDamage(float damage) {
+		hitPoints -= damage;
+		if(hitPoints <= 0) {
+			setToDie = true;
+		}
+	}
+	
+	protected void die() {
+		if(alive) {
+			//body.destroyFixture(body.getFixtureList().get(0));
+			body.destroyFixture(bodyFixture);
+			body.setGravityScale(0);
+			body.setLinearVelocity(0f, 0f);
+			animatedSprite.setCurrentAnimationState(AnimationState.DIE);
+			alive = false;
 		}
 		
 	}

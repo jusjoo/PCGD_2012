@@ -8,6 +8,7 @@ import sov.BodyEntity.SlopeShape;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -17,7 +18,14 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class Creature extends AnimatedSpriteBody {
 	
+	protected AttackTimer activeAttackTimer;
+	protected Fixture attackSensorFixture;
+	
+	
+	public enum AttackType {Melee, Ranged};
 	boolean allowJumping = true;
+	boolean canAttack = true;
+	
 	
 	// Deliver size and position of the creature in pixels.
 	public Creature(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,
@@ -37,14 +45,23 @@ public class Creature extends AnimatedSpriteBody {
 		sensorFixture.isSensor = true;
 		sensorFixture.density = 0;
 		
+		
+		
 		// Attach the foot-sensor on the body.
 		body.createFixture(sensorFixture);
 		
-		// Set userdata for body, used to find out which object is touching the ground in MyContactListener
-		body.setUserData(this);
+		
+		activeAttackTimer = new AttackTimer(this, 1.0f);
+
+		
+		
+		
+		
+	
 		
 		// Creatures shall not rotate according to physics!
 		body.setFixedRotation(true);
+		
 		
 	}
 	
@@ -55,20 +72,72 @@ public class Creature extends AnimatedSpriteBody {
 		Vector2 currentVelocity = body.getLinearVelocity();
 		
 		// Set animation states
-		if(!allowJumping) {			
-			if (currentVelocity.y < 0.0f)
-				animatedSprite.setCurrentAnimationState(AnimationState.FALL);
-			else
-				animatedSprite.setCurrentAnimationState(AnimationState.JUMP);
-		} else if(Math.abs(currentVelocity.x) > 0.5f) {
-			animatedSprite.setCurrentAnimationState(AnimationState.RUN);
-		} else {
-			animatedSprite.setCurrentAnimationState(AnimationState.IDLE);
+		if(alive) {
+			if(!allowJumping) {			
+				if (currentVelocity.y < 0.0f)
+					animatedSprite.setCurrentAnimationState(AnimationState.FALL);
+				else
+					animatedSprite.setCurrentAnimationState(AnimationState.JUMP);
+			} else if(Math.abs(currentVelocity.x) > 0.5f) {
+				animatedSprite.setCurrentAnimationState(AnimationState.RUN);
+			} else {
+				animatedSprite.setCurrentAnimationState(AnimationState.IDLE);
+			}
+			
+			this.activeAttackTimer.update(deltaTime);
 		}
+		
+		
+		
 	}
 	
 	public void setAllowJumping(boolean allowJumping) {
 		this.allowJumping = allowJumping;
+	}
+	
+	/*
+	 * Attacks with the given attackType
+	 * 
+	 * TODO: 	Handle different activeAttackTimers, when attack
+	 * 			is not the same type. Player shouldn't be able to 
+	 * 			use a new attack before another attack is still processing.
+	 * 
+	 */
+	public void attack(AttackType attackType) {
+		
+		if(canAttack) {
+			activeAttackTimer.startAttackTimer();
+			
+			
+			float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
+			PolygonShape attackSensorShape = new PolygonShape();
+			int offSet = 0;
+			if(facingRight) offSet = 1;
+			else offSet = -1;
+			attackSensorShape.setAsBox(size.x / PIXELS_PER_METER / 1.5f, size.y / PIXELS_PER_METER / 1.5f, new Vector2(size.x / PIXELS_PER_METER * offSet ,  0) , 0f);
+			FixtureDef attackSensorFixtureDef = new FixtureDef();
+			attackSensorFixtureDef.shape = attackSensorShape;
+			attackSensorFixtureDef.isSensor = true;
+			attackSensorFixtureDef.density = 0;
+			
+			this.attackSensorFixture = body.createFixture(attackSensorFixtureDef);
+			
+			
+			animatedSprite.currentAnimationState = AnimationState.JUMP;
+			canAttack = false;
+		}
+		
+		
+	}
+	
+	public void stopAttack(){
+		body.destroyFixture(attackSensorFixture);
+		canAttack = true;
+		//body.getFixtureList().remove(attackSensorFixture);
+	}
+	
+	public Fixture getAttackFixture() {
+		return attackSensorFixture;
 	}
 
 }
