@@ -75,6 +75,7 @@ public class Creature extends AnimatedSpriteBody {
 		} else {
 			animatedSprite.setCurrentAnimationState(AnimationState.IDLE);
 		}
+		
 	}
 	
 	public void setAllowJumping(boolean allowJumping) {
