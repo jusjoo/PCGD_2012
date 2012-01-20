@@ -64,12 +64,8 @@ public class Player extends Creature {
 		
 		// Attacking
 		if (Gdx.input.isKeyPressed(config.actionAttack)) {
-			if (facingRight) {
-				body.applyLinearImpulse(new Vector2(attackImpulse, 0.0f), body.getWorldCenter());
-			} else {
-				body.applyLinearImpulse(new Vector2(-attackImpulse, 0.0f), body.getWorldCenter());
-			}
-			animatedSprite.currentAnimationState = AnimationState.JUMP;
+			this.attack(AttackType.Melee);
+			
 		}
 
 	}

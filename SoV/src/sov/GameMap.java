@@ -92,13 +92,13 @@ public class GameMap {
 							String property = map.getTileProperty(tiles[y][x], "slope");
 							if(property != null && property.equals("left")) {
 								maptiles.add(new BodyEntity(world, new Vector2(x*tileSize, -y*tileSize+map.height*tileSize),
-										new Vector2(tileSize, tileSize), true, 1.0f, false, BodyEntity.SlopeShape.Left));
+										new Vector2(tileSize, tileSize), true, 1.0f, false, BodyEntity.SlopeShape.Left, false));
 							} else if (property != null && property.equals("right")) {
 								maptiles.add(new BodyEntity(world, new Vector2(x*tileSize, -y*tileSize+map.height*tileSize),
-										new Vector2(tileSize, tileSize), true, 1.0f, false, BodyEntity.SlopeShape.Right));
+										new Vector2(tileSize, tileSize), true, 1.0f, false, BodyEntity.SlopeShape.Right, false));
 							} else {
 								maptiles.add(new BodyEntity(world, new Vector2(x*tileSize, -y*tileSize+map.height*tileSize),
-										new Vector2(tileSize, tileSize), true, 1.0f, false, BodyEntity.SlopeShape.Even));
+										new Vector2(tileSize, tileSize), true, 1.0f, false, BodyEntity.SlopeShape.Even, false));
 							}
 							
 						}

@@ -27,7 +27,7 @@ public class BodyEntity {
 	
 	// Use staticBody for everything that doesn't move.
 	public BodyEntity(World world, Vector2 position, Vector2 size,
-			boolean staticBody, float rounding, boolean circle, SlopeShape slopeShape) {
+			boolean staticBody, float rounding, boolean circle, SlopeShape slopeShape, boolean sensorEntity) {
 		
 		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 		
