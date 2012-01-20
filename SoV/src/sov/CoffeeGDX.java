@@ -201,10 +201,17 @@ public class CoffeeGDX implements ApplicationListener {
 		// DEATH
 		monsterTextureRegions.clear();
 
-		monsterTextureRegions.add(monsterframes[0][1]);
-		monsterTextureRegions.add(monsterframes[0][2]);
-		monsterTextureRegions.add(monsterframes[0][3]);
-
+		monsterTextureRegions.add(monsterframes[1][4]);
+		monsterTextureRegions.add(monsterframes[2][0]);
+		monsterTextureRegions.add(monsterframes[2][1]);
+		monsterTextureRegions.add(monsterframes[2][2]);
+		monsterTextureRegions.add(monsterframes[2][3]);
+		monsterTextureRegions.add(monsterframes[2][4]);
+		monsterTextureRegions.add(monsterframes[3][0]);
+		monsterTextureRegions.add(monsterframes[3][1]);
+		monsterTextureRegions.add(monsterframes[3][2]);
+		monsterTextureRegions.add(monsterframes[3][3]);
+		monsterTextureRegions.add(monsterframes[3][4]);
 		
 		monsterSpriteAnimations.put(AnimationState.DIE, new Animation(0.1f, monsterTextureRegions));
 		
