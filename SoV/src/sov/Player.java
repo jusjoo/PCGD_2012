@@ -18,14 +18,18 @@ public class Player extends Creature {
 
 	protected float speed;
 	protected float jumpHeight;
+	protected float attackImpulse;
+	protected GameConfiguration config;
 
 	// Deliver size and position of the player in pixels.
 	public Player(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,
-			boolean circle, float speed, float jumpHeight) {
+			boolean circle, GameConfiguration config) {
 		super(world, position, size, animations, rounding,
 				circle);
-		this.speed = speed;
-		this.jumpHeight = jumpHeight;
+		this.speed = config.speed;
+		this.jumpHeight = config.jumpHeight;
+		this.attackImpulse = config.attackImpulse;
+		this.config = config;
 	}
 	
 	//@Override
@@ -35,20 +39,34 @@ public class Player extends Creature {
 	}
 	
 	protected void takeInput() {
-		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+		
+		// Movement left/right
+		if (Gdx.input.isKeyPressed(config.moveRight)) {
 			body.applyLinearImpulse(new Vector2(speed, 0.0f), body.getWorldCenter());
 			facingRight = true;
-		} else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+		} else if (Gdx.input.isKeyPressed(config.moveLeft)) {
 			body.applyLinearImpulse(new Vector2(-speed, 0.0f), body.getWorldCenter());
 			facingRight = false;
 		}
 		
+		// Jumping
 		// Check for a maximum vertical speed and allowJumping to make sure jumping is allowed
-		if (Gdx.input.isKeyPressed(Input.Keys.UP) && Math.abs(body.getLinearVelocity().y) < 1.7f
+		if (Gdx.input.isKeyPressed(config.actionJump) && Math.abs(body.getLinearVelocity().y) < 1.7f
 				&& allowJumping) {
 			body.applyLinearImpulse(new Vector2(0.0f, jumpHeight), body.getWorldCenter());
 			setAllowJumping(false);
 		}
+		
+		// Attacking
+		if (Gdx.input.isKeyPressed(config.actionAttack)) {
+			if (facingRight) {
+				body.applyLinearImpulse(new Vector2(attackImpulse, 0.0f), body.getWorldCenter());
+			} else {
+				body.applyLinearImpulse(new Vector2(-attackImpulse, 0.0f), body.getWorldCenter());
+			}
+			animatedSprite.currentAnimationState = AnimationState.JUMP;
+		}
+
 	}
 
 }

@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 public class AnimatedSprite {
 	
 	// AnimationState dictates which Animation is going to be drawn and updated
-	public enum AnimationState { IDLE, RUN, JUMP, FALL, HURT }
+	public enum AnimationState { IDLE, RUN, JUMP, FALL, HURT, WEAPON_RUN, WEAPON_ATTACK }
 	protected AnimationState currentAnimationState = AnimationState.IDLE;
 	
 	// Links Animations with AnimationStates
@@ -56,11 +56,10 @@ public class AnimatedSprite {
 		}
 				
 		/*
-		 * Lisää Joonaksen purkkaa, varo tätä
-		 * 
-		 * TODO: wtf?
+		 *  Moves the position from the center to the corner tile
 		 */
 		currentFrame.setPosition(x - currentFrame.getWidth()/2, y - currentFrame.getHeight()/2);
+		
 		currentFrame.setRotation(angle);
 		currentFrame.draw(spriteBatch);
 	}

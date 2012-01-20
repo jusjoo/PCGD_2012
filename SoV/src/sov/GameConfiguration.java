@@ -24,6 +24,7 @@ public class GameConfiguration {
 	// player
 	public float speed = 0.8f;
 	public float jumpHeight = 9.2f;
+	public float attackImpulse = 0.8f;
 	
 	//key mappings
 	// naming
@@ -34,6 +35,7 @@ public class GameConfiguration {
 	public int actionJump = Keys.UP;
 	public int actionCrouch = Keys.DOWN;
 	public int actionAttack = Keys.SPACE;
+	
 	
 	
 	

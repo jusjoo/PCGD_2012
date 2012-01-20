@@ -48,10 +48,7 @@ public class AnimatedSpriteBody extends BodyEntity {
 		animatedSprite.render(spriteBatch, facingRight,
 				
 				/*
-				 * Warning: + and - 8 somehow center's the Sprites.
-				 * If there is trouble, check this one first...
-				 * 
-				 * TODO: wtf?
+				 * +-8 here moves the x, y into the tile's corner, for drawing purposes
 				 */
 				body.getWorldCenter().x * PIXELS_PER_METER +8,
 				body.getWorldCenter().y * PIXELS_PER_METER -8,

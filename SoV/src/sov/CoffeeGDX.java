@@ -78,13 +78,19 @@ public class CoffeeGDX implements ApplicationListener {
 		textureRegions.clear();
 		textureRegions.add(frames[0][10]);
 		spriteAnimations.put(AnimationState.FALL, new Animation(0.1f, textureRegions));
+		
+		// Add some attack animations
+		// TODO: For this we need a way to skip the first row, or to have another sprite file for attack animations		
+		TextureRegion attackframes[][] = TextureRegion.split(spritesTexture, 64, 48);
+		
 
 		map.addCreature(new Player(world,
-				new Vector2(40f, 60f), new Vector2(13f,30f), spriteAnimations, 0.8f, false, config.speed, config.jumpHeight));
+				new Vector2(40f, 60f), new Vector2(13f,31f), spriteAnimations, 0.8f, false, config));
+				
 		
 		
 		//int amountOfFrames = 5; 
-		this.addBarbarianMonster();
+		this.addNinjaMonster();
 		this.addGoblin();
 		
 		spriteBatch = new SpriteBatch();
@@ -105,7 +111,7 @@ public class CoffeeGDX implements ApplicationListener {
 		// Update camera
 		cam.update();
 		
-		// Colourmultiplier dictates how bright the sky is
+		// colourMultiplier dictates how bright the sky is
 		float colourMultiplier = 1;
 		Gdx.gl.glClearColor(0.5f*colourMultiplier, 0.7f*colourMultiplier, 0.88f*colourMultiplier, 1.0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
@@ -187,7 +193,7 @@ public class CoffeeGDX implements ApplicationListener {
 		new Vector2(110f, 100f), new Vector2(16f, 32f), monsterSpriteAnimations, 0.8f, false));
 	}
 	
-	public void addBarbarianMonster() {
+	public void addNinjaMonster() {
 		Texture monsterSpritesTexture = new Texture(new FileHandle("assets/creatures/sprites_human_ninja.png"));
 		HashMap<AnimatedSprite.AnimationState, Animation> monsterSpriteAnimations = new HashMap<AnimatedSprite.AnimationState, Animation>();
 		ArrayList<TextureRegion> monsterTextureRegions = new ArrayList<TextureRegion>();
