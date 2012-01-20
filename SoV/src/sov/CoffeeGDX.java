@@ -213,7 +213,7 @@ public class CoffeeGDX implements ApplicationListener {
 		monsterTextureRegions.add(monsterframes[3][3]);
 		monsterTextureRegions.add(monsterframes[3][4]);
 		
-		monsterSpriteAnimations.put(AnimationState.DIE, new Animation(0.1f, monsterTextureRegions));
+		monsterSpriteAnimations.put(AnimationState.DIE, new Animation(0.09f, monsterTextureRegions));
 		
 		map.addCreature(new Monster(world,
 

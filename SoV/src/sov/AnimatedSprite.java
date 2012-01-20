@@ -15,6 +15,7 @@ public class AnimatedSprite {
 	// AnimationState dictates which Animation is going to be drawn and updated
 	public enum AnimationState { IDLE, RUN, JUMP, FALL, HURT, WEAPON_RUN, WEAPON_ATTACK, DIE }
 	protected AnimationState currentAnimationState = AnimationState.IDLE;
+	protected AnimationState previousAnimationState = null;
 	
 	// Links Animations with AnimationStates
 	protected HashMap<AnimationState, Animation> animations = new HashMap<AnimationState, Animation>();
@@ -67,7 +68,9 @@ public class AnimatedSprite {
 	}
 	
 	public void setCurrentAnimationState(AnimationState state) {
+		previousAnimationState = currentAnimationState;
 		currentAnimationState = state;
+		if(previousAnimationState != currentAnimationState) { stateTime = 0; }
 	}
 	
 	public void addAnimation(AnimationState animationState, Animation animation) {

@@ -21,12 +21,11 @@ public class Creature extends AnimatedSpriteBody {
 	protected AttackTimer activeAttackTimer;
 	protected Fixture attackSensorFixture;
 	
-	float hitPoints = 5;
 	
 	public enum AttackType {Melee, Ranged};
 	boolean allowJumping = true;
 	boolean canAttack = true;
-	boolean alive = true;
+	
 	
 	// Deliver size and position of the creature in pixels.
 	public Creature(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,
@@ -58,8 +57,7 @@ public class Creature extends AnimatedSpriteBody {
 		
 		
 		
-		// Set userdata for body, used to find out which object is touching the ground in MyContactListener
-		body.setUserData(this);
+	
 		
 		// Creatures shall not rotate according to physics!
 		body.setFixedRotation(true);
@@ -130,19 +128,8 @@ public class Creature extends AnimatedSpriteBody {
 		//body.getFixtureList().remove(attackSensorFixture);
 	}
 	
-	public void takeDamage(float damage) {
-		hitPoints -= damage;
-		if(hitPoints <= 0) {
-			die();
-		}
+	public Fixture getAttackFixture() {
+		return attackSensorFixture;
 	}
-	
-	public void die() {
-		alive = false;
-		body.destroyFixture(body.getFixtureList().get(0));
-		body.setGravityScale(0);
-		animatedSprite.setCurrentAnimationState(AnimationState.DIE);
-	}
-
 
 }

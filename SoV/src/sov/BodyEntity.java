@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -13,6 +14,8 @@ import com.badlogic.gdx.physics.box2d.World;
 public class BodyEntity {
 	// A Box2D body for collision
 	Body body;
+	
+	Fixture bodyFixture;
 	
 	// SlopeShape determines which direction the slope comes from. (If there is a slope)
 	// TODO: Change the coordinate system to NorthWest, NorthEast, SouthEast, SouthWest,
@@ -105,12 +108,15 @@ public class BodyEntity {
 		
 		bodyFixtureDef.density = 3.5f;
 		bodyFixtureDef.friction = 0.02f;
-		body.createFixture(bodyFixtureDef);
+		bodyFixture = body.createFixture(bodyFixtureDef);
  
 		body.setLinearVelocity(new Vector2(0.0f, 0.0f));
 		
 		// Linear damping dictates along with friction how quickly the entity is slowed down.
 		body.setLinearDamping(2.6f);
+		
+		// Set userdata for body, used to find out which object is touching the ground in MyContactListener
+		body.setUserData(this);
 		
 	}
 	

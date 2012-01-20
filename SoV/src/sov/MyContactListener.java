@@ -13,9 +13,8 @@ public class MyContactListener implements ContactListener {
 		Object fixtureUserData = contact.getFixtureA().getBody().getUserData();
 		Object fixtureUserData2 = contact.getFixtureB().getBody().getUserData();
 		
-		
-		if(fixtureUserData != null) {
-			if(fixtureUserData.getClass() == Player.class && fixtureUserData2.) {
+		if(fixtureUserData != null && fixtureUserData2 != null) {
+			if(fixtureUserData.getClass() == Player.class) {
 				// Test to make sure the collision is actually coming from the bottom
 				// TODO: Support different angles (ninja might be able to jump from walls)
 				if(contact.getWorldManifold().getNormal().y > 0) {
@@ -24,21 +23,36 @@ public class MyContactListener implements ContactListener {
 				
 			}
 			
-			if(fixtureUserData.getClass() == Player.class) {
-				
+			if(Creature.class.isAssignableFrom(fixtureUserData.getClass()) && Creature.class.isAssignableFrom(fixtureUserData2.getClass())) {
+				if(contact.getFixtureB() == ((Creature)fixtureUserData2).getAttackFixture()) {
+					((AnimatedSpriteBody)fixtureUserData).takeDamage(1);
+					
+				}
 			}
 		}
 		
 		
 		fixtureUserData = contact.getFixtureB().getBody().getUserData();
+		fixtureUserData2 = contact.getFixtureA().getBody().getUserData();
 		
-		if(fixtureUserData != null && fixtureUserData.getClass() == Player.class) {
-			// Test to make sure the collision is actually coming from the bottom
-			// TODO: Support different angles (ninja might be able to jump from walls)
-			if(contact.getWorldManifold().getNormal().y > 0) {
-				((Player)fixtureUserData).setAllowJumping(true);
+		if(fixtureUserData != null && fixtureUserData2 != null) {
+			if(fixtureUserData.getClass() == Player.class) {
+				// Test to make sure the collision is actually coming from the bottom
+				// TODO: Support different angles (ninja might be able to jump from walls)
+				if(contact.getWorldManifold().getNormal().y > 0) {
+					((Player)fixtureUserData).setAllowJumping(true);
+				}
+				
+			}
+			
+			if(Creature.class.isAssignableFrom(fixtureUserData.getClass()) && Creature.class.isAssignableFrom(fixtureUserData2.getClass())) {
+				if(contact.getFixtureB() == ((Creature)fixtureUserData2).getAttackFixture()) {
+					((AnimatedSpriteBody)fixtureUserData).takeDamage(1);
+					
+				}
 			}
 		}
+		
 
 	}
 
