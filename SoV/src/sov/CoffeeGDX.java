@@ -85,7 +85,7 @@ public class CoffeeGDX implements ApplicationListener {
 		
 
 		map.addCreature(new Player(world,
-				new Vector2(40f, 60f), new Vector2(13f,31f), spriteAnimations, 0.8f, false, config));
+				new Vector2(40f, 60f), new Vector2(13f,31f), spriteAnimations, 0.8f, false, config, Player.CharacterClass.Barbarian));
 				
 		
 		

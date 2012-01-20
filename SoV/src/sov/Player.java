@@ -16,20 +16,25 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Player extends Creature {
 
+	protected enum CharacterClass { Barbarian, Sorceress, Ninja };
+	
 	protected float speed;
 	protected float jumpHeight;
 	protected float attackImpulse;
 	protected GameConfiguration config;
+	
+	protected CharacterClass characterClass;
 
 	// Deliver size and position of the player in pixels.
 	public Player(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,
-			boolean circle, GameConfiguration config) {
+			boolean circle, GameConfiguration config, CharacterClass characterClass) {
 		super(world, position, size, animations, rounding,
 				circle);
 		this.speed = config.speed;
 		this.jumpHeight = config.jumpHeight;
 		this.attackImpulse = config.attackImpulse;
 		this.config = config;
+		this.characterClass = characterClass;
 	}
 	
 	//@Override
