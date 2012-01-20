@@ -8,6 +8,7 @@ import sov.BodyEntity.SlopeShape;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -17,8 +18,14 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class Creature extends AnimatedSpriteBody {
 	
+	protected float attackTimer;
+	protected boolean attackTimerActive;
+	protected Fixture attackSensorFixture;
+	
+	
 	public enum AttackType {Melee, Ranged};
 	boolean allowJumping = true;
+	boolean canAttack = true;
 	
 	// Deliver size and position of the creature in pixels.
 	public Creature(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,
@@ -76,6 +83,18 @@ public class Creature extends AnimatedSpriteBody {
 			animatedSprite.setCurrentAnimationState(AnimationState.IDLE);
 		}
 		
+		// Update the attack timer
+		if (attackTimerActive) {
+			attackTimer -= deltaTime;
+			
+			// Initiate stopAttack() when attackTimer has passed
+			if (attackTimer <= 0) {
+				stopAttack();
+				attackTimerActive = false;
+			}
+			
+		}
+		
 	}
 	
 	public void setAllowJumping(boolean allowJumping) {
@@ -84,20 +103,36 @@ public class Creature extends AnimatedSpriteBody {
 	
 	public void attack(AttackType attackType) {
 		
-		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
-		PolygonShape attackSensorShape = new PolygonShape();
-		attackSensorShape.setAsBox(size.x / PIXELS_PER_METER, size.y / PIXELS_PER_METER, new Vector2( 2,  2) , 0f);
-		FixtureDef attackSensorFixture = new FixtureDef();
-		attackSensorFixture.shape = attackSensorShape;
-		attackSensorFixture.isSensor = true;
-		attackSensorFixture.density = 0;
-		
-		body.createFixture(attackSensorFixture);
-		
-		
-		animatedSprite.currentAnimationState = AnimationState.JUMP;
+		if(canAttack) {
+			startAttackTimer(1.0f);
+			
+			
+			float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
+			PolygonShape attackSensorShape = new PolygonShape();
+			attackSensorShape.setAsBox(size.x / PIXELS_PER_METER, size.y / PIXELS_PER_METER, new Vector2( 2,  2) , 0f);
+			FixtureDef attackSensorFixtureDef = new FixtureDef();
+			attackSensorFixtureDef.shape = attackSensorShape;
+			attackSensorFixtureDef.isSensor = true;
+			attackSensorFixtureDef.density = 0;
+			
+			this.attackSensorFixture = body.createFixture(attackSensorFixtureDef);
+			
+			
+			animatedSprite.currentAnimationState = AnimationState.JUMP;
+			canAttack = false;
+		}
 		
 		
 	}
+	
+	public void stopAttack(){
+		body.destroyFixture(attackSensorFixture);
+		canAttack = true;
+		//body.getFixtureList().remove(attackSensorFixture);
+	}
 
+	public void startAttackTimer(float time_seconds){
+		attackTimer = time_seconds;
+		attackTimerActive = true;
+	}
 }
