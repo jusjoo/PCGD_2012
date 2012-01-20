@@ -79,6 +79,16 @@ public class CoffeeGDX implements ApplicationListener {
 		textureRegions.add(frames[0][10]);
 		spriteAnimations.put(AnimationState.FALL, new Animation(0.1f, textureRegions));
 		
+		// DEATH
+		textureRegions.clear();
+
+		textureRegions.add(frames[0][1]);
+		textureRegions.add(frames[0][2]);
+		textureRegions.add(frames[0][3]);
+
+		
+		spriteAnimations.put(AnimationState.DIE, new Animation(0.1f, textureRegions));
+		
 		// Add some attack animations
 		// TODO: For this we need a way to skip the first row, or to have another sprite file for attack animations		
 		TextureRegion attackframes[][] = TextureRegion.split(spritesTexture, 64, 48);
@@ -188,6 +198,16 @@ public class CoffeeGDX implements ApplicationListener {
 		monsterTextureRegions.add(monsterframes[0][0]);
 		monsterSpriteAnimations.put(AnimationState.JUMP, new Animation(0.1f, monsterTextureRegions));
 
+		// DEATH
+		monsterTextureRegions.clear();
+
+		monsterTextureRegions.add(monsterframes[0][1]);
+		monsterTextureRegions.add(monsterframes[0][2]);
+		monsterTextureRegions.add(monsterframes[0][3]);
+
+		
+		monsterSpriteAnimations.put(AnimationState.DIE, new Animation(0.1f, monsterTextureRegions));
+		
 		map.addCreature(new Monster(world,
 
 		new Vector2(110f, 100f), new Vector2(16f, 32f), monsterSpriteAnimations, 0.8f, false));
@@ -210,6 +230,16 @@ public class CoffeeGDX implements ApplicationListener {
 		monsterTextureRegions.add(monsterframes[0][1]);
 		monsterSpriteAnimations.put(AnimationState.JUMP, new Animation(0.1f, monsterTextureRegions));
 
+		// DEATH
+		monsterTextureRegions.clear();
+
+		monsterTextureRegions.add(monsterframes[0][1]);
+		monsterTextureRegions.add(monsterframes[0][2]);
+		monsterTextureRegions.add(monsterframes[0][3]);
+
+		
+		monsterSpriteAnimations.put(AnimationState.DIE, new Animation(0.1f, monsterTextureRegions));
+		
 		map.addCreature(new Monster(world,
 		new Vector2(110f, 100f), new Vector2(16f, 32f), monsterSpriteAnimations, 0.8f, false));
 	}

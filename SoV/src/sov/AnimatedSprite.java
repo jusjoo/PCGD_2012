@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 public class AnimatedSprite {
 	
 	// AnimationState dictates which Animation is going to be drawn and updated
-	public enum AnimationState { IDLE, RUN, JUMP, FALL, HURT, WEAPON_RUN, WEAPON_ATTACK }
+	public enum AnimationState { IDLE, RUN, JUMP, FALL, HURT, WEAPON_RUN, WEAPON_ATTACK, DIE }
 	protected AnimationState currentAnimationState = AnimationState.IDLE;
 	
 	// Links Animations with AnimationStates
@@ -43,7 +43,9 @@ public class AnimatedSprite {
 	// Update current frame based on deltaTime.
 	public void animate(float deltaTime) {
 		stateTime += deltaTime;
-		currentFrame.setRegion(animations.get(currentAnimationState).getKeyFrame(stateTime, true));
+		boolean looping = true;
+		if(currentAnimationState == AnimationState.DIE) looping = false;
+		currentFrame.setRegion(animations.get(currentAnimationState).getKeyFrame(stateTime, looping));
 	}
 	
 	// Position, rotate, flip the sprite, and then render it.

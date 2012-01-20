@@ -21,10 +21,12 @@ public class Creature extends AnimatedSpriteBody {
 	protected AttackTimer activeAttackTimer;
 	protected Fixture attackSensorFixture;
 	
+	float hitPoints = 5;
 	
 	public enum AttackType {Melee, Ranged};
 	boolean allowJumping = true;
 	boolean canAttack = true;
+	boolean alive = true;
 	
 	// Deliver size and position of the creature in pixels.
 	public Creature(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,
@@ -62,6 +64,8 @@ public class Creature extends AnimatedSpriteBody {
 		// Creatures shall not rotate according to physics!
 		body.setFixedRotation(true);
 		
+		die();
+		
 	}
 	
 	public void update(float deltaTime) {
@@ -71,18 +75,22 @@ public class Creature extends AnimatedSpriteBody {
 		Vector2 currentVelocity = body.getLinearVelocity();
 		
 		// Set animation states
-		if(!allowJumping) {			
-			if (currentVelocity.y < 0.0f)
-				animatedSprite.setCurrentAnimationState(AnimationState.FALL);
-			else
-				animatedSprite.setCurrentAnimationState(AnimationState.JUMP);
-		} else if(Math.abs(currentVelocity.x) > 0.5f) {
-			animatedSprite.setCurrentAnimationState(AnimationState.RUN);
-		} else {
-			animatedSprite.setCurrentAnimationState(AnimationState.IDLE);
+		if(alive) {
+			if(!allowJumping) {			
+				if (currentVelocity.y < 0.0f)
+					animatedSprite.setCurrentAnimationState(AnimationState.FALL);
+				else
+					animatedSprite.setCurrentAnimationState(AnimationState.JUMP);
+			} else if(Math.abs(currentVelocity.x) > 0.5f) {
+				animatedSprite.setCurrentAnimationState(AnimationState.RUN);
+			} else {
+				animatedSprite.setCurrentAnimationState(AnimationState.IDLE);
+			}
+			
+			this.activeAttackTimer.update(deltaTime);
 		}
 		
-		this.activeAttackTimer.update(deltaTime);
+		
 		
 	}
 	
@@ -98,7 +106,10 @@ public class Creature extends AnimatedSpriteBody {
 			
 			float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 			PolygonShape attackSensorShape = new PolygonShape();
-			attackSensorShape.setAsBox(size.x / PIXELS_PER_METER, size.y / PIXELS_PER_METER, new Vector2( 2,  2) , 0f);
+			int offSet = 0;
+			if(facingRight) offSet = 1;
+			else offSet = -1;
+			attackSensorShape.setAsBox(size.x / PIXELS_PER_METER / 1.5f, size.y / PIXELS_PER_METER / 1.5f, new Vector2(size.x / PIXELS_PER_METER * offSet ,  0) , 0f);
 			FixtureDef attackSensorFixtureDef = new FixtureDef();
 			attackSensorFixtureDef.shape = attackSensorShape;
 			attackSensorFixtureDef.isSensor = true;
@@ -118,6 +129,20 @@ public class Creature extends AnimatedSpriteBody {
 		body.destroyFixture(attackSensorFixture);
 		canAttack = true;
 		//body.getFixtureList().remove(attackSensorFixture);
+	}
+	
+	public void takeDamage(float damage) {
+		hitPoints -= damage;
+		if(hitPoints <= 0) {
+			die();
+		}
+	}
+	
+	public void die() {
+		alive = false;
+		body.destroyFixture(body.getFixtureList().get(0));
+		body.setGravityScale(0);
+		animatedSprite.setCurrentAnimationState(AnimationState.DIE);
 	}
 
 
