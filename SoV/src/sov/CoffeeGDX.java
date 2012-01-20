@@ -167,6 +167,11 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		map.update(deltaTime);
 		
+		if(Math.random() > 0.99) {
+			addNinjaMonster();
+			addGoblin();
+		}
+		
 		world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
 	}
 	
@@ -215,9 +220,12 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		monsterSpriteAnimations.put(AnimationState.DIE, new Animation(0.09f, monsterTextureRegions));
 		
-		map.addCreature(new Monster(world,
-
-		new Vector2(110f, 100f), new Vector2(16f, 32f), monsterSpriteAnimations, 0.8f, false));
+		Monster monster = new Monster(world,
+		new Vector2((float)Math.random()*map.map.width*4, (float)Math.random()*map.map.height*4 + 32f), new Vector2(16f, 24f), monsterSpriteAnimations, 0.8f, false);
+		
+		monster.setToFollow(map.player);
+		
+		map.addCreature(monster);
 	}
 	
 	public void addNinjaMonster() {
@@ -247,8 +255,12 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		monsterSpriteAnimations.put(AnimationState.DIE, new Animation(0.1f, monsterTextureRegions));
 		
-		map.addCreature(new Monster(world,
-		new Vector2(110f, 100f), new Vector2(16f, 32f), monsterSpriteAnimations, 0.8f, false));
+		
+		Monster monster = new Monster(world,
+				new Vector2((float)Math.random()*map.map.width*4, (float)Math.random()*map.map.height*4 + 32f), new Vector2(16f, 32f), monsterSpriteAnimations, 0.8f, false);
+		monster.setToFollow(map.player);
+		
+		map.addCreature(monster);
 	}
 	
 	

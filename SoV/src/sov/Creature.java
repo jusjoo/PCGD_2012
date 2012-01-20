@@ -26,6 +26,8 @@ public class Creature extends AnimatedSpriteBody {
 	boolean allowJumping = true;
 	boolean canAttack = true;
 	
+	protected float speed = 0.5f;
+	
 	
 	// Deliver size and position of the creature in pixels.
 	public Creature(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,

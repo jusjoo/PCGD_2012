@@ -9,6 +9,7 @@ import sov.BodyEntity.SlopeShape;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.tiled.SimpleTileAtlas;
@@ -32,6 +33,9 @@ public class GameMap {
 	
 	// Map which is loaded from the Tiled map, has information on nearly everything!
 	TiledMap map;
+	
+	// Background image
+	Sprite backgroundImage;
 	
 	// Dynamic map tiles are tiles which can be pushed around in the map.
 	ArrayList<AnimatedSpriteBody> dynMapTiles = new ArrayList<AnimatedSpriteBody>();

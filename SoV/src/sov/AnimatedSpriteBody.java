@@ -40,7 +40,8 @@ public class AnimatedSpriteBody extends BodyEntity {
 				 * +-8 here moves the x, y into the tile's corner, for drawing purposes
 				 */
 				body.getWorldCenter().x * PIXELS_PER_METER +8,
-				body.getWorldCenter().y * PIXELS_PER_METER -8,
+				//body.getWorldCenter().y * PIXELS_PER_METER -8,
+				body.getWorldCenter().y * PIXELS_PER_METER - size.y/4,
 				(float) (body.getAngle()*180/Math.PI));
 	}
 	

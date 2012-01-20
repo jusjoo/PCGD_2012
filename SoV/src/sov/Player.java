@@ -18,7 +18,7 @@ public class Player extends Creature {
 
 	protected enum CharacterClass { Barbarian, Sorceress, Ninja };
 	
-	protected float speed;
+	
 	protected float jumpHeight;
 	protected float attackImpulse;
 	protected GameConfiguration config;
