@@ -95,6 +95,14 @@ public class Creature extends AnimatedSpriteBody {
 		this.allowJumping = allowJumping;
 	}
 	
+	/*
+	 * Attacks with the given attackType
+	 * 
+	 * TODO: 	Handle different activeAttackTimers, when attack
+	 * 			is not the same type. Player shouldn't be able to 
+	 * 			use a new attack before another attack is still processing.
+	 * 
+	 */
 	public void attack(AttackType attackType) {
 		
 		if(canAttack) {
