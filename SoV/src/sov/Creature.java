@@ -53,7 +53,7 @@ public class Creature extends AnimatedSpriteBody {
 		body.createFixture(sensorFixture);
 		
 		
-		activeAttackTimer = new AttackTimer(this, 1.0f);
+		activeAttackTimer = new AttackTimer(this, 0.5f);
 
 		
 		
@@ -74,7 +74,7 @@ public class Creature extends AnimatedSpriteBody {
 		Vector2 currentVelocity = body.getLinearVelocity();
 		
 		// Set animation states
-		if(alive) {
+		if(alive && canAttack) {
 			if(!allowJumping) {			
 				if (currentVelocity.y < 0.0f)
 					animatedSprite.setCurrentAnimationState(AnimationState.FALL);
@@ -85,11 +85,9 @@ public class Creature extends AnimatedSpriteBody {
 			} else {
 				animatedSprite.setCurrentAnimationState(AnimationState.IDLE);
 			}
-			
-			this.activeAttackTimer.update(deltaTime);
 		}
 		
-		
+		this.activeAttackTimer.update(deltaTime);
 		
 	}
 	
@@ -125,7 +123,7 @@ public class Creature extends AnimatedSpriteBody {
 			this.attackSensorFixture = body.createFixture(attackSensorFixtureDef);
 			
 			
-			animatedSprite.currentAnimationState = AnimationState.JUMP;
+			animatedSprite.setCurrentAnimationState(AnimationState.WEAPON_ATTACK);
 			canAttack = false;
 		}
 		

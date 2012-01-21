@@ -48,7 +48,7 @@ public class MyContactListener implements ContactListener {
 			if(Creature.class.isAssignableFrom(fixtureUserData.getClass()) && Creature.class.isAssignableFrom(fixtureUserData2.getClass())) {
 				if(contact.getFixtureB() == ((Creature)fixtureUserData2).getAttackFixture()) {
 					((AnimatedSpriteBody)fixtureUserData).takeDamage(1);
-					
+					//System.out.println("moi?");
 				}
 			}
 		}

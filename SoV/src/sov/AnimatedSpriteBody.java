@@ -70,7 +70,9 @@ public class AnimatedSpriteBody extends BodyEntity {
 	protected void die() {
 		if(alive) {
 			//body.destroyFixture(body.getFixtureList().get(0));
+			//body.getFixtureList().clear();
 			body.destroyFixture(bodyFixture);
+			body.getFixtureList().clear();
 			body.setGravityScale(0);
 			body.setLinearVelocity(0f, 0f);
 			animatedSprite.setCurrentAnimationState(AnimationState.DIE);

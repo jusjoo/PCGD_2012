@@ -45,23 +45,35 @@ public class AnimatedSprite {
 	public void animate(float deltaTime) {
 		stateTime += deltaTime;
 		boolean looping = true;
-		if(currentAnimationState == AnimationState.DIE) looping = false;
+		if(currentAnimationState == AnimationState.DIE ||
+				currentAnimationState == AnimationState.WEAPON_ATTACK) looping = false;
 		currentFrame.setRegion(animations.get(currentAnimationState).getKeyFrame(stateTime, looping));
 	}
 	
 	// Position, rotate, flip the sprite, and then render it.
 	// @Pre: SpriteBatch needs to be enabled before calling render.
 	public void render(SpriteBatch spriteBatch, boolean facingRight, float x, float y, float angle) {
+		currentFrame.setSize(currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
+		
+		int offSet = 0;
+		
 		if(facingRight) {
 			currentFrame.flip(false, false);
+			if(currentAnimationState == AnimationState.WEAPON_ATTACK) {
+				offSet = 16;
+			}
 		} else {
 			currentFrame.flip(true, false);
+			if(currentAnimationState == AnimationState.WEAPON_ATTACK) {
+				offSet = -16;
+			}
 		}
-				
+		
+		
 		/*
 		 *  Moves the position from the center to the corner tile
 		 */
-		currentFrame.setPosition(x - currentFrame.getWidth()/2, y - currentFrame.getHeight()/2);
+		currentFrame.setPosition(x - currentFrame.getWidth()/2 + offSet, y - currentFrame.getHeight()/2 + Math.abs(offSet/2));
 		
 		currentFrame.setRotation(angle);
 		currentFrame.draw(spriteBatch);

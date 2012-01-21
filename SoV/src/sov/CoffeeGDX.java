@@ -79,6 +79,17 @@ public class CoffeeGDX implements ApplicationListener {
 		textureRegions.add(frames[0][10]);
 		spriteAnimations.put(AnimationState.FALL, new Animation(0.1f, textureRegions));
 		
+		//Attack
+		TextureRegion subTexture = new TextureRegion(spritesTexture);
+		subTexture.setRegion(0, 224, 360, 200);
+		TextureRegion frames2[][] = subTexture.split(64, 48);
+		textureRegions.clear();
+		textureRegions.add(frames2[0][0]);
+		textureRegions.add(frames2[0][1]);
+		textureRegions.add(frames2[0][2]);
+		textureRegions.add(frames2[0][3]);
+		spriteAnimations.put(AnimationState.WEAPON_ATTACK, new Animation(0.1f, textureRegions));
+		
 		// DEATH
 		textureRegions.clear();
 

@@ -3,11 +3,19 @@ package sov;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.lwjgl.util.vector.Matrix2f;
+
 import sov.AnimatedSprite.AnimationState;
 import sov.BodyEntity.SlopeShape;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.assets.AssetLoaderParameters;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,6 +28,8 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledLoader;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
+import com.badlogic.gdx.math.Matrix3;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -36,6 +46,8 @@ public class GameMap {
 	
 	// Background image
 	Sprite backgroundImage;
+	AssetManager assetManager;
+	OrthographicCamera parallaxCamera;
 	
 	// Dynamic map tiles are tiles which can be pushed around in the map.
 	ArrayList<AnimatedSpriteBody> dynMapTiles = new ArrayList<AnimatedSpriteBody>();
@@ -58,12 +70,23 @@ public class GameMap {
 	 * Loads a new map for the game
 	 */
 	public GameMap(String tmxFile, World world) {
+		assetManager = new AssetManager();
+		//assetManager.load("assets/creatures/sprites_human_barbarian.png", "File");
 		map = TiledLoader.createMap(new FileHandle("assets/maps/" + tmxFile));
 		
 		// Holds the textures for all tiles.
 		SimpleTileAtlas atlas = new SimpleTileAtlas(map, new FileHandle("assets/maps/"));
 		
 		tileMapRenderer = new TileMapRenderer(map, atlas, 5, 5);
+		
+		Texture backgroundTexture = new Texture(new FileHandle("assets/maps/background.png"));
+		
+		//new Texture(new FileHandle("assets/creatures/sprites_human_barbarian.png"));
+		backgroundImage = new Sprite(backgroundTexture);
+		backgroundImage.setColor(new Color(0.5f, 0.5f, 0.5f, 0.6f));
+		//backgroundImage.setRegion(backgroundTexture);
+		
+		parallaxCamera = new OrthographicCamera(Gdx.graphics.getWidth()/1.5f, Gdx.graphics.getHeight()/1.5f);
 		
 		createStaticTiles(world);
 		createDynamicTiles(world, atlas);
@@ -171,7 +194,7 @@ public class GameMap {
 		if(type == LayerType.StaticTiles) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.StaticTiles)});
         
 		if(type == LayerType.DynamicTiles) {
-			spriteBatch.setProjectionMatrix(cam.combined);
+			
 			spriteBatch.begin();
 			for(AnimatedSpriteBody sprite : dynMapTiles) {
 				sprite.render(spriteBatch);
@@ -180,7 +203,7 @@ public class GameMap {
 		}
 		
 		if(type == LayerType.Creatures) {
-			spriteBatch.setProjectionMatrix(cam.combined);
+			//spriteBatch.setProjectionMatrix(cam.combined);
 			spriteBatch.begin();
 			for(Creature creature : creatures) {
 				creature.render(spriteBatch);
@@ -198,11 +221,43 @@ public class GameMap {
 	
 	// TODO: Add layer rendering order in an ordered list or array.
 	public void render(OrthographicCamera cam, SpriteBatch spriteBatch) {
+		
+		parallaxCamera.update();
+		parallaxCamera.apply(Gdx.gl10);
+		
+		//parallaxCamera.position.set(player.getPosition().x-backgroundImage.getWidth()/2, player.getPosition().y-backgroundImage.getHeight()/2, 1f);
+		//parallaxCamera.position.set(cam.position.scale(0.7f, 1f, 1f));
+		parallaxCamera.position.set(cam.position);
+		parallaxCamera.position.scale(1.5f, 1f, 1f);
+		spriteBatch.setProjectionMatrix(parallaxCamera.combined);
+		
+		spriteBatch.begin();
+		//backgroundImage.setPosition((player.getPosition().x-backgroundImage.getWidth()/2)*0.5f, player.getPosition().y-backgroundImage.getHeight()/2);
+		for(int y=0; y<3; y++) {
+			for(int x=0; x<3; x++) {
+				backgroundImage.setPosition(x*backgroundImage.getWidth()-backgroundImage.getWidth(),
+						y*backgroundImage.getHeight()-backgroundImage.getHeight());
+				backgroundImage.draw(spriteBatch);	
+			}
+			
+		}
+		//backgroundImage.setPosition(player.getPosition().x, player.getPosition().y);
+		spriteBatch.end();
+		
+		cam.update();
+		cam.apply(Gdx.gl10);
+		
+		spriteBatch.setProjectionMatrix(cam.combined);
+		
+		
+		
 		renderLayer(LayerType.Background, cam, spriteBatch);
 		renderLayer(LayerType.Creatures, cam, spriteBatch);
 		renderLayer(LayerType.StaticTiles, cam, spriteBatch);
 		renderLayer(LayerType.DynamicTiles, cam, spriteBatch);
 		renderLayer(LayerType.Foreground, cam, spriteBatch);
+		
+		
 	}
 	
 	
