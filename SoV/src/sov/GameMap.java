@@ -83,7 +83,7 @@ public class GameMap {
 		
 		//new Texture(new FileHandle("assets/creatures/sprites_human_barbarian.png"));
 		backgroundImage = new Sprite(backgroundTexture);
-		backgroundImage.setColor(new Color(0.5f, 0.5f, 0.5f, 0.6f));
+		//backgroundImage.setColor(new Color(0.5f, 0.5f, 0.5f, 0.6f));
 		//backgroundImage.setRegion(backgroundTexture);
 		
 		parallaxCamera = new OrthographicCamera(Gdx.graphics.getWidth()/1.5f, Gdx.graphics.getHeight()/1.5f);
