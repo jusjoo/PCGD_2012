@@ -79,14 +79,14 @@ public class GameMap {
 		
 		tileMapRenderer = new TileMapRenderer(map, atlas, 5, 5);
 		
-		Texture backgroundTexture = new Texture(new FileHandle("assets/maps/background.png"));
+		Texture backgroundTexture = new Texture(new FileHandle("assets/maps/background.jpg"));
 		
 		//new Texture(new FileHandle("assets/creatures/sprites_human_barbarian.png"));
 		backgroundImage = new Sprite(backgroundTexture);
 		//backgroundImage.setColor(new Color(0.5f, 0.5f, 0.5f, 0.6f));
 		//backgroundImage.setRegion(backgroundTexture);
 		
-		parallaxCamera = new OrthographicCamera(Gdx.graphics.getWidth()/1.5f, Gdx.graphics.getHeight()/1.5f);
+		parallaxCamera = new OrthographicCamera(Gdx.graphics.getWidth()/1.2f, Gdx.graphics.getHeight()/1.2f);
 		
 		createStaticTiles(world);
 		createDynamicTiles(world, atlas);
@@ -235,8 +235,8 @@ public class GameMap {
 		//backgroundImage.setPosition((player.getPosition().x-backgroundImage.getWidth()/2)*0.5f, player.getPosition().y-backgroundImage.getHeight()/2);
 		for(int y=0; y<3; y++) {
 			for(int x=0; x<3; x++) {
-				backgroundImage.setPosition(x*backgroundImage.getWidth()-backgroundImage.getWidth(),
-						y*backgroundImage.getHeight()-backgroundImage.getHeight());
+				backgroundImage.setPosition(x*backgroundImage.getWidth()-backgroundImage.getWidth()*1.25f,
+						y*backgroundImage.getHeight()-backgroundImage.getHeight()*1.25f);
 				backgroundImage.draw(spriteBatch);	
 			}
 			
