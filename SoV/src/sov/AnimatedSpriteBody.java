@@ -35,9 +35,7 @@ public class AnimatedSpriteBody extends BodyEntity {
 		
 		animatedSprite.render(spriteBatch, facingRight,
 				
-				/*
-				 * +-8 here moves the x, y into the tile's corner, for drawing purposes
-				 */
+				
 				body.getPosition().x * PIXELS_PER_METER ,
 				body.getWorldCenter().y * PIXELS_PER_METER ,
 				//body.getPosition().y * PIXELS_PER_METER ,
