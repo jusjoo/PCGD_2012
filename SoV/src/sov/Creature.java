@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 /*
  * Creatures include all moving object that are controlled either by AI, or Player input.
  */
-public class Creature extends AnimatedSpriteBody {
+public class Creature extends AnimatedSpriteBody implements Cloneable {
 	
 	protected AttackTimer activeAttackTimer;
 	protected Fixture attackSensorFixture;
@@ -30,39 +30,12 @@ public class Creature extends AnimatedSpriteBody {
 	
 	
 	// Deliver size and position of the creature in pixels.
-	public Creature(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,
+	public Creature(Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,
 			boolean circle) {
-		super(world, position, size, animations,
+		super(size, animations,
 				false, rounding, circle, SlopeShape.Even);
 		
-		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
-		
-		// Create a sensor at the level of the feet for detecting if a creature is touching the ground.
-		// TODO: Transfer creating the body, shape and fixture to a static helper function.
-		PolygonShape sensorShape = new PolygonShape();
-		sensorShape.setAsBox(size.x / (3 * PIXELS_PER_METER), size.y / (12 * PIXELS_PER_METER),
-				new Vector2(0, -size.y/PIXELS_PER_METER/2), 0);
-		FixtureDef sensorFixture = new FixtureDef();
-		sensorFixture.shape = sensorShape;
-		sensorFixture.isSensor = true;
-		sensorFixture.density = 0;
-		
-		
-		
-		// Attach the foot-sensor on the body.
-		body.createFixture(sensorFixture);
-		
-		
-		activeAttackTimer = new AttackTimer(this, 0.5f);
 
-		
-		
-		
-		
-	
-		
-		// Creatures shall not rotate according to physics!
-		body.setFixedRotation(true);
 		
 		
 	}
@@ -138,6 +111,37 @@ public class Creature extends AnimatedSpriteBody {
 	
 	public Fixture getAttackFixture() {
 		return attackSensorFixture;
+	}
+	
+	public Creature clone() {
+		Creature clone = new Creature(size, animatedSprite.animations, 1.0f, false);
+		return clone;
+	}
+	
+	public void addToWorld(World world, Vector2 position) {
+		super.addToWorld(world, position);
+		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
+		
+		// Create a sensor at the level of the feet for detecting if a creature is touching the ground.
+		// TODO: Transfer creating the body, shape and fixture to a static helper function.
+		PolygonShape sensorShape = new PolygonShape();
+		sensorShape.setAsBox(size.x / (3 * PIXELS_PER_METER), size.y / (12 * PIXELS_PER_METER),
+				new Vector2(0, -size.y/PIXELS_PER_METER/2), 0);
+		FixtureDef sensorFixture = new FixtureDef();
+		sensorFixture.shape = sensorShape;
+		sensorFixture.isSensor = true;
+		sensorFixture.density = 0;
+		
+		
+		
+		// Attach the foot-sensor on the body.
+		body.createFixture(sensorFixture);
+		
+		
+		activeAttackTimer = new AttackTimer(this, 0.5f);
+
+		// Creatures shall not rotate according to physics!
+		body.setFixedRotation(true);
 	}
 
 }

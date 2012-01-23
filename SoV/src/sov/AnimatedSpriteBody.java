@@ -21,10 +21,9 @@ public class AnimatedSpriteBody extends BodyEntity {
 	
 	boolean setToDie = false;
 
-	public AnimatedSpriteBody(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations,
+	public AnimatedSpriteBody(Vector2 size, HashMap<AnimationState, Animation> animations,
 			boolean staticBody, float rounding, boolean circle, SlopeShape slopeShape) {
-		super(world, position, size,
-				staticBody, rounding, circle, slopeShape, false);
+		super(size, staticBody, rounding, circle, slopeShape, false);
 		
 		animatedSprite = new AnimatedSprite(animations);
 		
