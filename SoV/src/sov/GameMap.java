@@ -120,7 +120,7 @@ public class GameMap {
 							BodyEntity.SlopeShape shape = SlopeShape.Even;
 							if(property != null && property.equals("left")) { shape = SlopeShape.Left; }
 							else if (property != null && property.equals("right")) { shape = SlopeShape.Right; }
-							BodyEntity tile = new BodyEntity(new Vector2(tileSize, tileSize), true, 1.0f, false, BodyEntity.SlopeShape.Even, false);
+							BodyEntity tile = new BodyEntity(new Vector2(tileSize, tileSize), true, 1.0f, false, shape, false);
 							
 							tile.addToWorld(world, new Vector2(x*tileSize, -y*tileSize+map.height*tileSize));
 									
