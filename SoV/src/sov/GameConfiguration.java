@@ -14,7 +14,7 @@ public class GameConfiguration {
 	public boolean devMode = false;
 	
 	// world
-	public String firstMap = "desert_testbig.tmx";
+	public String firstMap = "desert_test.tmx";
 	// How quickly does the camera follow the player?
 	public float interpolationAmount = 0.022f;
 	

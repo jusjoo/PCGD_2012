@@ -1,8 +1,7 @@
 [
 	{
-		"_class": Barbarian
-		"id": 0,
-		"textureID": 0,
+		"creatureType": "Barbarian"
+		"texture": "sprites_human_barbarian.png",
 		"hitbox": [14, 29],
 		"dexterity": 2,
 		"strength": 7,

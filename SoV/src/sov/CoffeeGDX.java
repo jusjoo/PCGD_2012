@@ -129,6 +129,9 @@ public class CoffeeGDX implements ApplicationListener {
 	@Override
 	public void render() {
 		// Update all world entities
+		
+		Gdx.graphics.setTitle(Integer.toString(Gdx.graphics.getFramesPerSecond()));
+		
 		update();
 		// Update camera
 		cam.update();

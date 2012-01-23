@@ -3,8 +3,10 @@ package sov;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.JsonReader;
 
 public class DynamicObjectFactory {
 	
@@ -12,6 +14,12 @@ public class DynamicObjectFactory {
 	HashMap<Creatures, Creature> creatures;
 	
 	public DynamicObjectFactory(String directory) {
+		
+		//Gson
+		
+		//reader.parse(new FileHandle(directory + "/creatures.json"));
+		//reader.parse(new FileHandle("assets/creatures/creatures.json"));
+		
 		
 	}
 	

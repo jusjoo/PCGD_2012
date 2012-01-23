@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 /*
  * Creatures include all moving object that are controlled either by AI, or Player input.
  */
-public class Creature extends AnimatedSpriteBody implements Cloneable {
+public class Creature extends SpriteBody implements Cloneable {
 	
 	protected AttackTimer activeAttackTimer;
 	protected Fixture attackSensorFixture;
