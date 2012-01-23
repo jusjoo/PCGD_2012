@@ -26,9 +26,9 @@ public class Player extends Creature {
 	protected CharacterClass characterClass;
 
 	// Deliver size and position of the player in pixels.
-	public Player(World world, Vector2 position, Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,
+	public Player(Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,
 			boolean circle, GameConfiguration config, CharacterClass characterClass) {
-		super(world, position, size, animations, rounding,
+		super(size, animations, rounding,
 				circle);
 		this.speed = config.speed;
 		this.jumpHeight = config.jumpHeight;

@@ -14,8 +14,9 @@ import com.badlogic.gdx.physics.box2d.World;
 public class BodyEntity {
 	// A Box2D body for collision
 	Body body;
-	
+	BodyDef bodyDef;
 	Fixture bodyFixture;
+	FixtureDef bodyFixtureDef;
 	
 	// SlopeShape determines which direction the slope comes from. (If there is a slope)
 	// TODO: Change the coordinate system to NorthWest, NorthEast, SouthEast, SouthWest,
@@ -29,12 +30,12 @@ public class BodyEntity {
 	protected Vector2 size;
 	
 	// Use staticBody for everything that doesn't move.
-	public BodyEntity(World world, Vector2 position, Vector2 size,
+	public BodyEntity(Vector2 size,
 			boolean staticBody, float rounding, boolean circle, SlopeShape slopeShape, boolean sensorEntity) {
 		
 		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 		
-		BodyDef bodyDef = new BodyDef();
+		bodyDef = new BodyDef();
 		if(staticBody) {
 			bodyDef.type = BodyDef.BodyType.StaticBody;
 		} else {
@@ -43,13 +44,13 @@ public class BodyEntity {
 
 
 
-		bodyDef.position.set( position.x/PIXELS_PER_METER , position.y/PIXELS_PER_METER );
+		
 		
 		this.size = size;
 		
-		body = world.createBody(bodyDef);
-
-		FixtureDef bodyFixtureDef = new FixtureDef();
+		
+		
+		bodyFixtureDef = new FixtureDef();
 		
 		if(circle) {
 			CircleShape circleShape = new CircleShape();
@@ -106,17 +107,7 @@ public class BodyEntity {
 			
 		}
 		
-		bodyFixtureDef.density = 3.5f;
-		bodyFixtureDef.friction = 0.02f;
-		bodyFixture = body.createFixture(bodyFixtureDef);
- 
-		body.setLinearVelocity(new Vector2(0.0f, 0.0f));
 		
-		// Linear damping dictates along with friction how quickly the entity is slowed down.
-		body.setLinearDamping(2.6f);
-		
-		// Set userdata for body, used to find out which object is touching the ground in MyContactListener
-		body.setUserData(this);
 		
 	}
 	
@@ -124,5 +115,29 @@ public class BodyEntity {
 	public Vector2 getPosition() {
 		return new Vector2(body.getPosition().x * GameConfiguration.PIXELS_PER_METER,
 				body.getPosition().y * GameConfiguration.PIXELS_PER_METER);		
+	}
+	
+	public void setPosition(Vector2 coordinates) {
+		body.setTransform(coordinates.mul(1/GameConfiguration.PIXELS_PER_METER), 0);
+	}
+	
+	public void addToWorld(World world, Vector2 position) {
+		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
+		bodyDef.position.set( position.x/PIXELS_PER_METER , position.y/PIXELS_PER_METER );
+		
+		body = world.createBody(bodyDef);
+		
+		bodyFixtureDef.density = 3.5f;
+		bodyFixtureDef.friction = 0.02f;
+		bodyFixture = body.createFixture(bodyFixtureDef);
+		
+		
+		
+		// Linear damping dictates along with friction how quickly the entity is slowed down.
+		body.setLinearDamping(2.6f);
+		
+		// Set userdata for body, used to find out which object is touching the ground in MyContactListener
+		body.setUserData(this);
+		
 	}
 }

@@ -12,10 +12,10 @@ public class Monster extends Creature {
 	
 	BodyEntity entityToFollow = null;
 
-	public Monster(World world, Vector2 position, Vector2 size,
+	public Monster(Vector2 size,
 			HashMap<AnimationState, Animation> animations, float rounding,
 			boolean circle) {
-		super(world, position, size, animations, rounding, circle);
+		super(size, animations, rounding, circle);
 		// TODO Auto-generated constructor stub
 	}
 	

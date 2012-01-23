@@ -104,9 +104,10 @@ public class CoffeeGDX implements ApplicationListener {
 		// TODO: For this we need a way to skip the first row, or to have another sprite file for attack animations		
 		TextureRegion attackframes[][] = TextureRegion.split(spritesTexture, 64, 48);
 		
-
-		map.addCreature(new Player(world,
-				new Vector2(40f, 60f), new Vector2(13f,30f), spriteAnimations, 0.8f, false, config, Player.CharacterClass.Barbarian));
+		Player player = new Player(new Vector2(13f,30f), spriteAnimations, 0.8f, false, config, Player.CharacterClass.Barbarian);
+		player.addToWorld(world, new Vector2(40f, 60f));
+		
+		map.addCreature(player);
 				
 		
 		
@@ -231,9 +232,8 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		monsterSpriteAnimations.put(AnimationState.DIE, new Animation(0.09f, monsterTextureRegions));
 		
-		Monster monster = new Monster(world,
-		new Vector2((float)Math.random()*map.map.width*4, (float)Math.random()*map.map.height*4 + 32f), new Vector2(16f, 24f), monsterSpriteAnimations, 0.8f, false);
-		
+		Monster monster = new Monster(new Vector2(16f, 24f), monsterSpriteAnimations, 0.8f, false);
+		monster.addToWorld(world, new Vector2((float)Math.random()*map.map.width*4, (float)Math.random()*map.map.height*4 + 32f));
 		monster.setToFollow(map.player);
 		
 		map.addCreature(monster);
@@ -267,8 +267,8 @@ public class CoffeeGDX implements ApplicationListener {
 		monsterSpriteAnimations.put(AnimationState.DIE, new Animation(0.1f, monsterTextureRegions));
 		
 		
-		Monster monster = new Monster(world,
-				new Vector2((float)Math.random()*map.map.width*4, (float)Math.random()*map.map.height*4 + 32f), new Vector2(16f, 32f), monsterSpriteAnimations, 0.8f, false);
+		Monster monster = new Monster(new Vector2(16f, 32f), monsterSpriteAnimations, 0.8f, false);
+		monster.addToWorld(world, new Vector2((float)Math.random()*map.map.width*4, (float)Math.random()*map.map.height*4 + 32f));
 		monster.setToFollow(map.player);
 		
 		map.addCreature(monster);
