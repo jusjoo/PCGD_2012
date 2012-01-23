@@ -1,6 +1,6 @@
 [
 	{
-		"creatureType": "Barbarian"
+		"creatureType": "Barbarian",
 		"texture": "sprites_human_barbarian.png",
 		"hitbox": [14, 29],
 		"dexterity": 2,

@@ -10,8 +10,7 @@ import com.badlogic.gdx.utils.JsonReader;
 
 public class DynamicObjectFactory {
 	
-	public enum Creatures { Barbarian, Ninja, Sorceress, Goblin };
-	HashMap<Creatures, Creature> creatures;
+	HashMap<Creature.CreatureType, Creature> creatures;
 	
 	public DynamicObjectFactory(String directory) {
 		
@@ -23,7 +22,7 @@ public class DynamicObjectFactory {
 		
 	}
 	
-	public Creature spawnCreature(World world, Creatures type, Vector2 coordinates) {
+	public Creature spawnCreature(World world, Creature.CreatureType type, Vector2 coordinates) {
 		Creature creature = (Creature) creatures.get(type).clone();
 		creature.addToWorld(world, coordinates);
 		return creature;
