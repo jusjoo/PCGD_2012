@@ -12,11 +12,21 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.google.gson.annotations.Expose;
 
 /*
  * Creatures include all moving object that are controlled either by AI, or Player input.
  */
-public class Creature extends AnimatedSpriteBody implements Cloneable {
+public class Creature extends SpriteBody implements Cloneable {
+	
+	public enum CreatureType { Barbarian, Ninja, Sorceress, Goblin };
+	
+	@Expose
+	CreatureType creatureType;
+	
+	@Expose
+	
+	
 	
 	protected AttackTimer activeAttackTimer;
 	protected Fixture attackSensorFixture;

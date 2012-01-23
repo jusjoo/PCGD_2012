@@ -50,7 +50,7 @@ public class GameMap {
 	OrthographicCamera parallaxCamera;
 	
 	// Dynamic map tiles are tiles which can be pushed around in the map.
-	ArrayList<AnimatedSpriteBody> dynMapTiles = new ArrayList<AnimatedSpriteBody>();
+	ArrayList<SpriteBody> dynMapTiles = new ArrayList<SpriteBody>();
 	
 	// Holds all creatures, including the player.
 	ArrayList<Creature> creatures = new ArrayList<Creature>();
@@ -159,7 +159,7 @@ public class GameMap {
 					textureRegions.add(atlas.getRegion(object.gid));
 					tileAnimations.put(AnimationState.IDLE, new Animation(0.1f, textureRegions));
 					
-					AnimatedSpriteBody asb = new AnimatedSpriteBody(new Vector2(16f,16f),tileAnimations, false, 1.0f, false, SlopeShape.Even);
+					SpriteBody asb = new SpriteBody(new Vector2(16f,16f),tileAnimations, false, 1.0f, false, SlopeShape.Even);
 					asb.addToWorld(world, new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));
 					dynMapTiles.add(asb);
 				}
@@ -171,7 +171,7 @@ public class GameMap {
 		return tileMapRenderer;
 	}
 
-	public ArrayList<AnimatedSpriteBody> getDynMapTiles() {
+	public ArrayList<SpriteBody> getDynMapTiles() {
 		return dynMapTiles;	
 	}
 	
@@ -194,7 +194,7 @@ public class GameMap {
 		if(type == LayerType.DynamicTiles) {
 			
 			spriteBatch.begin();
-			for(AnimatedSpriteBody sprite : dynMapTiles) {
+			for(SpriteBody sprite : dynMapTiles) {
 				sprite.render(spriteBatch);
 			}
 			spriteBatch.end();
@@ -220,7 +220,7 @@ public class GameMap {
 	// TODO: Add layer rendering order in an ordered list or array.
 	public void render(OrthographicCamera cam, SpriteBatch spriteBatch) {
 		
-		parallaxCamera.update();
+		/*parallaxCamera.update();
 		parallaxCamera.apply(Gdx.gl10);
 		
 		//parallaxCamera.position.set(player.getPosition().x-backgroundImage.getWidth()/2, player.getPosition().y-backgroundImage.getHeight()/2, 1f);
@@ -228,7 +228,7 @@ public class GameMap {
 		parallaxCamera.position.set(cam.position);
 		parallaxCamera.position.scale(1.5f, 1f, 1f);
 		spriteBatch.setProjectionMatrix(parallaxCamera.combined);
-		
+		*/
 		spriteBatch.begin();
 		//backgroundImage.setPosition((player.getPosition().x-backgroundImage.getWidth()/2)*0.5f, player.getPosition().y-backgroundImage.getHeight()/2);
 		for(int y=0; y<3; y++) {

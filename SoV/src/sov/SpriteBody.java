@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 /*
  * AnimatedSpriteBodies are entities that have both a drawable sprite, and a physics body.
  */
-public class AnimatedSpriteBody extends BodyEntity {
+public class SpriteBody extends BodyEntity {
 	
 	boolean facingRight = true;	
 	AnimatedSprite animatedSprite;
@@ -21,7 +21,7 @@ public class AnimatedSpriteBody extends BodyEntity {
 	
 	boolean setToDie = false;
 
-	public AnimatedSpriteBody(Vector2 size, HashMap<AnimationState, Animation> animations,
+	public SpriteBody(Vector2 size, HashMap<AnimationState, Animation> animations,
 			boolean staticBody, float rounding, boolean circle, SlopeShape slopeShape) {
 		super(size, staticBody, rounding, circle, slopeShape, false);
 		
@@ -35,7 +35,9 @@ public class AnimatedSpriteBody extends BodyEntity {
 		
 		animatedSprite.render(spriteBatch, facingRight,
 				
-				
+				/*
+				 * +-8 here moves the x, y into the tile's corner, for drawing purposes
+				 */
 				body.getPosition().x * PIXELS_PER_METER ,
 				body.getWorldCenter().y * PIXELS_PER_METER ,
 				//body.getPosition().y * PIXELS_PER_METER ,
