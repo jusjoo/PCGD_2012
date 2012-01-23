@@ -44,6 +44,7 @@ public class BodyEntity {
 
 
 		bodyDef.position.set( position.x/PIXELS_PER_METER , position.y/PIXELS_PER_METER );
+	
 		
 		this.size = size;
 		
@@ -124,5 +125,7 @@ public class BodyEntity {
 	public Vector2 getPosition() {
 		return new Vector2(body.getPosition().x * GameConfiguration.PIXELS_PER_METER,
 				body.getPosition().y * GameConfiguration.PIXELS_PER_METER);		
+		
+				
 	}
 }

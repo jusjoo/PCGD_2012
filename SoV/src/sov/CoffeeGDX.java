@@ -108,7 +108,7 @@ public class CoffeeGDX implements ApplicationListener {
 		map.addCreature(new Player(world,
 				new Vector2(40f, 60f), new Vector2(13f,30f), spriteAnimations, 0.8f, false, config, Player.CharacterClass.Barbarian));
 				
-		
+		addGoblin();
 		
 		//int amountOfFrames = 5; 
 		this.addNinjaMonster();
@@ -132,6 +132,8 @@ public class CoffeeGDX implements ApplicationListener {
 		// Update camera
 		cam.update();
 		
+		
+		// spriteBatch.disableBlending();
 		// colourMultiplier dictates how bright the sky is
 		float colourMultiplier = 1;
 		Gdx.gl.glClearColor(0.5f*colourMultiplier, 0.7f*colourMultiplier, 0.88f*colourMultiplier, 1.0f);
@@ -177,11 +179,11 @@ public class CoffeeGDX implements ApplicationListener {
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		
 		map.update(deltaTime);
-		
+		/*
 		if(Math.random() > 0.99) {
 			addNinjaMonster();
 			addGoblin();
-		}
+		}*/
 		
 		world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
 	}
@@ -232,7 +234,7 @@ public class CoffeeGDX implements ApplicationListener {
 		monsterSpriteAnimations.put(AnimationState.DIE, new Animation(0.09f, monsterTextureRegions));
 		
 		Monster monster = new Monster(world,
-		new Vector2((float)Math.random()*map.map.width*4, (float)Math.random()*map.map.height*4 + 32f), new Vector2(16f, 24f), monsterSpriteAnimations, 0.8f, false);
+		new Vector2((float)Math.random()*map.map.width*4, (float)Math.random()*map.map.height*4 + 32f), new Vector2(48f, 24f), monsterSpriteAnimations, 1.0f, false);
 		
 		monster.setToFollow(map.player);
 		
@@ -276,7 +278,7 @@ public class CoffeeGDX implements ApplicationListener {
 	
 	
 	public static void main (String[] args) {
-        new LwjglApplication(new CoffeeGDX(), "Game", 800, 600, false);
+        new LwjglApplication(new CoffeeGDX(), "Game", 1024, 768, false);
 }
 
 }
