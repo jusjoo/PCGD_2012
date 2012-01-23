@@ -73,7 +73,7 @@ public class AnimatedSprite {
 		/*
 		 *  Moves the position from the center to the corner tile
 		 */
-		currentFrame.setPosition(x - currentFrame.getWidth()/2 + offSet, y - currentFrame.getHeight()/2 + Math.abs(offSet/2));
+		currentFrame.setPosition(x - currentFrame.getWidth()/2 + offSet/2, y - currentFrame.getHeight()/2 + Math.abs(offSet/2));
 		
 		currentFrame.setRotation(angle);
 		currentFrame.draw(spriteBatch);
