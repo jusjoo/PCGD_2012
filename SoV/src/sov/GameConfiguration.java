@@ -16,7 +16,7 @@ public class GameConfiguration {
 	// world
 	public String firstMap = "desert_test.tmx";
 	// How quickly does the camera follow the player?
-	public float interpolationAmount = 0.022f;
+	public float interpolationAmount = 1.00f;
 	
 	// Pixels per meter is used to translate Box2d coordinates into pixel coordinates.
 	public static final float PIXELS_PER_METER = 32;

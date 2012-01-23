@@ -53,6 +53,7 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		cam = new OrthographicCamera(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 				
+		//cam.rotate(45, 0, 0, 1);
 		debugRenderer = new Box2DDebugRenderer();
 
 		
@@ -128,6 +129,9 @@ public class CoffeeGDX implements ApplicationListener {
 
 	@Override
 	public void render() {
+		
+		
+		Gdx.graphics.setTitle(Integer.toString(Gdx.graphics.getFramesPerSecond()));
 		// Update all world entities
 		
 		Gdx.graphics.setTitle(Integer.toString(Gdx.graphics.getFramesPerSecond()));
@@ -152,6 +156,7 @@ public class CoffeeGDX implements ApplicationListener {
 		Vector2 newPosition = new Vector2(	oldPosition.x + interpolationAmount*(player.getPosition().x - oldPosition.x),
 											oldPosition.y + interpolationAmount*(player.getPosition().y - oldPosition.y));
 		cam.position.set(newPosition.x, newPosition.y, 0);
+		
 		cam.apply(Gdx.gl10);
 		
 		map.render(cam, spriteBatch);
@@ -284,6 +289,7 @@ public class CoffeeGDX implements ApplicationListener {
 	
 	public static void main (String[] args) {
         new LwjglApplication(new CoffeeGDX(), "Game", 1024, 768, false);
+	//	  new LwjglApplication(new CoffeeGDX(), "Game", 800, 600, false);
 }
 
 }
