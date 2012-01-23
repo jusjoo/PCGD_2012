@@ -52,7 +52,7 @@ public class AnimatedSprite {
 	
 	// Position, rotate, flip the sprite, and then render it.
 	// @Pre: SpriteBatch needs to be enabled before calling render.
-	public void render(SpriteBatch spriteBatch, boolean facingRight, float x, float y, float angle) {
+	public void render(SpriteBatch spriteBatch, boolean facingRight, float x, float y, float angle, Vector2 collisionBoxSize) {
 		currentFrame.setSize(currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
 		
 		int offSet = 0;
@@ -72,8 +72,12 @@ public class AnimatedSprite {
 		
 		/*
 		 *  Moves the position from the center to the corner tile
+		 *  
+		 *  This is full of shit!
 		 */
-		currentFrame.setPosition(x - currentFrame.getWidth()/2 + offSet/2, y - currentFrame.getHeight()/2 + Math.abs(offSet/2));
+		currentFrame.setPosition(x + 8 - currentFrame.getWidth()/2 + offSet/2,
+								y -8 - currentFrame.getHeight()/2 + (currentFrame.getHeight() - collisionBoxSize.y)/2 ); 
+		//currentFrame.setPosition(x ,y);
 		
 		currentFrame.setRotation(angle);
 		currentFrame.draw(spriteBatch);
