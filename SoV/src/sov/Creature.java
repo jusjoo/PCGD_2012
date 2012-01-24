@@ -1,5 +1,6 @@
 package sov;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import sov.AnimatedSprite.AnimationState;
@@ -20,12 +21,16 @@ import com.google.gson.annotations.Expose;
 public class Creature extends SpriteBody implements Cloneable {
 	
 	public enum CreatureType { Barbarian, Ninja, Sorceress, Goblin };
+
+	@Expose CreatureType creatureType;
+	@Expose String textureName;
+	@Expose int[] hitboxSize;
+	@Expose float dexterity;
+	@Expose float strength;
+	@Expose float wisdom;
+	@Expose HashMap<String, ArrayList<Object>> frames;
 	
-	@Expose
-	CreatureType creatureType;
-	
-	@Expose
-	
+		
 	
 	
 	protected AttackTimer activeAttackTimer;
