@@ -28,9 +28,9 @@ public class Creature extends SpriteBody implements Cloneable {
 	@Expose float dexterity;
 	@Expose float strength;
 	@Expose float wisdom;
-	@Expose HashMap<String, ArrayList<Object>> frames;
+	@Expose HashMap<AnimationState, ArrayList<Object>> frames;
 	
-		
+	
 	
 	
 	protected AttackTimer activeAttackTimer;
@@ -43,6 +43,9 @@ public class Creature extends SpriteBody implements Cloneable {
 	
 	protected float speed = 0.5f;
 	
+	public Creature() {
+		
+	}
 	
 	// Deliver size and position of the creature in pixels.
 	public Creature(Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,
@@ -65,13 +68,13 @@ public class Creature extends SpriteBody implements Cloneable {
 		if(alive && canAttack) {
 			if(!allowJumping) {			
 				if (currentVelocity.y < 0.0f)
-					spriteComponent.setCurrentAnimationState(AnimationState.FALL);
+					spriteComponent.setCurrentAnimationState(AnimationState.Fall);
 				else
-					spriteComponent.setCurrentAnimationState(AnimationState.JUMP);
+					spriteComponent.setCurrentAnimationState(AnimationState.Jump);
 			} else if(Math.abs(currentVelocity.x) > 0.5f) {
-				spriteComponent.setCurrentAnimationState(AnimationState.RUN);
+				spriteComponent.setCurrentAnimationState(AnimationState.Run);
 			} else {
-				spriteComponent.setCurrentAnimationState(AnimationState.IDLE);
+				spriteComponent.setCurrentAnimationState(AnimationState.Idle);
 			}
 		}
 		
@@ -111,7 +114,7 @@ public class Creature extends SpriteBody implements Cloneable {
 			this.attackSensorFixture = getBodyComponent().body.createFixture(attackSensorFixtureDef);
 			
 			
-			spriteComponent.setCurrentAnimationState(AnimationState.WEAPON_ATTACK);
+			spriteComponent.setCurrentAnimationState(AnimationState.Attack);
 			canAttack = false;
 		}
 		

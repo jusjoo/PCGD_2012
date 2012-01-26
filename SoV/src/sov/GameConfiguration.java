@@ -36,6 +36,7 @@ public class GameConfiguration {
 	public int actionCrouch = Keys.DOWN;
 	public int actionAttack = Keys.SPACE;
 	
+	protected DynamicObjectFactory dynamicObjectFactory;
 	
 	
 	
@@ -45,7 +46,7 @@ public class GameConfiguration {
 	 * TODO: load a configuration from a file
 	 */
 	public GameConfiguration() {
-		
+		dynamicObjectFactory = new DynamicObjectFactory("assets/creatures");
 		
 	}
 }

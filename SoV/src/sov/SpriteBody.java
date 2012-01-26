@@ -24,6 +24,10 @@ public class SpriteBody {
 	boolean alive = true;
 	
 	boolean setToDie = false;
+	
+	public SpriteBody() {
+		
+	}
 
 	public SpriteBody(Vector2 size, HashMap<AnimationState, Animation> animations,
 			boolean staticBody, float rounding, boolean circle, BodyComponent.SlopeShape slopeShape) {
@@ -81,7 +85,7 @@ public class SpriteBody {
 			//body.destroyFixture(body.getFixtureList().get(0));
 			//body.getFixtureList().clear();
 			body.die();
-			spriteComponent.setCurrentAnimationState(AnimationState.DIE);
+			spriteComponent.setCurrentAnimationState(AnimationState.Die);
 			alive = false;
 		}
 		
