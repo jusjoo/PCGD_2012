@@ -42,6 +42,10 @@ public class SpriteComponent extends Component {
 		currentFrame = new Sprite(animations.get(currentAnimationState).getKeyFrame(0, true));
 	}
 	
+	public SpriteComponent(Object parent) {
+		super(parent);
+	}
+	
 	// Update current frame based on deltaTime.
 	public void animate(float deltaTime) {
 		stateTime += deltaTime;
@@ -88,6 +92,10 @@ public class SpriteComponent extends Component {
 		previousAnimationState = currentAnimationState;
 		currentAnimationState = state;
 		if(previousAnimationState != currentAnimationState) { stateTime = 0; }
+	}
+	
+	public void setAnimations(HashMap<AnimationState, Animation> animations) {
+		this.animations = animations;
 	}
 	
 	public void addAnimation(AnimationState animationState, Animation animation) {

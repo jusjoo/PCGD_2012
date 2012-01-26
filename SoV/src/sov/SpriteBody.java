@@ -26,7 +26,7 @@ public class SpriteBody {
 	boolean setToDie = false;
 	
 	public SpriteBody() {
-		
+		spriteComponent = new SpriteComponent(this);
 	}
 
 	public SpriteBody(Vector2 size, HashMap<AnimationState, Animation> animations,
@@ -35,6 +35,10 @@ public class SpriteBody {
 		body = new BodyComponent(this, size, staticBody, rounding, circle, slopeShape, false);
 		spriteComponent = new SpriteComponent(this, animations);
 		
+	}
+	
+	public SpriteComponent getSpriteComponent() {
+		return spriteComponent;
 	}
 	
 	protected BodyComponent getBodyComponent() {

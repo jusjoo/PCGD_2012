@@ -46,7 +46,7 @@ public class GameConfiguration {
 	 * TODO: load a configuration from a file
 	 */
 	public GameConfiguration() {
-		dynamicObjectFactory = new DynamicObjectFactory("assets/creatures");
+		
 		
 	}
 }

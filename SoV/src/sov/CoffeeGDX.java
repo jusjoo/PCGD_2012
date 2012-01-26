@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import sov.SpriteComponent.AnimationState;
+import sov.Creature.CreatureType;
 import sov.GameMap.LayerType;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -60,6 +61,10 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		world.setContactListener(new MyContactListener());
 
+		DynamicObjectFactory dynamicObjectFactory = new DynamicObjectFactory("assets/creatures");
+		
+		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Barbarian, new Vector2(200, 200)));
+		
 	}
 
 	@Override

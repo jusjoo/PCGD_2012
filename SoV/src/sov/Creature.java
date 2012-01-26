@@ -55,7 +55,9 @@ public class Creature extends SpriteBody implements Cloneable {
 	}
 	
 	public static Creature createFromPrototype(Creature prototype) {
+		
 		Creature creature = new Creature(new Vector2(prototype.hitboxSize[0], prototype.hitboxSize[1]), prototype.spriteComponent.animations, 0.8f, false);
+		creature.creatureType = prototype.creatureType;
 		return creature;
 	}
 	

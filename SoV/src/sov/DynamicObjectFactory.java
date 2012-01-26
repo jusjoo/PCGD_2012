@@ -46,34 +46,50 @@ public class DynamicObjectFactory {
 			//Texture spritesTexture = new Texture(new FileHandle("assets/creatures/" + creaturePrototype.textureName));
 			Texture spritesTexture = new Texture(new FileHandle("assets/creatures/sprites_human_barbarian.png"));
 			
+			System.out.println("Creaturetype: " + creaturePrototype.creatureType);
+			
 			HashMap<SpriteComponent.AnimationState, ArrayList<Object>> animationStates =
 					creaturePrototype.frames;
 			
 			HashMap<SpriteComponent.AnimationState, Animation> spriteAnimations = new HashMap<SpriteComponent.AnimationState, Animation>();
 			
+			TextureRegion subRegion = new TextureRegion(spritesTexture);
 			
 			for(Entry<SpriteComponent.AnimationState, ArrayList<Object>> animationEntry: animationStates.entrySet()) {
 				// "Frame size, Origin offset, Start frame coordinates, Length, Speed (ms)"
 				
-				TextureRegion subRegion = new TextureRegion(spritesTexture);
+				
 				
 				Vector2 startCoordinates = new Vector2();
 				Vector2 totalSize = new Vector2();
-				startCoordinates.x = (float) (((ArrayList<Double>)(animationEntry.getValue().get(2))).get(0)*16);
-				startCoordinates.y = (float) (((ArrayList<Double>)(animationEntry.getValue().get(2))).get(1)*16);
-				totalSize.x = Float.parseFloat(animationEntry.getValue().get(3).toString());
-				totalSize.y = (float) (((ArrayList<Double>)(animationEntry.getValue().get(0))).get(1)*16);
+				/*startCoordinates.x = ((ArrayList<Double>)(animationEntry.getValue().get(2))).get(0).floatValue()*16f;
+				startCoordinates.y = ((ArrayList<Double>)(animationEntry.getValue().get(2))).get(1).floatValue()*16f;
+				totalSize.x = Float.parseFloat(animationEntry.getValue().get(3).toString())*((ArrayList<Double>)(animationEntry.getValue().get(0))).get(0).floatValue()*16f;
+				totalSize.y = ((ArrayList<Double>)(animationEntry.getValue().get(0))).get(1).floatValue()*16;*/
+				
+				startCoordinates = new Vector2(0,0);
+				totalSize = new Vector2(16,32);
+				
 				
 				subRegion.setRegion(startCoordinates.x, startCoordinates.y, totalSize.x, totalSize.y);
 				
-				TextureRegion frames[][] =
-						TextureRegion.split(spritesTexture, (int) (((ArrayList<Double>)(animationEntry.getValue().get(0))).get(0)*16),
+				System.out.println(startCoordinates.x + " " + startCoordinates.y + " "  + totalSize.x + " "  + totalSize.y);
+				
+				/*TextureRegion frames[][] =
+						subRegion.split((int) (((ArrayList<Double>)(animationEntry.getValue().get(0))).get(0)*16),
 															(int) (((ArrayList<Double>)(animationEntry.getValue().get(0))).get(1)*16));
+															*/
+				
+				TextureRegion frames[][] =
+						subRegion.split(16, 32);
+				
+				//System.out.println(frames.length);
 				
 				ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
 				for(int y=0; y<frames.length; y++) {
 					for(int x=0; x<frames[y].length; x++) {
 						textureRegions.add(frames[y][x]);
+						//System.out.println("HI! x: " + x + " y: " + y);
 					}
 				}
 				
@@ -82,7 +98,10 @@ public class DynamicObjectFactory {
 			
 			}
 			
-			creatures.put(creaturePrototype.creatureType, new Creature(new Vector2(13f,30f), spriteAnimations, 0.8f, false));
+			creaturePrototype.getSpriteComponent().setAnimations(spriteAnimations);
+			
+			//creatures.put(creaturePrototype.creatureType, new Creature(new Vector2(13f,30f), spriteAnimations, 0.8f, false));
+			creatures.put(creaturePrototype.creatureType, creaturePrototype);
 		}
 		
 	}

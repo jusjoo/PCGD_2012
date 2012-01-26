@@ -7,6 +7,7 @@ import org.lwjgl.util.vector.Matrix2f;
 
 import sov.SpriteComponent.AnimationState;
 import sov.BodyComponent.SlopeShape;
+import sov.Creature.CreatureType;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -175,10 +176,16 @@ public class GameMap {
 		return dynMapTiles;	
 	}
 	
-	public void addCreature(Creature creature) {
+	public void addCreature(World world, Creature creature) {
 		creatures.add(creature);
-		if(creature.getClass() == Player.class) {
-			player = (Player) creature;
+		System.out.println(creature.creatureType);
+		if(creature.creatureType == CreatureType.Barbarian) {
+			//player = (Player) creature;
+			player = new Player(new Vector2(14f, 30f), creature.spriteComponent.animations, 0.8f, false);
+			player.addToWorld(world, new Vector2(300f, 300f));
+			creatures.add(player);
+			
+			//creature.addComponent(inputComponent);
 		}
 	}
 	
