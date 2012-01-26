@@ -36,15 +36,15 @@ public class Creature extends SpriteBody implements Cloneable {
 	protected AttackTimer activeAttackTimer;
 	protected Fixture attackSensorFixture;
 	
+	protected float speed;
+	protected float jumpHeight;
+	
 	
 	public enum AttackType {Melee, Ranged};
 	boolean allowJumping = true;
 	boolean canAttack = true;
 	
-	protected float speed = 0.5f;
-	
 	public Creature() {
-		
 	}
 	
 	// Deliver size and position of the creature in pixels.
@@ -52,12 +52,15 @@ public class Creature extends SpriteBody implements Cloneable {
 			boolean circle) {
 		super(size, animations,
 				false, rounding, circle, SlopeShape.Even);	
+		this.speed = 1.7f;
+		this.jumpHeight = 9f;
 	}
 	
 	public static Creature createFromPrototype(Creature prototype) {
 		
 		Creature creature = new Creature(new Vector2(prototype.hitboxSize[0], prototype.hitboxSize[1]), prototype.spriteComponent.animations, 0.8f, false);
 		creature.creatureType = prototype.creatureType;
+		creature.dexterity = prototype.dexterity;
 		return creature;
 	}
 	
@@ -161,6 +164,11 @@ public class Creature extends SpriteBody implements Cloneable {
 		getBodyComponent().body.setFixedRotation(true);
 		
 		
+	}
+	
+	public void jump() {
+		getBodyComponent().body.applyLinearImpulse(new Vector2(0.0f, jumpHeight), getBodyComponent().body.getWorldCenter());
+		setAllowJumping(false);
 	}
 
 }

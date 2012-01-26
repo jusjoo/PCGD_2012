@@ -43,8 +43,8 @@ public class DynamicObjectFactory {
 		
 		for(Creature creaturePrototype : creaturePrototypes) {
 			creatures.put(creaturePrototype.creatureType, creaturePrototype);
-			//Texture spritesTexture = new Texture(new FileHandle("assets/creatures/" + creaturePrototype.textureName));
-			Texture spritesTexture = new Texture(new FileHandle("assets/creatures/sprites_human_barbarian.png"));
+			Texture spritesTexture = new Texture(new FileHandle("assets/creatures/" + creaturePrototype.textureName));
+			//Texture spritesTexture = new Texture(new FileHandle("assets/creatures/sprites_human_barbarian.png"));
 			
 			System.out.println("Creaturetype: " + creaturePrototype.creatureType);
 			

@@ -178,11 +178,11 @@ public class GameMap {
 	
 	public void addCreature(World world, Creature creature) {
 		creatures.add(creature);
-		System.out.println(creature.creatureType);
-		if(creature.creatureType == CreatureType.Barbarian) {
+		//System.out.println(creature.creatureType);
+		if(creature.creatureType == CreatureType.Ninja) {
 			//player = (Player) creature;
 			player = new Player(new Vector2(14f, 30f), creature.spriteComponent.animations, 0.8f, false);
-			player.addToWorld(world, new Vector2(300f, 300f));
+			player.addToWorld(world, new Vector2(300f, 330f));
 			creatures.add(player);
 			
 			//creature.addComponent(inputComponent);

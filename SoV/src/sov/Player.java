@@ -20,7 +20,6 @@ public class Player extends Creature {
 	
 	protected GameConfiguration config = new GameConfiguration();
 	
-	protected float jumpHeight;
 	protected float attackImpulse;
 	
 	//protected CharacterClass characterClass;
@@ -30,8 +29,6 @@ public class Player extends Creature {
 			boolean circle) {
 		super(size, animations, rounding,
 				circle);
-		this.speed = config.speed;
-		this.jumpHeight = config.jumpHeight;
 		this.attackImpulse = config.attackImpulse;
 	}
 	
@@ -56,8 +53,8 @@ public class Player extends Creature {
 		// Check for a maximum vertical speed and allowJumping to make sure jumping is allowed
 		if (Gdx.input.isKeyPressed(config.actionJump) && Math.abs(body.getLinearVelocity().y) < 1.7f
 				&& allowJumping) {
-			getBodyComponent().body.applyLinearImpulse(new Vector2(0.0f, jumpHeight), getBodyComponent().body.getWorldCenter());
-			setAllowJumping(false);
+			System.out.println("JUMPING!");
+			jump();
 		}
 		
 		// Attacking

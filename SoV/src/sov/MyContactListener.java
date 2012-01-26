@@ -27,11 +27,11 @@ public class MyContactListener implements ContactListener {
 			if(fixtureUserData != null) {
 				
 				// Check for jumping
-				if(fixtureUserData.getClass() == Player.class) {
+				if(Creature.class.isAssignableFrom(fixtureUserData.getClass())) {
 					// Test to make sure the collision is actually coming from the bottom
 					// TODO: Support different angles (ninja might be able to jump from walls)
 					if(contact.getWorldManifold().getNormal().y > 0) {
-						((Player)fixtureUserData).setAllowJumping(true);
+						((Creature)fixtureUserData).setAllowJumping(true);
 					}
 					
 				}

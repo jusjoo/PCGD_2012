@@ -63,7 +63,10 @@ public class CoffeeGDX implements ApplicationListener {
 
 		DynamicObjectFactory dynamicObjectFactory = new DynamicObjectFactory("assets/creatures");
 		
-		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Barbarian, new Vector2(200, 200)));
+		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Barbarian, new Vector2(200, 230)));
+		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Goblin, new Vector2(100, 100)));
+		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Sorceress, new Vector2(200, 100)));
+		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Ninja, new Vector2(300, 250)));
 		
 	}
 
