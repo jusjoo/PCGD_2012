@@ -53,35 +53,31 @@ public class DynamicObjectFactory {
 			
 			HashMap<SpriteComponent.AnimationState, Animation> spriteAnimations = new HashMap<SpriteComponent.AnimationState, Animation>();
 			
-			TextureRegion subRegion = new TextureRegion(spritesTexture);
+			
 			
 			for(Entry<SpriteComponent.AnimationState, ArrayList<Object>> animationEntry: animationStates.entrySet()) {
 				// "Frame size, Origin offset, Start frame coordinates, Length, Speed (ms)"
 				
-				
+				TextureRegion subRegion = new TextureRegion(spritesTexture);
 				
 				Vector2 startCoordinates = new Vector2();
 				Vector2 totalSize = new Vector2();
-				/*startCoordinates.x = ((ArrayList<Double>)(animationEntry.getValue().get(2))).get(0).floatValue()*16f;
+				startCoordinates.x = ((ArrayList<Double>)(animationEntry.getValue().get(2))).get(0).floatValue()*16f;
 				startCoordinates.y = ((ArrayList<Double>)(animationEntry.getValue().get(2))).get(1).floatValue()*16f;
-				totalSize.x = Float.parseFloat(animationEntry.getValue().get(3).toString())*((ArrayList<Double>)(animationEntry.getValue().get(0))).get(0).floatValue()*16f;
-				totalSize.y = ((ArrayList<Double>)(animationEntry.getValue().get(0))).get(1).floatValue()*16;*/
+				totalSize.x = (Float.parseFloat(animationEntry.getValue().get(3).toString()))*((ArrayList<Double>)(animationEntry.getValue().get(0))).get(0).floatValue()*16f;
+				totalSize.y = ((ArrayList<Double>)(animationEntry.getValue().get(0))).get(1).floatValue()*16;
 				
-				startCoordinates = new Vector2(0,0);
-				totalSize = new Vector2(16,32);
-				
-				
-				subRegion.setRegion(startCoordinates.x, startCoordinates.y, totalSize.x, totalSize.y);
+				subRegion.setRegion(((int)startCoordinates.x), ((int)startCoordinates.y), ((int)totalSize.x), ((int)totalSize.y));
 				
 				System.out.println(startCoordinates.x + " " + startCoordinates.y + " "  + totalSize.x + " "  + totalSize.y);
 				
-				/*TextureRegion frames[][] =
+				TextureRegion frames[][] =
 						subRegion.split((int) (((ArrayList<Double>)(animationEntry.getValue().get(0))).get(0)*16),
 															(int) (((ArrayList<Double>)(animationEntry.getValue().get(0))).get(1)*16));
-															*/
+															
 				
-				TextureRegion frames[][] =
-						subRegion.split(16, 32);
+				//TextureRegion frames[][] =
+						//subRegion.split(16, 32);
 				
 				//System.out.println(frames.length);
 				
