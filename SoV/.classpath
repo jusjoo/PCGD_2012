@@ -6,9 +6,9 @@
 	<classpathentry exported="true" kind="lib" path="lib/libgdx-0.9.2/gdx-backend-lwjgl.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/libgdx-0.9.2/gdx-natives.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/libgdx-0.9.2/gdx.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/GTAL7/git/PCGD_2012/SoV/lib/google-gson-2.1/gson-2.1.jar" sourcepath="C:/Users/GTAL7/git/PCGD_2012/SoV/lib/google-gson-2.1/gson-2.1-sources.jar">
+	<classpathentry kind="lib" path="lib/google-gson-2.1/gson-2.1.jar" sourcepath="lib/google-gson-2.1/gson-2.1-sources.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/GTAL7/git/PCGD_2012/SoV/lib/google-gson-2.1/gson-2.1-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SoV/lib/google-gson-2.1/gson-2.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
