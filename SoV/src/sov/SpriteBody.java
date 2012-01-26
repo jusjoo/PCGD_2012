@@ -2,19 +2,23 @@ package sov;
 
 import java.util.HashMap;
 
-import sov.AnimatedSprite.AnimationState;
+import sov.SpriteComponent.AnimationState;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 /*
- * AnimatedSpriteBodies are entities that have both a drawable sprite, and a physics body.
+ * SpriteBodies are entities that have both a drawable sprite, and a physics body.
  */
-public class SpriteBody extends BodyEntity {
+public class SpriteBody {
+	
+	// Components
+	BodyComponent body;
+	SpriteComponent spriteComponent;
 	
 	boolean facingRight = true;	
-	AnimatedSprite animatedSprite;
+	
 	
 	protected float hitPoints = 1;
 	boolean alive = true;
@@ -22,40 +26,44 @@ public class SpriteBody extends BodyEntity {
 	boolean setToDie = false;
 
 	public SpriteBody(Vector2 size, HashMap<AnimationState, Animation> animations,
-			boolean staticBody, float rounding, boolean circle, SlopeShape slopeShape) {
-		super(size, staticBody, rounding, circle, slopeShape, false);
+			boolean staticBody, float rounding, boolean circle, BodyComponent.SlopeShape slopeShape) {
 		
-		animatedSprite = new AnimatedSprite(animations);
+		body = new BodyComponent(this, size, staticBody, rounding, circle, slopeShape, false);
+		spriteComponent = new SpriteComponent(this, animations);
 		
+	}
+	
+	protected BodyComponent getBodyComponent() {
+		return body;
 	}
 	
 	public void render(SpriteBatch spriteBatch) {	
 		
-		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
+		//float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 		
-		animatedSprite.render(spriteBatch, facingRight,
+		spriteComponent.render(spriteBatch, facingRight,
 				
 				/*
 				 * +-8 here moves the x, y into the tile's corner, for drawing purposes
 				 */
-				body.getPosition().x * PIXELS_PER_METER ,
-				body.getWorldCenter().y * PIXELS_PER_METER ,
+				body.getPosition().x,
+				body.getPosition().y,
 				//body.getPosition().y * PIXELS_PER_METER ,
 				(float) (body.getAngle()*180/Math.PI),
-				size
+				body.getSize()
 				);
 	}
 	
 	public void update(float deltaTime) {
-		animatedSprite.animate(deltaTime);
+		spriteComponent.animate(deltaTime);
 		
 		Vector2 currentVelocity = body.getLinearVelocity();
 		
-		if(currentVelocity.x > maxVelocity) {
-			body.setLinearVelocity(maxVelocity, body.getLinearVelocity().y);
+		if(currentVelocity.x > body.getMaxVelocity()) {
+			body.setLinearVelocity(body.getMaxVelocity(), body.getLinearVelocity().y);
 		}
-		else if(currentVelocity.x < -maxVelocity) {
-			body.setLinearVelocity(-maxVelocity, body.getLinearVelocity().y);
+		else if(currentVelocity.x < -body.getMaxVelocity()) {
+			body.setLinearVelocity(-body.getMaxVelocity(), body.getLinearVelocity().y);
 		}
 		
 		if(setToDie) { die(); }
@@ -72,11 +80,8 @@ public class SpriteBody extends BodyEntity {
 		if(alive) {
 			//body.destroyFixture(body.getFixtureList().get(0));
 			//body.getFixtureList().clear();
-			body.destroyFixture(bodyFixture);
-			body.getFixtureList().clear();
-			body.setGravityScale(0);
-			body.setLinearVelocity(0f, 0f);
-			animatedSprite.setCurrentAnimationState(AnimationState.DIE);
+			body.die();
+			spriteComponent.setCurrentAnimationState(AnimationState.DIE);
 			alive = false;
 		}
 		

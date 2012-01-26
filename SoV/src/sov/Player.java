@@ -2,7 +2,7 @@ package sov;
 
 import java.util.HashMap;
 
-import sov.AnimatedSprite.AnimationState;
+import sov.SpriteComponent.AnimationState;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -47,10 +47,10 @@ public class Player extends Creature {
 		
 		// Movement left/right
 		if (Gdx.input.isKeyPressed(config.moveRight)) {
-			body.applyLinearImpulse(new Vector2(speed, 0.0f), body.getWorldCenter());
+			getBodyComponent().body.applyLinearImpulse(new Vector2(speed, 0.0f), getBodyComponent().body.getWorldCenter());
 			facingRight = true;
 		} else if (Gdx.input.isKeyPressed(config.moveLeft)) {
-			body.applyLinearImpulse(new Vector2(-speed, 0.0f), body.getWorldCenter());
+			getBodyComponent().body.applyLinearImpulse(new Vector2(-speed, 0.0f), getBodyComponent().body.getWorldCenter());
 			facingRight = false;
 		}
 		
@@ -58,7 +58,7 @@ public class Player extends Creature {
 		// Check for a maximum vertical speed and allowJumping to make sure jumping is allowed
 		if (Gdx.input.isKeyPressed(config.actionJump) && Math.abs(body.getLinearVelocity().y) < 1.7f
 				&& allowJumping) {
-			body.applyLinearImpulse(new Vector2(0.0f, jumpHeight), body.getWorldCenter());
+			getBodyComponent().body.applyLinearImpulse(new Vector2(0.0f, jumpHeight), getBodyComponent().body.getWorldCenter());
 			setAllowJumping(false);
 		}
 		

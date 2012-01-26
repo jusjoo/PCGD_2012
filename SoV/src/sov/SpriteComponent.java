@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 /*
  * Animated sprite.
  */
-public class AnimatedSprite {
+public class SpriteComponent extends Component {
 	
 	// AnimationState dictates which Animation is going to be drawn and updated
 	public enum AnimationState { IDLE, RUN, JUMP, FALL, HURT, WEAPON_RUN, WEAPON_ATTACK, DIE }
@@ -36,7 +36,8 @@ public class AnimatedSprite {
 	/* Animations need to be created somewhere else. Could be a static factory method
 	 * in this class, eventually.
 	 */
-	public AnimatedSprite(HashMap<AnimationState, Animation> animations) {
+	public SpriteComponent(Object parent, HashMap<AnimationState, Animation> animations) {
+		super(parent);
 		this.animations.putAll(animations);
 		currentFrame = new Sprite(animations.get(currentAnimationState).getKeyFrame(0, true));
 	}

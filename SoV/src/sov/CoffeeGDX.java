@@ -3,7 +3,7 @@ package sov;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import sov.AnimatedSprite.AnimationState;
+import sov.SpriteComponent.AnimationState;
 import sov.GameMap.LayerType;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -59,7 +59,7 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		//int amountOfFrames = 5; 
 		Texture spritesTexture = new Texture(new FileHandle("assets/creatures/sprites_human_barbarian.png"));
-		HashMap<AnimatedSprite.AnimationState, Animation> spriteAnimations = new HashMap<AnimatedSprite.AnimationState, Animation>();
+		HashMap<SpriteComponent.AnimationState, Animation> spriteAnimations = new HashMap<SpriteComponent.AnimationState, Animation>();
 		ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
 		TextureRegion frames[][] = TextureRegion.split(spritesTexture, 16, 32);
 		textureRegions.add(frames[0][2]);
@@ -153,8 +153,8 @@ public class CoffeeGDX implements ApplicationListener {
 		oldPosition = new Vector2(cam.position.x, cam.position.y);
 		Player player = map.getPlayer();
 		
-		Vector2 newPosition = new Vector2(	oldPosition.x + interpolationAmount*(player.getPosition().x - oldPosition.x),
-											oldPosition.y + interpolationAmount*(player.getPosition().y - oldPosition.y));
+		Vector2 newPosition = new Vector2(	oldPosition.x + interpolationAmount*(player.getBodyComponent().getPosition().x - oldPosition.x),
+											oldPosition.y + interpolationAmount*(player.getBodyComponent().getPosition().y - oldPosition.y));
 		cam.position.set(newPosition.x, newPosition.y, 0);
 		
 		cam.apply(Gdx.gl10);
@@ -206,7 +206,7 @@ public class CoffeeGDX implements ApplicationListener {
 	 */
 	public void addGoblin() {
 		Texture monsterSpritesTexture = new Texture(new FileHandle("assets/creatures/sprites_monster_goblin.png"));
-		HashMap<AnimatedSprite.AnimationState, Animation> monsterSpriteAnimations = new HashMap<AnimatedSprite.AnimationState, Animation>();
+		HashMap<SpriteComponent.AnimationState, Animation> monsterSpriteAnimations = new HashMap<SpriteComponent.AnimationState, Animation>();
 		ArrayList<TextureRegion> monsterTextureRegions = new ArrayList<TextureRegion>();
 		TextureRegion monsterframes[][] = TextureRegion.split(monsterSpritesTexture, 48, 32);
 		monsterTextureRegions.add(monsterframes[0][0]);
@@ -246,14 +246,14 @@ public class CoffeeGDX implements ApplicationListener {
 		Monster monster = new Monster(new Vector2(16f, 24f), monsterSpriteAnimations, 0.8f, false);
 		monster.addToWorld(world, new Vector2((float)Math.random()*map.map.width*4, (float)Math.random()*map.map.height*4 + 32f));
 
-		monster.setToFollow(map.player);
+		monster.setToFollow(map.player.getBodyComponent());
 		
 		map.addCreature(monster);
 	}
 	
 	public void addNinjaMonster() {
 		Texture monsterSpritesTexture = new Texture(new FileHandle("assets/creatures/sprites_human_ninja.png"));
-		HashMap<AnimatedSprite.AnimationState, Animation> monsterSpriteAnimations = new HashMap<AnimatedSprite.AnimationState, Animation>();
+		HashMap<SpriteComponent.AnimationState, Animation> monsterSpriteAnimations = new HashMap<SpriteComponent.AnimationState, Animation>();
 		ArrayList<TextureRegion> monsterTextureRegions = new ArrayList<TextureRegion>();
 		TextureRegion monsterframes[][] = TextureRegion.split(monsterSpritesTexture, 16, 32);
 		monsterTextureRegions.add(monsterframes[0][0]);
@@ -281,15 +281,15 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		Monster monster = new Monster(new Vector2(16f, 32f), monsterSpriteAnimations, 0.8f, false);
 		monster.addToWorld(world, new Vector2((float)Math.random()*map.map.width*4, (float)Math.random()*map.map.height*4 + 32f));
-		monster.setToFollow(map.player);
+		monster.setToFollow(map.player.getBodyComponent());
 		
 		map.addCreature(monster);
 	}
 	
 	
 	public static void main (String[] args) {
-        new LwjglApplication(new CoffeeGDX(), "Game", 1024, 768, false);
-	//	  new LwjglApplication(new CoffeeGDX(), "Game", 800, 600, false);
+       // new LwjglApplication(new CoffeeGDX(), "Game", 1024, 768, false);
+		  new LwjglApplication(new CoffeeGDX(), "Game", 800, 600, false);
 }
 
 }

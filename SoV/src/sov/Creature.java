@@ -3,8 +3,8 @@ package sov;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import sov.AnimatedSprite.AnimationState;
-import sov.BodyEntity.SlopeShape;
+import sov.SpriteComponent.AnimationState;
+import sov.BodyComponent.SlopeShape;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
@@ -65,13 +65,13 @@ public class Creature extends SpriteBody implements Cloneable {
 		if(alive && canAttack) {
 			if(!allowJumping) {			
 				if (currentVelocity.y < 0.0f)
-					animatedSprite.setCurrentAnimationState(AnimationState.FALL);
+					spriteComponent.setCurrentAnimationState(AnimationState.FALL);
 				else
-					animatedSprite.setCurrentAnimationState(AnimationState.JUMP);
+					spriteComponent.setCurrentAnimationState(AnimationState.JUMP);
 			} else if(Math.abs(currentVelocity.x) > 0.5f) {
-				animatedSprite.setCurrentAnimationState(AnimationState.RUN);
+				spriteComponent.setCurrentAnimationState(AnimationState.RUN);
 			} else {
-				animatedSprite.setCurrentAnimationState(AnimationState.IDLE);
+				spriteComponent.setCurrentAnimationState(AnimationState.IDLE);
 			}
 		}
 		
@@ -102,16 +102,16 @@ public class Creature extends SpriteBody implements Cloneable {
 			int offSet = 0;
 			if(facingRight) offSet = 1;
 			else offSet = -1;
-			attackSensorShape.setAsBox(size.x / PIXELS_PER_METER / 1.5f, size.y / PIXELS_PER_METER / 1.5f, new Vector2(size.x / PIXELS_PER_METER * offSet ,  0) , 0f);
+			attackSensorShape.setAsBox(body.getSize().x / PIXELS_PER_METER / 1.5f, body.getSize().y / PIXELS_PER_METER / 1.5f, new Vector2(body.getSize().x / PIXELS_PER_METER * offSet ,  0) , 0f);
 			FixtureDef attackSensorFixtureDef = new FixtureDef();
 			attackSensorFixtureDef.shape = attackSensorShape;
 			attackSensorFixtureDef.isSensor = true;
 			attackSensorFixtureDef.density = 0;
 			
-			this.attackSensorFixture = body.createFixture(attackSensorFixtureDef);
+			this.attackSensorFixture = getBodyComponent().body.createFixture(attackSensorFixtureDef);
 			
 			
-			animatedSprite.setCurrentAnimationState(AnimationState.WEAPON_ATTACK);
+			spriteComponent.setCurrentAnimationState(AnimationState.WEAPON_ATTACK);
 			canAttack = false;
 		}
 		
@@ -119,7 +119,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	}
 	
 	public void stopAttack(){
-		body.destroyFixture(attackSensorFixture);
+		getBodyComponent().body.destroyFixture(attackSensorFixture);
 		canAttack = true;
 		//body.getFixtureList().remove(attackSensorFixture);
 	}
@@ -129,19 +129,20 @@ public class Creature extends SpriteBody implements Cloneable {
 	}
 	
 	public Creature clone() {
-		Creature clone = new Creature(size, animatedSprite.animations, 1.0f, false);
+		Creature clone = new Creature(body.getSize(), spriteComponent.animations, 1.0f, false);
 		return clone;
 	}
 	
 	public void addToWorld(World world, Vector2 position) {
-		super.addToWorld(world, position);
+		getBodyComponent().addToWorld(world, position);
+		//super.addToWorld(world, position);
 		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 		
 		// Create a sensor at the level of the feet for detecting if a creature is touching the ground.
 		// TODO: Transfer creating the body, shape and fixture to a static helper function.
 		PolygonShape sensorShape = new PolygonShape();
-		sensorShape.setAsBox(size.x / (3 * PIXELS_PER_METER), size.y / (12 * PIXELS_PER_METER),
-				new Vector2(0, -size.y/PIXELS_PER_METER/2), 0);
+		sensorShape.setAsBox(body.getSize().x / (3 * PIXELS_PER_METER), body.getSize().y / (12 * PIXELS_PER_METER),
+				new Vector2(0, -body.getSize().y/PIXELS_PER_METER/2), 0);
 		FixtureDef sensorFixture = new FixtureDef();
 		sensorFixture.shape = sensorShape;
 		sensorFixture.isSensor = true;
@@ -150,13 +151,15 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		
 		// Attach the foot-sensor on the body.
-		body.createFixture(sensorFixture);
+		getBodyComponent().body.createFixture(sensorFixture);
 		
 		
 		activeAttackTimer = new AttackTimer(this, 0.5f);
 
 		// Creatures shall not rotate according to physics!
-		body.setFixedRotation(true);
+		getBodyComponent().body.setFixedRotation(true);
+		
+		
 	}
 
 }

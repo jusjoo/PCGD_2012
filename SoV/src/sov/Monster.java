@@ -2,7 +2,7 @@ package sov;
 
 import java.util.HashMap;
 
-import sov.AnimatedSprite.AnimationState;
+import sov.SpriteComponent.AnimationState;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Monster extends Creature {
 	
-	BodyEntity entityToFollow = null;
+	BodyComponent entityToFollow = null;
 
 	public Monster(Vector2 size,
 			HashMap<AnimationState, Animation> animations, float rounding,
@@ -19,7 +19,7 @@ public class Monster extends Creature {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void setToFollow(BodyEntity entity) {
+	public void setToFollow(BodyComponent entity) {
 		//float PPM = GameConfiguration.PIXELS_PER_METER;
 		entityToFollow = entity;
 	}
@@ -29,11 +29,11 @@ public class Monster extends Creature {
 		
 		if(alive) {
 			if(entityToFollow != null) {
-				if(body.getPosition().x < entityToFollow.body.getPosition().x) {
-					body.applyLinearImpulse(new Vector2(speed, 0), body.getWorldCenter());
+				if(getBodyComponent().getPosition().x < entityToFollow.getPosition().x) {
+					getBodyComponent().body.applyLinearImpulse(new Vector2(speed, 0), getBodyComponent().body.getWorldCenter());
 					facingRight = true;
 				} else {
-					body.applyLinearImpulse(new Vector2(-speed, 0), body.getWorldCenter());
+					getBodyComponent().body.applyLinearImpulse(new Vector2(-speed, 0), getBodyComponent().body.getWorldCenter());
 					facingRight = false;
 				}
 			}

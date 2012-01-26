@@ -10,45 +10,40 @@ public class MyContactListener implements ContactListener {
 	@Override
 	public void beginContact(Contact contact) {
 		
-		Object fixtureUserData = contact.getFixtureA().getBody().getUserData();
-		Object fixtureUserData2 = contact.getFixtureB().getBody().getUserData();
+		Object fixtureUserData;
+		Object fixtureUserData2;
 		
-		if(fixtureUserData != null && fixtureUserData2 != null) {
-			if(fixtureUserData.getClass() == Player.class) {
-				// Test to make sure the collision is actually coming from the bottom
-				// TODO: Support different angles (ninja might be able to jump from walls)
-				if(contact.getWorldManifold().getNormal().y > 0) {
-					((Player)fixtureUserData).setAllowJumping(true);
-				}
-				
+		for(int i=0; i<2; i++) {
+			if(i==0) {
+				fixtureUserData = contact.getFixtureA().getBody().getUserData();
+				fixtureUserData2 = contact.getFixtureB().getBody().getUserData();
+			} else {
+				fixtureUserData = contact.getFixtureB().getBody().getUserData();
+				fixtureUserData2 = contact.getFixtureA().getBody().getUserData();
 			}
 			
-			if(Creature.class.isAssignableFrom(fixtureUserData.getClass()) && Creature.class.isAssignableFrom(fixtureUserData2.getClass())) {
-				if(contact.getFixtureB() == ((Creature)fixtureUserData2).getAttackFixture()) {
-					((SpriteBody)fixtureUserData).takeDamage(1);
+			
+			
+			if(fixtureUserData != null) {
+				
+				// Check for jumping
+				if(fixtureUserData.getClass() == Player.class) {
+					// Test to make sure the collision is actually coming from the bottom
+					// TODO: Support different angles (ninja might be able to jump from walls)
+					if(contact.getWorldManifold().getNormal().y > 0) {
+						((Player)fixtureUserData).setAllowJumping(true);
+					}
 					
 				}
-			}
-		}
-		
-		
-		fixtureUserData = contact.getFixtureB().getBody().getUserData();
-		fixtureUserData2 = contact.getFixtureA().getBody().getUserData();
-		
-		if(fixtureUserData != null && fixtureUserData2 != null) {
-			if(fixtureUserData.getClass() == Player.class) {
-				// Test to make sure the collision is actually coming from the bottom
-				// TODO: Support different angles (ninja might be able to jump from walls)
-				if(contact.getWorldManifold().getNormal().y > 0) {
-					((Player)fixtureUserData).setAllowJumping(true);
-				}
 				
-			}
-			
-			if(Creature.class.isAssignableFrom(fixtureUserData.getClass()) && Creature.class.isAssignableFrom(fixtureUserData2.getClass())) {
-				if(contact.getFixtureB() == ((Creature)fixtureUserData2).getAttackFixture()) {
-					((SpriteBody)fixtureUserData).takeDamage(1);
-					//System.out.println("moi?");
+				if(fixtureUserData2 != null) {
+				
+					if(Creature.class.isAssignableFrom(fixtureUserData.getClass()) && Creature.class.isAssignableFrom(fixtureUserData2.getClass())) {
+						if(contact.getFixtureB() == ((Creature)fixtureUserData2).getAttackFixture()) {
+							((SpriteBody)fixtureUserData).takeDamage(1);
+							
+						}
+					}
 				}
 			}
 		}

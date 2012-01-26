@@ -5,8 +5,8 @@ import java.util.HashMap;
 
 import org.lwjgl.util.vector.Matrix2f;
 
-import sov.AnimatedSprite.AnimationState;
-import sov.BodyEntity.SlopeShape;
+import sov.SpriteComponent.AnimationState;
+import sov.BodyComponent.SlopeShape;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -111,16 +111,16 @@ public class GameMap {
 			
 			if(layer.name.equals("StaticTiles")) {
 				layerIds.put(LayerType.StaticTiles, i);
-				ArrayList<BodyEntity> maptiles = new ArrayList<BodyEntity>();
+				ArrayList<BodyComponent> maptiles = new ArrayList<BodyComponent>();
 				
 				for(int y=0; y<tiles.length; y++) {
 					for(int x=0; x<tiles[y].length; x++) {
 						if(tiles[y][x] != 0) {
 							String property = map.getTileProperty(tiles[y][x], "slope");
-							BodyEntity.SlopeShape shape = SlopeShape.Even;
+							BodyComponent.SlopeShape shape = SlopeShape.Even;
 							if(property != null && property.equals("left")) { shape = SlopeShape.Left; }
 							else if (property != null && property.equals("right")) { shape = SlopeShape.Right; }
-							BodyEntity tile = new BodyEntity(new Vector2(tileSize, tileSize), true, 1.0f, false, shape, false);
+							BodyComponent tile = new BodyComponent(null, new Vector2(tileSize, tileSize), true, 1.0f, false, shape, false);
 							
 							tile.addToWorld(world, new Vector2(x*tileSize, -y*tileSize+map.height*tileSize));
 									
@@ -154,13 +154,13 @@ public class GameMap {
 				for(TiledObject object : dynTiles) {
 					
 					
-					HashMap<AnimatedSprite.AnimationState, Animation> tileAnimations = new HashMap<AnimatedSprite.AnimationState, Animation>();
+					HashMap<SpriteComponent.AnimationState, Animation> tileAnimations = new HashMap<SpriteComponent.AnimationState, Animation>();
 					ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
 					textureRegions.add(atlas.getRegion(object.gid));
 					tileAnimations.put(AnimationState.IDLE, new Animation(0.1f, textureRegions));
 					
 					SpriteBody asb = new SpriteBody(new Vector2(16f,16f),tileAnimations, false, 1.0f, false, SlopeShape.Even);
-					asb.addToWorld(world, new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));
+					asb.getBodyComponent().addToWorld(world, new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));
 					dynMapTiles.add(asb);
 				}
 			}

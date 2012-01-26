@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class BodyEntity {
+public class BodyComponent extends Component {
 	// A Box2D body for collision
 	Body body;
 	BodyDef bodyDef;
@@ -30,8 +30,9 @@ public class BodyEntity {
 	protected Vector2 size;
 	
 	// Use staticBody for everything that doesn't move.
-	public BodyEntity(Vector2 size,
-			boolean staticBody, float rounding, boolean circle, SlopeShape slopeShape, boolean sensorEntity) {
+	public BodyComponent(Object parent, Vector2 size,
+			boolean staticBody, float rounding, boolean circle, SlopeShape slopeShape, boolean sensorEntity) {	
+		super(parent);
 		
 		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 		
@@ -114,9 +115,38 @@ public class BodyEntity {
 	// Return position in pixels
 	public Vector2 getPosition() {
 		return new Vector2(body.getPosition().x * GameConfiguration.PIXELS_PER_METER,
-				body.getPosition().y * GameConfiguration.PIXELS_PER_METER);		
-		
-				
+				body.getPosition().y * GameConfiguration.PIXELS_PER_METER);				
+	}
+	
+	public float getMaxVelocity() {
+		return maxVelocity;
+	}
+	
+	public Vector2 getLinearVelocity() {
+		return body.getLinearVelocity();
+	}
+	
+	public void setLinearVelocity(float x, float y) {
+		body.setLinearVelocity(x, y);
+	}
+	
+	public float getAngle() {
+		return body.getAngle();
+	}
+	
+	public Vector2 getSize() {
+		return size;
+	}
+	
+	public Object getParent() {
+		return parent;
+	}
+	
+	public void die() {
+		body.destroyFixture(bodyFixture);
+		body.getFixtureList().clear();
+		body.setGravityScale(0);
+		body.setLinearVelocity(0f, 0f);
 	}
 	
 	public void setPosition(Vector2 coordinates) {
@@ -139,7 +169,11 @@ public class BodyEntity {
 		body.setLinearDamping(2.6f);
 		
 		// Set userdata for body, used to find out which object is touching the ground in MyContactListener
-		body.setUserData(this);
+		body.setUserData(this.parent);
 		
+	}
+	
+	public void createFixture(FixtureDef fixtureDef) {
+		body.createFixture(fixtureDef);
 	}
 }
