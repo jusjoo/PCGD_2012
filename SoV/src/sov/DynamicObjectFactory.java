@@ -82,18 +82,12 @@ public class DynamicObjectFactory {
 			}
 			
 			creatures.put(creaturePrototype.creatureType, new Creature(new Vector2(13f,30f), spriteAnimations, 0.8f, false));
-			//player.addToWorld(world, new Vector2(40f, 60f));
-			
-			//map.addCreature(player);
-			
-			
-			//System.out.println(creaturePrototype.frames.get(AnimationState.Idle));
 		}
 		
 	}
 	
 	public Creature spawnCreature(World world, Creature.CreatureType type, Vector2 coordinates) {
-		Creature creature = (Creature) creatures.get(type).clone();
+		Creature creature = Creature.createFromPrototype(creatures.get(type));
 		creature.addToWorld(world, coordinates);
 		return creature;
 	}
