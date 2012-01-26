@@ -51,11 +51,12 @@ public class Creature extends SpriteBody implements Cloneable {
 	public Creature(Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,
 			boolean circle) {
 		super(size, animations,
-				false, rounding, circle, SlopeShape.Even);
-		
-
-		
-		
+				false, rounding, circle, SlopeShape.Even);	
+	}
+	
+	public static Creature createFromPrototype(Creature prototype) {
+		Creature creature = new Creature(new Vector2(prototype.hitboxSize[0], prototype.hitboxSize[1]), prototype.spriteComponent.animations, 0.8f, false);
+		return creature;
 	}
 	
 	public void update(float deltaTime) {
@@ -129,11 +130,6 @@ public class Creature extends SpriteBody implements Cloneable {
 	
 	public Fixture getAttackFixture() {
 		return attackSensorFixture;
-	}
-	
-	public Creature clone() {
-		Creature clone = new Creature(body.getSize(), spriteComponent.animations, 1.0f, false);
-		return clone;
 	}
 	
 	public void addToWorld(World world, Vector2 position) {
