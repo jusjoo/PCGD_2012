@@ -58,16 +58,16 @@ public class DynamicObjectFactory {
 				
 				Vector2 startCoordinates = new Vector2();
 				Vector2 totalSize = new Vector2();
-				startCoordinates.x = ((int[])(animationEntry.getValue().get(2)))[0]*16;
-				startCoordinates.y = ((int[])(animationEntry.getValue().get(2)))[1]*16;
+				startCoordinates.x = (float) (((ArrayList<Double>)(animationEntry.getValue().get(2))).get(0)*16);
+				startCoordinates.y = (float) (((ArrayList<Double>)(animationEntry.getValue().get(2))).get(1)*16);
 				totalSize.x = Float.parseFloat(animationEntry.getValue().get(3).toString());
 				totalSize.y = ((int[])(animationEntry.getValue().get(0)))[1]*16;
 				
 				subRegion.setRegion(startCoordinates.x, startCoordinates.y, totalSize.x, totalSize.y);
 				
 				TextureRegion frames[][] =
-						TextureRegion.split(spritesTexture, ((int[])(animationEntry.getValue().get(0)))[0]*16,
-															((int[])(animationEntry.getValue().get(0)))[1]*16);
+						TextureRegion.split(spritesTexture, (int) (((ArrayList<Double>)(animationEntry.getValue().get(0))).get(0)*16),
+															(int) (((ArrayList<Double>)(animationEntry.getValue().get(0))).get(1)*16));
 				
 				ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
 				for(int y=0; y<frames.length; y++) {

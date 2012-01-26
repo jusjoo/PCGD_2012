@@ -115,7 +115,7 @@ public class Creature extends SpriteBody implements Cloneable {
 			this.attackSensorFixture = getBodyComponent().body.createFixture(attackSensorFixtureDef);
 			
 			
-			spriteComponent.setCurrentAnimationState(AnimationState.Attack);
+			spriteComponent.setCurrentAnimationState(AnimationState.Attack1);
 			canAttack = false;
 		}
 		
