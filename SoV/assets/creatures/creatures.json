@@ -5,17 +5,85 @@
 		"hitboxSize": [14, 29],
 		"dexterity": 2,
 		"strength": 7,
+		"wisdom": 1,
+		"_frames_description":
+				"Frame size, Origin offset, Start frame coordinates, Length, Speed (ms)",
+		"frames": {   
+		  "idle": [[1,2], 0, [2,0], 1, 0],
+		  "run": [[1,2], 0, [3,0], 6, 15],
+		  "jump": [[1,2], 0, [9,0], 1, 0],
+		  "fall": [[1,2], 0, [10,0], 1, 0],
+		  "attack": [[[4,3], 1, [0,8], 5, 15],
+		  			 [1,2], 0, [2,0], 1, 0]]], 
+		  "hurt": [[1,2], 0, [11,0], 1, 0],
+		  "die": [[1,2], 0, [2,0], 1, 0]
+	  	}
+	}
+	
+	
+	{
+		"creatureType": "Ninja",
+		"textureName": "sprites_human_ninja2.png",
+		"hitboxSize": [14, 29],
+		"dexterity": 7,
+		"strength": 1,
+		"wisdom": 2,
+		"_frames_description":
+				"Frame size, Origin offset, Start frame coordinates, Length, Speed (ms)",
+		"frames": {   
+		  "idle": [[1,2], 0, [1,0], 1, 0],
+		  "run": [[1,2], 0, [2,0], 9, 15],
+		  "jump": [[1,2], 0, [11,0], 6, 15],
+		  "fall": [[1,2], 0, [12,0], 1, 0],
+		  "attack": [[[1,2], 0, [0,5], 1, 0],
+		  			 [1,2], 0, [0,5], 1, 0]]], 
+		  "hurt": [[1,2], 0, [11,0], 1, 0],
+		  "die": [[1,2], 0, [1,0], 1, 0]
+	  	}
+	}
+	
+	
+	{
+		"creatureType": "Sorceress",
+		"textureName": "sprites_human_sorceress.png",
+		"hitboxSize": [14, 29],
+		"dexterity": 2,
+		"strength": 1,
+		"wisdom": 7,
+		"_frames_description":
+				"Frame size, Origin offset, Start frame coordinates, Length, Speed (ms)",
+		"frames": {   
+		  "idle": [[1,2], 0, [0,0], 1, 0],
+		  "run": [[1,2], 0, [3,0], 6, 15],
+		  "jump": [[1,2], 0, [10,0], 1, 0],
+		  "fall": [[1,2], 0, [10,0], 1, 0],
+		  "attack": [[[1,2], 0, [1,0], 1, 0],
+		  			 [1,2], 0, [1,0], 1, 0]]], 
+		  "hurt": [[1,2], 0, [5,0], 1, 0],
+		  "die": [[1,2], 0, [0,0], 1, 0]
+	  	}
+	}
+	
+		{
+		"creatureType": "Goblin",
+		"textureName": "sprites_human_goblin.png",
+		"hitboxSize": [15, 24],
+		"dexterity": 1,
+		"strength": 1,
 		"wisdom": 0,
 		"_frames_description":
 				"Frame size, Origin offset, Start frame coordinates, Length, Speed (ms)",
 		"frames": {   
-		  "idle": [1,2], 0, [2,0], 1, 0,
-		  "run": [1,2], 0, [3,0], 6, 15,
-		  "jump": [1,2], 0, [9,0], 1, 0,
-		  "fall": [1,2], 0, [10,0], 1, 0,
-		  "attack": [[4,3], 1, [0,8], 5, 15],
-		  			 [1,2], 0, [2,0], 1, 0]], 
-		  "hurt": [1,2], 0, [11,0], 1, 0
+		  "idle": [[3,2], 0, [0,0], 1, 0],
+		  "run": [[3,2], 0, [1,0], 2, 15],
+		  "jump": [[3,2], 0, [0,0], 1, 0],
+		  "fall": [[3,2], 0, [0,0], 1, 0],
+		  "attack": [[[3,2], 0, [4,0], 1, 0],
+		  			 [3,2], 0, [4,0], 1, 0]]], 
+		  "hurt": [[3,2], 0, [0,1], 3, 15],
+		  "die": [[3,2], 0, [3,1], 12, 45]
 	  	}
 	}
+	
+	
 ]
