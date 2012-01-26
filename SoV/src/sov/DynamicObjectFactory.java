@@ -43,7 +43,8 @@ public class DynamicObjectFactory {
 		
 		for(Creature creaturePrototype : creaturePrototypes) {
 			creatures.put(creaturePrototype.creatureType, creaturePrototype);
-			Texture spritesTexture = new Texture(new FileHandle("assets/creatures/" + creaturePrototype.textureName));
+			//Texture spritesTexture = new Texture(new FileHandle("assets/creatures/" + creaturePrototype.textureName));
+			Texture spritesTexture = new Texture(new FileHandle("assets/creatures/sprites_human_barbarian.png"));
 			
 			HashMap<SpriteComponent.AnimationState, ArrayList<Object>> animationStates =
 					creaturePrototype.frames;
@@ -61,7 +62,7 @@ public class DynamicObjectFactory {
 				startCoordinates.x = (float) (((ArrayList<Double>)(animationEntry.getValue().get(2))).get(0)*16);
 				startCoordinates.y = (float) (((ArrayList<Double>)(animationEntry.getValue().get(2))).get(1)*16);
 				totalSize.x = Float.parseFloat(animationEntry.getValue().get(3).toString());
-				totalSize.y = ((int[])(animationEntry.getValue().get(0)))[1]*16;
+				totalSize.y = (float) (((ArrayList<Double>)(animationEntry.getValue().get(0))).get(1)*16);
 				
 				subRegion.setRegion(startCoordinates.x, startCoordinates.y, totalSize.x, totalSize.y);
 				
