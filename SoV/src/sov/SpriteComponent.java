@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 public class SpriteComponent extends Component {
 	
 	// AnimationState dictates which Animation is going to be drawn and updated
-	public enum AnimationState { Idle, Run, Jump, Fall, Hurt, WeaponRun, Attack, Die }
+	public enum AnimationState { Idle, Run, Jump, Fall, Hurt, WeaponRun, Attack1, Attack2, Die }
 	protected AnimationState currentAnimationState = AnimationState.Idle;
 	protected AnimationState previousAnimationState = null;
 	
@@ -47,7 +47,7 @@ public class SpriteComponent extends Component {
 		stateTime += deltaTime;
 		boolean looping = true;
 		if(currentAnimationState == AnimationState.Die ||
-				currentAnimationState == AnimationState.Attack) looping = false;
+				currentAnimationState == AnimationState.Attack1) looping = false;
 		currentFrame.setRegion(animations.get(currentAnimationState).getKeyFrame(stateTime, looping));
 	}
 	
@@ -60,12 +60,12 @@ public class SpriteComponent extends Component {
 		
 		if(facingRight) {
 			currentFrame.flip(false, false);
-			if(currentAnimationState == AnimationState.Attack) {
+			if(currentAnimationState == AnimationState.Attack1) {
 				offSet = 16;
 			}
 		} else {
 			currentFrame.flip(true, false);
-			if(currentAnimationState == AnimationState.Attack) {
+			if(currentAnimationState == AnimationState.Attack1) {
 				offSet = -16;
 			}
 		}

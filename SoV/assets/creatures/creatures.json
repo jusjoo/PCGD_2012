@@ -1,7 +1,7 @@
 [
 	{
 		"creatureType": "Barbarian",
-		"textureName": "sprites_human_barbarian2.png",
+		"textureName": "sprites_human_barbarian.png",
 		"hitboxSize": [14, 29],
 		"dexterity": 2,
 		"strength": 7,
@@ -24,7 +24,7 @@
 	
 	{
 		"creatureType": "Ninja",
-		"textureName": "sprites_human_ninja2.png",
+		"textureName": "sprites_human_ninja.png",
 		"hitboxSize": [14, 29],  
 		"dexterity": 7,
 		"strength": 1,
@@ -46,7 +46,7 @@
 	
 	{
 		"creatureType": "Sorceress",
-		"textureName": "sprites_human_sorceress2.png",
+		"textureName": "sprites_human_sorceress.png",
 		"hitboxSize": [14, 29],
 		"dexterity": 2,
 		"strength": 1,
@@ -67,7 +67,7 @@
 	
 		{
 		"creatureType": "Goblin",
-		"textureName": "sprites_human_goblin.png",
+		"textureName": "sprites_monster_goblin.png",
 		"hitboxSize": [15, 24],
 		"dexterity": 1,
 		"strength": 1,
