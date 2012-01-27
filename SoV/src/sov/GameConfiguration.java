@@ -9,7 +9,7 @@ import com.badlogic.gdx.Input.Keys;
 public class GameConfiguration {
 
 	// debug mode
-	public boolean debugMode = false;
+	public boolean debugMode = true;
 	// TODO: developer cheats
 	public boolean devMode = false;
 	

@@ -74,7 +74,6 @@ public class CoffeeGDX implements ApplicationListener {
 		creature.addComponent(new KeyboardInputComponent(creature, creature.getComponent(BodyComponent.class), creature.speed));
 		map.setPlayer(creature);
 		map.addCreature(world, creature);
-		//map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Ninja, new Vector2(300, 250)));
 		
 		// Add a monster that follows the player
 		Creature monster = dynamicObjectFactory.spawnCreature(world, CreatureType.Goblin, new Vector2(100, 250));
@@ -91,11 +90,7 @@ public class CoffeeGDX implements ApplicationListener {
 
 	@Override
 	public void render() {
-		
-		
-		Gdx.graphics.setTitle(Integer.toString(Gdx.graphics.getFramesPerSecond()));
-		// Update all world entities
-		
+
 		Gdx.graphics.setTitle(Integer.toString(Gdx.graphics.getFramesPerSecond()));
 		
 		update();

@@ -24,6 +24,9 @@ public class Creature extends SpriteBody implements Cloneable {
 	
 	public enum CreatureType { Barbarian, Ninja, Sorceress, Goblin };
 
+	
+	// All the properties which are read from creatures.json must be declared here
+	// These properties are then automatically "filled" by DynamicObjectFactory
 	@Expose CreatureType creatureType;
 	@Expose String textureName;
 	@Expose int[] hitboxSize;
@@ -88,8 +91,6 @@ public class Creature extends SpriteBody implements Cloneable {
 				spriteComponent.setCurrentAnimationState(AnimationState.Idle);
 			}
 		}
-		
-		//this.activeAttackTimer.update(deltaTime);
 		
 	}
 	
@@ -176,12 +177,6 @@ public class Creature extends SpriteBody implements Cloneable {
 			setAllowJumping(false);
 		}
 		
-	}
-	
-	public Vector2 getPosition(){
-		
-		// FIXME: Is this position correct?		
-		return body.getPosition();
 	}
 
 }
