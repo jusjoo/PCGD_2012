@@ -75,14 +75,7 @@ public class CoffeeGDX implements ApplicationListener {
 		creature.addComponent(new KeyboardInputComponent(creature, creature.getComponent(BodyComponent.class), creature.speed));
 		
 		//give player an attack component
-		PolygonShape shape = new PolygonShape();
-		
-		float offset = 1;
-		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
-		
-		shape.setAsBox(0.5f, 0.5f, new Vector2(1f,0f) , 0f);
-		creature.addComponent(new AttackComponent(creature, 1f, 0.1f, 0.5f, shape, AnimationState.Attack1 ));
-		//
+		creature.addComponent(new AttackComponent(creature, 1f, 0.1f, 0.1f, AnimationState.Attack1 ));
 		
 		map.setPlayer(creature);
 		map.addCreature(world, creature);

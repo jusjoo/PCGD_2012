@@ -39,9 +39,15 @@ public class MyContactListener implements ContactListener {
 				if(fixtureUserData2 != null) {
 				
 					if(Creature.class.isAssignableFrom(fixtureUserData.getClass()) && Creature.class.isAssignableFrom(fixtureUserData2.getClass())) {
-						if(contact.getFixtureB() == ((Creature)fixtureUserData2).getAttackFixture()) {
-							((SpriteBody)fixtureUserData).takeDamage(1);
+						
+						// Skip entities that don't have an attack component attached
+						// TODO: maybe optimize with a simple boolean value in Creature class?
+						if ( ((Creature)fixtureUserData2).components.containsKey(AttackComponent.class)) {
 							
+							// If contact is with an attack fixture
+							if(contact.getFixtureB() == ((Creature)fixtureUserData2).getComponent(AttackComponent.class).getAttackFixture()) {
+								((SpriteBody)fixtureUserData).takeDamage(1);
+							}
 						}
 					}
 				}
