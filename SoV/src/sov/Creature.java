@@ -35,7 +35,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	
 	
 	
-	protected AttackTimer activeAttackTimer;
+	//protected AttackTimer activeAttackTimer;
 	protected Fixture attackSensorFixture;
 	
 	protected float speed;
@@ -89,7 +89,7 @@ public class Creature extends SpriteBody implements Cloneable {
 			}
 		}
 		
-		this.activeAttackTimer.update(deltaTime);
+		//this.activeAttackTimer.update(deltaTime);
 		
 	}
 	
