@@ -4,7 +4,6 @@ import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import sov.Component.ComponentType;
 import sov.SpriteComponent.AnimationState;
 import sov.BodyComponent.SlopeShape;
 
