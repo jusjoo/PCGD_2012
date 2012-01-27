@@ -37,7 +37,7 @@ public class KeyboardInputComponent extends InputComponent {
 				
 				// Attacking
 				if (Gdx.input.isKeyPressed(config.actionAttack) && Creature.class.isAssignableFrom(parent.getClass())) {
-					((Creature)parent).attack(AttackType.Melee);
+					((Creature)parent).getComponent(AttackComponent.class).attack();
 					
 				}
 	}
