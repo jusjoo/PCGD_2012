@@ -40,6 +40,9 @@ public class AttackComponent extends Component {
 	protected AnimationState animation;
 
 	
+	/*
+	 * TODO: Takes in a custom attack fixture shape, which is then handled for attacks on both sides.
+	 */
 	public AttackComponent(Object parent, float attackTime, float preDamageTime, float damageTime, SpriteComponent.AnimationState attackAnimation) {
 		super(parent);
 		
