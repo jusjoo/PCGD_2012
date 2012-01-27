@@ -40,6 +40,9 @@ public class Creature extends SpriteBody implements Cloneable {
 	//protected AttackTimer activeAttackTimer;
 	protected Fixture attackSensorFixture;
 	
+	
+	protected AttackComponent attackComponent;
+	
 	protected float speed;
 	protected float jumpHeight;
 	
@@ -79,17 +82,40 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		// Set animation states
 		if(alive && canAttack) {
-			if(!allowJumping) {			
-				if (currentVelocity.y < 0.0f)
-					spriteComponent.setCurrentAnimationState(AnimationState.Fall);
-				else
-					spriteComponent.setCurrentAnimationState(AnimationState.Jump);
-			} else if(Math.abs(currentVelocity.x) > 0.5f) {
-				spriteComponent.setCurrentAnimationState(AnimationState.Run);
+
+			/*
+			 * FIXME: quick'n'dirty animation state settings 
+			 */
+			if (this.attackComponent != null) {
+				if (this.attackComponent.attacking) {
+					spriteComponent.setCurrentAnimationState(attackComponent.animation);
+					System.out.println("paljonkohan k‰yd‰‰n t‰‰ll‰");
+				} else if(!allowJumping) {			
+					if (currentVelocity.y < 0.0f)
+						spriteComponent.setCurrentAnimationState(AnimationState.Fall);
+					else
+						spriteComponent.setCurrentAnimationState(AnimationState.Jump);
+				} else if(Math.abs(currentVelocity.x) > 0.5f) {
+					spriteComponent.setCurrentAnimationState(AnimationState.Run);
+				} else {
+					spriteComponent.setCurrentAnimationState(AnimationState.Idle);
+				}
 			} else {
-				spriteComponent.setCurrentAnimationState(AnimationState.Idle);
+				if(!allowJumping) {			
+					if (currentVelocity.y < 0.0f)
+						spriteComponent.setCurrentAnimationState(AnimationState.Fall);
+					else
+						spriteComponent.setCurrentAnimationState(AnimationState.Jump);
+				} else if(Math.abs(currentVelocity.x) > 0.5f) {
+					spriteComponent.setCurrentAnimationState(AnimationState.Run);
+				} else {
+					spriteComponent.setCurrentAnimationState(AnimationState.Idle);
+				}
+				
 			}
+				
 		}
+		
 		
 	}
 	
@@ -176,6 +202,10 @@ public class Creature extends SpriteBody implements Cloneable {
 			setAllowJumping(false);
 		}
 		
+	}
+	
+	public void setAttackComponent(AttackComponent a) {
+		this.attackComponent = a;
 	}
 
 }
