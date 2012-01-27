@@ -107,7 +107,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	public void attack(AttackType attackType) {
 		
 		if(canAttack) {
-			activeAttackTimer.startAttackTimer();
+			
 			
 			
 			float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
@@ -129,7 +129,7 @@ public class Creature extends SpriteBody implements Cloneable {
 		}
 		
 		
-	}
+	} 
 	
 	public void stopAttack(){
 		getBodyComponent().body.destroyFixture(attackSensorFixture);
@@ -162,8 +162,7 @@ public class Creature extends SpriteBody implements Cloneable {
 		getBodyComponent().body.createFixture(sensorFixture);
 		
 		
-		activeAttackTimer = new AttackTimer(this, 0.5f);
-
+		
 		// Creatures shall not rotate according to physics!
 		getBodyComponent().body.setFixedRotation(true);
 		
@@ -176,6 +175,12 @@ public class Creature extends SpriteBody implements Cloneable {
 			setAllowJumping(false);
 		}
 		
+	}
+	
+	public Vector2 getPosition(){
+		
+		// FIXME: Is this position correct?		
+		return body.getPosition();
 	}
 
 }
