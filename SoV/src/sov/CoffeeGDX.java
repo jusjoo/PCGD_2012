@@ -66,7 +66,12 @@ public class CoffeeGDX implements ApplicationListener {
 		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Barbarian, new Vector2(200, 230)));
 		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Goblin, new Vector2(100, 100)));
 		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Sorceress, new Vector2(200, 100)));
-		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Ninja, new Vector2(300, 250)));
+		
+		Creature creature = dynamicObjectFactory.spawnCreature(world, CreatureType.Ninja, new Vector2(300, 250));
+		creature.addComponent(new KeyboardInputComponent(creature, creature.getBodyComponent(), creature.speed));
+		map.setPlayer(creature);
+		map.addCreature(world, creature);
+		//map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Ninja, new Vector2(300, 250)));
 		
 	}
 
@@ -99,7 +104,7 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		// Perform camera interpolation on player location
 		oldPosition = new Vector2(cam.position.x, cam.position.y);
-		Player player = map.getPlayer();
+		Creature player = map.getPlayer();
 		
 		Vector2 newPosition = new Vector2(	oldPosition.x + interpolationAmount*(player.getBodyComponent().getPosition().x - oldPosition.x),
 											oldPosition.y + interpolationAmount*(player.getBodyComponent().getPosition().y - oldPosition.y));

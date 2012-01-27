@@ -1,5 +1,6 @@
 package sov;
 
+import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -52,8 +53,6 @@ public class Creature extends SpriteBody implements Cloneable {
 			boolean circle) {
 		super(size, animations,
 				false, rounding, circle, SlopeShape.Even);	
-		this.speed = 1.7f;
-		this.jumpHeight = 9f;
 	}
 	
 	public static Creature createFromPrototype(Creature prototype) {
@@ -61,6 +60,11 @@ public class Creature extends SpriteBody implements Cloneable {
 		Creature creature = new Creature(new Vector2(prototype.hitboxSize[0], prototype.hitboxSize[1]), prototype.spriteComponent.animations, 0.8f, false);
 		creature.creatureType = prototype.creatureType;
 		creature.dexterity = prototype.dexterity;
+		creature.speed = creature.dexterity  / 2f;
+		creature.jumpHeight = prototype.dexterity * 1.5f;
+		
+		creature.body.setMaxVelocity(creature.speed*1.15f);
+		
 		return creature;
 	}
 	
@@ -167,8 +171,11 @@ public class Creature extends SpriteBody implements Cloneable {
 	}
 	
 	public void jump() {
-		getBodyComponent().body.applyLinearImpulse(new Vector2(0.0f, jumpHeight), getBodyComponent().body.getWorldCenter());
-		setAllowJumping(false);
+		if(allowJumping) {
+			getBodyComponent().body.applyLinearImpulse(new Vector2(0.0f, jumpHeight), getBodyComponent().body.getWorldCenter());
+			setAllowJumping(false);
+		}
+		
 	}
 
 }

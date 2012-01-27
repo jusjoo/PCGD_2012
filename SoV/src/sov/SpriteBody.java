@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 /*
  * SpriteBodies are entities that have both a drawable sprite, and a physics body.
  */
-public class SpriteBody {
+public class SpriteBody extends Entity {
 	
 	// Components
 	BodyComponent body;
@@ -35,6 +35,9 @@ public class SpriteBody {
 		body = new BodyComponent(this, size, staticBody, rounding, circle, slopeShape, false);
 		spriteComponent = new SpriteComponent(this, animations);
 		
+		components.add(body);
+		components.add(spriteComponent);
+		
 	}
 	
 	public SpriteComponent getSpriteComponent() {
@@ -47,25 +50,19 @@ public class SpriteBody {
 	
 	public void render(SpriteBatch spriteBatch) {	
 		
-		//float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
-		
 		spriteComponent.render(spriteBatch, facingRight,
-				
-				/*
-				 * +-8 here moves the x, y into the tile's corner, for drawing purposes
-				 */
 				body.getPosition().x,
 				body.getPosition().y,
-				//body.getPosition().y * PIXELS_PER_METER ,
 				(float) (body.getAngle()*180/Math.PI),
 				body.getSize()
 				);
 	}
 	
 	public void update(float deltaTime) {
-		spriteComponent.animate(deltaTime);
 		
+		super.update(deltaTime);
 		Vector2 currentVelocity = body.getLinearVelocity();
+		
 		
 		if(currentVelocity.x > body.getMaxVelocity()) {
 			body.setLinearVelocity(body.getMaxVelocity(), body.getLinearVelocity().y);

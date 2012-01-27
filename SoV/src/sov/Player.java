@@ -40,28 +40,7 @@ public class Player extends Creature {
 	
 	protected void takeInput() {
 		
-		// Movement left/right
-		if (Gdx.input.isKeyPressed(config.moveRight)) {
-			getBodyComponent().body.applyLinearImpulse(new Vector2(speed, 0.0f), getBodyComponent().body.getWorldCenter());
-			facingRight = true;
-		} else if (Gdx.input.isKeyPressed(config.moveLeft)) {
-			getBodyComponent().body.applyLinearImpulse(new Vector2(-speed, 0.0f), getBodyComponent().body.getWorldCenter());
-			facingRight = false;
-		}
 		
-		// Jumping
-		// Check for a maximum vertical speed and allowJumping to make sure jumping is allowed
-		if (Gdx.input.isKeyPressed(config.actionJump) && Math.abs(body.getLinearVelocity().y) < 1.7f
-				&& allowJumping) {
-			System.out.println("JUMPING!");
-			jump();
-		}
-		
-		// Attacking
-		if (Gdx.input.isKeyPressed(config.actionAttack)) {
-			this.attack(AttackType.Melee);
-			
-		}
 
 	}
 

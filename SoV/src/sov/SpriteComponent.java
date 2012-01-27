@@ -46,15 +46,6 @@ public class SpriteComponent extends Component {
 		super(parent);
 	}
 	
-	// Update current frame based on deltaTime.
-	public void animate(float deltaTime) {
-		stateTime += deltaTime;
-		boolean looping = true;
-		if(currentAnimationState == AnimationState.Die ||
-				currentAnimationState == AnimationState.Attack1) looping = false;
-		currentFrame.setRegion(animations.get(currentAnimationState).getKeyFrame(stateTime, looping));
-	}
-	
 	// Position, rotate, flip the sprite, and then render it.
 	// @Pre: SpriteBatch needs to be enabled before calling render.
 	public void render(SpriteBatch spriteBatch, boolean facingRight, float x, float y, float angle, Vector2 collisionBoxSize) {
@@ -100,5 +91,15 @@ public class SpriteComponent extends Component {
 	
 	public void addAnimation(AnimationState animationState, Animation animation) {
 		animations.put(animationState, animation);
+	}
+
+	@Override
+	public void update(float deltaTime) {
+		stateTime += deltaTime;
+		boolean looping = true;
+		if(currentAnimationState == AnimationState.Die ||
+				currentAnimationState == AnimationState.Attack1) looping = false;
+		currentFrame.setRegion(animations.get(currentAnimationState).getKeyFrame(stateTime, looping));
+		
 	}
 }

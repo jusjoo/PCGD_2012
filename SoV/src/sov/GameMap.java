@@ -40,7 +40,7 @@ public class GameMap {
 	enum LayerType { Foreground, Background, StaticTiles, DynamicTiles, Creatures };
 	
 	// Hold a reference to the player, for camera positioning etc.
-	Player player;
+	Creature player;
 	
 	// Map which is loaded from the Tiled map, has information on nearly everything!
 	TiledMap map;
@@ -179,18 +179,22 @@ public class GameMap {
 	public void addCreature(World world, Creature creature) {
 		creatures.add(creature);
 		//System.out.println(creature.creatureType);
-		if(creature.creatureType == CreatureType.Ninja) {
+		/*if(creature.creatureType == CreatureType.Ninja) {
 			//player = (Player) creature;
 			player = new Player(new Vector2(14f, 30f), creature.spriteComponent.animations, 0.8f, false);
 			player.addToWorld(world, new Vector2(300f, 330f));
 			creatures.add(player);
 			
 			//creature.addComponent(inputComponent);
-		}
+		}*/
 	}
 	
-	public Player getPlayer() {
+	public Creature getPlayer() {
 		return player;
+	}
+	
+	public void setPlayer(Creature creature) {
+		this.player = creature;
 	}
 	
 	public void renderLayer(LayerType type, OrthographicCamera cam, SpriteBatch spriteBatch) {

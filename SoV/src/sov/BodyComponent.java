@@ -24,7 +24,7 @@ public class BodyComponent extends Component {
 	public static enum SlopeShape { Even, Left, Right }
 	
 	// The maximum velocity the entity can have, before it speed is limited
-	protected final float maxVelocity = 3.0f;
+	protected float maxVelocity;
 	
 	// Size of the entity in pixels
 	protected Vector2 size;
@@ -122,6 +122,10 @@ public class BodyComponent extends Component {
 		return maxVelocity;
 	}
 	
+	public void setMaxVelocity(float maxVelocity) {
+		this.maxVelocity = maxVelocity;
+	}
+	
 	public Vector2 getLinearVelocity() {
 		return body.getLinearVelocity();
 	}
@@ -170,10 +174,17 @@ public class BodyComponent extends Component {
 		
 		// Set userdata for body, used to find out which object is touching the ground in MyContactListener
 		body.setUserData(this.parent);
-		
+	}
+	
+	public void applyLinearImpulse(Vector2 impulse) {
+		body.applyLinearImpulse(impulse, body.getWorldCenter());
 	}
 	
 	public void createFixture(FixtureDef fixtureDef) {
 		body.createFixture(fixtureDef);
+	}
+
+	@Override
+	public void update(float deltaTime) {		
 	}
 }
