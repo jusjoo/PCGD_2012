@@ -20,16 +20,12 @@ public class KeyboardInputComponent extends InputComponent {
 				if (Gdx.input.isKeyPressed(config.moveRight)) {
 					deltaMove.set(speed, 0f);
 					//bodyComponent.body.applyLinearImpulse(new Vector2(speed, 0.0f), bodyComponent.body.getWorldCenter());
-					if(Creature.class.isAssignableFrom(parent.getClass())) {
-						((Creature)parent).facingRight = true;
-					}
+					bodyComponent.setFacingRight(true);
 					
 				} else if (Gdx.input.isKeyPressed(config.moveLeft)) {
 					deltaMove.set(-speed, 0f);
 					//bodyComponent.body.applyLinearImpulse(new Vector2(-speed, 0.0f), bodyComponent.body.getWorldCenter());
-					if(Creature.class.isAssignableFrom(parent.getClass())) {
-						((Creature)parent).facingRight = false;
-					}
+					bodyComponent.setFacingRight(false);
 				}
 				
 				// Jumping

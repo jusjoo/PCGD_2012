@@ -19,6 +19,10 @@ public abstract class InputComponent extends Component {
 		super(parent);
 	}
 	
+	public BodyComponent getBodyComponent() {
+		return bodyComponent;
+	}
+	
 	public void setBodyComponent(BodyComponent bodyComponent) {
 		this.bodyComponent = bodyComponent;
 	}

@@ -63,15 +63,24 @@ public class CoffeeGDX implements ApplicationListener {
 
 		DynamicObjectFactory dynamicObjectFactory = new DynamicObjectFactory("assets/creatures");
 		
+		
+		
 		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Barbarian, new Vector2(200, 230)));
 		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Goblin, new Vector2(100, 100)));
 		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Sorceress, new Vector2(200, 100)));
 		
+		// Add player
 		Creature creature = dynamicObjectFactory.spawnCreature(world, CreatureType.Ninja, new Vector2(300, 250));
-		creature.addComponent(new KeyboardInputComponent(creature, creature.getBodyComponent(), creature.speed));
+		creature.addComponent(new KeyboardInputComponent(creature, creature.getComponent(BodyComponent.class), creature.speed));
 		map.setPlayer(creature);
 		map.addCreature(world, creature);
 		//map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Ninja, new Vector2(300, 250)));
+		
+		// Add a monster that follows the player
+		Creature monster = dynamicObjectFactory.spawnCreature(world, CreatureType.Goblin, new Vector2(100, 250));
+		monster.addComponent(new AIComponent(monster, monster.getComponent(BodyComponent.class), monster.speed));
+		monster.getComponent(AIComponent.class).setToFollow(creature.getComponent(BodyComponent.class));
+		map.addCreature(world, monster);
 		
 	}
 
@@ -106,8 +115,8 @@ public class CoffeeGDX implements ApplicationListener {
 		oldPosition = new Vector2(cam.position.x, cam.position.y);
 		Creature player = map.getPlayer();
 		
-		Vector2 newPosition = new Vector2(	oldPosition.x + interpolationAmount*(player.getBodyComponent().getPosition().x - oldPosition.x),
-											oldPosition.y + interpolationAmount*(player.getBodyComponent().getPosition().y - oldPosition.y));
+		Vector2 newPosition = new Vector2(	oldPosition.x + interpolationAmount*(player.getPosition().x - oldPosition.x),
+											oldPosition.y + interpolationAmount*(player.getPosition().y - oldPosition.y));
 		cam.position.set(newPosition.x, newPosition.y, 0);
 		
 		cam.apply(Gdx.gl10);
