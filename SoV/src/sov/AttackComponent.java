@@ -74,7 +74,7 @@ public class AttackComponent extends Component {
 	protected void stopAttack() {
 		attacking = false;
 		damaging = false;
-		((Creature)parent).getComponent(SpriteComponent.class).currentAnimationState = animation; 
+		((Creature)parent).getComponent(SpriteComponent.class).setCurrentAnimationState(animation); 
 	}
 
 
