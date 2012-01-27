@@ -15,9 +15,8 @@ public class Entity {
 		components.remove(className);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public <T extends Component> T getComponent(Class<T> className) {
-		return (T) components.get(className);
+		return className.cast(components.get(className));
 	}
 	
 	public void update(float deltaTime) {
