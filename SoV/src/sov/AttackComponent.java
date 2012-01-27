@@ -50,6 +50,8 @@ public class AttackComponent extends Component {
 		this.preDamageTime = preDamageTime;
 		this.damageTime = damageTime;		
 		this.animation = attackAnimation;
+		
+		((Creature)parent).setAttackComponent(this);
 	}
 	
 	
@@ -74,7 +76,6 @@ public class AttackComponent extends Component {
 	protected void stopAttack() {
 		attacking = false;
 		damaging = false;
-		((Creature)parent).getComponent(SpriteComponent.class).currentAnimationState = animation; 
 	}
 
 

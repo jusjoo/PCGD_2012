@@ -1,6 +1,7 @@
 package sov;
 
 import sov.Creature.AttackType;
+import sov.SpriteComponent.AnimationState;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
@@ -38,7 +39,7 @@ public class KeyboardInputComponent extends InputComponent {
 				// Attacking
 				if (Gdx.input.isKeyPressed(config.actionAttack) && Creature.class.isAssignableFrom(parent.getClass())) {
 					((Creature)parent).getComponent(AttackComponent.class).attack();
-					
+					//((Creature)parent).attack(AttackType.Melee);
 				}
 	}
 
