@@ -2,6 +2,7 @@ package sov;
 
 import java.util.HashMap;
 
+import sov.Component.ComponentType;
 import sov.SpriteComponent.AnimationState;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,9 +18,6 @@ public class SpriteBody extends Entity {
 	BodyComponent body;
 	SpriteComponent spriteComponent;
 	
-	boolean facingRight = true;	
-	
-	
 	protected float hitPoints = 1;
 	boolean alive = true;
 	
@@ -27,6 +25,7 @@ public class SpriteBody extends Entity {
 	
 	public SpriteBody() {
 		spriteComponent = new SpriteComponent(this);
+		addComponent(spriteComponent);
 	}
 
 	public SpriteBody(Vector2 size, HashMap<AnimationState, Animation> animations,
@@ -35,22 +34,13 @@ public class SpriteBody extends Entity {
 		body = new BodyComponent(this, size, staticBody, rounding, circle, slopeShape, false);
 		spriteComponent = new SpriteComponent(this, animations);
 		
-		components.add(body);
-		components.add(spriteComponent);
-		
-	}
-	
-	public SpriteComponent getSpriteComponent() {
-		return spriteComponent;
-	}
-	
-	protected BodyComponent getBodyComponent() {
-		return body;
+		addComponent(body);
+		addComponent(spriteComponent);
 	}
 	
 	public void render(SpriteBatch spriteBatch) {	
 		
-		spriteComponent.render(spriteBatch, facingRight,
+		spriteComponent.render(spriteBatch, body.getFacingRight(),
 				body.getPosition().x,
 				body.getPosition().y,
 				(float) (body.getAngle()*180/Math.PI),
@@ -79,6 +69,10 @@ public class SpriteBody extends Entity {
 		if(hitPoints <= 0) {
 			setToDie = true;
 		}
+	}
+	
+	public Vector2 getPosition() {
+		return getComponent(BodyComponent.class).getPosition();
 	}
 	
 	protected void die() {

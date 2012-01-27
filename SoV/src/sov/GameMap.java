@@ -32,6 +32,7 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class GameMap {
@@ -161,7 +162,7 @@ public class GameMap {
 					tileAnimations.put(AnimationState.Idle, new Animation(0.1f, textureRegions));
 					
 					SpriteBody asb = new SpriteBody(new Vector2(16f,16f),tileAnimations, false, 1.0f, false, SlopeShape.Even);
-					asb.getBodyComponent().addToWorld(world, new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));
+					asb.getComponent(BodyComponent.class).addToWorld(world, new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));
 					dynMapTiles.add(asb);
 				}
 			}

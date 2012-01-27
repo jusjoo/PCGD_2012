@@ -29,6 +29,8 @@ public class BodyComponent extends Component {
 	// Size of the entity in pixels
 	protected Vector2 size;
 	
+	boolean facingRight = true;
+	
 	// Use staticBody for everything that doesn't move.
 	public BodyComponent(Object parent, Vector2 size,
 			boolean staticBody, float rounding, boolean circle, SlopeShape slopeShape, boolean sensorEntity) {	
@@ -132,6 +134,14 @@ public class BodyComponent extends Component {
 	
 	public void setLinearVelocity(float x, float y) {
 		body.setLinearVelocity(x, y);
+	}
+	
+	public void setFacingRight(boolean facingRight) {
+		this.facingRight = facingRight;
+	}
+	
+	public boolean getFacingRight() {
+		return facingRight;
 	}
 	
 	public float getAngle() {

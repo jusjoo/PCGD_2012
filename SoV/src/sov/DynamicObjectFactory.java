@@ -94,7 +94,7 @@ public class DynamicObjectFactory {
 			
 			}
 			
-			creaturePrototype.getSpriteComponent().setAnimations(spriteAnimations);
+			creaturePrototype.getComponent(SpriteComponent.class).setAnimations(spriteAnimations);
 			
 			//creatures.put(creaturePrototype.creatureType, new Creature(new Vector2(13f,30f), spriteAnimations, 0.8f, false));
 			creatures.put(creaturePrototype.creatureType, creaturePrototype);

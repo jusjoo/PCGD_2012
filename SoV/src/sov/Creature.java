@@ -4,6 +4,7 @@ import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import sov.Component.ComponentType;
 import sov.SpriteComponent.AnimationState;
 import sov.BodyComponent.SlopeShape;
 
@@ -113,7 +114,7 @@ public class Creature extends SpriteBody implements Cloneable {
 			float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 			PolygonShape attackSensorShape = new PolygonShape();
 			int offSet = 0;
-			if(facingRight) offSet = 1;
+			if(body.getFacingRight()) offSet = 1;
 			else offSet = -1;
 			attackSensorShape.setAsBox(body.getSize().x / PIXELS_PER_METER / 1.5f, body.getSize().y / PIXELS_PER_METER / 1.5f, new Vector2(body.getSize().x / PIXELS_PER_METER * offSet ,  0) , 0f);
 			FixtureDef attackSensorFixtureDef = new FixtureDef();
@@ -121,7 +122,7 @@ public class Creature extends SpriteBody implements Cloneable {
 			attackSensorFixtureDef.isSensor = true;
 			attackSensorFixtureDef.density = 0;
 			
-			this.attackSensorFixture = getBodyComponent().body.createFixture(attackSensorFixtureDef);
+			this.attackSensorFixture = getComponent(BodyComponent.class).body.createFixture(attackSensorFixtureDef);
 			
 			
 			spriteComponent.setCurrentAnimationState(AnimationState.Attack1);
@@ -132,7 +133,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	} 
 	
 	public void stopAttack(){
-		getBodyComponent().body.destroyFixture(attackSensorFixture);
+		getComponent(BodyComponent.class).body.destroyFixture(attackSensorFixture);
 		canAttack = true;
 		//body.getFixtureList().remove(attackSensorFixture);
 	}
@@ -142,7 +143,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	}
 	
 	public void addToWorld(World world, Vector2 position) {
-		getBodyComponent().addToWorld(world, position);
+		getComponent(BodyComponent.class).addToWorld(world, position);
 		//super.addToWorld(world, position);
 		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 		
@@ -159,19 +160,19 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		
 		// Attach the foot-sensor on the body.
-		getBodyComponent().body.createFixture(sensorFixture);
+		getComponent(BodyComponent.class).body.createFixture(sensorFixture);
 		
 		
 		
 		// Creatures shall not rotate according to physics!
-		getBodyComponent().body.setFixedRotation(true);
+		getComponent(BodyComponent.class).body.setFixedRotation(true);
 		
 		
 	}
 	
 	public void jump() {
 		if(allowJumping) {
-			getBodyComponent().body.applyLinearImpulse(new Vector2(0.0f, jumpHeight), getBodyComponent().body.getWorldCenter());
+			getComponent(BodyComponent.class).body.applyLinearImpulse(new Vector2(0.0f, jumpHeight), getComponent(BodyComponent.class).body.getWorldCenter());
 			setAllowJumping(false);
 		}
 		
