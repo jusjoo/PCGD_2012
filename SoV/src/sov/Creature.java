@@ -4,7 +4,6 @@ import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import sov.Component.ComponentType;
 import sov.SpriteComponent.AnimationState;
 import sov.BodyComponent.SlopeShape;
 
@@ -90,7 +89,7 @@ public class Creature extends SpriteBody implements Cloneable {
 			if (this.attackComponent != null) {
 				if (this.attackComponent.attacking) {
 					spriteComponent.setCurrentAnimationState(attackComponent.animation);
-					
+
 				} else if(!allowJumping) {			
 					if (currentVelocity.y < 0.0f)
 						spriteComponent.setCurrentAnimationState(AnimationState.Fall);

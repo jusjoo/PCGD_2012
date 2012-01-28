@@ -7,10 +7,14 @@ import sov.SpriteComponent.AnimationState;
 import sov.Creature.CreatureType;
 import sov.GameMap.LayerType;
 
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -40,6 +44,10 @@ public class CoffeeGDX implements ApplicationListener {
 	
 	TiledMap map2;
 	
+	RayHandler rayHandler;
+	
+	PointLight playerLight;
+	
 	
 	World world;
 	
@@ -52,6 +60,8 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		world = new World(new Vector2(0.0f,-10.0f), true);
 		map = new GameMap(config.firstMap, world);
+		
+		
 		
 		cam = new OrthographicCamera(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 				
@@ -89,6 +99,22 @@ public class CoffeeGDX implements ApplicationListener {
 		monster.getComponent(AIComponent.class).setToFollow(creature.getComponent(BodyComponent.class));
 		map.addCreature(world, monster);
 		
+		
+		
+		rayHandler = new RayHandler(world);
+		//rayHandler.setAmbientLight(new Color(0f, 0f, 0f, 0.25f));
+		rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
+				GameConfiguration.PIXELS_PER_METER).translate(0.0f, 0.0f, 0));
+		
+		playerLight = new PointLight(rayHandler, 40, new Color(1,1,1,0.95f), 4.0f, 0f, 0f);
+		//playerLight.setSoftnessLenght(3.0f);
+		//playerLight.setSoftnessLenght(0);
+		playerLight.setSoft(false);
+		//playerLight.setStaticLight(true);
+		//playerLight.setSoft(true);
+		//playerLight.setXray(true);
+		playerLight.attachToBody(creature.getComponent(BodyComponent.class).body, 0, 1f);
+		
 	}
 
 	@Override
@@ -101,9 +127,12 @@ public class CoffeeGDX implements ApplicationListener {
 
 		Gdx.graphics.setTitle(Integer.toString(Gdx.graphics.getFramesPerSecond()));
 		
+		
+		
 		update();
 		// Update camera
 		cam.update();
+		
 		
 		
 		// spriteBatch.disableBlending();
@@ -126,15 +155,21 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		map.render(cam, spriteBatch);
 		
+		/*rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
+				GameConfiguration.PIXELS_PER_METER).translate(0.25f, -0.25f, 0));*/
 		
 
 		// Debug render
-		if (config.debugMode) {
+		/*if (config.debugMode) {
 			debugRenderer.render(world, cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
 					GameConfiguration.PIXELS_PER_METER).translate(0.25f, -0.25f, 0));
-		}
+		}*/
 
 		
+		// Lighting renderer
+		/*rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
+				GameConfiguration.PIXELS_PER_METER).translate(0.5f, -0.25f, 0f));
+		rayHandler.updateAndRender();*/
 	}
 
 	@Override
@@ -164,8 +199,8 @@ public class CoffeeGDX implements ApplicationListener {
 	
 	
 	public static void main (String[] args) {
-       // new LwjglApplication(new CoffeeGDX(), "Game", 1024, 768, false);
-		  new LwjglApplication(new CoffeeGDX(), "Game", 800, 600, false);
+        new LwjglApplication(new CoffeeGDX(), "Game", 1024, 768, false);
+		 /// new LwjglApplication(new CoffeeGDX(), "Game", 800, 600, false);
 }
 
 }
