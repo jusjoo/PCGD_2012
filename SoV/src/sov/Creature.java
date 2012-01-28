@@ -90,7 +90,7 @@ public class Creature extends SpriteBody implements Cloneable {
 			if (this.attackComponent != null) {
 				if (this.attackComponent.attacking) {
 					spriteComponent.setCurrentAnimationState(attackComponent.animation);
-					System.out.println("paljonkohan k‰yd‰‰n t‰‰ll‰");
+					
 				} else if(!allowJumping) {			
 					if (currentVelocity.y < 0.0f)
 						spriteComponent.setCurrentAnimationState(AnimationState.Fall);
