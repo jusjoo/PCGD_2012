@@ -3,7 +3,7 @@
 		"creatureType": "Barbarian",
 		"textureName": "sprites_human_barbarian.png",
 		"hitboxSize": [14, 29],
-		"dexterity": 2,
+		"dexterity": 5,
 		"strength": 7,
 		"wisdom": 1,
 		"_frames_description":
