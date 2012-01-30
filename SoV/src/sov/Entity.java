@@ -16,8 +16,9 @@ public class Entity {
 	protected HashMap<Class<? extends Component>, Component> components = new HashMap<Class<? extends Component>, Component>();
 	
 	// Add a component
-	public void addComponent(Component component) {
+	public Entity addComponent(Component component) {
 		components.put(component.getClass(), component);
+		return this;
 	}
 	
 	// Remove a component based on the component class.

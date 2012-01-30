@@ -7,10 +7,14 @@ import sov.SpriteComponent.AnimationState;
 import sov.Creature.CreatureType;
 import sov.GameMap.LayerType;
 
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -40,6 +44,10 @@ public class CoffeeGDX implements ApplicationListener {
 	
 	TiledMap map2;
 	
+	/*RayHandler rayHandler;
+	
+	PointLight playerLight;*/
+	
 	
 	World world;
 	
@@ -53,6 +61,8 @@ public class CoffeeGDX implements ApplicationListener {
 		world = new World(new Vector2(0.0f,-10.0f), true);
 		map = new GameMap(config.firstMap, world);
 		
+		
+		
 		cam = new OrthographicCamera(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 				
 		//cam.rotate(45, 0, 0, 1);
@@ -64,37 +74,50 @@ public class CoffeeGDX implements ApplicationListener {
 
 		DynamicObjectFactory dynamicObjectFactory = new DynamicObjectFactory("assets/creatures");
 		
-		
-		
-		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Barbarian, new Vector2(200, 230)));
-		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Goblin, new Vector2(100, 100)));
-		map.addCreature(world, dynamicObjectFactory.spawnCreature(world, CreatureType.Sorceress, new Vector2(200, 100)));
-		
 		// Add player
-		Creature creature = dynamicObjectFactory.spawnCreature(world, CreatureType.Barbarian, new Vector2(300, 250));
-		creature.addComponent(new KeyboardInputComponent(creature, creature.getComponent(BodyComponent.class), creature.speed));
+		Creature player = dynamicObjectFactory.spawnCreature(world, CreatureType.Barbarian, new Vector2(300, 250));
+		player.addComponent(new KeyboardInputComponent(player, player.speed));
 		
 		//give player an attack component
-		PolygonShape shape = new PolygonShape();
+		player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, AnimationState.Attack1 ));
 		
-		float offset = 1;
-		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
+		map.setPlayer(player);
+		map.addCreature(world, player);
 		
-		shape.setAsBox(0.5f, 0.5f, new Vector2(1f,0f) , 0f);
-		creature.addComponent(new AttackComponent(creature, 1f, 0.1f, 0.5f, shape, AnimationState.Attack1 ));
-		//
+		for(int i=0; i<20; i++) {
+			int random = (int) (Math.random()*4);
+			//System.out.println(random);
+			CreatureType creatureType = null;
+			switch(random) {
+			case 0: { creatureType = CreatureType.Barbarian; break; }
+			case 1: { creatureType = CreatureType.Goblin; break; }
+			case 2: { creatureType = CreatureType.Sorceress; break; }
+			case 3: { creatureType = CreatureType.Ninja; break; }
+			}
+			//System.out.println(creatureType);
+			//Creature creature = dynamicObjectFactory.spawnCreature(world, creatureType,
+			//		new Vector2(map.map.width*16f, map.map.height*16f));
+			Creature creature = dynamicObjectFactory.spawnCreature(world, creatureType,
+					new Vector2((float) Math.random()*1000f, (float) Math.random()*1000f));
+			creature.addComponent(new AIComponent(creature, creature.speed).setToFollow(player));
+			map.addCreature(world, creature);
+		}	
 		
-		map.setPlayer(creature);
-		map.addCreature(world, creature);
+		/*
+		rayHandler = new RayHandler(world);
+		//rayHandler.setAmbientLight(new Color(0f, 0f, 0f, 0.25f));
+		rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
+				GameConfiguration.PIXELS_PER_METER).translate(0.0f, 0.0f, 0));
 		
-	
-		
-		
-		// Add a monster that follows the player
-		Creature monster = dynamicObjectFactory.spawnCreature(world, CreatureType.Goblin, new Vector2(100, 250));
-		monster.addComponent(new AIComponent(monster, monster.getComponent(BodyComponent.class), monster.speed));
-		monster.getComponent(AIComponent.class).setToFollow(creature.getComponent(BodyComponent.class));
-		map.addCreature(world, monster);
+		playerLight = new PointLight(rayHandler, 40, new Color(1,1,1,0.95f), 4.0f, 0f, 0f);
+		//playerLight.setSoftnessLenght(3.0f);
+		//playerLight.setSoftnessLenght(0);
+		playerLight.setSoft(false);
+		//playerLight.setStaticLight(true);
+		//playerLight.setSoft(true);
+		//playerLight.setXray(true);
+		playerLight.attachToBody(creature.getComponent(BodyComponent.class).body, 0, 1f);
+		*/
 		
 	}
 
@@ -108,9 +131,12 @@ public class CoffeeGDX implements ApplicationListener {
 
 		Gdx.graphics.setTitle(Integer.toString(Gdx.graphics.getFramesPerSecond()));
 		
+		
+		
 		update();
 		// Update camera
 		cam.update();
+		
 		
 		
 		// spriteBatch.disableBlending();
@@ -133,15 +159,21 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		map.render(cam, spriteBatch);
 		
+		/*rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
+				GameConfiguration.PIXELS_PER_METER).translate(0.25f, -0.25f, 0));*/
 		
 
 		// Debug render
-		if (config.debugMode) {
+		/*if (config.debugMode) {
 			debugRenderer.render(world, cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
 					GameConfiguration.PIXELS_PER_METER).translate(0.25f, -0.25f, 0));
-		}
+		}*/
 
 		
+		// Lighting renderer
+		/*rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
+				GameConfiguration.PIXELS_PER_METER).translate(0.5f, -0.25f, 0f));
+		rayHandler.updateAndRender();*/
 	}
 
 	@Override
@@ -171,8 +203,8 @@ public class CoffeeGDX implements ApplicationListener {
 	
 	
 	public static void main (String[] args) {
-       // new LwjglApplication(new CoffeeGDX(), "Game", 1024, 768, false);
-		  new LwjglApplication(new CoffeeGDX(), "Game", 800, 600, false);
+        new LwjglApplication(new CoffeeGDX(), "Game", 1024, 768, false);
+		 /// new LwjglApplication(new CoffeeGDX(), "Game", 800, 600, false);
 }
 
 }

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="150" height="50" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="tiles_desert" tilewidth="16" tileheight="16">
+  <image source="tiles_desert.png" width="512" height="512"/>
+  <tile id="3">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="58">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="69">
+   <properties>
+    <property name="" value=""/>
+   </properties>
+  </tile>
+  <tile id="89">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="94">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="115">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="117">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="226">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="228">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="237">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="239">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="281">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="286">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="312">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="319">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="321">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="322">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="325">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="326">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="329">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="330">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="352">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="355">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="356">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="359">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="360">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="363">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="381">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="382">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="412">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="415">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="509">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="510">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="540">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="543">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="1025" name="tiles_general" tilewidth="16" tileheight="16">
+  <image source="tiles_general.png" width="512" height="512"/>
+  <tile id="97">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="101">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="194">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="196">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="420">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="421">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="423">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="424">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="452">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="456">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+  <tile id="513">
+   <properties>
+    <property name="slope" value="left"/>
+   </properties>
+  </tile>
+  <tile id="514">
+   <properties>
+    <property name="slope" value="right"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Background" width="150" height="50">
+  <data encoding="base64" compression="zlib">
+   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
+  </data>
+ </layer>
+ <layer name="StaticTiles" width="150" height="50">
+  <data encoding="base64" compression="zlib">
+   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
+  </data>
+ </layer>
+ <layer name="Foreground" width="150" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt3MsuA1Ecx/FpVYJQl52FRNm43/YW2LrvLXgA7+CyxDsgrPAQhPdAPIbE/6//CWm0qXZmzpmZ7yf5ZVpJx5nk1/ZMO6dBAAAAAAAAACAJU64H4EiP6wF4rCzplwxIBiVDbofTtukEH5fX51Mz5iTzkgXJomTJ7XDaUnI9gByq93ysSFYkq5JicsNBCrT62g/AP7Vz03p0ft9tiUq4P84dsqd2blqPzu8nLVEJ96f7LsjEsuj55PLTAjRruPD/x4y28BgAAOIQ5fkEEIryfAIAAESjy/UAkEkTrgeA3OJcFnHgXBZpw/wOcdD53XOn61FkV1+QvevVkYxG13HNBtm6Xh3JabQGZEOyKdmSbEt2JLtJDAoAAAAAavA5aPq1+71eHOvb+J47/f77vd6HpFSo5j3gtzEQjRdJbykI7iRXnq+VRGPhusCRP9b6Jb3+T3t1L316kDwm+68Rk2UP1pDeSp/OJLMZ69WmHM+cpM+2ZTvG4xy8Ju950qtyxnp1YMejfdJ+rf/q1EkOeuWDG8mp5drxWKIQdkr71GvdWqdTaNF+6adT+t53Ye/vGx52Kg2/J4OqI+vTjHVJ+3Vvt33qFNLl8tc8Ubfn1jM+O8mXDsmabfX0pWLb8aD6+6l6f9X+1oxX6c+bdenB5lbfn51InuhWbmiftD9htyp2e8Xua7+KdrtZ2q2iFPHQOnVo8yy6hXaNFardSosvcE02tA==
+  </data>
+ </layer>
+ <objectgroup name="Creatures" width="150" height="50"/>
+ <objectgroup name="DynamicTiles" width="150" height="50"/>
+</map>

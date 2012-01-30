@@ -2,7 +2,6 @@ package sov;
 
 import java.util.HashMap;
 
-import sov.Component.ComponentType;
 import sov.SpriteComponent.AnimationState;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,7 +17,7 @@ public class SpriteBody extends Entity {
 	BodyComponent body;
 	SpriteComponent spriteComponent;
 	
-	protected float hitPoints = 1;
+	protected float hitPoints = 3;
 	boolean alive = true;
 	
 	boolean setToDie = false;

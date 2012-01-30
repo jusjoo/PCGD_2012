@@ -6,12 +6,13 @@ public class AIComponent extends InputComponent {
 
 	BodyComponent entityToFollow = null;
 	
-	public AIComponent(Object parent, BodyComponent bodyComponent, float speed) {
-		super(parent, bodyComponent, speed);
+	public AIComponent(Entity parent, float speed) {
+		super(parent, speed);
 	}
 	
-	public void setToFollow(BodyComponent entity) {
-		entityToFollow = entity;
+	public AIComponent setToFollow(Entity entity) {
+		entityToFollow = entity.getComponent(BodyComponent.class);
+		return this;
 	}
 	
 	@Override
