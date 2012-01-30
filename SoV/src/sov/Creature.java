@@ -63,6 +63,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	@Override
 	public void update(float deltaTime) {
 		super.update(deltaTime);
+
 	}
 	
 	public void setAllowJumping(boolean allowJumping) {
