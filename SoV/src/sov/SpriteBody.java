@@ -2,10 +2,8 @@ package sov;
 
 import java.util.HashMap;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 
 /*
  * SpriteBodies are entities that have both a drawable sprite, and a physics body.
@@ -27,7 +25,7 @@ public class SpriteBody extends Entity {
 		addComponent(spriteComponent);
 	}
 
-	public SpriteBody(Vector2 size, HashMap<CreatureComponent.AnimationState, AnimationState> animations,
+	public SpriteBody(Vector2 size, HashMap<CreatureComponent.AnimationState, Animation> animations,
 			boolean staticBody, float rounding, boolean circle, BodyComponent.SlopeShape slopeShape) {
 		
 		body = new BodyComponent(this, size, staticBody, rounding, circle, slopeShape, false);
@@ -47,6 +45,7 @@ public class SpriteBody extends Entity {
 				);
 	}
 	
+	@Override
 	public void update(float deltaTime) {
 		
 		

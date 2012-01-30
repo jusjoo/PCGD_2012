@@ -1,12 +1,10 @@
 package sov;
 
-import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import sov.BodyComponent.SlopeShape;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -43,7 +41,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	}
 	
 	// Deliver size and position of the creature in pixels.
-	public Creature(Vector2 size, HashMap<CreatureComponent.AnimationState, AnimationState> animations, float rounding,
+	public Creature(Vector2 size, HashMap<CreatureComponent.AnimationState, Animation> animations, float rounding,
 			boolean circle) {
 		super(size, animations,
 				false, rounding, circle, SlopeShape.Even);	
@@ -62,6 +60,7 @@ public class Creature extends SpriteBody implements Cloneable {
 		return creature;
 	}
 	
+	@Override
 	public void update(float deltaTime) {
 		super.update(deltaTime);
 	}

@@ -1,11 +1,9 @@
 package sov;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.Shape;
 
 public class AttackComponent extends Component {
 
@@ -53,6 +51,7 @@ public class AttackComponent extends Component {
 	}
 	
 	
+	@Override
 	public void update(float deltaTime){
 		
 		if (setToStopDamage) stopDamage();
@@ -71,7 +70,7 @@ public class AttackComponent extends Component {
 				stopAttack();
 			}
 			
-			Vector2 currentVelocity = parent.getComponent(BodyComponent.class).body.getLinearVelocity();
+			//Vector2 currentVelocity = parent.getComponent(BodyComponent.class).body.getLinearVelocity();
 
 			
 		

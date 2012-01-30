@@ -17,24 +17,24 @@ public class CreatureComponent extends Component {
 					spriteComponent.setCurrentAnimationState(attackComponent.animation);
 				} else if(!allowJumping) {			
 					if (currentVelocity.y < 0.0f)
-						spriteComponent.setCurrentAnimationState(AnimationState.Fall);
+						spriteComponent.setCurrentAnimationState(Animation.Fall);
 					else
-						spriteComponent.setCurrentAnimationState(AnimationState.Jump);
+						spriteComponent.setCurrentAnimationState(Animation.Jump);
 				} else if(Math.abs(currentVelocity.x) > 0.5f) {
-					spriteComponent.setCurrentAnimationState(AnimationState.Run);
+					spriteComponent.setCurrentAnimationState(Animation.Run);
 				} else {
-					spriteComponent.setCurrentAnimationState(AnimationState.Idle);
+					spriteComponent.setCurrentAnimationState(Animation.Idle);
 				}
 			} else {
 				if(!allowJumping) {			
 					if (currentVelocity.y < 0.0f)
-						spriteComponent.setCurrentAnimationState(AnimationState.Fall);
+						spriteComponent.setCurrentAnimationState(Animation.Fall);
 					else
-						spriteComponent.setCurrentAnimationState(AnimationState.Jump);
+						spriteComponent.setCurrentAnimationState(Animation.Jump);
 				} else if(Math.abs(currentVelocity.x) > 0.5f) {
-					spriteComponent.setCurrentAnimationState(AnimationState.Run);
+					spriteComponent.setCurrentAnimationState(Animation.Run);
 				} else {
-					spriteComponent.setCurrentAnimationState(AnimationState.Idle);
+					spriteComponent.setCurrentAnimationState(Animation.Idle);
 				}
 				
 			}

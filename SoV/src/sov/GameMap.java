@@ -3,20 +3,12 @@ package sov;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.lwjgl.util.vector.Matrix2f;
-
 import sov.BodyComponent.SlopeShape;
-import sov.Creature.CreatureType;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetDescriptor;
-import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -28,10 +20,7 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledLoader;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
-import com.badlogic.gdx.math.Matrix3;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class GameMap {
@@ -155,10 +144,10 @@ public class GameMap {
 				for(TiledObject object : dynTiles) {
 					
 					
-					HashMap<CreatureComponent.AnimationState, AnimationState> tileAnimations = new HashMap<CreatureComponent.AnimationState, AnimationState>();
+					HashMap<CreatureComponent.AnimationState, Animation> tileAnimations = new HashMap<CreatureComponent.AnimationState, Animation>();
 					ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
 					textureRegions.add(atlas.getRegion(object.gid));
-					tileAnimations.put(CreatureComponent.AnimationState.Idle, new AnimationState(0.1f, textureRegions, false, 0));
+					tileAnimations.put(CreatureComponent.AnimationState.Idle, new Animation(0.1f, textureRegions, false, 0));
 					
 					SpriteBody asb = new SpriteBody(new Vector2(16f,16f),tileAnimations, false, 1.0f, false, SlopeShape.Even);
 					asb.getComponent(BodyComponent.class).addToWorld(world, new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));

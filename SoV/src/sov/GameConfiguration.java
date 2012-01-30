@@ -1,6 +1,5 @@
 package sov;
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 
 /*

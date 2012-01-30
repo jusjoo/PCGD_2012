@@ -2,16 +2,15 @@ package sov;
 
 import java.util.List;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class AnimationState extends Animation {
+public class Animation extends com.badlogic.gdx.graphics.g2d.Animation {
 
 	protected boolean looping;
 	protected int offset;
 	protected int animationLength;
 	
-	public AnimationState(float frameDuration, List keyFrames, boolean looping, int offset) {
+	public Animation(float frameDuration, List keyFrames, boolean looping, int offset) {
 		super(frameDuration, keyFrames);
 		//this.currentState = currentState;
 		this.looping = looping;
@@ -19,7 +18,7 @@ public class AnimationState extends Animation {
 		this.animationLength = keyFrames.size();
 	}
 
-	public AnimationState(float frameDuration, TextureRegion... keyFrames) {
+	public Animation(float frameDuration, TextureRegion... keyFrames) {
 		super(frameDuration, keyFrames);
 	}
 	

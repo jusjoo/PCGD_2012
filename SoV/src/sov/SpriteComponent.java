@@ -2,7 +2,6 @@ package sov;
 
 import java.util.HashMap;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -12,13 +11,13 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class SpriteComponent extends Component {
 	
-	// AnimationState dictates which Animation is going to be drawn and updated
-	//public enum AnimationState { Idle, Run, Jump, Fall, Hurt, WeaponRun, Attack1, Attack2, Die }
+	// Animation dictates which Animation is going to be drawn and updated
+	//public enum Animation { Idle, Run, Jump, Fall, Hurt, WeaponRun, Attack1, Attack2, Die }
 	protected CreatureComponent.AnimationState currentAnimationState = CreatureComponent.AnimationState.Idle;
 	//protected CreatureComponent.AnimationState previousAnimationState = null;
 	
 	// Links Animations with AnimationStates
-	protected HashMap<CreatureComponent.AnimationState, AnimationState> animations = new HashMap<CreatureComponent.AnimationState, AnimationState>();
+	protected HashMap<CreatureComponent.AnimationState, Animation> animations = new HashMap<CreatureComponent.AnimationState, Animation>();
 	
 	// Sprite used to hold the current frame
 	protected Sprite currentFrame;
@@ -36,7 +35,7 @@ public class SpriteComponent extends Component {
 	/* Animations need to be created somewhere else. Could be a static factory method
 	 * in this class, eventually.
 	 */
-	public SpriteComponent(Entity parent, HashMap<CreatureComponent.AnimationState, AnimationState> animations) {
+	public SpriteComponent(Entity parent, HashMap<CreatureComponent.AnimationState, Animation> animations) {
 		super(parent);
 		this.animations.putAll(animations);
 		currentFrame = new Sprite(animations.get(currentAnimationState).getKeyFrame(0, true));
@@ -91,11 +90,11 @@ public class SpriteComponent extends Component {
 		
 	}
 	
-	public void setAnimations(HashMap<CreatureComponent.AnimationState, AnimationState> animations) {
+	public void setAnimations(HashMap<CreatureComponent.AnimationState, Animation> animations) {
 		this.animations = animations;
 	}
 	
-	public void addAnimation(CreatureComponent.AnimationState animationState, AnimationState animation) {
+	public void addAnimation(CreatureComponent.AnimationState animationState, Animation animation) {
 		animations.put(animationState, animation);
 	}
 
@@ -103,8 +102,8 @@ public class SpriteComponent extends Component {
 	public void update(float deltaTime) {
 		stateTime += deltaTime;
 		//boolean looping = true;
-		/*if(currentAnimationState == AnimationState.Die ||
-				currentAnimationState == AnimationState.Attack1) looping = false;*/
+		/*if(currentAnimationState == Animation.Die ||
+				currentAnimationState == Animation.Attack1) looping = false;*/
 		currentFrame.setRegion(animations.get(currentAnimationState).getKeyFrame(stateTime, animations.get(currentAnimationState).looping));
 		
 	}

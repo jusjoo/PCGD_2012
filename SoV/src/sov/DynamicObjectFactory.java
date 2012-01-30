@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -49,7 +48,7 @@ public class DynamicObjectFactory {
 				HashMap<CreatureComponent.AnimationState, ArrayList<Object>> animationStates =
 						creaturePrototype.frames;
 				
-				HashMap<CreatureComponent.AnimationState, AnimationState> spriteAnimations = new HashMap<CreatureComponent.AnimationState, AnimationState>();
+				HashMap<CreatureComponent.AnimationState, Animation> spriteAnimations = new HashMap<CreatureComponent.AnimationState, Animation>();
 				
 				
 				/* Go through AnimationStates, and add each one to spriteAnimations.
@@ -61,7 +60,7 @@ public class DynamicObjectFactory {
 					// The following properties are inside the ArrayList<Object> now:
 					// "Frame size[2], Origin offset, Start frame coordinates[2], Length, Speed"
 					
-					// Use only the part of the texture where the keyframes for this particular AnimationState are.
+					// Use only the part of the texture where the keyframes for this particular Animation are.
 					TextureRegion subRegion = new TextureRegion(spritesTexture);
 					
 					// Get the coordinates for the subregion.
@@ -90,10 +89,10 @@ public class DynamicObjectFactory {
 					float frameDelay = Float.parseFloat(animationEntry.getValue().get(4).toString());
 					
 					// Insert all keyframes into spriteAnimations, as an Animation, associated
-					// with the correct AnimationState. (animationEntry.getKey())
+					// with the correct Animation. (animationEntry.getKey())
 					
 					// FIXME: Load the looping & offset parameters from the json.
-					spriteAnimations.put(animationEntry.getKey(), new AnimationState(frameDelay, textureRegions, true, 0));
+					spriteAnimations.put(animationEntry.getKey(), new Animation(frameDelay, textureRegions, true, 0));
 				
 				}
 				
