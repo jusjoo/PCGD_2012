@@ -31,7 +31,7 @@ public class AttackComponent extends Component {
 	 */
 	float timer;
 	
-	boolean canAttack;
+	boolean setToStopDamage;
 	boolean attacking;
 	boolean damaging;
 	
@@ -55,6 +55,9 @@ public class AttackComponent extends Component {
 	
 	
 	public void update(float deltaTime){
+		
+		if (setToStopDamage) stopDamage();
+		
 		if (attacking) {
 			((Creature)parent).getComponent(SpriteComponent.class).setCurrentAnimationState(animation);
 			timer = timer - deltaTime;
@@ -70,13 +73,11 @@ public class AttackComponent extends Component {
 			}
 			
 			Vector2 currentVelocity = parent.getComponent(BodyComponent.class).body.getLinearVelocity();
-			
+
+			/*
 			// Set animation states
 			if(canAttack) {
 
-				/*
-				 * FIXME: quick'n'dirty animation state settings 
-				 */
 				if (this.attackComponent != null) {
 					if (this.attackComponent.attacking) {
 						spriteComponent.setCurrentAnimationState(attackComponent.animation);
@@ -103,11 +104,15 @@ public class AttackComponent extends Component {
 					}
 					
 				}
+				
 					
 			}
 			
 			
+			
 		}
+		
+		*/
 			
 		}
 	}
@@ -169,6 +174,11 @@ public class AttackComponent extends Component {
 	public Fixture getAttackFixture() {
 		
 		return attackSensorFixture;
+	}
+
+
+	public void setToStopDamage() {
+		setToStopDamage = true;		
 	}
 	
 	

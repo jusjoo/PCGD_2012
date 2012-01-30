@@ -131,7 +131,7 @@ public class CoffeeGDX implements ApplicationListener {
 
 		Gdx.graphics.setTitle(Integer.toString(Gdx.graphics.getFramesPerSecond()));
 		
-		
+		handleInput();
 		
 		update();
 		// Update camera
@@ -159,21 +159,25 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		map.render(cam, spriteBatch);
 		
-		/*rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
-				GameConfiguration.PIXELS_PER_METER).translate(0.25f, -0.25f, 0));*/
+		
 		
 
 		// Debug render
-		/*if (config.debugMode) {
+		if (GameConfiguration.debugMode) {
 			debugRenderer.render(world, cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
 					GameConfiguration.PIXELS_PER_METER).translate(0.25f, -0.25f, 0));
-		}*/
+		}
 
 		
-		// Lighting renderer
-		/*rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
-				GameConfiguration.PIXELS_PER_METER).translate(0.5f, -0.25f, 0f));
-		rayHandler.updateAndRender();*/
+		// TODO: Lighting renderer
+		/*if (GameConfiguration.lightRendering) {
+			/*rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
+			GameConfiguration.PIXELS_PER_METER).translate(0.25f, -0.25f, 0));
+			rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
+			GameConfiguration.PIXELS_PER_METER).translate(0.5f, -0.25f, 0f));
+			rayHandler.updateAndRender();
+		}*/
+		
 	}
 
 	@Override
@@ -201,6 +205,18 @@ public class CoffeeGDX implements ApplicationListener {
 		world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
 	}
 	
+	/*
+	 * Handles all the debug button inputs.
+	 */
+	public void handleInput() {
+		
+		if (Gdx.input.isKeyPressed((GameConfiguration.debugRenderKey))) {
+			if (GameConfiguration.debugMode) {
+				GameConfiguration.debugMode = false;
+			} else GameConfiguration.debugMode = true;
+		}
+		
+	}
 	
 	public static void main (String[] args) {
         new LwjglApplication(new CoffeeGDX(), "Game", 1024, 768, false);
