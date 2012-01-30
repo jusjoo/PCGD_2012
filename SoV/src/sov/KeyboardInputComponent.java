@@ -10,8 +10,8 @@ public class KeyboardInputComponent extends InputComponent {
 	
 	GameConfiguration config = new GameConfiguration();
 
-	public KeyboardInputComponent(Entity parent, BodyComponent bodyComponent, float speed) {
-		super(parent, bodyComponent, speed);
+	public KeyboardInputComponent(Entity parent, float speed) {
+		super(parent, speed);
 	}
 	
 	@Override
