@@ -35,7 +35,12 @@ public class BodyComponent extends Component {
 	
 	protected float hitPoints = 10;
 	boolean alive = true;
+	
+	// tracks incoming damage
 	protected float setToTakeDamage;
+	// makes body immune to damage after being attacked
+	protected float immuneTimer;
+	
 	boolean setToDie = false;
 	
 	// Use staticBody for everything that doesn't move.
@@ -122,10 +127,15 @@ public class BodyComponent extends Component {
 	}
 	
 	private void takeDamage(float damage) {
-		hitPoints -= damage;
-		if(hitPoints <= 0) {
-			setToDie = true;
+		if (immuneTimer <= 0) {
+			hitPoints -= damage;
+			if(hitPoints <= 0) {
+				setToDie = true;
+			}
+			setToTakeDamage = 0;
+			immuneTimer = GameConfiguration.immuneTime;
 		}
+		
 	}
 	
 	protected void die() {
@@ -224,9 +234,12 @@ public class BodyComponent extends Component {
 
 	@Override
 	public void update(float deltaTime) {		
-		if (setToTakeDamage > 0) {
+		
+		if (immuneTimer > 0) immuneTimer -= deltaTime;
+		
+		
+		if (setToTakeDamage > 0 && immuneTimer <= 0) {
 			takeDamage(setToTakeDamage);
-			setToTakeDamage = 0;
 		}
 		if(setToDie) { die(); }
 	}

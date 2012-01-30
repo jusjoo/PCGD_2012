@@ -46,8 +46,8 @@ public class MyContactListener implements ContactListener {
 							
 							// If contact is with an attack fixture
 							if(contact.getFixtureB() == ((Creature)fixtureUserData2).getComponent(AttackComponent.class).getAttackFixture()) {
-								//((SpriteBody)fixtureUserData).setToTakeDamage(1);
-								((Creature)fixtureUserData2).getComponent(AttackComponent.class).setToStopDamage();
+								((Creature)fixtureUserData).getComponent(BodyComponent.class).setToTakeDamage(1);
+								//((Creature)fixtureUserData2).getComponent(AttackComponent.class);
 							}
 						}
 					}
