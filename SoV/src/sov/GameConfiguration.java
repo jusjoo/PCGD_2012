@@ -41,11 +41,11 @@ public class GameConfiguration {
 	public static int actionAttack = Keys.SPACE;
 	
 	// developer key mappings
-	public static int debugRenderKey = Keys.F1;
-	public static int lightRenderKey = Keys.F2;
-	public static int selectBarbarianKey = Keys.F9;
-	public static int selectNinjaKey = Keys.F10;
-	public static int selectSorceressKey = Keys.F11; 
+	public static int debugRenderKey = Keys.NUM_1;
+	public static int lightRenderKey = Keys.NUM_2;
+	public static int selectBarbarianKey = Keys.NUM_0;
+	public static int selectNinjaKey = Keys.NUM_9;
+	public static int selectSorceressKey = Keys.NUM_8; 
 	
 	public static DynamicObjectFactory dynamicObjectFactory;
 	
