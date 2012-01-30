@@ -20,13 +20,19 @@ public class AIComponent extends InputComponent {
 		super.update(deltaTime);
 		
 			if(entityToFollow != null) {
-				if(getBodyComponent().getPosition().x < entityToFollow.getPosition().x) {
-					getBodyComponent().body.applyLinearImpulse(new Vector2(speed, 0), getBodyComponent().body.getWorldCenter());
-					getBodyComponent().setFacingRight(true);
-				} else {
-					getBodyComponent().body.applyLinearImpulse(new Vector2(-speed, 0), getBodyComponent().body.getWorldCenter());
-					getBodyComponent().setFacingRight(false);
+				
+				// No following when dead
+				if (getBodyComponent().alive){
+					
+					if(getBodyComponent().getPosition().x < entityToFollow.getPosition().x) {
+						getBodyComponent().body.applyLinearImpulse(new Vector2(speed, 0), getBodyComponent().body.getWorldCenter());
+						getBodyComponent().setFacingRight(true);
+					} else {
+						getBodyComponent().body.applyLinearImpulse(new Vector2(-speed, 0), getBodyComponent().body.getWorldCenter());
+						getBodyComponent().setFacingRight(false);
+					}
 				}
+				
 			}		
 		
 	}
