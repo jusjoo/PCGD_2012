@@ -44,9 +44,9 @@ public class CoffeeGDX implements ApplicationListener {
 	
 	TiledMap map2;
 	
-	/*RayHandler rayHandler;
+	RayHandler rayHandler;
 	
-	PointLight playerLight;*/
+	PointLight playerLight;
 	
 	
 	World world;
@@ -103,7 +103,7 @@ public class CoffeeGDX implements ApplicationListener {
 			map.addCreature(world, creature);
 		}	
 		
-		/*
+		
 		rayHandler = new RayHandler(world);
 		//rayHandler.setAmbientLight(new Color(0f, 0f, 0f, 0.25f));
 		rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
@@ -112,12 +112,12 @@ public class CoffeeGDX implements ApplicationListener {
 		playerLight = new PointLight(rayHandler, 40, new Color(1,1,1,0.95f), 4.0f, 0f, 0f);
 		//playerLight.setSoftnessLenght(3.0f);
 		//playerLight.setSoftnessLenght(0);
-		playerLight.setSoft(false);
+		//playerLight.setSoft(true);
 		//playerLight.setStaticLight(true);
 		//playerLight.setSoft(true);
 		//playerLight.setXray(true);
-		playerLight.attachToBody(creature.getComponent(BodyComponent.class).body, 0, 1f);
-		*/
+		playerLight.attachToBody(player.getComponent(BodyComponent.class).body, 0, 1f);
+		
 		
 	}
 
