@@ -54,6 +54,7 @@ public class AttackComponent extends Component {
 	
 	public void update(float deltaTime){
 		if (attacking) {
+			((Creature)parent).getComponent(SpriteComponent.class).setCurrentAnimationState(animation);
 			timer = timer - deltaTime;
 			
 			if (timer < attackTime-preDamageTime && timer > attackTime-preDamageTime-damageTime && !damaging){
@@ -65,6 +66,7 @@ public class AttackComponent extends Component {
 			if (timer < 0) {
 				stopAttack();
 			}
+			
 		}
 	}
 	
@@ -73,7 +75,7 @@ public class AttackComponent extends Component {
 	protected void stopAttack() {
 		attacking = false;
 		damaging = false;
-		((Creature)parent).getComponent(SpriteComponent.class).currentAnimationState = animation; 
+		 
 	}
 
 
