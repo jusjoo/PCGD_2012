@@ -3,6 +3,7 @@ package sov;
 import sov.SpriteComponent.AnimationState;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -30,7 +31,7 @@ public class AttackComponent extends Component {
 	 */
 	float timer;
 	
-	
+	boolean canAttack;
 	boolean attacking;
 	boolean damaging;
 	
@@ -43,15 +44,13 @@ public class AttackComponent extends Component {
 	/*
 	 * TODO: Takes in a custom attack fixture shape, which is then handled for attacks on both sides.
 	 */
-	public AttackComponent(Object parent, float attackTime, float preDamageTime, float damageTime, SpriteComponent.AnimationState attackAnimation) {
+	public AttackComponent(Entity parent, float attackTime, float preDamageTime, float damageTime, SpriteComponent.AnimationState attackAnimation) {
 		super(parent);
 		
 		this.attackTime = attackTime;
 		this.preDamageTime = preDamageTime;
 		this.damageTime = damageTime;		
 		this.animation = attackAnimation;
-		
-		((Creature)parent).setAttackComponent(this);
 	}
 	
 	
@@ -69,6 +68,46 @@ public class AttackComponent extends Component {
 			if (timer < 0) {
 				stopAttack();
 			}
+			
+			Vector2 currentVelocity = parent.getComponent(BodyComponent.class).body.getLinearVelocity();
+			
+			// Set animation states
+			if(canAttack) {
+
+				/*
+				 * FIXME: quick'n'dirty animation state settings 
+				 */
+				if (this.attackComponent != null) {
+					if (this.attackComponent.attacking) {
+						spriteComponent.setCurrentAnimationState(attackComponent.animation);
+					} else if(!allowJumping) {			
+						if (currentVelocity.y < 0.0f)
+							spriteComponent.setCurrentAnimationState(AnimationState.Fall);
+						else
+							spriteComponent.setCurrentAnimationState(AnimationState.Jump);
+					} else if(Math.abs(currentVelocity.x) > 0.5f) {
+						spriteComponent.setCurrentAnimationState(AnimationState.Run);
+					} else {
+						spriteComponent.setCurrentAnimationState(AnimationState.Idle);
+					}
+				} else {
+					if(!allowJumping) {			
+						if (currentVelocity.y < 0.0f)
+							spriteComponent.setCurrentAnimationState(AnimationState.Fall);
+						else
+							spriteComponent.setCurrentAnimationState(AnimationState.Jump);
+					} else if(Math.abs(currentVelocity.x) > 0.5f) {
+						spriteComponent.setCurrentAnimationState(AnimationState.Run);
+					} else {
+						spriteComponent.setCurrentAnimationState(AnimationState.Idle);
+					}
+					
+				}
+					
+			}
+			
+			
+		}
 			
 		}
 	}
@@ -93,26 +132,28 @@ public class AttackComponent extends Component {
 		
 		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 		
+		BodyComponent bodyComponent = parent.getComponent(BodyComponent.class);
+		
 		int offSet = 0;
 		if( ((Creature)parent).body.getFacingRight()) offSet = 1;
 		else offSet = -1;
 		
 		PolygonShape attackSensorShape = new PolygonShape();
-		attackSensorShape.setAsBox(((Creature)parent).body.getSize().x / PIXELS_PER_METER / 1.5f, ((Creature)parent).body.getSize().y / PIXELS_PER_METER / 1.5f, new Vector2(((Creature)parent).body.getSize().x / PIXELS_PER_METER * offSet ,  0) , 0f);
+		attackSensorShape.setAsBox(bodyComponent.getSize().x / PIXELS_PER_METER / 1.5f, bodyComponent.getSize().y / PIXELS_PER_METER / 1.5f, new Vector2(bodyComponent.getSize().x / PIXELS_PER_METER * offSet ,  0) , 0f);
 		
 		FixtureDef attackSensorFixtureDef = new FixtureDef();
 		attackSensorFixtureDef.shape = attackSensorShape;
 		attackSensorFixtureDef.isSensor = true;
 		attackSensorFixtureDef.density = 0;
 		
-		this.attackSensorFixture = ((Creature) parent).getComponent(BodyComponent.class).body.createFixture(attackSensorFixtureDef);
+		this.attackSensorFixture = bodyComponent.body.createFixture(attackSensorFixtureDef);
 		
 	}
 	
 	protected void stopDamage() {
 		if (damaging) {
 			damaging = false;
-			((Creature) parent).getComponent(BodyComponent.class).body.destroyFixture(attackSensorFixture);
+			parent.getComponent(BodyComponent.class).body.destroyFixture(attackSensorFixture);
 		}
 	}
 

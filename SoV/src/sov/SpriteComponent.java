@@ -36,13 +36,13 @@ public class SpriteComponent extends Component {
 	/* Animations need to be created somewhere else. Could be a static factory method
 	 * in this class, eventually.
 	 */
-	public SpriteComponent(Object parent, HashMap<AnimationState, Animation> animations) {
+	public SpriteComponent(Entity parent, HashMap<AnimationState, Animation> animations) {
 		super(parent);
 		this.animations.putAll(animations);
 		currentFrame = new Sprite(animations.get(currentAnimationState).getKeyFrame(0, true));
 	}
 	
-	public SpriteComponent(Object parent) {
+	public SpriteComponent(Entity parent) {
 		super(parent);
 	}
 	

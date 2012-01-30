@@ -32,7 +32,7 @@ public class BodyComponent extends Component {
 	boolean facingRight = true;
 	
 	// Use staticBody for everything that doesn't move.
-	public BodyComponent(Object parent, Vector2 size,
+	public BodyComponent(Entity parent, Vector2 size,
 			boolean staticBody, float rounding, boolean circle, SlopeShape slopeShape, boolean sensorEntity) {	
 		super(parent);
 		
