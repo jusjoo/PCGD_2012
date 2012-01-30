@@ -32,6 +32,7 @@ public class AttackComponent extends Component {
 	float timer;
 	
 	boolean setToStopDamage;
+	boolean canAttack;
 	boolean attacking;
 	boolean damaging;
 	
@@ -74,7 +75,7 @@ public class AttackComponent extends Component {
 			
 			Vector2 currentVelocity = parent.getComponent(BodyComponent.class).body.getLinearVelocity();
 
-			/*
+			
 			// Set animation states
 			if(canAttack) {
 
@@ -112,7 +113,7 @@ public class AttackComponent extends Component {
 			
 		}
 		
-		*/
+		
 			
 		}
 	}
