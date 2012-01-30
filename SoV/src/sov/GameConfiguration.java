@@ -28,6 +28,9 @@ public class GameConfiguration {
 	public static float jumpHeight = 9.2f;
 	public static float attackImpulse = 0.8f;
 	
+	// immunity time in seconds after taking damage
+	public static float immuneTime = 0.2f;
+	
 	//key mappings
 	// naming
 	public static int moveLeft = Keys.LEFT;
