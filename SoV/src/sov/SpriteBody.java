@@ -17,7 +17,7 @@ public class SpriteBody extends Entity {
 	BodyComponent body;
 	SpriteComponent spriteComponent;
 	
-	protected float hitPoints = 1;
+	protected float hitPoints = 3;
 	boolean alive = true;
 	
 	boolean setToDie = false;

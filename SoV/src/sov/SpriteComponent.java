@@ -81,8 +81,13 @@ public class SpriteComponent extends Component {
 	
 	public void setCurrentAnimationState(AnimationState state) {
 		previousAnimationState = currentAnimationState;
+	
 		currentAnimationState = state;
 		if(previousAnimationState != currentAnimationState) { stateTime = 0; }
+		
+		
+		
+		
 	}
 	
 	public void setAnimations(HashMap<AnimationState, Animation> animations) {
