@@ -3,7 +3,6 @@ package sov;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import sov.SpriteComponent.AnimationState;
 import sov.Creature.CreatureType;
 import sov.GameMap.LayerType;
 
@@ -44,9 +43,9 @@ public class CoffeeGDX implements ApplicationListener {
 	
 	TiledMap map2;
 	
-	/*RayHandler rayHandler;
+	RayHandler rayHandler;
 	
-	PointLight playerLight;*/
+	PointLight playerLight;
 	
 	
 	World world;
@@ -79,7 +78,7 @@ public class CoffeeGDX implements ApplicationListener {
 		player.addComponent(new KeyboardInputComponent(player, player.speed));
 		
 		//give player an attack component
-		player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, AnimationState.Attack1 ));
+		player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, CreatureComponent.AnimationState.Attack1 ));
 		
 		map.setPlayer(player);
 		map.addCreature(world, player);
@@ -103,7 +102,7 @@ public class CoffeeGDX implements ApplicationListener {
 			map.addCreature(world, creature);
 		}	
 		
-		/*
+		
 		rayHandler = new RayHandler(world);
 		//rayHandler.setAmbientLight(new Color(0f, 0f, 0f, 0.25f));
 		rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
@@ -112,12 +111,12 @@ public class CoffeeGDX implements ApplicationListener {
 		playerLight = new PointLight(rayHandler, 40, new Color(1,1,1,0.95f), 4.0f, 0f, 0f);
 		//playerLight.setSoftnessLenght(3.0f);
 		//playerLight.setSoftnessLenght(0);
-		playerLight.setSoft(false);
+		//playerLight.setSoft(true);
 		//playerLight.setStaticLight(true);
 		//playerLight.setSoft(true);
 		//playerLight.setXray(true);
-		playerLight.attachToBody(creature.getComponent(BodyComponent.class).body, 0, 1f);
-		*/
+		playerLight.attachToBody(player.getComponent(BodyComponent.class).body, 0, 1f);
+		
 		
 	}
 
@@ -131,7 +130,7 @@ public class CoffeeGDX implements ApplicationListener {
 
 		Gdx.graphics.setTitle(Integer.toString(Gdx.graphics.getFramesPerSecond()));
 		
-		
+		handleInput();
 		
 		update();
 		// Update camera
@@ -159,21 +158,25 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		map.render(cam, spriteBatch);
 		
-		/*rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
-				GameConfiguration.PIXELS_PER_METER).translate(0.25f, -0.25f, 0));*/
+		
 		
 
 		// Debug render
-		/*if (config.debugMode) {
+		if (GameConfiguration.debugMode) {
 			debugRenderer.render(world, cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
 					GameConfiguration.PIXELS_PER_METER).translate(0.25f, -0.25f, 0));
-		}*/
+		}
 
 		
-		// Lighting renderer
-		/*rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
-				GameConfiguration.PIXELS_PER_METER).translate(0.5f, -0.25f, 0f));
-		rayHandler.updateAndRender();*/
+		// TODO: Lighting renderer
+		/*if (GameConfiguration.lightRendering) {
+			/*rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
+			GameConfiguration.PIXELS_PER_METER).translate(0.25f, -0.25f, 0));
+			rayHandler.setCombinedMatrix(cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
+			GameConfiguration.PIXELS_PER_METER).translate(0.5f, -0.25f, 0f));
+			rayHandler.updateAndRender();
+		}*/
+		
 	}
 
 	@Override
@@ -201,6 +204,18 @@ public class CoffeeGDX implements ApplicationListener {
 		world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
 	}
 	
+	/*
+	 * Handles all the debug button inputs.
+	 */
+	public void handleInput() {
+		
+		if (Gdx.input.isKeyPressed((GameConfiguration.debugRenderKey))) {
+			if (GameConfiguration.debugMode) {
+				GameConfiguration.debugMode = false;
+			} else GameConfiguration.debugMode = true;
+		}
+		
+	}
 	
 	public static void main (String[] args) {
         new LwjglApplication(new CoffeeGDX(), "Game", 1024, 768, false);

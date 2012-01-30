@@ -2,6 +2,8 @@ package sov;
 
 import java.util.HashMap;
 
+import sov.Creature.CreatureType;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -31,8 +33,18 @@ public class BodyComponent extends Component {
 	
 	boolean facingRight = true;
 	
+	protected float hitPoints = 10;
+	boolean alive = true;
+	
+	// tracks incoming damage
+	protected float setToTakeDamage;
+	// makes body immune to damage after being attacked
+	protected float immuneTimer;
+	
+	boolean setToDie = false;
+	
 	// Use staticBody for everything that doesn't move.
-	public BodyComponent(Object parent, Vector2 size,
+	public BodyComponent(Entity parent, Vector2 size,
 			boolean staticBody, float rounding, boolean circle, SlopeShape slopeShape, boolean sensorEntity) {	
 		super(parent);
 		
@@ -114,6 +126,37 @@ public class BodyComponent extends Component {
 		
 	}
 	
+	private void takeDamage(float damage) {
+		if (immuneTimer <= 0) {
+			hitPoints -= damage;
+			if(hitPoints <= 0) {
+				setToDie = true;
+			}
+			setToTakeDamage = 0;
+			immuneTimer = GameConfiguration.immuneTime;
+		}
+		
+	}
+	
+	protected void die() {
+		if(alive) {
+			//body.destroyFixture(body.getFixtureList().get(0));
+			//body.getFixtureList().clear();
+			
+			parent.getComponent(SpriteComponent.class).setCurrentAnimationState(CreatureComponent.AnimationState.Die);
+			alive = false;
+			
+			body.destroyFixture(bodyFixture);
+			body.getFixtureList().clear();
+			body.setGravityScale(0);
+			body.setLinearVelocity(0f, 0f);
+		}
+		
+	}
+	public void setToTakeDamage(float damage) {
+		setToTakeDamage = damage;
+	}
+	
 	// Return position in pixels
 	public Vector2 getPosition() {
 		return new Vector2(body.getPosition().x * GameConfiguration.PIXELS_PER_METER,
@@ -156,12 +199,7 @@ public class BodyComponent extends Component {
 		return parent;
 	}
 	
-	public void die() {
-		body.destroyFixture(bodyFixture);
-		body.getFixtureList().clear();
-		body.setGravityScale(0);
-		body.setLinearVelocity(0f, 0f);
-	}
+	
 	
 	public void setPosition(Vector2 coordinates) {
 		body.setTransform(coordinates.mul(1/GameConfiguration.PIXELS_PER_METER), 0);
@@ -196,5 +234,13 @@ public class BodyComponent extends Component {
 
 	@Override
 	public void update(float deltaTime) {		
+		
+		if (immuneTimer > 0) immuneTimer -= deltaTime;
+		
+		
+		if (setToTakeDamage > 0 && immuneTimer <= 0) {
+			takeDamage(setToTakeDamage);
+		}
+		if(setToDie) { die(); }
 	}
 }

@@ -6,9 +6,9 @@ package sov;
  */
 public abstract class Component {
 	// The parent of the Component
-	protected Object parent;
+	protected Entity parent;
 	
-	public Component(Object parent) {
+	public Component(Entity parent) {
 		this.parent = parent;
 	}
 	

@@ -9,34 +9,43 @@ import com.badlogic.gdx.Input.Keys;
 public class GameConfiguration {
 
 	// debug mode
-	public boolean debugMode = true;
+	public static boolean debugMode = true;
+	// light rendering
+	public static boolean lightRendering = false;
 	// TODO: developer cheats
-	public boolean devMode = false;
+	public static boolean devMode = false;
 	
 	// world
-	public String firstMap = "barbarian_village.tmx";
+	public static String firstMap = "barbarian_village.tmx";
 	// How quickly does the camera follow the player?
-	public float interpolationAmount = 1.00f;
+	public static float interpolationAmount = 1.00f;
 	
 	// Pixels per meter is used to translate Box2d coordinates into pixel coordinates.
 	public static final float PIXELS_PER_METER = 32;
 		
 	// player
-	public float speed = 0.8f;
-	public float jumpHeight = 9.2f;
-	public float attackImpulse = 0.8f;
+	public static float speed = 0.8f;
+	public static float jumpHeight = 9.2f;
+	public static float attackImpulse = 0.8f;
+	
+	// immunity time in seconds after taking damage
+	public static float immuneTime = 0.2f;
 	
 	//key mappings
 	// naming
-	public int moveLeft = Keys.LEFT;
-	public int moveRight = Keys.RIGHT;
-	public int moveUp = Keys.UP;
-	public int moveDown = Keys.DOWN;
-	public int actionJump = Keys.UP;
-	public int actionCrouch = Keys.DOWN;
-	public int actionAttack = Keys.SPACE;
+	public static int moveLeft = Keys.LEFT;
+	public static int moveRight = Keys.RIGHT;
+	public static int moveUp = Keys.UP;
+	public static int moveDown = Keys.DOWN;
+	public static int actionJump = Keys.UP;
+	public static int actionCrouch = Keys.DOWN;
+	public static int actionAttack = Keys.SPACE;
 	
-	protected DynamicObjectFactory dynamicObjectFactory;
+	// debug key mappings
+	public static int debugRenderKey = Keys.F1;
+	public static int lightRenderKey = Keys.F2;
+	
+	public static DynamicObjectFactory dynamicObjectFactory;
 	
 	
 	

@@ -15,7 +15,7 @@ public abstract class InputComponent extends Component {
 		this.bodyComponent = parent.getComponent(BodyComponent.class);
 	}
 	
-	public InputComponent(Object parent) {
+	public InputComponent(Entity parent) {
 		super(parent);
 	}
 	

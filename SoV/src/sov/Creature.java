@@ -4,13 +4,10 @@ import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import sov.SpriteComponent.AnimationState;
 import sov.BodyComponent.SlopeShape;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -32,16 +29,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	@Expose float dexterity;
 	@Expose float strength;
 	@Expose float wisdom;
-	@Expose HashMap<AnimationState, ArrayList<Object>> frames;
-	
-	
-	
-	
-	//protected AttackTimer activeAttackTimer;
-	protected Fixture attackSensorFixture;
-	
-	
-	protected AttackComponent attackComponent;
+	@Expose HashMap<CreatureComponent.AnimationState, ArrayList<Object>> frames;
 	
 	protected float speed;
 	protected float jumpHeight;
@@ -55,7 +43,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	}
 	
 	// Deliver size and position of the creature in pixels.
-	public Creature(Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,
+	public Creature(Vector2 size, HashMap<CreatureComponent.AnimationState, AnimationState> animations, float rounding,
 			boolean circle) {
 		super(size, animations,
 				false, rounding, circle, SlopeShape.Even);	
@@ -75,98 +63,15 @@ public class Creature extends SpriteBody implements Cloneable {
 	}
 	
 	public void update(float deltaTime) {
-		
 		super.update(deltaTime);
-		
-		Vector2 currentVelocity = body.getLinearVelocity();
-		
-		// Set animation states
-		if(alive && canAttack) {
 
-			/*
-			 * FIXME: quick'n'dirty animation state settings 
-			 */
-			if (this.attackComponent != null) {
-				if (this.attackComponent.attacking) {
-					spriteComponent.setCurrentAnimationState(attackComponent.animation);
-
-				} else if(!allowJumping) {			
-					if (currentVelocity.y < 0.0f)
-						spriteComponent.setCurrentAnimationState(AnimationState.Fall);
-					else
-						spriteComponent.setCurrentAnimationState(AnimationState.Jump);
-				} else if(Math.abs(currentVelocity.x) > 0.5f) {
-					spriteComponent.setCurrentAnimationState(AnimationState.Run);
-				} else {
-					spriteComponent.setCurrentAnimationState(AnimationState.Idle);
-				}
-			} else {
-				if(!allowJumping) {			
-					if (currentVelocity.y < 0.0f)
-						spriteComponent.setCurrentAnimationState(AnimationState.Fall);
-					else
-						spriteComponent.setCurrentAnimationState(AnimationState.Jump);
-				} else if(Math.abs(currentVelocity.x) > 0.5f) {
-					spriteComponent.setCurrentAnimationState(AnimationState.Run);
-				} else {
-					spriteComponent.setCurrentAnimationState(AnimationState.Idle);
-				}
-				
-			}
-				
-		}
-		
-		
 	}
 	
 	public void setAllowJumping(boolean allowJumping) {
 		this.allowJumping = allowJumping;
 	}
 	
-	/*
-	 * Attacks with the given attackType
-	 * 
-	 * TODO: 	Handle different activeAttackTimers, when attack
-	 * 			is not the same type. Player shouldn't be able to 
-	 * 			use a new attack before another attack is still processing.
-	 * 
-	 */
-	public void attack(AttackType attackType) {
-		
-		if(canAttack) {
-			
-			
-			
-			float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
-			PolygonShape attackSensorShape = new PolygonShape();
-			int offSet = 0;
-			if(body.getFacingRight()) offSet = 1;
-			else offSet = -1;
-			attackSensorShape.setAsBox(body.getSize().x / PIXELS_PER_METER / 1.5f, body.getSize().y / PIXELS_PER_METER / 1.5f, new Vector2(body.getSize().x / PIXELS_PER_METER * offSet ,  0) , 0f);
-			FixtureDef attackSensorFixtureDef = new FixtureDef();
-			attackSensorFixtureDef.shape = attackSensorShape;
-			attackSensorFixtureDef.isSensor = true;
-			attackSensorFixtureDef.density = 0;
-			
-			this.attackSensorFixture = getComponent(BodyComponent.class).body.createFixture(attackSensorFixtureDef);
-			
-			
-			spriteComponent.setCurrentAnimationState(AnimationState.Attack1);
-			canAttack = false;
-		}
-		
-		
-	} 
 	
-	public void stopAttack(){
-		getComponent(BodyComponent.class).body.destroyFixture(attackSensorFixture);
-		canAttack = true;
-		//body.getFixtureList().remove(attackSensorFixture);
-	}
-	
-	public Fixture getAttackFixture() {
-		return attackSensorFixture;
-	}
 	
 	public void addToWorld(World world, Vector2 position) {
 		getComponent(BodyComponent.class).addToWorld(world, position);
@@ -202,10 +107,6 @@ public class Creature extends SpriteBody implements Cloneable {
 			setAllowJumping(false);
 		}
 		
-	}
-	
-	public void setAttackComponent(AttackComponent a) {
-		this.attackComponent = a;
 	}
 
 }
