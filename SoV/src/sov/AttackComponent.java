@@ -30,7 +30,7 @@ public class AttackComponent extends Component {
 	 */
 	float timer;
 	
-	
+	boolean setToStopDamage;
 	boolean attacking;
 	boolean damaging;
 	
@@ -56,6 +56,9 @@ public class AttackComponent extends Component {
 	
 	
 	public void update(float deltaTime){
+		
+		if (setToStopDamage) stopDamage();
+		
 		if (attacking) {
 			((Creature)parent).getComponent(SpriteComponent.class).setCurrentAnimationState(animation);
 			timer = timer - deltaTime;
@@ -128,6 +131,11 @@ public class AttackComponent extends Component {
 	public Fixture getAttackFixture() {
 		
 		return attackSensorFixture;
+	}
+
+
+	public void setToStopDamage() {
+		setToStopDamage = true;		
 	}
 	
 	

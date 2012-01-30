@@ -17,10 +17,11 @@ public class SpriteBody extends Entity {
 	BodyComponent body;
 	SpriteComponent spriteComponent;
 	
-	protected float hitPoints = 3;
-	boolean alive = true;
 	
-	boolean setToDie = false;
+	
+
+	
+	
 	
 	public SpriteBody() {
 		spriteComponent = new SpriteComponent(this);
@@ -49,6 +50,8 @@ public class SpriteBody extends Entity {
 	
 	public void update(float deltaTime) {
 		
+		
+		
 		super.update(deltaTime);
 		Vector2 currentVelocity = body.getLinearVelocity();
 		
@@ -60,29 +63,17 @@ public class SpriteBody extends Entity {
 			body.setLinearVelocity(-body.getMaxVelocity(), body.getLinearVelocity().y);
 		}
 		
-		if(setToDie) { die(); }
+		
 	}
 	
-	public void takeDamage(float damage) {
-		hitPoints -= damage;
-		if(hitPoints <= 0) {
-			setToDie = true;
-		}
-	}
+	
 	
 	public Vector2 getPosition() {
 		return getComponent(BodyComponent.class).getPosition();
 	}
 	
-	protected void die() {
-		if(alive) {
-			//body.destroyFixture(body.getFixtureList().get(0));
-			//body.getFixtureList().clear();
-			body.die();
-			spriteComponent.setCurrentAnimationState(AnimationState.Die);
-			alive = false;
-		}
-		
-	}
+	
+	
+	
 	
 }
