@@ -9,10 +9,10 @@ public abstract class InputComponent extends Component {
 	protected Vector2 deltaMove = new Vector2();
 	protected float speed;
 	
-	public InputComponent(Object parent, BodyComponent bodyComponent, float speed) {
+	public InputComponent(Entity parent, float speed) {
 		super(parent);
 		this.speed = speed;
-		this.bodyComponent = bodyComponent;
+		this.bodyComponent = parent.getComponent(BodyComponent.class);
 	}
 	
 	public InputComponent(Object parent) {
