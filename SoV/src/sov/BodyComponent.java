@@ -201,6 +201,11 @@ public class BodyComponent extends Component {
 		body.setTransform(coordinates.mul(1/GameConfiguration.PIXELS_PER_METER), 0);
 	}
 	
+	public void removeFromWorld() {
+		body.destroyFixture(bodyFixture);
+		
+	}
+	
 	public void addToWorld(World world, Vector2 position) {
 		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 		bodyDef.position.set( position.x/PIXELS_PER_METER , position.y/PIXELS_PER_METER );

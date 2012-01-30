@@ -27,6 +27,7 @@ public class CoffeeGDX implements ApplicationListener {
 	SpriteBatch spriteBatch = null;
 	
 	
+	DynamicObjectFactory dynamicObjectFactory;
 	
 	Box2DDebugRenderer debugRenderer;
 	
@@ -62,17 +63,11 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		world.setContactListener(new MyContactListener());
 
-		DynamicObjectFactory dynamicObjectFactory = new DynamicObjectFactory("assets/creatures");
+		dynamicObjectFactory = new DynamicObjectFactory("assets/creatures");
 		
 		// Add player
-		Creature player = dynamicObjectFactory.spawnCreature(world, CreatureType.Ninja, new Vector2(300, 250));
-		player.addComponent(new KeyboardInputComponent(player, player.speed));
-		
-		//give player an attack component
-		player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, CreatureComponent.AnimationState.Attack1 ));
-		
-		map.setPlayer(player);
-		map.addCreature(world, player);
+		Creature player = createPlayer(CreatureType.Sorceress, new Vector2(300, 250));
+	
 		
 		for(int i=0; i<20; i++) {
 			int random = (int) (Math.random()*4);
@@ -121,7 +116,8 @@ public class CoffeeGDX implements ApplicationListener {
 
 		Gdx.graphics.setTitle(Integer.toString(Gdx.graphics.getFramesPerSecond()));
 		
-		handleInput();
+		// handles the debug input, if devmode is on
+		if (GameConfiguration.devMode) handleInput();
 		
 		update();
 		// Update camera
@@ -200,13 +196,46 @@ public class CoffeeGDX implements ApplicationListener {
 	 */
 	public void handleInput() {
 		
-		if (Gdx.input.isKeyPressed((GameConfiguration.debugRenderKey))) {
+		if (Gdx.input.isKeyPressed(GameConfiguration.debugRenderKey)) {
 			if (GameConfiguration.debugMode) {
 				GameConfiguration.debugMode = false;
 			} else GameConfiguration.debugMode = true;
 		}
 		
+		if (Gdx.input.isKeyPressed(GameConfiguration.selectBarbarianKey)) {
+			Vector2 pos = map.getPlayer().getPosition();
+			map.removeCreature(map.getPlayer());
+			createPlayer(CreatureType.Barbarian, pos);
+		}
+		if (Gdx.input.isKeyPressed(GameConfiguration.selectNinjaKey)) {
+			Vector2 pos = map.getPlayer().getPosition();
+			map.removeCreature(map.getPlayer());
+			createPlayer(CreatureType.Ninja, pos);
+		}
+		if (Gdx.input.isKeyPressed(GameConfiguration.selectSorceressKey)) {
+			Vector2 pos = map.getPlayer().getPosition();
+			map.removeCreature(map.getPlayer());
+			createPlayer(CreatureType.Sorceress, pos);
+		}
+		
+		
 	}
+	
+	/*
+	 * Creates a new player with controls
+	 */
+	public Creature createPlayer(CreatureType playerClass, Vector2 position) {
+		
+		Creature player = this.dynamicObjectFactory.spawnCreature(world, playerClass, position);
+		player.addComponent(new KeyboardInputComponent(player, player.speed));
+		
+		//give player an attack component
+		player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, CreatureComponent.AnimationState.Attack1 ));
+		map.setPlayer(player);
+		map.addCreature(world, player);
+		return player;
+	}
+
 	
 	public static void main (String[] args) {
         new LwjglApplication(new CoffeeGDX(), "Game", 1024, 768, false);

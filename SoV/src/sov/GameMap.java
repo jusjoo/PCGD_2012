@@ -165,6 +165,13 @@ public class GameMap {
 		return dynMapTiles;	
 	}
 	
+	public void removeCreature(Creature creature) {
+		
+		creature.removeFromWorld();
+		creatures.remove(creature);
+		
+	}
+	
 	public void addCreature(World world, Creature creature) {
 		creatures.add(creature);
 		//System.out.println(creature.creatureType);

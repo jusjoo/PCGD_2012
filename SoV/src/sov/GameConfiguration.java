@@ -11,8 +11,8 @@ public class GameConfiguration {
 	public static boolean debugMode = true;
 	// light rendering
 	public static boolean lightRendering = false;
-	// TODO: developer cheats
-	public static boolean devMode = false;
+	// activates the developer controls
+	public static boolean devMode = true;
 	
 	// world
 	public static String firstMap = "barbarian_village.tmx";
@@ -40,9 +40,12 @@ public class GameConfiguration {
 	public static int actionCrouch = Keys.DOWN;
 	public static int actionAttack = Keys.SPACE;
 	
-	// debug key mappings
+	// developer key mappings
 	public static int debugRenderKey = Keys.F1;
 	public static int lightRenderKey = Keys.F2;
+	public static int selectBarbarianKey = Keys.F9;
+	public static int selectNinjaKey = Keys.F10;
+	public static int selectSorceressKey = Keys.F11; 
 	
 	public static DynamicObjectFactory dynamicObjectFactory;
 	

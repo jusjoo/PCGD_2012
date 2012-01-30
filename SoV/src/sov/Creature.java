@@ -6,6 +6,7 @@ import java.util.HashMap;
 import sov.BodyComponent.SlopeShape;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -32,6 +33,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	protected float speed;
 	protected float jumpHeight;
 	
+	Fixture sensorFixture;
 	
 	public enum AttackType {Melee, Ranged};
 	boolean allowJumping = true;
@@ -70,7 +72,10 @@ public class Creature extends SpriteBody implements Cloneable {
 		this.allowJumping = allowJumping;
 	}
 	
-	
+	public void removeFromWorld(){
+		getComponent(BodyComponent.class).removeFromWorld();
+		getComponent(BodyComponent.class).body.destroyFixture(sensorFixture);
+	}
 	
 	public void addToWorld(World world, Vector2 position) {
 		getComponent(BodyComponent.class).addToWorld(world, position);
@@ -82,15 +87,16 @@ public class Creature extends SpriteBody implements Cloneable {
 		PolygonShape sensorShape = new PolygonShape();
 		sensorShape.setAsBox(body.getSize().x / (3 * PIXELS_PER_METER), body.getSize().y / (12 * PIXELS_PER_METER),
 				new Vector2(0, -body.getSize().y/PIXELS_PER_METER/2), 0);
-		FixtureDef sensorFixture = new FixtureDef();
-		sensorFixture.shape = sensorShape;
-		sensorFixture.isSensor = true;
-		sensorFixture.density = 0;
+		FixtureDef sensorFixtureDef = new FixtureDef();
+		sensorFixtureDef.shape = sensorShape;
+		sensorFixtureDef.isSensor = true;
+		sensorFixtureDef.density = 0;
+		
 		
 		
 		
 		// Attach the foot-sensor on the body.
-		getComponent(BodyComponent.class).body.createFixture(sensorFixture);
+		sensorFixture = getComponent(BodyComponent.class).body.createFixture(sensorFixtureDef);
 		
 		
 		
