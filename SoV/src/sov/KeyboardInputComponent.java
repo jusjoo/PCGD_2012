@@ -1,7 +1,6 @@
 package sov;
 
 import sov.Creature.AttackType;
-import sov.SpriteComponent.AnimationState;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;

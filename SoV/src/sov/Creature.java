@@ -4,7 +4,6 @@ import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import sov.SpriteComponent.AnimationState;
 import sov.BodyComponent.SlopeShape;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -30,7 +29,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	@Expose float dexterity;
 	@Expose float strength;
 	@Expose float wisdom;
-	@Expose HashMap<AnimationState, ArrayList<Object>> frames;
+	@Expose HashMap<CreatureComponent.AnimationState, ArrayList<Object>> frames;
 	
 	protected float speed;
 	protected float jumpHeight;
@@ -44,7 +43,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	}
 	
 	// Deliver size and position of the creature in pixels.
-	public Creature(Vector2 size, HashMap<AnimationState, Animation> animations, float rounding,
+	public Creature(Vector2 size, HashMap<CreatureComponent.AnimationState, AnimationState> animations, float rounding,
 			boolean circle) {
 		super(size, animations,
 				false, rounding, circle, SlopeShape.Even);	

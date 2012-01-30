@@ -2,7 +2,7 @@ package sov;
 
 import java.util.HashMap;
 
-import sov.SpriteComponent.AnimationState;
+import sov.Creature.CreatureType;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -143,7 +143,7 @@ public class BodyComponent extends Component {
 			//body.destroyFixture(body.getFixtureList().get(0));
 			//body.getFixtureList().clear();
 			
-			parent.getComponent(SpriteComponent.class).setCurrentAnimationState(AnimationState.Die);
+			parent.getComponent(SpriteComponent.class).setCurrentAnimationState(CreatureComponent.AnimationState.Die);
 			alive = false;
 			
 			body.destroyFixture(bodyFixture);

@@ -2,7 +2,6 @@ package sov;
 
 import java.util.HashMap;
 
-import sov.SpriteComponent.AnimationState;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -28,7 +27,7 @@ public class SpriteBody extends Entity {
 		addComponent(spriteComponent);
 	}
 
-	public SpriteBody(Vector2 size, HashMap<AnimationState, Animation> animations,
+	public SpriteBody(Vector2 size, HashMap<CreatureComponent.AnimationState, AnimationState> animations,
 			boolean staticBody, float rounding, boolean circle, BodyComponent.SlopeShape slopeShape) {
 		
 		body = new BodyComponent(this, size, staticBody, rounding, circle, slopeShape, false);

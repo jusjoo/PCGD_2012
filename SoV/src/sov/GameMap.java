@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import org.lwjgl.util.vector.Matrix2f;
 
-import sov.SpriteComponent.AnimationState;
 import sov.BodyComponent.SlopeShape;
 import sov.Creature.CreatureType;
 
@@ -156,10 +155,10 @@ public class GameMap {
 				for(TiledObject object : dynTiles) {
 					
 					
-					HashMap<SpriteComponent.AnimationState, Animation> tileAnimations = new HashMap<SpriteComponent.AnimationState, Animation>();
+					HashMap<CreatureComponent.AnimationState, AnimationState> tileAnimations = new HashMap<CreatureComponent.AnimationState, AnimationState>();
 					ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
 					textureRegions.add(atlas.getRegion(object.gid));
-					tileAnimations.put(AnimationState.Idle, new Animation(0.1f, textureRegions));
+					tileAnimations.put(CreatureComponent.AnimationState.Idle, new AnimationState(0.1f, textureRegions, false, 0));
 					
 					SpriteBody asb = new SpriteBody(new Vector2(16f,16f),tileAnimations, false, 1.0f, false, SlopeShape.Even);
 					asb.getComponent(BodyComponent.class).addToWorld(world, new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));

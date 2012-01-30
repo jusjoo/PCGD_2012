@@ -46,10 +46,10 @@ public class DynamicObjectFactory {
 				
 				System.out.println("Creaturetype: " + creaturePrototype.creatureType);
 				
-				HashMap<SpriteComponent.AnimationState, ArrayList<Object>> animationStates =
+				HashMap<CreatureComponent.AnimationState, ArrayList<Object>> animationStates =
 						creaturePrototype.frames;
 				
-				HashMap<SpriteComponent.AnimationState, Animation> spriteAnimations = new HashMap<SpriteComponent.AnimationState, Animation>();
+				HashMap<CreatureComponent.AnimationState, AnimationState> spriteAnimations = new HashMap<CreatureComponent.AnimationState, AnimationState>();
 				
 				
 				/* Go through AnimationStates, and add each one to spriteAnimations.
@@ -57,7 +57,7 @@ public class DynamicObjectFactory {
 				 * in, such as frame size, origin offset, etc etc. This should eliminate all manual
 				 * parsing like is done now. (Horribly ugly!)
 				 */
-				for(Entry<SpriteComponent.AnimationState, ArrayList<Object>> animationEntry: animationStates.entrySet()) {
+				for(Entry<CreatureComponent.AnimationState, ArrayList<Object>> animationEntry: animationStates.entrySet()) {
 					// The following properties are inside the ArrayList<Object> now:
 					// "Frame size[2], Origin offset, Start frame coordinates[2], Length, Speed"
 					
@@ -91,7 +91,9 @@ public class DynamicObjectFactory {
 					
 					// Insert all keyframes into spriteAnimations, as an Animation, associated
 					// with the correct AnimationState. (animationEntry.getKey())
-					spriteAnimations.put(animationEntry.getKey(), new Animation(frameDelay, textureRegions));
+					
+					// FIXME: Load the looping & offset parameters from the json.
+					spriteAnimations.put(animationEntry.getKey(), new AnimationState(frameDelay, textureRegions, true, 0));
 				
 				}
 				

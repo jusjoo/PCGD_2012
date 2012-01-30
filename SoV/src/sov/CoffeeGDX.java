@@ -3,7 +3,6 @@ package sov;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import sov.SpriteComponent.AnimationState;
 import sov.Creature.CreatureType;
 import sov.GameMap.LayerType;
 
@@ -79,7 +78,7 @@ public class CoffeeGDX implements ApplicationListener {
 		player.addComponent(new KeyboardInputComponent(player, player.speed));
 		
 		//give player an attack component
-		player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, AnimationState.Attack1 ));
+		player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, CreatureComponent.AnimationState.Attack1 ));
 		
 		map.setPlayer(player);
 		map.addCreature(world, player);

@@ -13,12 +13,12 @@ import com.badlogic.gdx.math.Vector2;
 public class SpriteComponent extends Component {
 	
 	// AnimationState dictates which Animation is going to be drawn and updated
-	public enum AnimationState { Idle, Run, Jump, Fall, Hurt, WeaponRun, Attack1, Attack2, Die }
-	protected AnimationState currentAnimationState = AnimationState.Idle;
-	protected AnimationState previousAnimationState = null;
+	//public enum AnimationState { Idle, Run, Jump, Fall, Hurt, WeaponRun, Attack1, Attack2, Die }
+	protected CreatureComponent.AnimationState currentAnimationState = CreatureComponent.AnimationState.Idle;
+	//protected CreatureComponent.AnimationState previousAnimationState = null;
 	
 	// Links Animations with AnimationStates
-	protected HashMap<AnimationState, Animation> animations = new HashMap<AnimationState, Animation>();
+	protected HashMap<CreatureComponent.AnimationState, AnimationState> animations = new HashMap<CreatureComponent.AnimationState, AnimationState>();
 	
 	// Sprite used to hold the current frame
 	protected Sprite currentFrame;
@@ -36,7 +36,7 @@ public class SpriteComponent extends Component {
 	/* Animations need to be created somewhere else. Could be a static factory method
 	 * in this class, eventually.
 	 */
-	public SpriteComponent(Entity parent, HashMap<AnimationState, Animation> animations) {
+	public SpriteComponent(Entity parent, HashMap<CreatureComponent.AnimationState, AnimationState> animations) {
 		super(parent);
 		this.animations.putAll(animations);
 		currentFrame = new Sprite(animations.get(currentAnimationState).getKeyFrame(0, true));
@@ -53,16 +53,13 @@ public class SpriteComponent extends Component {
 		
 		int offSet = 0;
 		
+		// FIXME: 16 should really be the... unit size or something?
 		if(facingRight) {
 			currentFrame.flip(false, false);
-			if(currentAnimationState == AnimationState.Attack1) {
-				offSet = 16;
-			}
+			offSet = animations.get(currentAnimationState).offset * 16;
 		} else {
 			currentFrame.flip(true, false);
-			if(currentAnimationState == AnimationState.Attack1) {
-				offSet = -16;
-			}
+			offSet = -animations.get(currentAnimationState).offset * 16;
 		}
 		
 		
@@ -79,32 +76,36 @@ public class SpriteComponent extends Component {
 		currentFrame.draw(spriteBatch);
 	}
 	
-	public void setCurrentAnimationState(AnimationState state) {
-		previousAnimationState = currentAnimationState;
+	public void setCurrentAnimationState(CreatureComponent.AnimationState state) {
+		//previousAnimationState = currentAnimationState;
 	
-		currentAnimationState = state;
-		if(previousAnimationState != currentAnimationState) { stateTime = 0; }
 		
 		
 		
+		
+		if(animations.get(currentAnimationState).looping || animations.get(currentAnimationState).isLastFrame(stateTime)) {
+			currentAnimationState = state;
+		}
+		
+		//if(previousAnimationState != currentAnimationState) { stateTime = 0; }
 		
 	}
 	
-	public void setAnimations(HashMap<AnimationState, Animation> animations) {
+	public void setAnimations(HashMap<CreatureComponent.AnimationState, AnimationState> animations) {
 		this.animations = animations;
 	}
 	
-	public void addAnimation(AnimationState animationState, Animation animation) {
+	public void addAnimation(CreatureComponent.AnimationState animationState, AnimationState animation) {
 		animations.put(animationState, animation);
 	}
 
 	@Override
 	public void update(float deltaTime) {
 		stateTime += deltaTime;
-		boolean looping = true;
-		if(currentAnimationState == AnimationState.Die ||
-				currentAnimationState == AnimationState.Attack1) looping = false;
-		currentFrame.setRegion(animations.get(currentAnimationState).getKeyFrame(stateTime, looping));
+		//boolean looping = true;
+		/*if(currentAnimationState == AnimationState.Die ||
+				currentAnimationState == AnimationState.Attack1) looping = false;*/
+		currentFrame.setRegion(animations.get(currentAnimationState).getKeyFrame(stateTime, animations.get(currentAnimationState).looping));
 		
 	}
 }

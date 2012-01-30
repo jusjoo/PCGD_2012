@@ -1,7 +1,5 @@
 package sov;
 
-import sov.SpriteComponent.AnimationState;
-
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -39,13 +37,13 @@ public class AttackComponent extends Component {
 	PolygonShape attackSensorShape;
 	Fixture attackSensorFixture;
 
-	protected AnimationState animation;
+	protected CreatureComponent.AnimationState animation;
 
 	
 	/*
 	 * TODO: Takes in a custom attack fixture shape, which is then handled for attacks on both sides.
 	 */
-	public AttackComponent(Entity parent, float attackTime, float preDamageTime, float damageTime, SpriteComponent.AnimationState attackAnimation) {
+	public AttackComponent(Entity parent, float attackTime, float preDamageTime, float damageTime, CreatureComponent.AnimationState attackAnimation) {
 		super(parent);
 		
 		this.attackTime = attackTime;
@@ -76,42 +74,7 @@ public class AttackComponent extends Component {
 			Vector2 currentVelocity = parent.getComponent(BodyComponent.class).body.getLinearVelocity();
 
 			
-			// Set animation states
-			if(canAttack) {
-
-				if (this.attackComponent != null) {
-					if (this.attackComponent.attacking) {
-						spriteComponent.setCurrentAnimationState(attackComponent.animation);
-					} else if(!allowJumping) {			
-						if (currentVelocity.y < 0.0f)
-							spriteComponent.setCurrentAnimationState(AnimationState.Fall);
-						else
-							spriteComponent.setCurrentAnimationState(AnimationState.Jump);
-					} else if(Math.abs(currentVelocity.x) > 0.5f) {
-						spriteComponent.setCurrentAnimationState(AnimationState.Run);
-					} else {
-						spriteComponent.setCurrentAnimationState(AnimationState.Idle);
-					}
-				} else {
-					if(!allowJumping) {			
-						if (currentVelocity.y < 0.0f)
-							spriteComponent.setCurrentAnimationState(AnimationState.Fall);
-						else
-							spriteComponent.setCurrentAnimationState(AnimationState.Jump);
-					} else if(Math.abs(currentVelocity.x) > 0.5f) {
-						spriteComponent.setCurrentAnimationState(AnimationState.Run);
-					} else {
-						spriteComponent.setCurrentAnimationState(AnimationState.Idle);
-					}
-					
-				}
-				
-					
-			}
-			
-			
-			
-		}
+		
 		
 		
 			
