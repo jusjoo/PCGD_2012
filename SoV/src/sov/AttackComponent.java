@@ -35,13 +35,13 @@ public class AttackComponent extends Component {
 	PolygonShape attackSensorShape;
 	Fixture attackSensorFixture;
 
-	protected CreatureComponent.AnimationState animation;
+	protected SpriteComponent.AnimationState animation;
 
 	
 	/*
 	 * TODO: Takes in a custom attack fixture shape, which is then handled for attacks on both sides.
 	 */
-	public AttackComponent(Entity parent, float attackTime, float preDamageTime, float damageTime, CreatureComponent.AnimationState attackAnimation) {
+	public AttackComponent(Entity parent, float attackTime, float preDamageTime, float damageTime, SpriteComponent.AnimationState attackAnimation) {
 		super(parent);
 		
 		this.attackTime = attackTime;

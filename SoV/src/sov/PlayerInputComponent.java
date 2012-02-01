@@ -2,32 +2,28 @@ package sov;
 
 import com.badlogic.gdx.Gdx;
 
-public class KeyboardInputComponent extends InputComponent {
+public class PlayerInputComponent extends InputComponent {
 	
 	GameConfiguration config = new GameConfiguration();
 
-	public KeyboardInputComponent(Entity parent, float speed) {
-		super(parent, speed);
+	public PlayerInputComponent(Entity parent) {
+		super(parent);
+		this.movementComponent = parent.getComponent(MovementComponent.class);
+		
 	}
 	
 	@Override
 	public void update(float deltaTime) {
-				super.update(deltaTime);
-				deltaMove.set(0, 0);
 				if (Gdx.input.isKeyPressed(GameConfiguration.moveRight)) {
-					deltaMove.set(speed, 0f);
-					bodyComponent.setFacingRight(true);
-					
+					movementComponent.move(true);
 				} else if (Gdx.input.isKeyPressed(GameConfiguration.moveLeft)) {
-					deltaMove.set(-speed, 0f);
-					bodyComponent.setFacingRight(false);
+					movementComponent.move(false);
 				}
 				
 				// Jumping
 				// Check for a maximum vertical speed and allowJumping to make sure jumping is allowed
-				if (Gdx.input.isKeyPressed(GameConfiguration.actionJump) && Math.abs(bodyComponent.body.getLinearVelocity().y) < 1.7f
-						&& Creature.class.isAssignableFrom(parent.getClass())) {
-					((Creature)parent).jump();
+				if (Gdx.input.isKeyPressed(GameConfiguration.actionJump)) {
+					movementComponent.jump();
 				}
 				
 				// Attacking

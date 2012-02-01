@@ -84,7 +84,8 @@ public class CoffeeGDX implements ApplicationListener {
 			//		new Vector2(map.map.width*16f, map.map.height*16f));
 			Creature creature = dynamicObjectFactory.spawnCreature(world, creatureType,
 					new Vector2((float) Math.random()*600f, (float) Math.random()*600f));
-			creature.addComponent(new AIComponent(creature, creature.speed).setToFollow(player));
+			creature.addComponent(new MovementComponent(creature, creature.speed, creature.jumpHeight));
+			creature.addComponent(new AIComponent(creature).setToFollow(player));
 			map.addCreature(world, creature);
 		}	
 		
@@ -227,10 +228,11 @@ public class CoffeeGDX implements ApplicationListener {
 	public Creature createPlayer(CreatureType playerClass, Vector2 position) {
 		
 		Creature player = this.dynamicObjectFactory.spawnCreature(world, playerClass, position);
-		player.addComponent(new KeyboardInputComponent(player, player.speed));
+		player.addComponent(new MovementComponent(player, player.speed, player.jumpHeight));
+		player.addComponent(new PlayerInputComponent(player));
 		
 		//give player an attack component
-		player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, CreatureComponent.AnimationState.Attack1 ));
+		player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, SpriteComponent.AnimationState.Attack1 ));
 		map.setPlayer(player);
 		map.addCreature(world, player);
 		return player;

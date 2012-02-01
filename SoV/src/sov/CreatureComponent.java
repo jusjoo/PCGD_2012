@@ -2,8 +2,6 @@ package sov;
 
 public class CreatureComponent extends Component {
 	
-	public enum AnimationState { Idle, Run, Jump, Fall, Hurt, WeaponRun, Attack1, Attack2, Die }
-	
 	public CreatureComponent(Entity parent) {
 		super(parent);
 	}

@@ -139,7 +139,7 @@ public class BodyComponent extends Component {
 			//body.destroyFixture(body.getFixtureList().get(0));
 			//body.getFixtureList().clear();
 			
-			parent.getComponent(SpriteComponent.class).setCurrentAnimationState(CreatureComponent.AnimationState.Die);
+			parent.getComponent(SpriteComponent.class).setCurrentAnimationState(SpriteComponent.AnimationState.Die);
 			alive = false;
 			
 			body.destroyFixture(bodyFixture);
