@@ -233,9 +233,10 @@ public class CoffeeGDX implements ApplicationListener {
 		player.addComponent(new PlayerInputComponent(player));
 		
 		//give player an attack component
+		map.addCreature(world, player);
 		player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, SpriteComponent.AnimationState.Attack1 ));
 		map.setPlayer(player);
-		map.addCreature(world, player);
+		
 		return player;
 	}
 

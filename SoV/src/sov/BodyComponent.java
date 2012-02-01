@@ -260,4 +260,10 @@ public class BodyComponent extends Component {
 		}
 		if(setToDie) { die(); }
 	}
+
+	public void setUserData(AttackComponent attackComponent) {
+		
+		body.setUserData(attackComponent);
+		
+	}
 }
