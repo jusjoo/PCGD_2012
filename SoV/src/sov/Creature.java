@@ -36,7 +36,6 @@ public class Creature extends SpriteBody implements Cloneable {
 	Fixture sensorFixture;
 	
 	public enum AttackType {Melee, Ranged};
-	boolean allowJumping = true;
 	boolean canAttack = true;
 	
 	public Creature() {
@@ -66,10 +65,6 @@ public class Creature extends SpriteBody implements Cloneable {
 	public void update(float deltaTime) {
 		super.update(deltaTime);
 
-	}
-	
-	public void setAllowJumping(boolean allowJumping) {
-		this.allowJumping = allowJumping;
 	}
 	
 	public void removeFromWorld(){
@@ -103,14 +98,6 @@ public class Creature extends SpriteBody implements Cloneable {
 		// Creatures shall not rotate according to physics!
 		getComponent(BodyComponent.class).body.setFixedRotation(true);
 		
-		
-	}
-	
-	public void jump() {
-		if(allowJumping) {
-			getComponent(BodyComponent.class).body.applyLinearImpulse(new Vector2(0.0f, jumpHeight), getComponent(BodyComponent.class).body.getWorldCenter());
-			setAllowJumping(false);
-		}
 		
 	}
 

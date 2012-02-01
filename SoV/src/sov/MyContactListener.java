@@ -31,7 +31,7 @@ public class MyContactListener implements ContactListener {
 					// Test to make sure the collision is actually coming from the bottom
 					// TODO: Support different angles (ninja might be able to jump from walls)
 					if(contact.getWorldManifold().getNormal().y > 0) {
-						((Creature)fixtureUserData).setAllowJumping(true);
+						((Entity)fixtureUserData).getComponent(MovementComponent.class).setAllowJumping(true);
 					}
 					
 				}
@@ -43,7 +43,7 @@ public class MyContactListener implements ContactListener {
 						// Skip entities that don't have an attack component attached
 						// TODO: maybe optimize with a simple boolean value in Creature class?
 						
-						System.out.println("päästään tänne");
+						System.out.println("pï¿½ï¿½stï¿½ï¿½n tï¿½nne");
 						
 						//fixtureUserData.getDamage()	
 						((Entity)fixtureUserData2).getComponent(BodyComponent.class).setToTakeDamage(1);

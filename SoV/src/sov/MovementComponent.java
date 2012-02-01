@@ -12,6 +12,8 @@ public class MovementComponent extends Component {
 	protected float speed;
 	protected float jumpHeight;
 	
+	boolean allowJumping = true;
+	
 	public MovementComponent(Entity parent, float speed, float jumpHeight) {
 		super(parent);
 		bodyComponent = parent.getComponent(BodyComponent.class);
@@ -37,6 +39,10 @@ public class MovementComponent extends Component {
 		this.speed = speed;
 	}
 	
+	public void setAllowJumping(boolean allowJumping) {
+		this.allowJumping = allowJumping;
+	}
+	
 	public void setJumpHeight(float jumpHeight) {
 		this.jumpHeight = jumpHeight;
 	}
@@ -48,8 +54,11 @@ public class MovementComponent extends Component {
 	}
 	
 	public void jump() {
-		spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Jump);
-		deltaMove.set(deltaMove.x, jumpHeight);
+		if(allowJumping) {
+			spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Jump);
+			deltaMove.set(deltaMove.x, jumpHeight);
+			setAllowJumping(false);
+		}
 	}
 
 	@Override

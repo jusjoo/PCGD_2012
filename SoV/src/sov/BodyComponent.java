@@ -31,6 +31,7 @@ public class BodyComponent extends Component {
 	boolean facingRight = true;
 	
 	protected float hitPoints = 1;
+	protected boolean indestructible;
 	boolean alive = true;
 	
 	// tracks incoming damage
@@ -133,6 +134,15 @@ public class BodyComponent extends Component {
 			immuneTimer = GameConfiguration.immuneTime;
 		}
 		
+	}
+	
+	protected BodyComponent setIndestructible(boolean indestructible) {
+		this.indestructible = indestructible;
+		return this;
+	}
+	
+	protected boolean isIndestructible() {
+		return indestructible;
 	}
 	
 	protected void die() {
