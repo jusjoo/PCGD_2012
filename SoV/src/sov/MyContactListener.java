@@ -37,19 +37,22 @@ public class MyContactListener implements ContactListener {
 				}
 				
 				if(fixtureUserData2 != null) {
-				
-					if(Creature.class.isAssignableFrom(fixtureUserData.getClass()) && Creature.class.isAssignableFrom(fixtureUserData2.getClass())) {
-						
+					
+					//if(Creature.class.isAssignableFrom(fixtureUserData.getClass()) && Creature.class.isAssignableFrom(fixtureUserData2.getClass())) {
+					if(AttackComponent.class.isAssignableFrom(fixtureUserData.getClass()) && ((Entity)fixtureUserData2).getComponent(BodyComponent.class) != null) {	
 						// Skip entities that don't have an attack component attached
 						// TODO: maybe optimize with a simple boolean value in Creature class?
-						if ( ((Creature)fixtureUserData2).components.containsKey(AttackComponent.class)) {
-							
-							// If contact is with an attack fixture
-							if(contact.getFixtureB() == ((Creature)fixtureUserData2).getComponent(AttackComponent.class).getAttackFixture()) {
-								((Creature)fixtureUserData).getComponent(BodyComponent.class).setToTakeDamage(1);
-								//((Creature)fixtureUserData2).getComponent(AttackComponent.class);
-							}
-						}
+						
+						System.out.println("p‰‰st‰‰n t‰nne");
+						
+						//fixtureUserData.getDamage()	
+						((Entity)fixtureUserData2).getComponent(BodyComponent.class).setToTakeDamage(1);
+						
+						/*
+						if(contact.getFixtureB() == ((Creature)fixtureUserData2).getComponent(AttackComponent.class).getAttackFixture()) {
+							((Creature)fixtureUserData).getComponent(BodyComponent.class).setToTakeDamage(1);
+							//((Creature)fixtureUserData2).getComponent(AttackComponent.class);
+						}*/
 					}
 				}
 			}

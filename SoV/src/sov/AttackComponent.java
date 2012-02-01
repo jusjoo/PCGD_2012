@@ -130,7 +130,7 @@ public class AttackComponent extends Component {
 		
 		
 		attackBody = bodyComponent.world.createBody(attackBodyDef);
-		
+		attackBody.setUserData(this);
 		this.attackSensorFixture = attackBody.createFixture(attackSensorFixtureDef);
 	}
 	
