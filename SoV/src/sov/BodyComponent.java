@@ -213,8 +213,10 @@ public class BodyComponent extends Component {
 	}
 	
 	public void removeFromWorld() {
-		body.destroyFixture(bodyFixture);
-		
+		if(body != null && bodyFixture != null) {
+			body.destroyFixture(bodyFixture);
+			//world.destroyBody(body);
+		}
 	}
 	
 	public void addToWorld(World world, Vector2 position) {

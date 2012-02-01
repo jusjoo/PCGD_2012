@@ -206,6 +206,7 @@ public class CoffeeGDX implements ApplicationListener {
 		if (Gdx.input.isKeyPressed(GameConfiguration.selectBarbarianKey)) {
 			Vector2 pos = map.getPlayer().getPosition();
 			map.removeCreature(map.getPlayer());
+			//map.getPlayer().removeFromWorld();
 			createPlayer(CreatureType.Barbarian, pos);
 		}
 		if (Gdx.input.isKeyPressed(GameConfiguration.selectNinjaKey)) {

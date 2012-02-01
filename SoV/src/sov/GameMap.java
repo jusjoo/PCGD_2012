@@ -167,8 +167,8 @@ public class GameMap {
 	
 	public void removeCreature(Creature creature) {
 		
-		creature.removeFromWorld();
 		creatures.remove(creature);
+		creature.removeFromWorld();
 		
 	}
 	
