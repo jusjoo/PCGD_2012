@@ -63,6 +63,11 @@
 		  "Hurt": [[1,2], 0, [1,2], 1, 0, false],
 		  "Die": [[2,2], 0.5, [0,2], 4, 0, false]
 	  	}
+	  	"_attacks_description":
+	  			"AttackType, attackTime, preDamageTime, damageTime"
+	  	"attacks": {
+	  	  "Attack1": [Ranged, 2.1, 0.2, 1.5]
+	  	}
 	},
 	
 		{
