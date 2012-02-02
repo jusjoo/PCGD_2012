@@ -163,7 +163,7 @@ public class AttackComponent extends Component {
 		setToStopDamage = true;		
 	}
 	
-	private float getOffset() {
+	protected float getOffset() {
 			
 		float offSet = 0;
 		if( ((Creature)parent).body.getFacingRight()) offSet = 1.5f;

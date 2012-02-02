@@ -66,7 +66,7 @@ public class CoffeeGDX implements ApplicationListener {
 		dynamicObjectFactory = new DynamicObjectFactory("assets/creatures");
 		
 		// Add player
-		Creature player = createPlayer(CreatureType.Sorceress, new Vector2(300, 250));
+		Creature player = createPlayer(CreatureType.Barbarian, new Vector2(300, 250));
 	
 		
 		for(int i=0; i<20; i++) {
@@ -206,17 +206,21 @@ public class CoffeeGDX implements ApplicationListener {
 		if (Gdx.input.isKeyPressed(GameConfiguration.selectBarbarianKey)) {
 			Vector2 pos = map.getPlayer().getPosition();
 			map.removeCreature(map.getPlayer());
-			createPlayer(CreatureType.Barbarian, pos);
+			Creature player = createPlayer(CreatureType.Barbarian, pos);
+			player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, SpriteComponent.AnimationState.Attack1 ));
 		}
 		if (Gdx.input.isKeyPressed(GameConfiguration.selectNinjaKey)) {
 			Vector2 pos = map.getPlayer().getPosition();
 			map.removeCreature(map.getPlayer());
-			createPlayer(CreatureType.Ninja, pos);
+			Creature player = createPlayer(CreatureType.Ninja, pos);
+			player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, SpriteComponent.AnimationState.Attack1 ));
 		}
 		if (Gdx.input.isKeyPressed(GameConfiguration.selectSorceressKey)) {
 			Vector2 pos = map.getPlayer().getPosition();
 			map.removeCreature(map.getPlayer());
-			createPlayer(CreatureType.Sorceress, pos);
+			Creature player = createPlayer(CreatureType.Sorceress, pos);
+			player.addComponent(new RangedAttackComponent(player, 3f, 0.5f, 2.2f, SpriteComponent.AnimationState.Attack1, 1f));
+			
 		}
 		
 		
@@ -233,7 +237,7 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		//give player an attack component
 		map.addCreature(world, player);
-		player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, SpriteComponent.AnimationState.Attack1 ));
+		
 		map.setPlayer(player);
 		
 		return player;
