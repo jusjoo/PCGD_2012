@@ -31,25 +31,28 @@ public class MyContactListener implements ContactListener {
 					// Test to make sure the collision is actually coming from the bottom
 					// TODO: Support different angles (ninja might be able to jump from walls)
 					if(contact.getWorldManifold().getNormal().y > 0) {
-						((Creature)fixtureUserData).setAllowJumping(true);
+						((Entity)fixtureUserData).getComponent(MovementComponent.class).setAllowJumping(true);
 					}
 					
 				}
 				
 				if(fixtureUserData2 != null) {
-				
-					if(Creature.class.isAssignableFrom(fixtureUserData.getClass()) && Creature.class.isAssignableFrom(fixtureUserData2.getClass())) {
-						
+					
+					//if(Creature.class.isAssignableFrom(fixtureUserData.getClass()) && Creature.class.isAssignableFrom(fixtureUserData2.getClass())) {
+					if(AttackComponent.class.isAssignableFrom(fixtureUserData.getClass()) && ((Entity)fixtureUserData2).getComponent(BodyComponent.class) != null) {	
 						// Skip entities that don't have an attack component attached
 						// TODO: maybe optimize with a simple boolean value in Creature class?
-						if ( ((Creature)fixtureUserData2).components.containsKey(AttackComponent.class)) {
-							
-							// If contact is with an attack fixture
-							if(contact.getFixtureB() == ((Creature)fixtureUserData2).getComponent(AttackComponent.class).getAttackFixture()) {
-								((Creature)fixtureUserData).getComponent(BodyComponent.class).setToTakeDamage(1);
-								//((Creature)fixtureUserData2).getComponent(AttackComponent.class);
-							}
-						}
+						
+						System.out.println("p��st��n t�nne");
+						
+						//fixtureUserData.getDamage()	
+						((Entity)fixtureUserData2).getComponent(BodyComponent.class).setToTakeDamage(1);
+						
+						/*
+						if(contact.getFixtureB() == ((Creature)fixtureUserData2).getComponent(AttackComponent.class).getAttackFixture()) {
+							((Creature)fixtureUserData).getComponent(BodyComponent.class).setToTakeDamage(1);
+							//((Creature)fixtureUserData2).getComponent(AttackComponent.class);
+						}*/
 					}
 				}
 			}

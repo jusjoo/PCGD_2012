@@ -45,10 +45,10 @@ public class DynamicObjectFactory {
 				
 				System.out.println("Creaturetype: " + creaturePrototype.creatureType);
 				
-				HashMap<CreatureComponent.AnimationState, ArrayList<Object>> animationStates =
+				HashMap<SpriteComponent.AnimationState, ArrayList<Object>> animationStates =
 						creaturePrototype.frames;
 				
-				HashMap<CreatureComponent.AnimationState, Animation> spriteAnimations = new HashMap<CreatureComponent.AnimationState, Animation>();
+				HashMap<SpriteComponent.AnimationState, Animation> spriteAnimations = new HashMap<SpriteComponent.AnimationState, Animation>();
 				
 				
 				/* Go through AnimationStates, and add each one to spriteAnimations.
@@ -56,9 +56,9 @@ public class DynamicObjectFactory {
 				 * in, such as frame size, origin offset, etc etc. This should eliminate all manual
 				 * parsing like is done now. (Horribly ugly!)
 				 */
-				for(Entry<CreatureComponent.AnimationState, ArrayList<Object>> animationEntry: animationStates.entrySet()) {
+				for(Entry<SpriteComponent.AnimationState, ArrayList<Object>> animationEntry: animationStates.entrySet()) {
 					// The following properties are inside the ArrayList<Object> now:
-					// "Frame size[2], Origin offset, Start frame coordinates[2], Length, Speed"
+					// "Frame size[2], Origin offset, Start frame coordinates[2], Length, Speed, Loops"
 					
 					// Use only the part of the texture where the keyframes for this particular Animation are.
 					TextureRegion subRegion = new TextureRegion(spritesTexture);
@@ -88,11 +88,13 @@ public class DynamicObjectFactory {
 					
 					float frameDelay = Float.parseFloat(animationEntry.getValue().get(4).toString());
 					
+					boolean loops = Boolean.parseBoolean(animationEntry.getValue().get(5).toString());
+					
+					int offset = (int) Float.parseFloat(animationEntry.getValue().get(1).toString());
+					
 					// Insert all keyframes into spriteAnimations, as an Animation, associated
 					// with the correct Animation. (animationEntry.getKey())
-					
-					// FIXME: Load the looping & offset parameters from the json.
-					spriteAnimations.put(animationEntry.getKey(), new Animation(frameDelay, textureRegions, true, 0));
+					spriteAnimations.put(animationEntry.getKey(), new Animation(frameDelay, textureRegions, loops, offset));
 				
 				}
 				

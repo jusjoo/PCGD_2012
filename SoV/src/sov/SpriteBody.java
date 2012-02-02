@@ -25,7 +25,7 @@ public class SpriteBody extends Entity {
 		addComponent(spriteComponent);
 	}
 
-	public SpriteBody(Vector2 size, HashMap<CreatureComponent.AnimationState, Animation> animations,
+	public SpriteBody(Vector2 size, HashMap<SpriteComponent.AnimationState, Animation> animations,
 			boolean staticBody, float rounding, boolean circle, BodyComponent.SlopeShape slopeShape) {
 		
 		body = new BodyComponent(this, size, staticBody, rounding, circle, slopeShape, false);

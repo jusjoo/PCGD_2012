@@ -5,9 +5,12 @@ import com.badlogic.gdx.math.Vector2;
 public class AIComponent extends InputComponent {
 
 	BodyComponent entityToFollow = null;
+	BodyComponent bodyComponent;
 	
-	public AIComponent(Entity parent, float speed) {
-		super(parent, speed);
+	public AIComponent(Entity parent) {
+		super(parent);
+		this.movementComponent = parent.getComponent(MovementComponent.class);
+		this.bodyComponent = parent.getComponent(BodyComponent.class);
 	}
 	
 	public AIComponent setToFollow(Entity entity) {
@@ -16,24 +19,18 @@ public class AIComponent extends InputComponent {
 	}
 	
 	@Override
-	public void update(float deltaTime) {
-		super.update(deltaTime);
-		
-			if(entityToFollow != null) {
-				
-				// No following when dead
-				if (getBodyComponent().alive){
-					
-					if(getBodyComponent().getPosition().x < entityToFollow.getPosition().x) {
-						getBodyComponent().body.applyLinearImpulse(new Vector2(speed, 0), getBodyComponent().body.getWorldCenter());
-						getBodyComponent().setFacingRight(true);
-					} else {
-						getBodyComponent().body.applyLinearImpulse(new Vector2(-speed, 0), getBodyComponent().body.getWorldCenter());
-						getBodyComponent().setFacingRight(false);
-					}
+	public void update(float deltaTime) {		
+		if(entityToFollow != null) {
+				if(bodyComponent.getPosition().x < entityToFollow.getPosition().x) {
+					//bodyComponent.body.applyLinearImpulse(new Vector2(speed, 0), getBodyComponent().body.getWorldCenter());
+					//bodyComponent.setFacingRight(true);
+					movementComponent.move(true);
+				} else {
+					//bodyComponent.body.applyLinearImpulse(new Vector2(-speed, 0), getBodyComponent().body.getWorldCenter());
+					//bodyComponent.setFacingRight(false);
+					movementComponent.move(false);
 				}
-				
-			}		
+			}	
 		
 	}
 

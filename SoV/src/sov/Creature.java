@@ -28,7 +28,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	@Expose float dexterity;
 	@Expose float strength;
 	@Expose float wisdom;
-	@Expose HashMap<CreatureComponent.AnimationState, ArrayList<Object>> frames;
+	@Expose HashMap<SpriteComponent.AnimationState, ArrayList<Object>> frames;
 	
 	protected float speed;
 	protected float jumpHeight;
@@ -36,14 +36,13 @@ public class Creature extends SpriteBody implements Cloneable {
 	Fixture sensorFixture;
 	
 	public enum AttackType {Melee, Ranged};
-	boolean allowJumping = true;
 	boolean canAttack = true;
 	
 	public Creature() {
 	}
 	
 	// Deliver size and position of the creature in pixels.
-	public Creature(Vector2 size, HashMap<CreatureComponent.AnimationState, Animation> animations, float rounding,
+	public Creature(Vector2 size, HashMap<SpriteComponent.AnimationState, Animation> animations, float rounding,
 			boolean circle) {
 		super(size, animations,
 				false, rounding, circle, SlopeShape.Even);	
@@ -66,10 +65,6 @@ public class Creature extends SpriteBody implements Cloneable {
 	public void update(float deltaTime) {
 		super.update(deltaTime);
 
-	}
-	
-	public void setAllowJumping(boolean allowJumping) {
-		this.allowJumping = allowJumping;
 	}
 	
 	public void removeFromWorld(){
@@ -103,14 +98,6 @@ public class Creature extends SpriteBody implements Cloneable {
 		// Creatures shall not rotate according to physics!
 		getComponent(BodyComponent.class).body.setFixedRotation(true);
 		
-		
-	}
-	
-	public void jump() {
-		if(allowJumping) {
-			getComponent(BodyComponent.class).body.applyLinearImpulse(new Vector2(0.0f, jumpHeight), getComponent(BodyComponent.class).body.getWorldCenter());
-			setAllowJumping(false);
-		}
 		
 	}
 

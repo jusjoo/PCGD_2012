@@ -15,6 +15,7 @@ public class BodyComponent extends Component {
 	BodyDef bodyDef;
 	Fixture bodyFixture;
 	FixtureDef bodyFixtureDef;
+	World world;
 	
 	// SlopeShape determines which direction the slope comes from. (If there is a slope)
 	// TODO: Change the coordinate system to NorthWest, NorthEast, SouthEast, SouthWest,
@@ -29,7 +30,8 @@ public class BodyComponent extends Component {
 	
 	boolean facingRight = true;
 	
-	protected float hitPoints = 10;
+	protected float hitPoints = 1;
+	protected boolean indestructible;
 	boolean alive = true;
 	
 	// tracks incoming damage
@@ -134,12 +136,21 @@ public class BodyComponent extends Component {
 		
 	}
 	
+	protected BodyComponent setIndestructible(boolean indestructible) {
+		this.indestructible = indestructible;
+		return this;
+	}
+	
+	protected boolean isIndestructible() {
+		return indestructible;
+	}
+	
 	protected void die() {
 		if(alive) {
 			//body.destroyFixture(body.getFixtureList().get(0));
 			//body.getFixtureList().clear();
 			
-			parent.getComponent(SpriteComponent.class).setCurrentAnimationState(CreatureComponent.AnimationState.Die);
+			parent.getComponent(SpriteComponent.class).setCurrentAnimationState(SpriteComponent.AnimationState.Die);
 			alive = false;
 			
 			body.destroyFixture(bodyFixture);
@@ -210,10 +221,13 @@ public class BodyComponent extends Component {
 		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 		bodyDef.position.set( position.x/PIXELS_PER_METER , position.y/PIXELS_PER_METER );
 		
+		this.world = world;
+		
 		body = world.createBody(bodyDef);
 		
 		bodyFixtureDef.density = 3.5f;
 		bodyFixtureDef.friction = 0.02f;
+		
 		bodyFixture = body.createFixture(bodyFixtureDef);
 		
 		
@@ -243,5 +257,11 @@ public class BodyComponent extends Component {
 			takeDamage(setToTakeDamage);
 		}
 		if(setToDie) { die(); }
+	}
+
+	public void setUserData(AttackComponent attackComponent) {
+		
+		body.setUserData(attackComponent);
+		
 	}
 }

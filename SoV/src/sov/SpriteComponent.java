@@ -12,12 +12,12 @@ import com.badlogic.gdx.math.Vector2;
 public class SpriteComponent extends Component {
 	
 	// Animation dictates which Animation is going to be drawn and updated
-	//public enum Animation { Idle, Run, Jump, Fall, Hurt, WeaponRun, Attack1, Attack2, Die }
-	protected CreatureComponent.AnimationState currentAnimationState = CreatureComponent.AnimationState.Idle;
-	//protected CreatureComponent.AnimationState previousAnimationState = null;
+	public enum AnimationState { Idle, Run, Jump, Fall, Hurt, WeaponRun, Attack1, Attack2, Die };
+	protected SpriteComponent.AnimationState currentAnimationState = SpriteComponent.AnimationState.Idle;
+	//protected SpriteComponent.AnimationState previousAnimationState = null;
 	
 	// Links Animations with AnimationStates
-	protected HashMap<CreatureComponent.AnimationState, Animation> animations = new HashMap<CreatureComponent.AnimationState, Animation>();
+	protected HashMap<SpriteComponent.AnimationState, Animation> animations = new HashMap<SpriteComponent.AnimationState, Animation>();
 	
 	// Sprite used to hold the current frame
 	protected Sprite currentFrame;
@@ -35,7 +35,7 @@ public class SpriteComponent extends Component {
 	/* Animations need to be created somewhere else. Could be a static factory method
 	 * in this class, eventually.
 	 */
-	public SpriteComponent(Entity parent, HashMap<CreatureComponent.AnimationState, Animation> animations) {
+	public SpriteComponent(Entity parent, HashMap<SpriteComponent.AnimationState, Animation> animations) {
 		super(parent);
 		this.animations.putAll(animations);
 		currentFrame = new Sprite(animations.get(currentAnimationState).getKeyFrame(0, true));
@@ -75,13 +75,7 @@ public class SpriteComponent extends Component {
 		currentFrame.draw(spriteBatch);
 	}
 	
-	public void setCurrentAnimationState(CreatureComponent.AnimationState state) {
-		//previousAnimationState = currentAnimationState;
-	
-		
-		
-		
-		
+	public void setCurrentAnimationState(SpriteComponent.AnimationState state) {
 		if(animations.get(currentAnimationState).looping || animations.get(currentAnimationState).isLastFrame(stateTime)) {
 			currentAnimationState = state;
 		}
@@ -90,11 +84,11 @@ public class SpriteComponent extends Component {
 		
 	}
 	
-	public void setAnimations(HashMap<CreatureComponent.AnimationState, Animation> animations) {
+	public void setAnimations(HashMap<SpriteComponent.AnimationState, Animation> animations) {
 		this.animations = animations;
 	}
 	
-	public void addAnimation(CreatureComponent.AnimationState animationState, Animation animation) {
+	public void addAnimation(SpriteComponent.AnimationState animationState, Animation animation) {
 		animations.put(animationState, animation);
 	}
 
@@ -108,3 +102,5 @@ public class SpriteComponent extends Component {
 		
 	}
 }
+
+
