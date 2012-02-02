@@ -34,6 +34,8 @@ public abstract class InputComponent extends Component {
 	@Override
 	public void update(float deltaTime) {
 		bodyComponent.applyLinearImpulse(deltaMove);
+		
+		
 	}
 
 }

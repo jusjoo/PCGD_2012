@@ -12,6 +12,8 @@ public class KeyboardInputComponent extends InputComponent {
 	
 	@Override
 	public void update(float deltaTime) {
+		
+		
 				super.update(deltaTime);
 				deltaMove.set(0, 0);
 				if (Gdx.input.isKeyPressed(GameConfiguration.moveRight)) {
