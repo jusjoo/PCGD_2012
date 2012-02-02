@@ -62,8 +62,8 @@ public class AttackComponent extends Component {
 		bodyComponent = parent.getComponent(BodyComponent.class);
 		
 		attackBodyComponent = new BodyComponent(this.parent,
-				new Vector2(5,5), false, 1.0f, false, SlopeShape.Even, true);
-				
+				new Vector2(20,20), false, 1.0f, false, SlopeShape.Even, true);
+		
 		
 
 		
@@ -98,9 +98,7 @@ public class AttackComponent extends Component {
 		 * Update attack body's position relative to the Entity's body
 		 */
 		if (damaging) {
-			int offSet = 0;
-			if( ((Creature)parent).body.getFacingRight()) offSet = 1;
-			else offSet = -1; 
+			float offSet = getOffset();
 			attackBodyComponent.setPosition(new Vector2(bodyComponent.getPosition().x + offSet*16, bodyComponent.getPosition().y ));
 		}
 		if(attackBodyComponent != null){
@@ -129,20 +127,12 @@ public class AttackComponent extends Component {
 	protected void startDamage(){
 		damaging = true;
 		
-		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
-		
-		System.out.println("JEEJEE");
-		
-					
-					
-		int offSet = 0;
-		if( ((Creature)parent).body.getFacingRight()) offSet = 1;
-		else offSet = -1; 
-		
-		
-
+		float offSet = getOffset();
 				
 		attackBodyComponent.addToWorld(bodyComponent.world, new Vector2(bodyComponent.getPosition().x + offSet*16, bodyComponent.getPosition().y ));
+		
+		// Sets attack bodies user data as this, so that attack sensors can be identified
+		attackBodyComponent.setUserData(this);
 		attackBodyComponent.body.setGravityScale(0);
 	
 	}
@@ -173,6 +163,13 @@ public class AttackComponent extends Component {
 		setToStopDamage = true;		
 	}
 	
+	private float getOffset() {
+			
+		float offSet = 0;
+		if( ((Creature)parent).body.getFacingRight()) offSet = 1.5f;
+		else offSet = -1.5f; 
 	
+		return offSet ;
+	}
 	
 }

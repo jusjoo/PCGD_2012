@@ -64,6 +64,7 @@ public class BodyComponent extends Component {
 		
 		
 		bodyFixtureDef = new FixtureDef();
+		bodyFixtureDef.isSensor = sensorEntity;
 		
 		if(circle) {
 			CircleShape circleShape = new CircleShape();
