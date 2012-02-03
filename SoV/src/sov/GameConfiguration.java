@@ -33,8 +33,8 @@ public class GameConfiguration {
 	public static float healthBaseModifier = 1.0f;	
 	public static float dexSpeedMultiplier = 0.4f;
 	public static float speedBaseModifier = 1.0f;
-	public static float dexJumpHeightMultiplier = 1.15f;
-	public static float jumpHeightBaseModifier = 1.0f;
+	public static float dexJumpHeightMultiplier = 1.0f;
+	public static float jumpHeightBaseModifier = 5.0f;
 	public static float creatureMaxVelocityMultiplier = 1.15f;
 	
 	
@@ -52,6 +52,7 @@ public class GameConfiguration {
 	public static int actionJump = Keys.UP;
 	public static int actionCrouch = Keys.DOWN;
 	public static int actionAttack = Keys.SPACE;
+	public static int actionAltAttack = Keys.CONTROL_LEFT;
 	
 	// developer key mappings
 	public static int debugRenderKey = Keys.NUM_1;

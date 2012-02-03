@@ -99,7 +99,7 @@ public class CoffeeGDX implements ApplicationListener {
 		Gdx.graphics.setTitle(Integer.toString(Gdx.graphics.getFramesPerSecond()));
 		
 		// handles the debug input, if devmode is on
-		if (GameConfiguration.devMode) handleInput();
+		if (GameConfiguration.devMode && canPressDebugKey) handleInput();
 		
 		update();
 		// Update camera
