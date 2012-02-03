@@ -101,8 +101,8 @@ public class DynamicObjectFactory {
 				/*
 				 * Create attacks for the prototype
 				 */
-				HashMap<AttackComponent.AttackName, ArrayList<Object>> attackDefinitions = creaturePrototype.attacks;
-				for(Entry<AttackComponent.AttackName, ArrayList<Object>> attackEntry: attackDefinitions.entrySet()) {
+				HashMap<SpriteComponent.AnimationState, ArrayList<Object>> attackDefinitions = creaturePrototype.attacks;
+				for(Entry<SpriteComponent.AnimationState, ArrayList<Object>> attackEntry: attackDefinitions.entrySet()) {
 					String attackType = attackEntry.getValue().get(0).toString();
 					float attackTime = Float.parseFloat(attackEntry.getValue().get(1).toString());
 					float preDamageTime = Float.parseFloat(attackEntry.getValue().get(2).toString());

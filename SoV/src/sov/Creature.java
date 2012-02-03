@@ -3,7 +3,6 @@ package sov;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import sov.AttackComponent.AttackName;
 import sov.BodyComponent.SlopeShape;
 
 import com.badlogic.gdx.math.Vector2;
@@ -30,7 +29,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	@Expose float strength;
 	@Expose float wisdom;
 	@Expose HashMap<SpriteComponent.AnimationState, ArrayList<Object>> frames;
-	@Expose HashMap<AttackName, ArrayList<Object>> attacks;
+	@Expose HashMap<SpriteComponent.AnimationState, ArrayList<Object>> attacks;
 	
 	protected float speed;
 	protected float jumpHeight;

@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public class AttackComponent extends Component {
 
 	
-	public enum AttackName {Attack1, Attack2, Ranged1, Ranged2};
+	
 	/*
 	 * preAttackTime is the time where the animation starts, but the attack fixture is not yet active.
 	 */

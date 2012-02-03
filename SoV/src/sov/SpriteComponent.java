@@ -13,6 +13,7 @@ public class SpriteComponent extends Component {
 	
 	// Animation dictates which Animation is going to be drawn and updated
 	public enum AnimationState { Idle, Run, Jump, Fall, Hurt, WeaponRun, Attack1, Attack2, Die };
+	
 	protected SpriteComponent.AnimationState currentAnimationState = SpriteComponent.AnimationState.Idle;
 	//protected SpriteComponent.AnimationState previousAnimationState = null;
 	
