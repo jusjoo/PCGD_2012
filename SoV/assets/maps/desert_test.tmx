@@ -231,4 +231,13 @@
    eJzt3MdPm3cAxvFfAkSxHTa9O1MphDB7bchUF2GmvbU5poMwO05JLq2YYbbHYKVpxQyzPWZBIua/0DZTYf0Lbb8WWFguLkYEv6/x85U+F2zQe0CPfq8FrzFKKaWUUkoppZRSSimllFJKKaWUUkoppZRSSimllFJKKaWUUkoppZRSKtrrjrX6CpRSKrTua69UlBfvMCYBiUhCMlKQijSH1VenfN1iq/6ER5ulorhMNukkspCNHOQiD/naK9t0L3b1fPVAe6WiuEI26SKKUIwSlKIM5dor2/TH2vnqL+2ViqK4/3NzpnKzU+4KtGAQlWxTFapRg1rUaa9s09/s1D/erYqz+kqUCl8JbBP3f27OVO6ruIm7aGWb2tCODnSiS3ullNrB6p3GNKARTWhGi3P99US2KQtFq2cq7065h1aZYYxgFGMY114ppXawHrapF33oxwAG/fYqiW3KRjG4/3NzpnKzU27LLlgpFbVNsU3TmMEs5jDvt1fJbFMOSlAN7v/cI9orpZQFvWabFrCIJSxjxW+vUtimXJSiBh0Y1V4ppSxov8sYB5xw4QDiXeuvp7JNeShDLToxpr1SEVwSkpGCVKThLUuvSIXacbbpbaQjAyeQ6bdXaWxTPspRhy6Ma69UBJeNHOQiD/l4x9IrUtuJDfNw7vJwr+iZQg/qYfV1KfUmKkYJSlGGclyy9IrUduK85eEe0bPARk2jFw0BezXoMJ4WVKAQmYh3aNPC0btxxpxCgf4WVCnvvaHHiUU2agZ9aAzYq7ts001cxUWcRIL2KuT2b+N7P2WnPsPlgL26FmvMddzY4H9w/u81pSK5DLbKhSU2ahb9aArYqyG2qRWVKEIWErVXIXd8G997jZ26jhsbnK9OBdkj7/MauiPoeQ36TFyF2gm26gCW2ag5DKA5YK+G2aY2VKEY2UjSXoWlW+xUNzx+e+UM8nVfkfa8Bn0mvvs77TQFZ3AW53AeF7DVn5PJVsVjhY2axyBaAvZqhG1qRzVKkINk7VVYusce3ceDuNC+7i3Sntegz8R3fwfZpkM4jCM4imMh7FWRi98PlKAUZSjHJXzs2vh7RtmmDtSgFLlI0V7ZNj2vQdmtPWzTXsQgFnHY57dX77E97+MDfIiPUIhKVKEaNahFHb7GN0H2aoxt6kQtypCHVO1VROfc/C1KvbGeOkzBMzzHC7zEK8f6Xl1hez7HF/gSX6ECrWhDOzrQiS78iJ+C7NU429SFOpQjH2naq4gu3eoLUFHVQ7bpESYwicd44rdX9WxPAxrRhGa0YAjDGMEoxjCO3/B7kL1SSqmdrIft6UUf+jGAQe2RUsqGTbFN05jBLOYwr71SStmw12zTAhaxhGWsaK+UUmHoocOYR5jAJB7jiZ5JrJSyYU/Zpmd4jhd4iVfaK6WUDdvjNGYvYhCLOOzTH9EopWzYQbbpEA7jCI7imPZKKWXDTrNNZ3AW53AeF7RXu647+Nnqi1BKqRD6Hp8YbZZSyt55z1a/IAbfbvB6RngvRyllUaHcOm/2np16rpxvpybN6lb59kpnLKWiM+//9wbbm3S/9/ifYXz7lbFmp54r570H/MGsb5XPd0abpVS05t2cYHuTEfA+b4HPMNjsuXJ3tnAtt83qFvnOVb+a/+6Vz8Sa21v4+UqpyOxfC1onjg==
   </data>
  </layer>
+ <objectgroup name="Creatures" width="300" height="50">
+  <object type="Barbarian" x="156" y="711">
+   <properties>
+    <property name="IsPlayer" value=""/>
+   </properties>
+  </object>
+  <object type="Goblin" x="280" y="610"/>
+  <object type="Slime" x="125" y="573"/>
+ </objectgroup>
 </map>
