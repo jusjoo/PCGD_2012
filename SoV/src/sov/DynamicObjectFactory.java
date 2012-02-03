@@ -104,6 +104,7 @@ public class DynamicObjectFactory {
 				 * Create attacks for the prototype
 				 */
 				HashMap<SpriteComponent.AnimationState, ArrayList<Object>> attackDefinitions = creaturePrototype.attacks;
+				//creaturePrototype.addComponent(new AttackComponent());
 				
 				for(Entry<SpriteComponent.AnimationState, ArrayList<Object>> attackEntry: attackDefinitions.entrySet()) {
 					String attackType = attackEntry.getValue().get(0).toString();

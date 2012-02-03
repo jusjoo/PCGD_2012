@@ -11,7 +11,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class AttackComponent extends Component {
 
-	
+	/*
+	 * These keep track of the attacks stored in this component
+	 */
+	//ArrayList<>
 	
 	/*
 	 * preAttackTime is the time where the animation starts, but the attack fixture is not yet active.

@@ -423,13 +423,6 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,290,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="Creatures" width="150" height="50">
-  <object type="Goblin" x="230" y="698"/>
-  <object type="Barbarian" x="502" y="692">
-   <properties>
-    <property name="IsPlayer" value=""/>
-   </properties>
-  </object>
- </objectgroup>
+ <objectgroup name="Creatures" width="150" height="50"/>
  <objectgroup name="DynamicTiles" width="150" height="50"/>
 </map>

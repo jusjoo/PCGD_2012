@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import sov.BodyComponent.SlopeShape;
+import sov.Creature.CreatureType;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
@@ -52,6 +54,8 @@ public class GameMap {
 	// Layer id-numbers to use with tileMapRenderer.
 	HashMap<LayerType, Integer> layerIds = new HashMap<LayerType, Integer>();
 	
+	public DynamicObjectFactory factory;
+	
 	// Tile size in pixels.
 	protected float tileSize = 16f;
 	
@@ -78,8 +82,11 @@ public class GameMap {
 		
 		parallaxCamera = new OrthographicCamera(Gdx.graphics.getWidth()/1.2f, Gdx.graphics.getHeight()/1.2f);
 		
+		factory = new DynamicObjectFactory("assets/creatures");
+		
 		createStaticTiles(world);
 		createDynamicTiles(world, atlas);
+		spawnCreatures(world);
 		
 	}
 	
@@ -152,6 +159,44 @@ public class GameMap {
 					SpriteBody asb = new SpriteBody(new Vector2(16f,16f),tileAnimations, false, 1.0f, false, SlopeShape.Even);
 					asb.getComponent(BodyComponent.class).addToWorld(world, new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));
 					dynMapTiles.add(asb);
+				}
+			}
+		}
+	}
+	
+	// Create monsters
+	protected void spawnCreatures(World world) {
+		ArrayList<TiledObjectGroup> objectGroups = map.objectGroups;
+		
+		for(TiledObjectGroup objectGroup : objectGroups) {
+			if(objectGroup.name.equals("Creatures")) {
+				ArrayList<TiledObject> dynTiles = map.objectGroups.get(1).objects;
+				
+				for(TiledObject object : dynTiles) {
+					
+					
+					//HashMap<SpriteComponent.AnimationState, Animation> tileAnimations = new HashMap<SpriteComponent.AnimationState, Animation>();
+					//ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
+					//textureRegions.add(atlas.getRegion(object.gid));
+					//tileAnimations.put(SpriteComponent.AnimationState.Idle, new Animation(0.1f, textureRegions, false, 0));
+					
+					//SpriteBody asb = new SpriteBody(new Vector2(16f,16f),tileAnimations, false, 1.0f, false, SlopeShape.Even);
+					
+					
+					//asb.getComponent(BodyComponent.class).addToWorld(world, new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));
+					//dynMapTiles.add(asb);
+					Creature creature = factory.spawnCreature(world, Creature.CreatureType.valueOf(object.type),
+							new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));
+					creature.addComponent(new MovementComponent(creature, creature.speed, creature.jumpHeight));
+					if(object.properties.get("IsPlayer") != null) {
+						creature.addComponent(new PlayerInputComponent(creature));
+						this.setPlayer(creature);
+					} else {
+						creature.addComponent(new AIComponent(creature));	
+					}
+					
+					this.addCreature(world, creature);
+					
 				}
 			}
 		}
@@ -265,5 +310,5 @@ public class GameMap {
 		
 	}
 	
-	
+
 }
