@@ -276,6 +276,15 @@
    eJzt3MsuA1Ecx/FpVYJQl52FRNm43/YW2LrvLXgA7+CyxDsgrPAQhPdAPIbE/6//CWm0qXZmzpmZ7yf5ZVpJx5nk1/ZMO6dBAAAAAAAAACAJU64H4EiP6wF4rCzplwxIBiVDbofTtukEH5fX51Mz5iTzkgXJomTJ7XDaUnI9gByq93ysSFYkq5JicsNBCrT62g/AP7Vz03p0ft9tiUq4P84dsqd2blqPzu8nLVEJ96f7LsjEsuj55PLTAjRruPD/x4y28BgAAOIQ5fkEEIryfAIAAESjy/UAkEkTrgeA3OJcFnHgXBZpw/wOcdD53XOn61FkV1+QvevVkYxG13HNBtm6Xh3JabQGZEOyKdmSbEt2JLtJDAoAAAAAavA5aPq1+71eHOvb+J47/f77vd6HpFSo5j3gtzEQjRdJbykI7iRXnq+VRGPhusCRP9b6Jb3+T3t1L316kDwm+68Rk2UP1pDeSp/OJLMZ69WmHM+cpM+2ZTvG4xy8Ju950qtyxnp1YMejfdJ+rf/q1EkOeuWDG8mp5drxWKIQdkr71GvdWqdTaNF+6adT+t53Ye/vGx52Kg2/J4OqI+vTjHVJ+3Vvt33qFNLl8tc8Ubfn1jM+O8mXDsmabfX0pWLb8aD6+6l6f9X+1oxX6c+bdenB5lbfn51InuhWbmiftD9htyp2e8Xua7+KdrtZ2q2iFPHQOnVo8yy6hXaNFardSosvcE02tA==
   </data>
  </layer>
- <objectgroup name="Creatures" width="150" height="50"/>
+ <objectgroup name="Creatures" width="150" height="50">
+  <object type="Goblin" x="496" y="686"/>
+  <object type="Barbarian" x="151" y="493">
+   <properties>
+    <property name="IsPlayer" value=""/>
+   </properties>
+  </object>
+  <object type="Ninja" x="513" y="471"/>
+  <object type="Goblin" x="399" y="304"/>
+ </objectgroup>
  <objectgroup name="DynamicTiles" width="150" height="50"/>
 </map>

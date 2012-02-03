@@ -27,7 +27,7 @@ public class CoffeeGDX implements ApplicationListener {
 	SpriteBatch spriteBatch = null;
 	
 	
-	DynamicObjectFactory dynamicObjectFactory;
+	//DynamicObjectFactory dynamicObjectFactory;
 	
 	Box2DDebugRenderer debugRenderer;
 	
@@ -63,32 +63,11 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		world.setContactListener(new MyContactListener());
 
-		dynamicObjectFactory = new DynamicObjectFactory("assets/creatures");
+		
 		
 		// Add player
-		Creature player = createPlayer(CreatureType.Barbarian, new Vector2(300, 250));
+		//createPlayer(CreatureType.Barbarian, new Vector2(300, 250));
 	
-		
-		for(int i=0; i<20; i++) {
-			int random = (int) (Math.random()*4);
-			//System.out.println(random);
-			CreatureType creatureType = null;
-			switch(random) {
-			case 0: { creatureType = CreatureType.Barbarian; break; }
-			case 1: { creatureType = CreatureType.Goblin; break; }
-			case 2: { creatureType = CreatureType.Sorceress; break; }
-			case 3: { creatureType = CreatureType.Ninja; break; }
-			}
-			//System.out.println(creatureType);
-			//Creature creature = dynamicObjectFactory.spawnCreature(world, creatureType,
-			//		new Vector2(map.map.width*16f, map.map.height*16f));
-			Creature creature = dynamicObjectFactory.spawnCreature(world, creatureType,
-					new Vector2((float) Math.random()*600f, (float) Math.random()*600f));
-			creature.addComponent(new MovementComponent(creature, creature.speed, creature.jumpHeight));
-			creature.addComponent(new AIComponent(creature).setToFollow(player));
-			map.addCreature(world, creature);
-		}	
-		
 		
 		rayHandler = new RayHandler(world);
 		//rayHandler.setAmbientLight(new Color(0f, 0f, 0f, 0.25f));
@@ -102,7 +81,7 @@ public class CoffeeGDX implements ApplicationListener {
 		//playerLight.setStaticLight(true);
 		//playerLight.setSoft(true);
 		//playerLight.setXray(true);
-		playerLight.attachToBody(player.getComponent(BodyComponent.class).body, 0, 1f);
+		//playerLight.attachToBody(player.getComponent(BodyComponent.class).body, 0, 1f);
 		
 		
 	}
@@ -231,7 +210,7 @@ public class CoffeeGDX implements ApplicationListener {
 	 */
 	public Creature createPlayer(CreatureType playerClass, Vector2 position) {
 		
-		Creature player = this.dynamicObjectFactory.spawnCreature(world, playerClass, position);
+		Creature player = map.factory.spawnCreature(world, playerClass, position);
 		player.addComponent(new MovementComponent(player, player.speed, player.jumpHeight));
 		player.addComponent(new PlayerInputComponent(player));
 		
@@ -242,6 +221,7 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		return player;
 	}
+	
 
 	
 	public static void main (String[] args) {
