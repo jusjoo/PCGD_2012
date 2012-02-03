@@ -30,6 +30,14 @@ public class RangedAttack extends Attack {
 		// Sets attack bodies user data as this, so that attack sensors can be identified
 		attackBodyComponent.setUserData(attackComponent);
 		attackBodyComponent.body.setGravityScale(0);
+		
+	
+		if(attackingRight) {
+			attackBodyComponent.applyLinearImpulse(new Vector2( flightSpeed, 0f));
+		} else {
+			attackBodyComponent.applyLinearImpulse(new Vector2( -flightSpeed, 0f));
+		}
+
 	
 	}
 }
