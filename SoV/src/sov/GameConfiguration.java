@@ -15,7 +15,7 @@ public class GameConfiguration {
 	public static boolean devMode = true;
 	
 	// world
-	public static String firstMap = "barbarian_village.tmx";
+	public static String firstMap = "barbarian_cave.tmx";
 	// How quickly does the camera follow the player?
 	public static float interpolationAmount = 1.00f;
 	

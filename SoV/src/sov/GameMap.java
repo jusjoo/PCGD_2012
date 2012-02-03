@@ -28,7 +28,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class GameMap {
 	
 	// LayerTypes correspond to layers in Tiled-maps
-	enum LayerType { Foreground, Background, StaticTiles, DynamicTiles, Creatures };
+	enum LayerType { Foreground, Background, StaticTiles, DynamicTiles, Creatures, Traps, Accessories };
 	
 	// Hold a reference to the player, for camera positioning etc.
 	Creature player;
@@ -134,6 +134,12 @@ public class GameMap {
 			} 
 			else if(layer.name.equals("Foreground")) {
 				layerIds.put(LayerType.Foreground, i);
+			}
+			else if(layer.name.equals("Traps")) {
+				layerIds.put(LayerType.Traps, i);
+			}
+			else if(layer.name.equals("Accessories")) {
+				layerIds.put(LayerType.Accessories, i);
 			}
 			
 			
@@ -242,7 +248,9 @@ public class GameMap {
 		if(type == LayerType.Foreground) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Foreground)});
 		if(type == LayerType.Background) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Background)});
 		if(type == LayerType.StaticTiles) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.StaticTiles)});
-        
+        if(type == LayerType.Traps) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Traps)});
+        if(type == LayerType.Accessories) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Accessories)});
+		
 		if(type == LayerType.DynamicTiles) {
 			
 			spriteBatch.begin();
@@ -302,6 +310,8 @@ public class GameMap {
 		
 		
 		renderLayer(LayerType.Background, cam, spriteBatch);
+		renderLayer(LayerType.Traps, cam, spriteBatch);
+		renderLayer(LayerType.Accessories, cam, spriteBatch);
 		renderLayer(LayerType.Creatures, cam, spriteBatch);
 		renderLayer(LayerType.StaticTiles, cam, spriteBatch);
 		renderLayer(LayerType.DynamicTiles, cam, spriteBatch);
