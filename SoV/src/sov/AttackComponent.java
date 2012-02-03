@@ -56,6 +56,25 @@ public class AttackComponent extends Component {
 		
 		if (activeAttack != null) {
 			
+			/*
+			 * Update attack body's position relative to the Entity's body
+			 */
+			if (activeAttack.getClass() == Attack.class) {
+				if (damaging) {
+					float offSet = getOffset();
+					activeAttack.attackBodyComponent.setPosition(new Vector2(bodyComponent.getPosition().x + offSet*16, bodyComponent.getPosition().y ));
+				}
+			} else if (activeAttack.getClass() == RangedAttack.class) {
+				if (damaging) {
+					if(((RangedAttack)activeAttack).attackingRight) {
+						activeAttack.attackBodyComponent.applyLinearImpulse(new Vector2( ((RangedAttack)activeAttack).flightSpeed, 0f));
+					} else {
+						activeAttack.attackBodyComponent.applyLinearImpulse(new Vector2( -((RangedAttack)activeAttack).flightSpeed, 0f));
+					}
+				}
+				
+			}
+			
 			((Creature)parent).getComponent(SpriteComponent.class).setCurrentAnimationState(activeAttack.animation);
 			timer = timer - deltaTime;
 			
@@ -72,20 +91,7 @@ public class AttackComponent extends Component {
 				stopAttack();
 			}
 
-			/*
-			 * Update attack body's position relative to the Entity's body
-			 */
-			if (activeAttack.getClass() == Attack.class) {
-				if (damaging) {
-					float offSet = getOffset();
-					activeAttack.attackBodyComponent.setPosition(new Vector2(bodyComponent.getPosition().x + offSet*16, bodyComponent.getPosition().y ));
-				}
-			} else if (activeAttack.getClass() == RangedAttack.class) {
-				if (damaging) {
-					activeAttack.attackBodyComponent.applyLinearImpulse(new Vector2( ((RangedAttack)activeAttack).flightSpeed, 0f));
-				}
-				
-			}
+			
 				
 			
 			/*if(attackBodyComponent != null){

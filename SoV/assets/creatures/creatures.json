@@ -77,7 +77,7 @@
 	  	"_attacks_description":
 	  			"AttackType, attackTime, preDamageTime, damageTime, (flightSpeed)",
 	  	"attacks": {
-	  	  "Attack1": ["Ranged", 2.1, 0.2, 1.5, 0.5]
+	  	  "Attack1": ["Ranged", 2.1, 0.2, 1.5, 5.5]
 	  	}
 	},
 	

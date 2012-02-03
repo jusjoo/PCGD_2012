@@ -30,7 +30,7 @@ public class BodyComponent extends Component {
 	
 	boolean facingRight = true;
 	
-	protected float hitPoints = 1;
+	protected float hitPoints = 2;
 	protected boolean indestructible;
 	boolean alive = true;
 	
