@@ -38,10 +38,7 @@ public class RangedAttackComponent extends AttackComponent {
 			
 			//Vector2 currentVelocity = parent.getComponent(BodyComponent.class).body.getLinearVelocity();		
 			
-			if (damaging) {
-				if(attackingRight) attackBodyComponent.applyLinearImpulse(new Vector2(flightSpeed, 0));
-				else attackBodyComponent.applyLinearImpulse(new Vector2(-flightSpeed, 0));
-			}	
+			
 		}
 		
 		
