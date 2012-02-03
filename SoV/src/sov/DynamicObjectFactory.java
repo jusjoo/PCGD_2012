@@ -120,7 +120,7 @@ public class DynamicObjectFactory {
 					SpriteComponent.AnimationState animation = SpriteComponent.AnimationState.valueOf(attackEntry.getKey().toString());
 					
 					BodyComponent attackBodyComponent = new BodyComponent(attackComponent.parent,
-							new Vector2(20,20), false, 1.0f, false, SlopeShape.Even, false);
+							new Vector2(20,20), false, 1.0f, false, SlopeShape.Even, true);
 					//bodyComponent = parent.getComponent(BodyComponent.class);
 					
 					Attack attack;
