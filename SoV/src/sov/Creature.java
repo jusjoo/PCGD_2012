@@ -60,6 +60,17 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		creature.body.setMaxVelocity(creature.speed*1.15f);
 		
+		// Set the attack component
+		if(prototype.getComponent(AttackComponent.class) != null) {
+			creature.addComponent(prototype.getComponent(AttackComponent.class));
+			creature.getComponent(AttackComponent.class).setParent(creature);
+		}
+		if(prototype.getComponent(RangedAttackComponent.class) != null) {
+			creature.addComponent(prototype.getComponent(RangedAttackComponent.class));
+			creature.getComponent(RangedAttackComponent.class).setParent(creature);
+		}
+		
+		
 		return creature;
 	}
 	

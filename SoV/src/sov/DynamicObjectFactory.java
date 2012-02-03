@@ -26,6 +26,7 @@ public class DynamicObjectFactory {
 	// A list of the prototypes
 	HashMap<Creature.CreatureType, Creature> creatures = new HashMap<Creature.CreatureType, Creature>();
 	
+	
 	public DynamicObjectFactory(String directory) {
 		
 		// Only read in fields which have @Expose in front of them
@@ -98,27 +99,40 @@ public class DynamicObjectFactory {
 				
 				}
 				
+			
 				/*
 				 * Create attacks for the prototype
 				 */
 				HashMap<SpriteComponent.AnimationState, ArrayList<Object>> attackDefinitions = creaturePrototype.attacks;
+				
 				for(Entry<SpriteComponent.AnimationState, ArrayList<Object>> attackEntry: attackDefinitions.entrySet()) {
 					String attackType = attackEntry.getValue().get(0).toString();
 					float attackTime = Float.parseFloat(attackEntry.getValue().get(1).toString());
 					float preDamageTime = Float.parseFloat(attackEntry.getValue().get(2).toString());
 					float damageTime = Float.parseFloat(attackEntry.getValue().get(3).toString());
-					SpriteComponent.AnimationState animation = SpriteComponent.AnimationState.valueOf(attackEntry.getValue().get(4).toString());
+					SpriteComponent.AnimationState animation = SpriteComponent.AnimationState.valueOf(attackEntry.getKey().toString());
 					
+					AttackComponent ac;
 					
-					//float attackTime, float preDamageTime, float damageTime, SpriteComponent.AnimationState attackAnimation
+					if(attackType.equals("Melee")) {
+						ac = new AttackComponent(null, attackTime, preDamageTime, damageTime, animation);
+						//attackComponentPrototypes.add(ac);
+						creaturePrototype.addComponent(ac);
+					}
+					if (attackType.equals("Ranged")) {
+						float flightSpeed = Float.parseFloat(attackEntry.getValue().get(4).toString());
+						ac = new RangedAttackComponent(null, attackTime, preDamageTime, damageTime, animation, flightSpeed);
+						creaturePrototype.addComponent(ac);
+						//attackComponentPrototypes.add(ac);
+					}	
+					
 				}
 				
 				// Initialize the prototype with the correct animations, and then
 				// add the prototype to "creatures".
 				creaturePrototype.getComponent(SpriteComponent.class).setAnimations(spriteAnimations);
 				
-				
-				
+							
 				
 				
 				creatures.put(creaturePrototype.creatureType, creaturePrototype);
@@ -137,6 +151,7 @@ public class DynamicObjectFactory {
 	// Spawn a creature based on a prototype!
 	public Creature spawnCreature(World world, Creature.CreatureType type, Vector2 coordinates) {
 		Creature creature = Creature.createFromPrototype(creatures.get(type));
+		
 		creature.addToWorld(world, coordinates);
 		return creature;
 	}

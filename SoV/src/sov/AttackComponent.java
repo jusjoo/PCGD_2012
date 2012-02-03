@@ -61,14 +61,12 @@ public class AttackComponent extends Component {
 		
 
 		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
-		bodyComponent = parent.getComponent(BodyComponent.class);
 		
-		attackBodyComponent = new BodyComponent(this.parent,
-				new Vector2(20,20), false, 1.0f, false, SlopeShape.Even, true);
-		
-		
-
-		
+		if (parent != null)	{
+			bodyComponent = parent.getComponent(BodyComponent.class);
+			attackBodyComponent = new BodyComponent(this.parent,
+					new Vector2(20,20), false, 1.0f, false, SlopeShape.Even, true);
+		}		
 	}
 	
 	
@@ -147,7 +145,11 @@ public class AttackComponent extends Component {
 	}
 
 
-	
+	/*
+	 * Starts the attacking if we are ready to attack.
+	 * 
+	 * @.pre	Parent must be set! Prototypes cannot attack.
+	 */
 	public void attack() {
 		if (!attacking) {
 			startAttack();
@@ -172,6 +174,16 @@ public class AttackComponent extends Component {
 		else offSet = -1.5f; 
 	
 		return offSet ;
+	}
+	
+	/*
+	 * This is used to set the parent later to a prototype AttackComponent
+	 */
+	protected void setParent(Entity newParent) {
+		this.parent = newParent;
+		bodyComponent = parent.getComponent(BodyComponent.class);
+		attackBodyComponent = new BodyComponent(this.parent,
+				new Vector2(20,20), false, 1.0f, false, SlopeShape.Even, true);
 	}
 	
 }
