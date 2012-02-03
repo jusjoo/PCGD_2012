@@ -27,6 +27,19 @@ public class GameConfiguration {
 	public static float jumpHeight = 9.2f;
 	public static float attackImpulse = 0.8f;
 	
+	// creature
+	public static float strHealthMultiplier = 1.0f;
+	public static float strDamageMultiplier = 1.0f;
+	public static float healthBaseModifier = 1.0f;	
+	public static float dexSpeedMultiplier = 0.4f;
+	public static float speedBaseModifier = 1.0f;
+	public static float dexJumpHeightMultiplier = 1.15f;
+	public static float jumpHeightBaseModifier = 1.0f;
+	public static float creatureMaxVelocityMultiplier = 1.15f;
+	
+	
+	
+	
 	// immunity time in seconds after taking damage
 	public static float immuneTime = 0.2f;
 	
