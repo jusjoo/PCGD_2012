@@ -65,10 +65,7 @@ public class Creature extends SpriteBody implements Cloneable {
 			creature.addComponent(prototype.getComponent(AttackComponent.class));
 			creature.getComponent(AttackComponent.class).setParent(creature);
 		}
-		if(prototype.getComponent(RangedAttackComponent.class) != null) {
-			creature.addComponent(prototype.getComponent(RangedAttackComponent.class));
-			creature.getComponent(RangedAttackComponent.class).setParent(creature);
-		}
+
 		
 		
 		return creature;

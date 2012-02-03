@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import sov.BodyComponent.SlopeShape;
+
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -22,6 +24,8 @@ import com.google.gson.JsonSyntaxException;
  * TODO: Read in special tiles as well, not just creatures.
  */
 public class DynamicObjectFactory {
+	
+	
 	
 	// A list of the prototypes
 	HashMap<Creature.CreatureType, Creature> creatures = new HashMap<Creature.CreatureType, Creature>();
@@ -105,6 +109,8 @@ public class DynamicObjectFactory {
 				 */
 				HashMap<SpriteComponent.AnimationState, ArrayList<Object>> attackDefinitions = creaturePrototype.attacks;
 				//creaturePrototype.addComponent(new AttackComponent());
+				AttackComponent attackComponent = new AttackComponent(creaturePrototype);
+				
 				
 				for(Entry<SpriteComponent.AnimationState, ArrayList<Object>> attackEntry: attackDefinitions.entrySet()) {
 					String attackType = attackEntry.getValue().get(0).toString();
@@ -113,17 +119,23 @@ public class DynamicObjectFactory {
 					float damageTime = Float.parseFloat(attackEntry.getValue().get(3).toString());
 					SpriteComponent.AnimationState animation = SpriteComponent.AnimationState.valueOf(attackEntry.getKey().toString());
 					
-					AttackComponent ac;
+					BodyComponent attackBodyComponent = new BodyComponent(attackComponent.parent,
+							new Vector2(20,20), false, 1.0f, false, SlopeShape.Even, true);
+					//bodyComponent = parent.getComponent(BodyComponent.class);
+					
+					Attack attack;
 					
 					if(attackType.equals("Melee")) {
-						ac = new AttackComponent(null, attackTime, preDamageTime, damageTime, animation);
+						attack = new Attack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBodyComponent);
 						//attackComponentPrototypes.add(ac);
-						creaturePrototype.addComponent(ac);
+						attackComponent.addAttack(attack);
+						
 					}
 					if (attackType.equals("Ranged")) {
 						float flightSpeed = Float.parseFloat(attackEntry.getValue().get(4).toString());
-						ac = new RangedAttackComponent(null, attackTime, preDamageTime, damageTime, animation, flightSpeed);
-						creaturePrototype.addComponent(ac);
+						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBodyComponent, flightSpeed);
+						attackComponent.addAttack(attack);
+		
 						//attackComponentPrototypes.add(ac);
 					}	
 					
@@ -133,10 +145,11 @@ public class DynamicObjectFactory {
 				// add the prototype to "creatures".
 				creaturePrototype.getComponent(SpriteComponent.class).setAnimations(spriteAnimations);
 				
-							
-				
+				creaturePrototype.addComponent(attackComponent);
+			
 				
 				creatures.put(creaturePrototype.creatureType, creaturePrototype);
+				
 			}
 		
 		} catch (JsonSyntaxException e) {
@@ -151,8 +164,10 @@ public class DynamicObjectFactory {
 	
 	// Spawn a creature based on a prototype!
 	public Creature spawnCreature(World world, Creature.CreatureType type, Vector2 coordinates) {
-		Creature creature = Creature.createFromPrototype(creatures.get(type));
 		
+
+		Creature creature = Creature.createFromPrototype(creatures.get(type));
+
 		creature.addToWorld(world, coordinates);
 		return creature;
 	}

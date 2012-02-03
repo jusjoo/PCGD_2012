@@ -99,9 +99,10 @@ public class SpriteComponent extends Component {
 		//boolean looping = true;
 		/*if(currentAnimationState == Animation.Die ||
 				currentAnimationState == Animation.Attack1) looping = false;*/
+		//System.out.println(currentAnimationState);
 		currentFrame.setRegion(animations.get(currentAnimationState).getKeyFrame(stateTime, animations.get(currentAnimationState).looping));
 		
-	}
+	} 
 }
 
 

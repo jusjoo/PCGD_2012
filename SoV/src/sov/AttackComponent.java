@@ -1,5 +1,7 @@
 package sov;
 
+import java.util.ArrayList;
+
 import sov.BodyComponent.SlopeShape;
 
 import com.badlogic.gdx.math.Vector2;
@@ -14,62 +16,36 @@ public class AttackComponent extends Component {
 	/*
 	 * These keep track of the attacks stored in this component
 	 */
-	//ArrayList<>
+	ArrayList<Attack> attacks;
 	
-	/*
-	 * preAttackTime is the time where the animation starts, but the attack fixture is not yet active.
-	 */
-	float preDamageTime;
 	
-	/*
-	 * damageTime is how long the attack fixture is active.
-	 */
-	float damageTime;
-	
-	/*
-	 * attackTime is the total attack animation time
-	 */
-	float attackTime;
 	
 	/*
 	 * timer keeps track of the whole attack from beginning to end
 	 */
 	float timer;
 	
+	/*
+	 * active attack type
+	 */
+	Attack activeAttack;
+	
 	boolean setToStopDamage;
 	boolean canAttack;
-	boolean attacking;
 	boolean damaging;
-	
-	BodyComponent bodyComponent;
-	BodyComponent attackBodyComponent;
-	PolygonShape attackSensorShape;
-	Fixture attackSensorFixture;
 
 	
-	protected SpriteComponent.AnimationState animation;
-
-	
+	protected BodyComponent bodyComponent;
 	/*
-	 * TODO: Takes in a custom attack fixture shape, which is then handled for attacks on both sides.
-	 */
-	public AttackComponent(Entity parent, float attackTime, float preDamageTime, float damageTime, SpriteComponent.AnimationState attackAnimation) {
-		super(parent);
-		
-		this.attackTime = attackTime;
-		this.preDamageTime = preDamageTime;
-		this.damageTime = damageTime;		
-		this.animation = attackAnimation;
-		
-		
-
-		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
-		
-		if (parent != null)	{
-			bodyComponent = parent.getComponent(BodyComponent.class);
-			attackBodyComponent = new BodyComponent(this.parent,
-					new Vector2(20,20), false, 1.0f, false, SlopeShape.Even, true);
-		}		
+	protected BodyComponent attackBodyComponent;
+	protected PolygonShape attackSensorShape;
+	protected Fixture attackSensorFixture;
+	protected SpriteComponent.AnimationState animation;*/
+	
+	public AttackComponent(Entity parent){
+		super(parent);	
+		attacks = new ArrayList<Attack>();
+		activeAttack = null;
 	}
 	
 	
@@ -78,72 +54,63 @@ public class AttackComponent extends Component {
 		
 		if (setToStopDamage) stopDamage();
 		
-		if (attacking) {
+		if (activeAttack != null) {
 			
-			((Creature)parent).getComponent(SpriteComponent.class).setCurrentAnimationState(animation);
+			((Creature)parent).getComponent(SpriteComponent.class).setCurrentAnimationState(activeAttack.animation);
 			timer = timer - deltaTime;
 			
-			if (timer < attackTime-preDamageTime && timer > attackTime-preDamageTime-damageTime && !damaging){
-				startDamage();
+			if (timer < activeAttack.attackTime-activeAttack.preDamageTime && 
+					timer > activeAttack.attackTime-activeAttack.preDamageTime-activeAttack.damageTime && !damaging){
+				
+				System.out.println("p‰‰st‰‰n t‰nne");
+				activeAttack.startDamage();
 			}
-			if (timer < attackTime-preDamageTime-damageTime){
+			if (timer < activeAttack.attackTime-activeAttack.preDamageTime-activeAttack.damageTime){
 				stopDamage();
 			}
 			if (timer < 0) {
 				stopAttack();
 			}
-			
-			//Vector2 currentVelocity = parent.getComponent(BodyComponent.class).body.getLinearVelocity();
 
-			
-	
-		/*
-		 * Update attack body's position relative to the Entity's body
-		 */
-		if (damaging) {
-			float offSet = getOffset();
-			attackBodyComponent.setPosition(new Vector2(bodyComponent.getPosition().x + offSet*16, bodyComponent.getPosition().y ));
-		}
-		if(attackBodyComponent != null){
-			attackBodyComponent.update(deltaTime);
-		}
-		
-			
-		}
-	}
-	
-	
-	
-	protected void stopAttack() {
-		attacking = false;
-		damaging = false;
-	}
-
-
-
-	protected void startAttack(){
-		attacking = true;
-		timer = attackTime;
-		
-	}
-	
-	protected void startDamage(){
-		damaging = true;
-		
-		float offSet = getOffset();
+			/*
+			 * Update attack body's position relative to the Entity's body
+			 */
+			if (activeAttack.getClass() == Attack.class) {
+				if (damaging) {
+					float offSet = getOffset();
+					activeAttack.attackBodyComponent.setPosition(new Vector2(bodyComponent.getPosition().x + offSet*16, bodyComponent.getPosition().y ));
+				}
+			} else if (activeAttack.getClass() == RangedAttack.class) {
+				if (damaging) {
+					activeAttack.attackBodyComponent.applyLinearImpulse(new Vector2( ((RangedAttack)activeAttack).flightSpeed, 0f));
+				}
 				
-		attackBodyComponent.addToWorld(bodyComponent.world, new Vector2(bodyComponent.getPosition().x + offSet*16, bodyComponent.getPosition().y ));
+			}
+				
+			
+			/*if(attackBodyComponent != null){
+				attackBodyComponent.update(deltaTime);
+			}	*/		
+		}
+	}
 		
-		// Sets attack bodies user data as this, so that attack sensors can be identified
-		attackBodyComponent.setUserData(this);
-		attackBodyComponent.body.setGravityScale(0);
-	
+	protected void stopAttack() {
+		damaging = false;
+		activeAttack = null;
+	}
+
+	protected void startAttack(int attackType) {
+		timer = attacks.get(attackType).attackTime;
+		activeAttack = attacks.get(attackType);
+		
+		//parent.getComponent(SpriteComponent.class).setCurrentAnimationState(attacks.get(attackType).animation);
+		
 	}
 	
 	protected void stopDamage() {
 		if (damaging) {
 			damaging = false;
-			attackBodyComponent.removeFromWorld();
+			activeAttack.attackBodyComponent.removeFromWorld();
 		}
 	}
 
@@ -153,17 +120,14 @@ public class AttackComponent extends Component {
 	 * 
 	 * @.pre	Parent must be set! Prototypes cannot attack.
 	 */
-	public void attack() {
-		if (!attacking) {
-			startAttack();
+	public void attack(int attackType) {
+		if (activeAttack == null) {
+			startAttack(attackType);
 		}
 	}
 
 
-	public Fixture getAttackFixture() {
-		
-		return attackSensorFixture;
-	}
+	
 
 
 	public void setToStopDamage() {
@@ -185,8 +149,13 @@ public class AttackComponent extends Component {
 	protected void setParent(Entity newParent) {
 		this.parent = newParent;
 		bodyComponent = parent.getComponent(BodyComponent.class);
-		attackBodyComponent = new BodyComponent(this.parent,
-				new Vector2(20,20), false, 1.0f, false, SlopeShape.Even, true);
+
+	}
+
+
+	public void addAttack(Attack attack) {
+		attacks.add(attack);
+		
 	}
 	
 }

@@ -186,19 +186,19 @@ public class CoffeeGDX implements ApplicationListener {
 			Vector2 pos = map.getPlayer().getPosition();
 			map.removeCreature(map.getPlayer());
 			Creature player = createPlayer(CreatureType.Barbarian, pos);
-			player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, SpriteComponent.AnimationState.Attack1 ));
+			//player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, SpriteComponent.AnimationState.Attack1 ));
 		}
 		if (Gdx.input.isKeyPressed(GameConfiguration.selectNinjaKey)) {
 			Vector2 pos = map.getPlayer().getPosition();
 			map.removeCreature(map.getPlayer());
 			Creature player = createPlayer(CreatureType.Ninja, pos);
-			player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, SpriteComponent.AnimationState.Attack1 ));
+			//player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, SpriteComponent.AnimationState.Attack1 ));
 		}
 		if (Gdx.input.isKeyPressed(GameConfiguration.selectSorceressKey)) {
 			Vector2 pos = map.getPlayer().getPosition();
 			map.removeCreature(map.getPlayer());
 			Creature player = createPlayer(CreatureType.Sorceress, pos);
-			player.addComponent(new RangedAttackComponent(player, 3f, 0.5f, 2.2f, SpriteComponent.AnimationState.Attack1, 1f));
+			
 			
 		}
 		
@@ -213,6 +213,7 @@ public class CoffeeGDX implements ApplicationListener {
 		Creature player = map.factory.spawnCreature(world, playerClass, position);
 		player.addComponent(new MovementComponent(player, player.speed, player.jumpHeight));
 		player.addComponent(new PlayerInputComponent(player));
+		
 		
 		//give player an attack component
 		map.addCreature(world, player);
