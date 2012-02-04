@@ -8,7 +8,7 @@ import com.badlogic.gdx.Input.Keys;
 public class GameConfiguration {
 
 	// debug mode
-	public static boolean debugMode = true;
+	public static boolean debugMode = false;
 	// light rendering
 	public static boolean lightRendering = false;
 	// activates the developer controls

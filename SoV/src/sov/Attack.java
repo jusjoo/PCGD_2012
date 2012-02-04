@@ -8,7 +8,7 @@ public class Attack {
 	
 	protected SpriteComponent.AnimationState animation;
 
-	public BodyComponent attackBodyComponent;
+	public SpriteBody attackBody;
 	
 	/*
 	 * preAttackTime is the time where the animation starts, but the attack fixture is not yet active.
@@ -28,13 +28,13 @@ public class Attack {
 	/*
 	 * TODO: Takes in a custom attack fixture shape, which is then handled for attacks on both sides.
 	 */
-	public Attack(AttackComponent attackComponent, float attackTime, float preDamageTime, float damageTime, SpriteComponent.AnimationState attackAnimation, BodyComponent attackBodyComponent) {
+	public Attack(AttackComponent attackComponent, float attackTime, float preDamageTime, float damageTime, SpriteComponent.AnimationState attackAnimation, SpriteBody attackSpriteBody) {
 				
 		this.attackTime = attackTime;
 		this.preDamageTime = preDamageTime;
 		this.damageTime = damageTime;		
 		this.animation = attackAnimation;
-		this.attackBodyComponent = attackBodyComponent;
+		this.attackBody = attackSpriteBody;
 		this.attackComponent = attackComponent;
 	}
 	protected void startDamage(){
@@ -42,11 +42,12 @@ public class Attack {
 		
 		float offSet = attackComponent.getOffset();
 				
-		attackBodyComponent.addToWorld(attackComponent.bodyComponent.world, new Vector2(attackComponent.bodyComponent.getPosition().x + offSet*16, attackComponent.bodyComponent.getPosition().y ));
+		// Adds the body in front of attacker
+		attackBody.body.addToWorld(attackComponent.bodyComponent.world, new Vector2(attackComponent.bodyComponent.getPosition().x + offSet*16, attackComponent.bodyComponent.getPosition().y ));
 		
 		// Sets attack bodies user data as this, so that attack sensors can be identified
-		attackBodyComponent.setUserData(attackComponent);
-		attackBodyComponent.body.setGravityScale(0);
+		attackBody.body.setUserData(attackComponent);
+		attackBody.body.body.setGravityScale(0);
 	
 	}
 

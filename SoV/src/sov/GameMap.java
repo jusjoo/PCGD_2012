@@ -320,5 +320,13 @@ public class GameMap {
 		
 	}
 	
+	public void addSpriteBody(SpriteBody sb) {
+		dynMapTiles.add(sb);
+	}
+	
+	public void removeSpriteBody(SpriteBody sb) {
+		dynMapTiles.remove(sb);
+	}
+	
 
 }

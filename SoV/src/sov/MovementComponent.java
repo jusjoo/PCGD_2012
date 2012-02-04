@@ -63,7 +63,7 @@ public class MovementComponent extends Component {
 
 	@Override
 	public void update(float deltaTime) {
-		spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run);
+		//spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run);
 		bodyComponent.applyLinearImpulse(deltaMove);
 		deltaMove.set(0, 0);
 	}

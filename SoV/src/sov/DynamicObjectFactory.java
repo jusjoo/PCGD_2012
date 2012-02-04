@@ -103,7 +103,10 @@ public class DynamicObjectFactory {
 				
 				}
 				
-			
+				// Initialize the prototype with the correct animations
+				
+				creaturePrototype.getComponent(SpriteComponent.class).setAnimations(spriteAnimations);
+				
 				/*
 				 * Create attacks for the prototype
 				 */
@@ -125,15 +128,23 @@ public class DynamicObjectFactory {
 					
 					Attack attack;
 					
+					
+					HashMap<SpriteComponent.AnimationState, Animation> animations = creaturePrototype.getComponent(SpriteComponent.class).animations;
+					
 					if(attackType.equals("Melee")) {
-						attack = new Attack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBodyComponent);
+						SpriteBody attackBody = new SpriteBody(new Vector2(20,20), animations, false, 1.0f, false, SlopeShape.Even, true);
+						attack = new Attack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody);
 						//attackComponentPrototypes.add(ac);
 						attackComponent.addAttack(attack);
 						
 					}
 					if (attackType.equals("Ranged")) {
 						float flightSpeed = Float.parseFloat(attackEntry.getValue().get(4).toString());
-						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBodyComponent, flightSpeed);
+						
+						
+						SpriteBody attackBody = new SpriteBody(new Vector2(20,20), animations, false, 1.0f, true, SlopeShape.Even, true);
+						
+						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody, flightSpeed);
 						attackComponent.addAttack(attack);
 		
 						//attackComponentPrototypes.add(ac);
@@ -141,13 +152,11 @@ public class DynamicObjectFactory {
 					
 				}
 				
-				// Initialize the prototype with the correct animations, and then
-				// add the prototype to "creatures".
-				creaturePrototype.getComponent(SpriteComponent.class).setAnimations(spriteAnimations);
+				
 				
 				creaturePrototype.addComponent(attackComponent);
 			
-				
+				// add the prototype to "creatures".
 				creatures.put(creaturePrototype.creatureType, creaturePrototype);
 				
 			}

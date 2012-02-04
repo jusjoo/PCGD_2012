@@ -1,21 +1,25 @@
 package sov;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.math.Vector2;
 
+import sov.BodyComponent.SlopeShape;
 import sov.SpriteComponent.AnimationState;
 
 public class RangedAttack extends Attack {
-
+	
 	public float flightSpeed;
 	public boolean attackingRight;
 	
-	public RangedAttack(AttackComponent attackComponent, float attackTime,
-			float preDamageTime, float damageTime,
-			AnimationState attackAnimation, BodyComponent attackBodyComponent, float flightSpeed) {
-		super(attackComponent, attackTime, preDamageTime, damageTime, attackAnimation,
-				attackBodyComponent);
+
+	public RangedAttack(AttackComponent attackComponent, float attackTime,	float preDamageTime, 
+			float damageTime, AnimationState attackAnimation, SpriteBody attackSpriteBody, float flightSpeed) {
+		super(attackComponent, attackTime, preDamageTime, damageTime, attackAnimation, attackSpriteBody);
 		this.flightSpeed = flightSpeed;
+		
 	}
+
 
 	protected void startDamage(){
 		attackComponent.damaging = true;
@@ -25,17 +29,18 @@ public class RangedAttack extends Attack {
 		if (offSet > 0) attackingRight = true;
 		 	else attackingRight = false;
 		
-		attackBodyComponent.addToWorld(attackComponent.bodyComponent.world, new Vector2(attackComponent.bodyComponent.getPosition().x + offSet*16, attackComponent.bodyComponent.getPosition().y ));
-		
+		attackBody.body.addToWorld(attackComponent.bodyComponent.world, new Vector2(attackComponent.bodyComponent.getPosition().x + offSet*16, attackComponent.bodyComponent.getPosition().y ));
+		attackBody.spriteComponent.setCurrentAnimationState(AnimationState.Idle);
 		// Sets attack bodies user data as this, so that attack sensors can be identified
-		attackBodyComponent.setUserData(attackComponent);
-		attackBodyComponent.body.setGravityScale(0);
+		attackBody.body.setUserData(attackComponent);
+		attackBody.body.body.setGravityScale(0);
+		attackBody.spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run);
 		
 	
 		if(attackingRight) {
-			attackBodyComponent.applyLinearImpulse(new Vector2( flightSpeed, 0f));
+			attackBody.body.applyLinearImpulse(new Vector2( flightSpeed, 0f));
 		} else {
-			attackBodyComponent.applyLinearImpulse(new Vector2( -flightSpeed, 0f));
+			attackBody.body.applyLinearImpulse(new Vector2( -flightSpeed, 0f));
 		}
 
 	
