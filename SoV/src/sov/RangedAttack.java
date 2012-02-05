@@ -26,8 +26,13 @@ public class RangedAttack extends Attack {
 		
 		float offSet = attackComponent.getOffset();
 		
-		if (offSet > 0) attackingRight = true;
-		 	else attackingRight = false;
+		if (offSet > 0) {
+			attackingRight = true;
+			attackBody.body.setFacingRight(true);
+		} else {
+			attackingRight = false;
+			attackBody.body.setFacingRight(false);
+		}
 		
 		attackBody.body.addToWorld(attackComponent.bodyComponent.world, new Vector2(attackComponent.bodyComponent.getPosition().x + offSet*16, attackComponent.bodyComponent.getPosition().y ));
 		attackBody.spriteComponent.setCurrentAnimationState(AnimationState.Idle);
