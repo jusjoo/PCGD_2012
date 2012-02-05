@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import sov.BodyComponent.SlopeShape;
+import sov.Creature.CreatureType;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
@@ -26,7 +28,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class GameMap {
 	
 	// LayerTypes correspond to layers in Tiled-maps
-	enum LayerType { Foreground, Background, StaticTiles, DynamicTiles, Creatures };
+	enum LayerType { Foreground, Background, StaticTiles, DynamicTiles, Creatures, Traps, Accessories };
 	
 	// Hold a reference to the player, for camera positioning etc.
 	Creature player;
@@ -51,6 +53,8 @@ public class GameMap {
 	
 	// Layer id-numbers to use with tileMapRenderer.
 	HashMap<LayerType, Integer> layerIds = new HashMap<LayerType, Integer>();
+	
+	public DynamicObjectFactory factory;
 	
 	// Tile size in pixels.
 	protected float tileSize = 16f;
@@ -78,8 +82,11 @@ public class GameMap {
 		
 		parallaxCamera = new OrthographicCamera(Gdx.graphics.getWidth()/1.2f, Gdx.graphics.getHeight()/1.2f);
 		
+		factory = new DynamicObjectFactory("assets/creatures");
+		
 		createStaticTiles(world);
 		createDynamicTiles(world, atlas);
+		spawnCreatures(world);
 		
 	}
 	
@@ -128,6 +135,12 @@ public class GameMap {
 			else if(layer.name.equals("Foreground")) {
 				layerIds.put(LayerType.Foreground, i);
 			}
+			else if(layer.name.equals("Traps")) {
+				layerIds.put(LayerType.Traps, i);
+			}
+			else if(layer.name.equals("Accessories")) {
+				layerIds.put(LayerType.Accessories, i);
+			}
 			
 			
 		}
@@ -152,6 +165,44 @@ public class GameMap {
 					SpriteBody asb = new SpriteBody(new Vector2(16f,16f),tileAnimations, false, 1.0f, false, SlopeShape.Even);
 					asb.getComponent(BodyComponent.class).addToWorld(world, new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));
 					dynMapTiles.add(asb);
+				}
+			}
+		}
+	}
+	
+	// Create monsters
+	protected void spawnCreatures(World world) {
+		ArrayList<TiledObjectGroup> objectGroups = map.objectGroups;
+		
+		for(TiledObjectGroup objectGroup : objectGroups) {
+			if(objectGroup.name.equals("Creatures")) {
+				ArrayList<TiledObject> dynTiles = map.objectGroups.get(1).objects;
+				
+				for(TiledObject object : dynTiles) {
+					
+					
+					//HashMap<SpriteComponent.AnimationState, Animation> tileAnimations = new HashMap<SpriteComponent.AnimationState, Animation>();
+					//ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
+					//textureRegions.add(atlas.getRegion(object.gid));
+					//tileAnimations.put(SpriteComponent.AnimationState.Idle, new Animation(0.1f, textureRegions, false, 0));
+					
+					//SpriteBody asb = new SpriteBody(new Vector2(16f,16f),tileAnimations, false, 1.0f, false, SlopeShape.Even);
+					
+					
+					//asb.getComponent(BodyComponent.class).addToWorld(world, new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));
+					//dynMapTiles.add(asb);
+					Creature creature = factory.spawnCreature(world, Creature.CreatureType.valueOf(object.type),
+							new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));
+					creature.addComponent(new MovementComponent(creature, creature.speed, creature.jumpHeight));
+					if(object.properties.get("IsPlayer") != null) {
+						creature.addComponent(new PlayerInputComponent(creature));
+						this.setPlayer(creature);
+					} else {
+						creature.addComponent(new AIComponent(creature));	
+					}
+					
+					this.addCreature(world, creature);
+					
 				}
 			}
 		}
@@ -197,7 +248,9 @@ public class GameMap {
 		if(type == LayerType.Foreground) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Foreground)});
 		if(type == LayerType.Background) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Background)});
 		if(type == LayerType.StaticTiles) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.StaticTiles)});
-        
+        if(type == LayerType.Traps) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Traps)});
+        if(type == LayerType.Accessories) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Accessories)});
+		
 		if(type == LayerType.DynamicTiles) {
 			
 			spriteBatch.begin();
@@ -257,6 +310,8 @@ public class GameMap {
 		
 		
 		renderLayer(LayerType.Background, cam, spriteBatch);
+		renderLayer(LayerType.Traps, cam, spriteBatch);
+		renderLayer(LayerType.Accessories, cam, spriteBatch);
 		renderLayer(LayerType.Creatures, cam, spriteBatch);
 		renderLayer(LayerType.StaticTiles, cam, spriteBatch);
 		renderLayer(LayerType.DynamicTiles, cam, spriteBatch);
@@ -265,5 +320,13 @@ public class GameMap {
 		
 	}
 	
+	public void addSpriteBody(SpriteBody sb) {
+		dynMapTiles.add(sb);
+	}
 	
+	public void removeSpriteBody(SpriteBody sb) {
+		dynMapTiles.remove(sb);
+	}
+	
+
 }

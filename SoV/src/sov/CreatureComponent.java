@@ -1,7 +1,7 @@
 package sov;
 
 public class CreatureComponent extends Component {
-	
+
 	public CreatureComponent(Entity parent) {
 		super(parent);
 	}

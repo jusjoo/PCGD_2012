@@ -1,7 +1,10 @@
 package sov;
 
+import java.util.ArrayList;
+
 import sov.BodyComponent.SlopeShape;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -12,167 +15,154 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public class AttackComponent extends Component {
 
 	/*
-	 * preAttackTime is the time where the animation starts, but the attack fixture is not yet active.
+	 * These keep track of the attacks stored in this component
 	 */
-	float preDamageTime;
-	
-	/*
-	 * damageTime is how long the attack fixture is active.
-	 */
-	float damageTime;
-	
-	/*
-	 * attackTime is the total attack animation time
-	 */
-	float attackTime;
+	ArrayList<Attack> attacks;
 	
 	/*
 	 * timer keeps track of the whole attack from beginning to end
 	 */
 	float timer;
 	
+	/*
+	 * active attack type
+	 */
+	Attack activeAttack;
+	
 	boolean setToStopDamage;
 	boolean canAttack;
-	boolean attacking;
 	boolean damaging;
-	
-	BodyComponent bodyComponent;
-	BodyComponent attackBodyComponent;
-	PolygonShape attackSensorShape;
-	Fixture attackSensorFixture;
 
 	
-	protected SpriteComponent.AnimationState animation;
+	// The attackers BodyComponent
+	protected BodyComponent bodyComponent;
 
-	
-	/*
-	 * TODO: Takes in a custom attack fixture shape, which is then handled for attacks on both sides.
-	 */
-	public AttackComponent(Entity parent, float attackTime, float preDamageTime, float damageTime, SpriteComponent.AnimationState attackAnimation) {
-		super(parent);
-		
-		this.attackTime = attackTime;
-		this.preDamageTime = preDamageTime;
-		this.damageTime = damageTime;		
-		this.animation = attackAnimation;
-		
-		
-
-		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
-		bodyComponent = parent.getComponent(BodyComponent.class);
-		
-		attackBodyComponent = new BodyComponent(this.parent,
-				new Vector2(5,5), false, 1.0f, false, SlopeShape.Even, true);
-				
-		
-
-		
+	public AttackComponent(Entity parent){
+		super(parent);	
+		attacks = new ArrayList<Attack>();
+		activeAttack = null;
 	}
 	
 	
 	@Override
 	public void update(float deltaTime){
 		
+		
 		if (setToStopDamage) stopDamage();
 		
-		if (attacking) {
+		if (activeAttack != null) {
 			
-			((Creature)parent).getComponent(SpriteComponent.class).setCurrentAnimationState(animation);
+			// Update the spriteComponent, so we get animations, hooray!
+			if (damaging) activeAttack.attackBody.spriteComponent.update(deltaTime);
+			
+			/*
+			 * Update attack body's position relative to the Entity's body
+			 */
+			if (activeAttack.getClass() == Attack.class) {
+				if (damaging) {
+					float offSet = getOffset();
+					activeAttack.attackBody.body.setPosition(new Vector2(bodyComponent.getPosition().x + offSet*16, bodyComponent.getPosition().y ));
+				}
+			} 
+			
+			((Creature)parent).getComponent(SpriteComponent.class).setCurrentAnimationState(activeAttack.animation);
 			timer = timer - deltaTime;
 			
-			if (timer < attackTime-preDamageTime && timer > attackTime-preDamageTime-damageTime && !damaging){
-				startDamage();
+			if (timer < activeAttack.attackTime-activeAttack.preDamageTime && 
+					timer > activeAttack.attackTime-activeAttack.preDamageTime-activeAttack.damageTime && !damaging){
+
+				activeAttack.startDamage();
 			}
-			if (timer < attackTime-preDamageTime-damageTime){
+			if (timer < activeAttack.attackTime-activeAttack.preDamageTime-activeAttack.damageTime){
 				stopDamage();
 			}
 			if (timer < 0) {
 				stopAttack();
 			}
-			
-			//Vector2 currentVelocity = parent.getComponent(BodyComponent.class).body.getLinearVelocity();
 
 			
-	
-		/*
-		 * Update attack body's position relative to the Entity's body
-		 */
-		if (damaging) {
-			int offSet = 0;
-			if( ((Creature)parent).body.getFacingRight()) offSet = 1;
-			else offSet = -1; 
-			attackBodyComponent.setPosition(new Vector2(bodyComponent.getPosition().x + offSet*16, bodyComponent.getPosition().y ));
-		}
-		if(attackBodyComponent != null){
-			attackBodyComponent.update(deltaTime);
-		}
-		
-			
-		}
-	}
-	
-	
-	
-	protected void stopAttack() {
-		attacking = false;
-		damaging = false;
-	}
-
-
-
-	protected void startAttack(){
-		attacking = true;
-		timer = attackTime;
-		
-	}
-	
-	protected void startDamage(){
-		damaging = true;
-		
-		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
-		
-		System.out.println("JEEJEE");
-		
-					
-					
-		int offSet = 0;
-		if( ((Creature)parent).body.getFacingRight()) offSet = 1;
-		else offSet = -1; 
-		
-		
-
 				
-		attackBodyComponent.addToWorld(bodyComponent.world, new Vector2(bodyComponent.getPosition().x + offSet*16, bodyComponent.getPosition().y ));
-		attackBodyComponent.body.setGravityScale(0);
-	
+			
+			/*if(attackBodyComponent != null){
+				attackBodyComponent.update(deltaTime);
+			}	*/		
+		}
+	}
+		
+	protected void stopAttack() {
+		damaging = false;
+		activeAttack = null;
+	}
+
+	protected void startAttack(int attackType) {
+		timer = attacks.get(attackType).attackTime;
+		activeAttack = attacks.get(attackType);
+		
+		//parent.getComponent(SpriteComponent.class).setCurrentAnimationState(attacks.get(attackType).animation);
+		
 	}
 	
 	protected void stopDamage() {
 		if (damaging) {
 			damaging = false;
-			attackBodyComponent.removeFromWorld();
+			activeAttack.attackBody.body.removeFromWorld();
 		}
 	}
 
 
-	
-	public void attack() {
-		if (!attacking) {
-			startAttack();
+	/*
+	 * Starts the attacking if we are ready to attack.
+	 * 
+	 * @.pre	Parent must be set! Prototypes cannot attack.
+	 */
+	public void attack(int attackType) {
+		if (activeAttack == null) {
+			startAttack(attackType);
 		}
 	}
-
-
-	public Fixture getAttackFixture() {
-		
-		return attackSensorFixture;
-	}
-
 
 	public void setToStopDamage() {
 		setToStopDamage = true;		
 	}
 	
+	protected float getOffset() {
+			
+		float offSet = 0;
+		if( ((Creature)parent).body.getFacingRight()) offSet = 1.5f;
+		else offSet = -1.5f; 
 	
+		return offSet ;
+	}
+	
+	/*
+	 * This is used to set the parent later to a prototype AttackComponent
+	 */
+	protected void setParent(Entity newParent) {
+		this.parent = newParent;
+		bodyComponent = parent.getComponent(BodyComponent.class);
+
+	}
+
+
+	public void addAttack(Attack attack) {
+		attacks.add(attack);
+		
+	}
+
+
+	/*
+	 * Renders the possible attack SpriteBody
+	 */
+	public void render(SpriteBatch spriteBatch) {
+		if (damaging) {
+			activeAttack.attackBody.spriteComponent.render(spriteBatch, activeAttack.attackBody.body.getFacingRight(),
+					activeAttack.attackBody.body.getPosition().x,
+					activeAttack.attackBody.body.getPosition().y,
+					(float) (activeAttack.attackBody.body.getAngle()*180/Math.PI),
+					activeAttack.attackBody.body.getSize()
+					);
+		}
+		
+	}
 	
 }

@@ -30,7 +30,7 @@ public class BodyComponent extends Component {
 	
 	boolean facingRight = true;
 	
-	protected float hitPoints = 1;
+	protected float hitPoints = 2;
 	protected boolean indestructible;
 	boolean alive = true;
 	
@@ -64,6 +64,7 @@ public class BodyComponent extends Component {
 		
 		
 		bodyFixtureDef = new FixtureDef();
+		bodyFixtureDef.isSensor = sensorEntity;
 		
 		if(circle) {
 			CircleShape circleShape = new CircleShape();
@@ -236,7 +237,10 @@ public class BodyComponent extends Component {
 		
 		
 		// Linear damping dictates along with friction how quickly the entity is slowed down.
-		body.setLinearDamping(2.6f);
+		if (!bodyFixtureDef.isSensor) body.setLinearDamping(2.6f);
+		// No linear damping for sensor bodies.
+		else body.setLinearDamping(0.0f);
+		
 		
 		// Set userdata for body, used to find out which object is touching the ground in MyContactListener
 		body.setUserData(this.parent);

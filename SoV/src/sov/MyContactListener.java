@@ -40,11 +40,7 @@ public class MyContactListener implements ContactListener {
 					
 					//if(Creature.class.isAssignableFrom(fixtureUserData.getClass()) && Creature.class.isAssignableFrom(fixtureUserData2.getClass())) {
 					if(AttackComponent.class.isAssignableFrom(fixtureUserData.getClass()) && ((Entity)fixtureUserData2).getComponent(BodyComponent.class) != null) {	
-						// Skip entities that don't have an attack component attached
-						// TODO: maybe optimize with a simple boolean value in Creature class?
-						
-						System.out.println("p��st��n t�nne");
-						
+									
 						//fixtureUserData.getDamage()	
 						((Entity)fixtureUserData2).getComponent(BodyComponent.class).setToTakeDamage(1);
 						

@@ -35,6 +35,19 @@ public class SpriteBody extends Entity {
 		addComponent(spriteComponent);
 	}
 	
+	/*
+	 * Same as the normal constructor, but supports sensory body setting
+	 */
+	public SpriteBody(Vector2 size, HashMap<SpriteComponent.AnimationState, Animation> animations,
+			boolean staticBody, float rounding, boolean circle, BodyComponent.SlopeShape slopeShape, boolean isSensor) {
+		
+		body = new BodyComponent(this, size, staticBody, rounding, circle, slopeShape, isSensor);
+		spriteComponent = new SpriteComponent(this, animations);
+		
+		addComponent(body);
+		addComponent(spriteComponent);
+	}
+	
 	public void render(SpriteBatch spriteBatch) {	
 		
 		spriteComponent.render(spriteBatch, body.getFacingRight(),
@@ -43,6 +56,11 @@ public class SpriteBody extends Entity {
 				(float) (body.getAngle()*180/Math.PI),
 				body.getSize()
 				);
+		
+		// Render the possible attack component
+		if (this.getComponent(AttackComponent.class) != null)
+			getComponent(AttackComponent.class).render(spriteBatch);
+		
 	}
 	
 	@Override

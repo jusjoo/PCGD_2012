@@ -5,6 +5,7 @@ public abstract class InputComponent extends Component {
 	
 	public InputComponent(Entity parent) {
 		super(parent);
+
 	}
 
 }

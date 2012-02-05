@@ -17,7 +17,7 @@ import com.google.gson.annotations.Expose;
  */
 public class Creature extends SpriteBody implements Cloneable {
 	
-	public enum CreatureType { Barbarian, Ninja, Sorceress, Goblin };
+	public enum CreatureType { Barbarian, Ninja, Sorceress, Goblin, Slime };
 
 	
 	// All the properties which are read from creatures.json must be declared here
@@ -29,6 +29,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	@Expose float strength;
 	@Expose float wisdom;
 	@Expose HashMap<SpriteComponent.AnimationState, ArrayList<Object>> frames;
+	@Expose HashMap<SpriteComponent.AnimationState, ArrayList<Object>> attacks;
 	
 	protected float speed;
 	protected float jumpHeight;
@@ -37,6 +38,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	
 	public enum AttackType {Melee, Ranged};
 	boolean canAttack = true;
+	
 	
 	public Creature() {
 	}
@@ -53,12 +55,28 @@ public class Creature extends SpriteBody implements Cloneable {
 		Creature creature = new Creature(new Vector2(prototype.hitboxSize[0], prototype.hitboxSize[1]), prototype.spriteComponent.animations, 0.8f, false);
 		creature.creatureType = prototype.creatureType;
 		creature.dexterity = prototype.dexterity;
-		creature.speed = creature.dexterity  / 2f;
-		creature.jumpHeight = prototype.dexterity * 1.5f;
+		creature.speed = creature.getSpeed();
+		creature.jumpHeight = creature.getJumpHeight();
 		
-		creature.body.setMaxVelocity(creature.speed*1.15f);
+		creature.body.setMaxVelocity(creature.speed*GameConfiguration.creatureMaxVelocityMultiplier);
+		
+		// Set the attack component
+		if(prototype.getComponent(AttackComponent.class) != null) {
+			creature.addComponent(prototype.getComponent(AttackComponent.class));
+			creature.getComponent(AttackComponent.class).setParent(creature);
+		}
+
+		
 		
 		return creature;
+	}
+	
+	public float getSpeed() {
+		return this.dexterity * GameConfiguration.dexSpeedMultiplier + GameConfiguration.speedBaseModifier;		
+	}
+	
+	public float getJumpHeight() {
+		return this.dexterity * GameConfiguration.dexJumpHeightMultiplier + GameConfiguration.jumpHeightBaseModifier;
 	}
 	
 	@Override

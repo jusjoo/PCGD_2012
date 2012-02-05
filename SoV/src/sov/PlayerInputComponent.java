@@ -28,9 +28,19 @@ public class PlayerInputComponent extends InputComponent {
 				
 				// Attacking
 				if (Gdx.input.isKeyPressed(GameConfiguration.actionAttack) && Creature.class.isAssignableFrom(parent.getClass())) {
-					((Creature)parent).getComponent(AttackComponent.class).attack();
+					
+						parent.getComponent(AttackComponent.class).attack(0);
+				
+					
 					//((Creature)parent).attack(AttackType.Melee);
 				}
+				if (Gdx.input.isKeyPressed(GameConfiguration.actionAltAttack) && Creature.class.isAssignableFrom(parent.getClass())) {
+					
+					parent.getComponent(AttackComponent.class).attack(1);
+			
+				
+				//((Creature)parent).attack(AttackType.Melee);
+			}
 				
 				
 	}
