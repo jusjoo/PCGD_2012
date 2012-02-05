@@ -212,6 +212,7 @@ public class BodyComponent extends Component {
 		body.setTransform(coordinates.mul(1/GameConfiguration.PIXELS_PER_METER), 0);
 	}
 	
+	// FIXME: If there are any problems, it should really be world.destroyBody(body);
 	public void removeFromWorld() {
 		if(body != null && bodyFixture != null) {
 			body.destroyFixture(bodyFixture);

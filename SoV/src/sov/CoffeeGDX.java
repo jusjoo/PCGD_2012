@@ -69,7 +69,7 @@ public class CoffeeGDX implements ApplicationListener {
 		Creature player = createPlayer(CreatureType.Sorceress, new Vector2(300, 250));
 	
 		
-		for(int i=0; i<20; i++) {
+		for(int i=0; i<10; i++) {
 			int random = (int) (Math.random()*4);
 			//System.out.println(random);
 			CreatureType creatureType = null;
