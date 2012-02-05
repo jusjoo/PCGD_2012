@@ -47,9 +47,13 @@ public class AttackComponent extends Component {
 	@Override
 	public void update(float deltaTime){
 		
+		
 		if (setToStopDamage) stopDamage();
 		
 		if (activeAttack != null) {
+			
+			// Update the spriteComponent, so we get animations, hooray!
+			if (damaging) activeAttack.attackBody.spriteComponent.update(deltaTime);
 			
 			/*
 			 * Update attack body's position relative to the Entity's body
