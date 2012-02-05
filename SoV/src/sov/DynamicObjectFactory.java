@@ -29,7 +29,7 @@ public class DynamicObjectFactory {
 	/*
 	 * This Contains all the misc animation types.
 	 */
-	public enum AnimationType {SlimeBomb};
+	public enum AnimationType {SlimeBomb, Fireball};
 	
 	// A list of the prototypes
 	HashMap<Creature.CreatureType, Creature> creatures = new HashMap<Creature.CreatureType, Creature>();
@@ -153,7 +153,7 @@ public class DynamicObjectFactory {
 						float flightSpeed = Float.parseFloat(attackEntry.getValue().get(4).toString());
 						
 						
-						SpriteBody attackBody = new SpriteBody(new Vector2(20,20), miscAnimations.get(AnimationType.SlimeBomb), false, 1.0f, true, SlopeShape.Even, true);
+						SpriteBody attackBody = new SpriteBody(new Vector2(20,20), miscAnimations.get(AnimationType.Fireball), false, 1.0f, true, SlopeShape.Even, true);
 						
 						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody, flightSpeed);
 						attackComponent.addAttack(attack);
@@ -182,6 +182,10 @@ public class DynamicObjectFactory {
 		
 	}
 	
+	
+	/*
+	 * Loads misc animations, animation names need to be defined in AnimationType
+	 */
 	private void loadMiscAnimations() throws JsonSyntaxException, JsonIOException, FileNotFoundException{
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		

@@ -36,10 +36,11 @@ public class RangedAttack extends Attack {
 		
 		attackBody.body.addToWorld(attackComponent.bodyComponent.world, new Vector2(attackComponent.bodyComponent.getPosition().x + offSet*16, attackComponent.bodyComponent.getPosition().y ));
 		attackBody.spriteComponent.setCurrentAnimationState(AnimationState.Idle);
+		
 		// Sets attack bodies user data as this, so that attack sensors can be identified
 		attackBody.body.setUserData(attackComponent);
 		attackBody.body.body.setGravityScale(0);
-		attackBody.spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run);
+		
 		
 	
 		if(attackingRight) {
