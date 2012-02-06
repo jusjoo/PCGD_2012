@@ -74,13 +74,10 @@ public class AttackComponent extends Component {
 		if (activeAttack == null) {
 			activeAttack = attacks.get(attackType);
 			activeAttack.startAttack();
+			
 		}
 	}
 
-	public void setToStopDamage() {
-		setToStopDamage = true;		
-	}
-	
 	
 	/*
 	 * Gets the offset from parents body center, to the body's edge
@@ -107,12 +104,12 @@ public class AttackComponent extends Component {
 
 	public void addAttack(SpriteComponent.AnimationState name, Attack attack) {
 		attacks.put(name, attack);
-		
+		System.out.println(name.toString() + attack.toString());
 	}
 
 
 	/*
-	 * Renders the possible attack SpriteBody
+	 * Renders all the projectiles and attack bodies
 	 */
 	public void render(SpriteBatch spriteBatch) {
 		for (Attack attack: attacks.values()) {
@@ -131,11 +128,6 @@ public class AttackComponent extends Component {
 		
 	}
 	
-	public void dealDamageTo(BodyComponent target) {
-		target.setToTakeDamage(1f);
-		if (activeAttack.getClass() == RangedAttack.class) {
-			activeAttack.attackBody.body.setToDie = true;
-		}
-	}
+
 	
 }

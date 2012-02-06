@@ -7,7 +7,7 @@ public abstract class Attack {
 	
 	AttackComponent attackComponent;
 	protected SpriteComponent.AnimationState animation;
-	public SpriteBody attackBody;
+
 	
 	/*
 	 * preAttackTime is the time where the animation starts, but the attack fixture is not yet active.
@@ -35,34 +35,23 @@ public abstract class Attack {
 	/*
 	 * TODO: Takes in a custom attack fixture shape, which is then handled for attacks on both sides.
 	 */
-	public Attack(AttackComponent attackComponent, float attackTime, float preDamageTime, SpriteComponent.AnimationState attackAnimation, SpriteBody attackSpriteBody, float offSetY) {
+	public Attack(AttackComponent attackComponent, float attackTime, float preDamageTime, SpriteComponent.AnimationState attackAnimation,  float offSetY) {
 				
 		this.attackTime = attackTime;
 		this.preDamageTime = preDamageTime;
 		this.damaging = false;
 		this.animation = attackAnimation;
-		this.attackBody = attackSpriteBody;
+
 		this.attackComponent = attackComponent;
 		this.offSetY = offSetY;
 	}
 	
 	
-	protected float getAttackBoxOffsetX() {
-		
-		float offset = attackComponent.getOffsetX();
-		
-		if(offset > 0) {
-			offset += attackBody.body.getSize().x;
-		} else {
-			offset -= attackBody.body.getSize().x;
-		}
-		
-		return offset;
-	}
+	
 	
 	protected void startAttack() {
 		timer = attackTime;
-
+		
 		attackComponent.parent.getComponent(SpriteComponent.class).setCurrentAnimationState(animation);
 		//parent.getComponent(SpriteComponent.class).setCurrentAnimationState(attacks.get(attackType).animation);
 		
@@ -78,4 +67,7 @@ public abstract class Attack {
 
 
 	public abstract void render(SpriteBatch spriteBatch) ;
+
+
+	
 }

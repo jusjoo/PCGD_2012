@@ -172,7 +172,7 @@ public class DynamicObjectFactory {
 					
 					if(attackType.equals("Melee")) {
 						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), animations, false, 1.0f, false, SlopeShape.Even, true);
-						attack = new MeleeAttack(attackComponent, attackTime, preDamageTime,  animation, attackBody, attackOffsetY, damageTime);
+						attack = new MeleeAttack(attackComponent, attackTime, preDamageTime,  animation, damageTime, attackOffsetY, attackBody);
 						//attackComponentPrototypes.add(ac);
 						attackComponent.addAttack(attackName, attack);
 						
@@ -181,7 +181,7 @@ public class DynamicObjectFactory {
 						float flightSpeed = Float.parseFloat(attackEntry.getValue().get(7).toString());
 						
 						
-						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), miscAnimations.get(AnimationType.Fireball), false, 1.0f, false, SlopeShape.Even, true);
+						Projectile attackBody = new Projectile(new Vector2(attackBoxSizeX, attackBoxSizeY), miscAnimations.get(AnimationType.Fireball), true);
 						
 						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, animation, attackBody, attackOffsetY, flightSpeed);
 						attackComponent.addAttack(attackName, attack);

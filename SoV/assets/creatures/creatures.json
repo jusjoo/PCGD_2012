@@ -65,22 +65,22 @@
 		"strength": 1,
 		"wisdom": 7,
 		"_frames_description":
-				"Frame size, Origin offset, Start frame coordinates, Length, Speed (ms), Looping",
+				"Frame size, Origin offset, Start frame coordinates, Length, Speed (s), Looping",
 		"frames": {   
 		  "Idle": [[1,2], 0, [0,0], 1, 0, true],
 		  "Run": [[1,2], 0, [3,0], 6, 0.15, true],
 		  "Jump": [[1,2], 0, [10,0], 1, 0, true],
 		  "Fall": [[1,2], 0, [12,0], 1, 0, true],
-		  "Attack1": [[1,2], 0, [15,0], 1, 0, false],
-		  "Attack2": [[1,2], 0, [15,0], 1, 0, false], 
+		  "Attack1": [[3,3], 0, [0,4], 5, 0.15, false],
+		  "Attack2": [[3,3], 0, [0,4], 5, 0.15, false], 
 		  "Hurt": [[1,2], 0, [1,2], 1, 0, false],
 		  "Die": [[2,2], 0.5, [0,2], 4, 0, false]
 	  	},
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y,  (enum AnimationType projectile), flightSpeed)",
 	  	"attacks": {
-	  	  "Attack1": ["Melee", 0.5, 0.2, 0, 16, 16],
-	  	  "Attack2": ["Ranged", 5.0, 0.0, 0, 16, 16, 7, 7.5]
+	  	  "Attack1": ["Melee", 4, 5, 1, 16, 16],
+	  	  "Attack2": ["Ranged", 4, 0.0, 0, 16, 16, 7, 7.5]
 	  	}
 	},
 	

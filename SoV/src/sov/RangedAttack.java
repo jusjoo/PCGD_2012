@@ -13,26 +13,27 @@ public class RangedAttack extends Attack {
 	
 	public float flightSpeed;
 
-	private ArrayList<SpriteBody> projectiles;
+	protected ArrayList<Projectile> projectiles;
+	protected Projectile projectileProto;
 	
-
 	public RangedAttack(AttackComponent attackComponent, float attackTime,	float preDamageTime,
-			AnimationState attackAnimation, SpriteBody attackSpriteBody, float offSetY, float flightSpeed) {
+			AnimationState attackAnimation, Projectile projectile, float offSetY, float flightSpeed) {
 		
-		super(attackComponent, attackTime, preDamageTime, attackAnimation,	attackSpriteBody, offSetY);
+		super(attackComponent, attackTime, preDamageTime, attackAnimation, offSetY);
 		
 		this.flightSpeed = flightSpeed;
-		
-		projectiles = new ArrayList<SpriteBody>();
+		this.projectileProto = projectile;
+		this.projectiles = new ArrayList<Projectile>();
 		
 	}
 
 
 	public void startDamage(){
 		
-		SpriteBody projectile = new SpriteBody(attackBody.body.getSize(), 
-				attackBody.spriteComponent.animations, 
-				false, 1.0f, false, SlopeShape.Even, true);
+		Projectile projectile = new Projectile(projectileProto.body.getSize(), 
+				projectileProto.spriteComponent.animations, 
+				 true);
+		
 		
 		float offSet = getAttackBoxOffsetX();
 		
@@ -50,10 +51,12 @@ public class RangedAttack extends Attack {
 				new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, 
 				attackComponent.bodyComponent.getPosition().y + offSetY ));
 		
+		projectile.setUserData();
+		
 		projectile.spriteComponent.setCurrentAnimationState(AnimationState.Idle);
 		
-		// Sets attack bodies user data as this, so that attack sensors can be identified
-		projectile.body.setUserData(attackComponent);
+		// Sets attack bodies user data as the created projectile, so that they can be identified
+		projectile.body.setUserData(projectile);
 		projectile.body.body.setGravityScale(0);
 		
 	
@@ -67,6 +70,19 @@ public class RangedAttack extends Attack {
 		
 	}
 	
+	private float getAttackBoxOffsetX() {
+		float offset = attackComponent.getOffsetX();
+		
+		if(offset > 0) {
+			offset += projectileProto.body.getSize().x;
+		} else {
+			offset -= projectileProto.body.getSize().x;
+		}
+		
+		return offset;
+	}
+
+
 	public void stopDamage() {
 		
 	}
@@ -75,8 +91,8 @@ public class RangedAttack extends Attack {
 	@Override
 	public void update(float deltaTime) {
 		// Update the spriteComponent, so we get animations, hooray!
-		for (SpriteBody body: projectiles) {
-			body.spriteComponent.update(deltaTime);
+		for (Projectile projectile: projectiles) {
+			projectile.update(deltaTime);
 		}
 		
 		/*
@@ -101,8 +117,13 @@ public class RangedAttack extends Attack {
 
 	@Override
 	public void render(SpriteBatch spriteBatch) {
-		for (SpriteBody body: projectiles) {
-			body.render(spriteBatch);
+		for (Projectile projectile: projectiles) {
+			projectile.render(spriteBatch);
 		}
 	}
+
+
+
+	
+
 }
