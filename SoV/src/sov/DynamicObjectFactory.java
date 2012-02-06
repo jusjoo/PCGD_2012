@@ -133,8 +133,13 @@ public class DynamicObjectFactory {
 					float damageTime = Float.parseFloat(attackEntry.getValue().get(3).toString());
 					SpriteComponent.AnimationState animation = SpriteComponent.AnimationState.valueOf(attackEntry.getKey().toString());
 					
-					BodyComponent attackBodyComponent = new BodyComponent(attackComponent.parent,
-							new Vector2(20,20), false, 1.0f, false, SlopeShape.Even, true);
+					// attackbox y-offset, attackbox size x, y, (flightSpeed)
+					float attackOffsetY = Float.parseFloat(attackEntry.getValue().get(4).toString());
+					float attackBoxSizeX = Float.parseFloat(attackEntry.getValue().get(5).toString());
+					float attackBoxSizeY = Float.parseFloat(attackEntry.getValue().get(6).toString());
+					
+				//	BodyComponent attackBodyComponent = new BodyComponent(attackComponent.parent,
+					//		new Vector2(attackBoxSizeX, attackBoxSizeY), false, 1.0f, false, SlopeShape.Even, true);
 					//bodyComponent = parent.getComponent(BodyComponent.class);
 					
 					Attack attack;
@@ -143,17 +148,17 @@ public class DynamicObjectFactory {
 					HashMap<SpriteComponent.AnimationState, Animation> animations = creaturePrototype.getComponent(SpriteComponent.class).animations;
 					
 					if(attackType.equals("Melee")) {
-						SpriteBody attackBody = new SpriteBody(new Vector2(20,20), animations, false, 1.0f, false, SlopeShape.Even, true);
+						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), animations, false, 1.0f, false, SlopeShape.Even, true);
 						attack = new Attack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody);
 						//attackComponentPrototypes.add(ac);
 						attackComponent.addAttack(attack);
 						
 					}
 					if (attackType.equals("Ranged")) {
-						float flightSpeed = Float.parseFloat(attackEntry.getValue().get(4).toString());
+						float flightSpeed = Float.parseFloat(attackEntry.getValue().get(7).toString());
 						
 						
-						SpriteBody attackBody = new SpriteBody(new Vector2(20,20), miscAnimations.get(AnimationType.Fireball), false, 1.0f, true, SlopeShape.Even, true);
+						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), miscAnimations.get(AnimationType.Fireball), false, 1.0f, false, SlopeShape.Even, true);
 						
 						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody, flightSpeed);
 						attackComponent.addAttack(attack);
