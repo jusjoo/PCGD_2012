@@ -60,8 +60,8 @@ public class AttackComponent extends Component {
 			 */
 			if (activeAttack.getClass() == Attack.class) {
 				if (damaging) {
-					float offSet = getOffset();
-					activeAttack.attackBody.body.setPosition(new Vector2(bodyComponent.getPosition().x + offSet*16, bodyComponent.getPosition().y ));
+					float offSet = activeAttack.getAttackBoxOffsetX();
+					activeAttack.attackBody.body.setPosition(new Vector2(bodyComponent.getPosition().x + offSet, bodyComponent.getPosition().y + activeAttack.offSetY ));
 				}
 			} 
 			
@@ -125,12 +125,17 @@ public class AttackComponent extends Component {
 		setToStopDamage = true;		
 	}
 	
-	protected float getOffset() {
-			
-		float offSet = 0;
-		if( ((Creature)parent).body.getFacingRight()) offSet = 1.5f;
-		else offSet = -1.5f; 
 	
+	/*
+	 * Gets the offset from parents body center, to the body's edge
+	 */
+	protected float getOffsetX() {
+		float offSet = 0;
+		
+		offSet = parent.getComponent(BodyComponent.class).getSize().x/GameConfiguration.PIXELS_PER_METER/2;
+		
+		if( !parent.getComponent(BodyComponent.class).getFacingRight()) offSet = -offSet;
+		
 		return offSet ;
 	}
 	

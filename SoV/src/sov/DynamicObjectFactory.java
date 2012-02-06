@@ -150,7 +150,7 @@ public class DynamicObjectFactory {
 					// TODO: Send attackOffset to AttackComponent
 					if(attackType.equals("Melee")) {
 						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), animations, false, 1.0f, false, SlopeShape.Even, true);
-						attack = new Attack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody);
+						attack = new Attack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody, attackOffsetY);
 						//attackComponentPrototypes.add(ac);
 						attackComponent.addAttack(attack);
 						
@@ -161,7 +161,7 @@ public class DynamicObjectFactory {
 						
 						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), miscAnimations.get(AnimationType.Fireball), false, 1.0f, false, SlopeShape.Even, true);
 						
-						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody, flightSpeed);
+						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody, attackOffsetY, flightSpeed);
 						attackComponent.addAttack(attack);
 		
 						//attackComponentPrototypes.add(ac);

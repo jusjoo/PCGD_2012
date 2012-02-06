@@ -26,9 +26,14 @@ public class Attack {
 	float attackTime;
 	
 	/*
+	 * Attack box y offset
+	 */
+	float offSetY;
+	
+	/*
 	 * TODO: Takes in a custom attack fixture shape, which is then handled for attacks on both sides.
 	 */
-	public Attack(AttackComponent attackComponent, float attackTime, float preDamageTime, float damageTime, SpriteComponent.AnimationState attackAnimation, SpriteBody attackSpriteBody) {
+	public Attack(AttackComponent attackComponent, float attackTime, float preDamageTime, float damageTime, SpriteComponent.AnimationState attackAnimation, SpriteBody attackSpriteBody, float offSetY) {
 				
 		this.attackTime = attackTime;
 		this.preDamageTime = preDamageTime;
@@ -36,14 +41,15 @@ public class Attack {
 		this.animation = attackAnimation;
 		this.attackBody = attackSpriteBody;
 		this.attackComponent = attackComponent;
+		this.offSetY = offSetY;
 	}
 	protected void startDamage(){
 		attackComponent.damaging = true;
 		
-		float offSet = attackComponent.getOffset();
+		float offSet = getAttackBoxOffsetX();
 				
 		// Adds the body in front of attacker
-		attackBody.body.addToWorld(attackComponent.bodyComponent.world, new Vector2(attackComponent.bodyComponent.getPosition().x + offSet*16, attackComponent.bodyComponent.getPosition().y ));
+		attackBody.body.addToWorld(attackComponent.bodyComponent.world, new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, attackComponent.bodyComponent.getPosition().y + offSetY));
 		
 		if (offSet > 0) attackBody.body.setFacingRight(true);
 	 		else attackBody.body.setFacingRight(false);
@@ -52,6 +58,19 @@ public class Attack {
 		attackBody.body.setUserData(attackComponent);
 		attackBody.body.body.setGravityScale(0);
 	
+	}
+	
+	protected float getAttackBoxOffsetX() {
+		
+		float offset = attackComponent.getOffsetX();
+		
+		if(offset > 0) {
+			offset += attackBody.body.getSize().x;
+		} else {
+			offset -= attackBody.body.getSize().x;
+		}
+		
+		return offset;
 	}
 
 }

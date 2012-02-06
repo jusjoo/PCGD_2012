@@ -14,8 +14,8 @@ public class RangedAttack extends Attack {
 	
 
 	public RangedAttack(AttackComponent attackComponent, float attackTime,	float preDamageTime, 
-			float damageTime, AnimationState attackAnimation, SpriteBody attackSpriteBody, float flightSpeed) {
-		super(attackComponent, attackTime, preDamageTime, damageTime, attackAnimation, attackSpriteBody);
+			float damageTime, AnimationState attackAnimation, SpriteBody attackSpriteBody, float offsetY, float flightSpeed) {
+		super(attackComponent, attackTime, preDamageTime, damageTime, attackAnimation, attackSpriteBody, offsetY);
 		this.flightSpeed = flightSpeed;
 		
 	}
@@ -24,7 +24,7 @@ public class RangedAttack extends Attack {
 	protected void startDamage(){
 		attackComponent.damaging = true;
 		
-		float offSet = attackComponent.getOffset();
+		float offSet = getAttackBoxOffsetX();
 		
 		if (offSet > 0) {
 			attackingRight = true;
@@ -34,7 +34,7 @@ public class RangedAttack extends Attack {
 			attackBody.body.setFacingRight(false);
 		}
 		
-		attackBody.body.addToWorld(attackComponent.bodyComponent.world, new Vector2(attackComponent.bodyComponent.getPosition().x + offSet*16, attackComponent.bodyComponent.getPosition().y ));
+		attackBody.body.addToWorld(attackComponent.bodyComponent.world, new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, attackComponent.bodyComponent.getPosition().y + offSetY ));
 		attackBody.spriteComponent.setCurrentAnimationState(AnimationState.Idle);
 		
 		// Sets attack bodies user data as this, so that attack sensors can be identified
