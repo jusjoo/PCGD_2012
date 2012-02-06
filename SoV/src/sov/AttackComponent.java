@@ -81,7 +81,6 @@ public class AttackComponent extends Component {
 			if (timer < activeAttack.attackTime-activeAttack.preDamageTime && 
 					timer > activeAttack.attackTime-activeAttack.preDamageTime-activeAttack.damageTime && !damaging){
 				
-				System.out.println("p‰‰st‰‰n t‰nne");
 				activeAttack.startDamage();
 			}
 			if (timer < activeAttack.attackTime-activeAttack.preDamageTime-activeAttack.damageTime){
