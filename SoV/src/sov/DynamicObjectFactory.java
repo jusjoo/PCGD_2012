@@ -130,17 +130,29 @@ public class DynamicObjectFactory {
 					String attackType = attackEntry.getValue().get(0).toString();
 					//float attackTime = Float.parseFloat(attackEntry.getValue().get(1).toString());
 					//float frameDelay = Float.parseFloat(animationEntry.getValue().get(4).toString());
+					
+					// "AttackType, attackTime, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, (flightSpeed)",
+					//	0			1			2					3				4					5				6	7
+					
 					float frameDelay = Float.parseFloat(animationStates.get(attackEntry.getKey()).get(4).toString());
 					float frameAmount = Float.parseFloat(animationStates.get(attackEntry.getKey()).get(3).toString());
 					
 					float attackTime = frameDelay * frameAmount;
 					
+					//System.out.println("Attacktime: " + attackTime);
+					
 					//System.out.println("state: " + animationStates.get(attackEntry.getKey()) + " Frame delay:" + frameDelay);
 					
 					
 					//float attackTime =
-					float preDamageTime = Float.parseFloat(attackEntry.getValue().get(2).toString());
-					float damageTime = Float.parseFloat(attackEntry.getValue().get(3).toString());
+					float damageStartFrame = Float.parseFloat(attackEntry.getValue().get(2).toString());
+					float damageEndFrame = Float.parseFloat(attackEntry.getValue().get(3).toString());
+					
+					float preDamageTime = damageStartFrame * frameDelay;
+					float damageTime = (damageEndFrame - damageStartFrame) * frameDelay;
+					
+					System.out.println("preDamage: " + preDamageTime + " damageTime:" + damageTime);
+					
 					SpriteComponent.AnimationState animation = SpriteComponent.AnimationState.valueOf(attackEntry.getKey().toString());
 					
 					// attackbox y-offset, attackbox size x, y, (flightSpeed)
