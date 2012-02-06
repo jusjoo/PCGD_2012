@@ -80,8 +80,10 @@ public class SpriteComponent extends Component {
 		
 		//if(animations.get(currentAnimationState).animationLength < stateTime) {
 		
-		if(animations.get(currentAnimationState).looping || animations.get(currentAnimationState).animationLength < stateTime) {
+		if(animations.get(currentAnimationState).looping || animations.get(currentAnimationState).animationLength < stateTime ) {
+			
 			currentAnimationState = state;
+			
 		}
 		
 		//if(previousAnimationState != currentAnimationState) { stateTime = 0; }
