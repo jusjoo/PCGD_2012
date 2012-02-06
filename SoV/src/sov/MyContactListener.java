@@ -36,11 +36,11 @@ public class MyContactListener implements ContactListener {
 					
 				}
 				
-				if(fixtureUserData2 != null) {
+				if(fixtureUserData2 != null && Entity.class.isAssignableFrom(fixtureUserData2.getClass())) {
 					
 					//if(Creature.class.isAssignableFrom(fixtureUserData.getClass()) && Creature.class.isAssignableFrom(fixtureUserData2.getClass())) {
 					if(AttackComponent.class.isAssignableFrom(fixtureUserData.getClass()) && ((Entity)fixtureUserData2).getComponent(BodyComponent.class) != null) {	
-									
+								
 						//fixtureUserData.getDamage()	
 						//((Entity)fixtureUserData2).getComponent(BodyComponent.class).setToTakeDamage(1);
 						((AttackComponent)fixtureUserData).dealDamageTo( ((Entity)fixtureUserData2).getComponent(BodyComponent.class));

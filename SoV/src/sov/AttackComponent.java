@@ -1,6 +1,7 @@
 package sov;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import sov.BodyComponent.SlopeShape;
 
@@ -15,14 +16,11 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public class AttackComponent extends Component {
 
 	/*
-	 * These keep track of the attacks stored in this component
+	 * This keeps track of the attacks stored in this component
 	 */
-	ArrayList<Attack> attacks;
+	HashMap<SpriteComponent.AnimationState, Attack> attacks;
 	
-	/*
-	 * timer keeps track of the whole attack from beginning to end
-	 */
-	float timer;
+	
 	
 	/*
 	 * active attack type
@@ -30,8 +28,7 @@ public class AttackComponent extends Component {
 	Attack activeAttack;
 	
 	boolean setToStopDamage;
-	boolean canAttack;
-	boolean damaging;
+
 
 	
 	// The attackers BodyComponent
@@ -39,73 +36,31 @@ public class AttackComponent extends Component {
 
 	public AttackComponent(Entity parent){
 		super(parent);	
-		attacks = new ArrayList<Attack>();
+		attacks = new HashMap<SpriteComponent.AnimationState, Attack>();
 		activeAttack = null;
 	}
 	
 	
 	@Override
 	public void update(float deltaTime){
-		
-		
+	
 		if (setToStopDamage) stopDamage();
 		
 		if (activeAttack != null) {
-			
-			// Update the spriteComponent, so we get animations, hooray!
-			if (damaging) activeAttack.attackBody.spriteComponent.update(deltaTime);
-			
-			/*
-			 * Update attack body's position relative to the Entity's body
-			 */
-			if (activeAttack.getClass() == Attack.class) {
-				if (damaging) {
-					float offSet = getOffset();
-					activeAttack.attackBody.body.setPosition(new Vector2(bodyComponent.getPosition().x + offSet*16, bodyComponent.getPosition().y ));
-				}
-			} 
-			
-			((Creature)parent).getComponent(SpriteComponent.class).setCurrentAnimationState(activeAttack.animation);
-			timer = timer - deltaTime;
-			
-			if (timer < activeAttack.attackTime-activeAttack.preDamageTime && 
-					timer > activeAttack.attackTime-activeAttack.preDamageTime-activeAttack.damageTime && !damaging){
-
-				activeAttack.startDamage();
-			}
-			if (timer < activeAttack.attackTime-activeAttack.preDamageTime-activeAttack.damageTime){
-				stopDamage();
-			}
-			if (timer < 0) {
-				stopAttack();
-			}
-
-			
-				
-			
-			/*if(attackBodyComponent != null){
-				attackBodyComponent.update(deltaTime);
-			}	*/		
+			activeAttack.update(deltaTime);
 		}
 	}
 		
 	protected void stopAttack() {
-		damaging = false;
+		
 		activeAttack = null;
 	}
 
-	protected void startAttack(int attackType) {
-		timer = attacks.get(attackType).attackTime;
-		activeAttack = attacks.get(attackType);
-		
-		//parent.getComponent(SpriteComponent.class).setCurrentAnimationState(attacks.get(attackType).animation);
-		
-	}
+
 	
 	protected void stopDamage() {
-		if (damaging) {
-			damaging = false;
-			activeAttack.attackBody.body.removeFromWorld();
+		if (activeAttack.damaging) {
+			activeAttack.stopDamage();	
 		}
 	}
 
@@ -115,9 +70,10 @@ public class AttackComponent extends Component {
 	 * 
 	 * @.pre	Parent must be set! Prototypes cannot attack.
 	 */
-	public void attack(int attackType) {
+	public void attack(SpriteComponent.AnimationState attackType) {
 		if (activeAttack == null) {
-			startAttack(attackType);
+			activeAttack = attacks.get(attackType);
+			activeAttack.startAttack();
 		}
 	}
 
@@ -125,12 +81,17 @@ public class AttackComponent extends Component {
 		setToStopDamage = true;		
 	}
 	
-	protected float getOffset() {
-			
-		float offSet = 0;
-		if( ((Creature)parent).body.getFacingRight()) offSet = 1.5f;
-		else offSet = -1.5f; 
 	
+	/*
+	 * Gets the offset from parents body center, to the body's edge
+	 */
+	protected float getOffsetX() {
+		float offSet = 0;
+		
+		offSet = parent.getComponent(BodyComponent.class).getSize().x/GameConfiguration.PIXELS_PER_METER/2;
+		
+		if( !parent.getComponent(BodyComponent.class).getFacingRight()) offSet = -offSet;
+		
 		return offSet ;
 	}
 	
@@ -144,8 +105,8 @@ public class AttackComponent extends Component {
 	}
 
 
-	public void addAttack(Attack attack) {
-		attacks.add(attack);
+	public void addAttack(SpriteComponent.AnimationState name, Attack attack) {
+		attacks.put(name, attack);
 		
 	}
 
@@ -154,14 +115,19 @@ public class AttackComponent extends Component {
 	 * Renders the possible attack SpriteBody
 	 */
 	public void render(SpriteBatch spriteBatch) {
-		if (damaging) {
+		for (Attack attack: attacks.values()) {
+			attack.render(spriteBatch);
+		}
+		
+		
+		/*if (damaging) {
 			activeAttack.attackBody.spriteComponent.render(spriteBatch, activeAttack.attackBody.body.getFacingRight(),
 					activeAttack.attackBody.body.getPosition().x,
 					activeAttack.attackBody.body.getPosition().y,
 					(float) (activeAttack.attackBody.body.getAngle()*180/Math.PI),
 					activeAttack.attackBody.body.getSize()
 					);
-		}
+		}*/
 		
 	}
 	

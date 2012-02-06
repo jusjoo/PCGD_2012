@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import sov.BodyComponent.SlopeShape;
+import sov.SpriteComponent.AnimationState;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -106,7 +107,7 @@ public class DynamicObjectFactory {
 					
 					boolean loops = Boolean.parseBoolean(animationEntry.getValue().get(5).toString());
 					
-					int offset = (int) Float.parseFloat(animationEntry.getValue().get(1).toString());
+					float offset = Float.parseFloat(animationEntry.getValue().get(1).toString());
 					
 					// Insert all keyframes into spriteAnimations, as an Animation, associated
 					// with the correct Animation. (animationEntry.getKey())
@@ -127,14 +128,41 @@ public class DynamicObjectFactory {
 				
 				
 				for(Entry<SpriteComponent.AnimationState, ArrayList<Object>> attackEntry: attackDefinitions.entrySet()) {
+					AnimationState attackName = attackEntry.getKey();
 					String attackType = attackEntry.getValue().get(0).toString();
-					float attackTime = Float.parseFloat(attackEntry.getValue().get(1).toString());
-					float preDamageTime = Float.parseFloat(attackEntry.getValue().get(2).toString());
-					float damageTime = Float.parseFloat(attackEntry.getValue().get(3).toString());
+					//float attackTime = Float.parseFloat(attackEntry.getValue().get(1).toString());
+					//float frameDelay = Float.parseFloat(animationEntry.getValue().get(4).toString());
+					
+					// "AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, (flightSpeed)",
+					//	0			1			2			3				4							5   6		7				
+					float frameDelay = Float.parseFloat(animationStates.get(attackEntry.getKey()).get(4).toString());
+					float frameAmount = Float.parseFloat(animationStates.get(attackEntry.getKey()).get(3).toString());
+					
+					float attackTime = frameDelay * frameAmount;
+					
+					//System.out.println("Attacktime: " + attackTime);
+					
+					//System.out.println("state: " + animationStates.get(attackEntry.getKey()) + " Frame delay:" + frameDelay);
+					
+					
+					//float attackTime =
+					float damageStartFrame = Float.parseFloat(attackEntry.getValue().get(1).toString());
+					float damageEndFrame = Float.parseFloat(attackEntry.getValue().get(2).toString());
+					
+					float preDamageTime = damageStartFrame * frameDelay;
+					float damageTime = (damageEndFrame - damageStartFrame) * frameDelay;
+					
+					System.out.println("preDamage: " + preDamageTime + " damageTime:" + damageTime);
+					
 					SpriteComponent.AnimationState animation = SpriteComponent.AnimationState.valueOf(attackEntry.getKey().toString());
 					
-					BodyComponent attackBodyComponent = new BodyComponent(attackComponent.parent,
-							new Vector2(20,20), false, 1.0f, false, SlopeShape.Even, true);
+					// attackbox y-offset, attackbox size x, y, (flightSpeed)
+					float attackOffsetY = Float.parseFloat(attackEntry.getValue().get(3).toString());
+					float attackBoxSizeX = Float.parseFloat(attackEntry.getValue().get(4).toString());
+					float attackBoxSizeY = Float.parseFloat(attackEntry.getValue().get(5).toString());
+					
+				//	BodyComponent attackBodyComponent = new BodyComponent(attackComponent.parent,
+					//		new Vector2(attackBoxSizeX, attackBoxSizeY), false, 1.0f, false, SlopeShape.Even, true);
 					//bodyComponent = parent.getComponent(BodyComponent.class);
 					
 					Attack attack;
@@ -143,20 +171,20 @@ public class DynamicObjectFactory {
 					HashMap<SpriteComponent.AnimationState, Animation> animations = creaturePrototype.getComponent(SpriteComponent.class).animations;
 					
 					if(attackType.equals("Melee")) {
-						SpriteBody attackBody = new SpriteBody(new Vector2(20,20), animations, false, 1.0f, false, SlopeShape.Even, true);
-						attack = new Attack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody);
+						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), animations, false, 1.0f, false, SlopeShape.Even, true);
+						attack = new MeleeAttack(attackComponent, attackTime, preDamageTime,  animation, attackBody, attackOffsetY, damageTime);
 						//attackComponentPrototypes.add(ac);
-						attackComponent.addAttack(attack);
+						attackComponent.addAttack(attackName, attack);
 						
 					}
 					if (attackType.equals("Ranged")) {
-						float flightSpeed = Float.parseFloat(attackEntry.getValue().get(4).toString());
+						float flightSpeed = Float.parseFloat(attackEntry.getValue().get(7).toString());
 						
 						
-						SpriteBody attackBody = new SpriteBody(new Vector2(20,20), miscAnimations.get(AnimationType.Fireball), false, 1.0f, true, SlopeShape.Even, true);
+						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), miscAnimations.get(AnimationType.Fireball), false, 1.0f, false, SlopeShape.Even, true);
 						
-						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody, flightSpeed);
-						attackComponent.addAttack(attack);
+						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, animation, attackBody, attackOffsetY, flightSpeed);
+						attackComponent.addAttack(attackName, attack);
 		
 						//attackComponentPrototypes.add(ac);
 					}	

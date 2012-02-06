@@ -67,12 +67,16 @@ public class MovementComponent extends Component {
 	@Override
 	public void update(float deltaTime) {
 		bodyComponent.applyLinearImpulse(deltaMove);
-		deltaMove.set(0, 0);
 		if(allowJumping && !moving) {
 			spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Idle);
 		}
 		
+		
+		if(bodyComponent.getLinearVelocity().y < -0.7f && !allowJumping) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Fall); }
+		
 		moving = false;
+		
+		deltaMove.set(0, 0);
 	}
 
 }

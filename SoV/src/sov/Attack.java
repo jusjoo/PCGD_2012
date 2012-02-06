@@ -1,57 +1,81 @@
 package sov;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class Attack {
+public abstract class Attack {
 	
 	AttackComponent attackComponent;
-	
 	protected SpriteComponent.AnimationState animation;
-
 	public SpriteBody attackBody;
 	
 	/*
 	 * preAttackTime is the time where the animation starts, but the attack fixture is not yet active.
 	 */
 	float preDamageTime;
-	
-	/*
-	 * damageTime is how long the attack fixture is active.
-	 */
-	float damageTime;
-	
+
 	/*
 	 * attackTime is the total attack animation time
 	 */
 	float attackTime;
 	
 	/*
+	 * Attack box y offset
+	 */
+	float offSetY;
+	
+	protected boolean damaging;
+	
+	/*
+	 * timer keeps track of the whole attack from beginning to end
+	 */
+	protected float timer;
+
+	
+	/*
 	 * TODO: Takes in a custom attack fixture shape, which is then handled for attacks on both sides.
 	 */
-	public Attack(AttackComponent attackComponent, float attackTime, float preDamageTime, float damageTime, SpriteComponent.AnimationState attackAnimation, SpriteBody attackSpriteBody) {
+	public Attack(AttackComponent attackComponent, float attackTime, float preDamageTime, SpriteComponent.AnimationState attackAnimation, SpriteBody attackSpriteBody, float offSetY) {
 				
 		this.attackTime = attackTime;
 		this.preDamageTime = preDamageTime;
-		this.damageTime = damageTime;		
+		this.damaging = false;
 		this.animation = attackAnimation;
 		this.attackBody = attackSpriteBody;
 		this.attackComponent = attackComponent;
+		this.offSetY = offSetY;
 	}
-	protected void startDamage(){
-		attackComponent.damaging = true;
-		
-		float offSet = attackComponent.getOffset();
-				
-		// Adds the body in front of attacker
-		attackBody.body.addToWorld(attackComponent.bodyComponent.world, new Vector2(attackComponent.bodyComponent.getPosition().x + offSet*16, attackComponent.bodyComponent.getPosition().y ));
-		
-		if (offSet > 0) attackBody.body.setFacingRight(true);
-	 		else attackBody.body.setFacingRight(false);
-		
-		// Sets attack bodies user data as this, so that attack sensors can be identified
-		attackBody.body.setUserData(attackComponent);
-		attackBody.body.body.setGravityScale(0);
 	
+	
+	protected float getAttackBoxOffsetX() {
+		
+		float offset = attackComponent.getOffsetX();
+		
+		if(offset > 0) {
+			offset += attackBody.body.getSize().x;
+		} else {
+			offset -= attackBody.body.getSize().x;
+		}
+		
+		return offset;
 	}
+	
+	protected void startAttack() {
+		timer = attackTime;
 
+		attackComponent.parent.getComponent(SpriteComponent.class).setCurrentAnimationState(animation);
+		//parent.getComponent(SpriteComponent.class).setCurrentAnimationState(attacks.get(attackType).animation);
+		
+	}
+	
+	
+	
+	public abstract void stopDamage();
+	public abstract void startDamage();
+
+
+	public abstract void update(float deltaTime);
+
+
+	public abstract void render(SpriteBatch spriteBatch) ;
 }
