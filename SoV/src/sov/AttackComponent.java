@@ -115,6 +115,11 @@ public class AttackComponent extends Component {
 	 * Renders the possible attack SpriteBody
 	 */
 	public void render(SpriteBatch spriteBatch) {
+		for (Attack attack: attacks.values()) {
+			attack.render(spriteBatch);
+		}
+		
+		
 		/*if (damaging) {
 			activeAttack.attackBody.spriteComponent.render(spriteBatch, activeAttack.attackBody.body.getFacingRight(),
 					activeAttack.attackBody.body.getPosition().x,

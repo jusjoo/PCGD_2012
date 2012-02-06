@@ -1,5 +1,6 @@
 package sov;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 import sov.SpriteComponent.AnimationState;
@@ -69,7 +70,7 @@ public class MeleeAttack extends Attack {
 		
 		if (timer < this.attackTime - this.preDamageTime && 
 				timer > this.attackTime - this.preDamageTime - this.damageTime && !damaging){
-			System.out.println("pöö");	
+			
 			this.startDamage();
 		}
 		if (timer < this.attackTime - this.preDamageTime - this.damageTime){
@@ -79,6 +80,12 @@ public class MeleeAttack extends Attack {
 			attackComponent.stopAttack();
 			stopDamage();
 		}
+		
+	}
+
+	@Override
+	public void render(SpriteBatch spriteBatch) {
+		// TODO Auto-generated method stub
 		
 	}
 }

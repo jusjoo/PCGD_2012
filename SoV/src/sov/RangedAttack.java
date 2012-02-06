@@ -1,7 +1,9 @@
 package sov;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 import sov.BodyComponent.SlopeShape;
@@ -10,7 +12,8 @@ import sov.SpriteComponent.AnimationState;
 public class RangedAttack extends Attack {
 	
 	public float flightSpeed;
-	public boolean attackingRight;
+
+	private ArrayList<SpriteBody> projectiles;
 	
 
 	public RangedAttack(AttackComponent attackComponent, float attackTime,	float preDamageTime,
@@ -20,40 +23,47 @@ public class RangedAttack extends Attack {
 		
 		this.flightSpeed = flightSpeed;
 		
+		projectiles = new ArrayList<SpriteBody>();
+		
 	}
 
 
 	public void startDamage(){
-		damaging = true;
+		
+		SpriteBody projectile = new SpriteBody(attackBody.body.getSize(), 
+				attackBody.spriteComponent.animations, 
+				false, 1.0f, false, SlopeShape.Even, true);
 		
 		float offSet = getAttackBoxOffsetX();
 		
 		if (offSet > 0) {
-			attackingRight = true;
-			attackBody.body.setFacingRight(true);
+			projectile.body.setFacingRight(true);
 		} else {
-			attackingRight = false;
-			attackBody.body.setFacingRight(false);
+			projectile.body.setFacingRight(false);
 		}
 		
-
 		
-		attackBody.body.addToWorld(attackComponent.bodyComponent.world, 
+		
+		projectiles.add(projectile);
+		
+		projectile.body.addToWorld(attackComponent.bodyComponent.world, 
 				new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, 
 				attackComponent.bodyComponent.getPosition().y + offSetY ));
 		
-		attackBody.spriteComponent.setCurrentAnimationState(AnimationState.Idle);
+		projectile.spriteComponent.setCurrentAnimationState(AnimationState.Idle);
 		
 		// Sets attack bodies user data as this, so that attack sensors can be identified
-		attackBody.body.setUserData(attackComponent);
-		attackBody.body.body.setGravityScale(0);
+		projectile.body.setUserData(attackComponent);
+		projectile.body.body.setGravityScale(0);
 		
 	
-		if(attackingRight) {
-			attackBody.body.applyLinearImpulse(new Vector2( flightSpeed, 0f));
+		if(offSet > 0) {
+			projectile.body.applyLinearImpulse(new Vector2( flightSpeed, 0f));
 		} else {
-			attackBody.body.applyLinearImpulse(new Vector2( -flightSpeed, 0f));
+			projectile.body.applyLinearImpulse(new Vector2( -flightSpeed, 0f));
 		}
+		
+		damaging = true;
 		
 	}
 	
@@ -65,28 +75,34 @@ public class RangedAttack extends Attack {
 	@Override
 	public void update(float deltaTime) {
 		// Update the spriteComponent, so we get animations, hooray!
-		if (damaging) this.attackBody.spriteComponent.update(deltaTime);
+		for (SpriteBody body: projectiles) {
+			body.spriteComponent.update(deltaTime);
+		}
 		
 		/*
 		 * Update attack body's position relative to the Entity's body
 		 */
 		
-		if (damaging) {
-			float offSet = this.getAttackBoxOffsetX();
-			this.attackBody.body.setPosition(new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, 
-					attackComponent.bodyComponent.getPosition().y + attackComponent.activeAttack.offSetY ));
-		}
-	
+		
 		
 		timer = timer - deltaTime;
 		
 		if (timer < this.attackTime - this.preDamageTime && !damaging){
-
+			
 			this.startDamage();
 		}
 	
 		if (timer < 0) {
+			
 			attackComponent.stopAttack();
+		}
+	}
+
+
+	@Override
+	public void render(SpriteBatch spriteBatch) {
+		for (SpriteBody body: projectiles) {
+			body.render(spriteBatch);
 		}
 	}
 }
