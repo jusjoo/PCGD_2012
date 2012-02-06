@@ -165,4 +165,11 @@ public class AttackComponent extends Component {
 		
 	}
 	
+	public void dealDamageTo(BodyComponent target) {
+		target.setToTakeDamage(1f);
+		if (activeAttack.getClass() == RangedAttack.class) {
+			activeAttack.attackBody.body.setToDie = true;
+		}
+	}
+	
 }
