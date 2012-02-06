@@ -34,7 +34,14 @@ public class Entity {
 	// Update all components
 	public void update(float deltaTime) {
 		for(Component component : components.values()) {
-			component.update(deltaTime);
+			if(component.isActive()) { component.update(deltaTime); }
 		}
+	}
+	
+	public void setComponentActive(Class<? extends Component> className, boolean active) {
+		if(components.get(className) != null) {
+			components.get(className).setActive(active);
+		}
+		
 	}
 }

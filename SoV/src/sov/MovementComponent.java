@@ -11,6 +11,8 @@ public class MovementComponent extends Component {
 	protected Vector2 deltaMove = new Vector2();
 	protected float speed;
 	protected float jumpHeight;
+	protected float jumpTimer = 0;
+	protected float jumpDelay = 0.5f;
 	protected boolean moving;
 	
 	boolean allowJumping = true;
@@ -57,15 +59,20 @@ public class MovementComponent extends Component {
 	}
 	
 	public void jump() {
-		if(allowJumping) {
+		if(allowJumping && jumpTimer >= jumpDelay) {
+			System.out.println("Jumping!");
 			spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Jump);
 			deltaMove.set(deltaMove.x, jumpHeight);
 			setAllowJumping(false);
+			jumpTimer = 0;
 		}
 	}
 
 	@Override
 	public void update(float deltaTime) {
+		
+		jumpTimer += deltaTime;
+		
 		bodyComponent.applyLinearImpulse(deltaMove);
 		if(allowJumping && !moving) {
 			spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Idle);

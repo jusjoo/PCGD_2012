@@ -99,7 +99,7 @@ public class Creature extends SpriteBody implements Cloneable {
 		// TODO: Transfer creating the body, shape and fixture to a static helper function.
 		PolygonShape sensorShape = new PolygonShape();
 		sensorShape.setAsBox(body.getSize().x / (3 * PIXELS_PER_METER), body.getSize().y / (12 * PIXELS_PER_METER),
-				new Vector2(0, -body.getSize().y/PIXELS_PER_METER/2), 0);
+				new Vector2(0, -body.getSize().y/PIXELS_PER_METER/2.23f), 0);
 		FixtureDef sensorFixtureDef = new FixtureDef();
 		sensorFixtureDef.shape = sensorShape;
 		sensorFixtureDef.isSensor = true;
@@ -110,7 +110,8 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		// Attach the foot-sensor on the body.
 		sensorFixture = getComponent(BodyComponent.class).body.createFixture(sensorFixtureDef);
-		
+		//System.out.println(this);
+		sensorFixture.setUserData(new ContactEvent(this, "sensor"));
 		
 		
 		// Creatures shall not rotate according to physics!

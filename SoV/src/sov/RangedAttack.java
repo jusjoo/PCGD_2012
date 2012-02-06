@@ -38,7 +38,7 @@ public class RangedAttack extends Attack {
 		attackBody.spriteComponent.setCurrentAnimationState(AnimationState.Idle);
 		
 		// Sets attack bodies user data as this, so that attack sensors can be identified
-		attackBody.body.setUserData(attackComponent);
+		attackBody.body.setUserData(new ContactEvent(attackComponent, "ranged"));
 		attackBody.body.body.setGravityScale(0);
 		
 		

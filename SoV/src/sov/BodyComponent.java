@@ -33,6 +33,7 @@ public class BodyComponent extends Component {
 	protected float hitPoints = 2;
 	protected boolean indestructible;
 	boolean alive = true;
+	boolean finalDeath = false;
 	
 	// tracks incoming damage
 	protected float setToTakeDamage;
@@ -154,10 +155,15 @@ public class BodyComponent extends Component {
 			parent.getComponent(SpriteComponent.class).setCurrentAnimationState(SpriteComponent.AnimationState.Die);
 			alive = false;
 			
-			body.destroyFixture(bodyFixture);
-			body.getFixtureList().clear();
-			body.setGravityScale(0);
-			body.setLinearVelocity(0f, 0f);
+			
+			
+			if(parent.getComponent(MovementComponent.class) != null) {
+				//parent.removeComponent(InputComponent.class);
+				parent.setComponentActive(InputComponent.class, false);
+				parent.setComponentActive(MovementComponent.class, false);
+				//parent.removeComponent(MovementComponent.class);
+				
+			}
 		}
 		
 	}
@@ -243,7 +249,7 @@ public class BodyComponent extends Component {
 		
 		
 		// Set userdata for body, used to find out which object is touching the ground in MyContactListener
-		body.setUserData(this.parent);
+		body.setUserData(new ContactEvent(this.parent, "body"));
 	}
 	
 	public void applyLinearImpulse(Vector2 impulse) {
@@ -263,10 +269,19 @@ public class BodyComponent extends Component {
 		if (setToTakeDamage > 0 && immuneTimer <= 0) {
 			takeDamage(setToTakeDamage);
 		}
-		if(setToDie) { die(); }
+		if(setToDie) {
+			die();
+			if(!finalDeath && Math.abs(body.getLinearVelocity().x) < 0.5f && Math.abs(body.getLinearVelocity().y) < 0.5f) {
+				body.destroyFixture(bodyFixture);
+				body.getFixtureList().clear();
+				body.setGravityScale(0);
+				body.setLinearVelocity(0f, 0f);
+				finalDeath = true;
+			}
+		}
 	}
 
-	public void setUserData(AttackComponent attackComponent) {
+	public void setUserData(ContactEvent attackComponent) {
 		
 		body.setUserData(attackComponent);
 		

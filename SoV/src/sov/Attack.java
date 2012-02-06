@@ -55,7 +55,7 @@ public class Attack {
 	 		else attackBody.body.setFacingRight(false);
 		
 		// Sets attack bodies user data as this, so that attack sensors can be identified
-		attackBody.body.setUserData(attackComponent);
+		attackBody.body.setUserData(new ContactEvent(attackComponent, "attack"));
 		attackBody.body.body.setGravityScale(0);
 	
 	}
