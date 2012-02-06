@@ -1,6 +1,7 @@
 package sov;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import sov.BodyComponent.SlopeShape;
 
@@ -15,9 +16,9 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public class AttackComponent extends Component {
 
 	/*
-	 * These keep track of the attacks stored in this component
+	 * This keeps track of the attacks stored in this component
 	 */
-	ArrayList<Attack> attacks;
+	HashMap<SpriteComponent.AnimationState, Attack> attacks;
 	
 	/*
 	 * timer keeps track of the whole attack from beginning to end
@@ -39,7 +40,7 @@ public class AttackComponent extends Component {
 
 	public AttackComponent(Entity parent){
 		super(parent);	
-		attacks = new ArrayList<Attack>();
+		attacks = new HashMap<SpriteComponent.AnimationState, Attack>();
 		activeAttack = null;
 	}
 	
@@ -93,7 +94,7 @@ public class AttackComponent extends Component {
 		activeAttack = null;
 	}
 
-	protected void startAttack(int attackType) {
+	protected void startAttack(SpriteComponent.AnimationState attackType) {
 		timer = attacks.get(attackType).attackTime;
 		activeAttack = attacks.get(attackType);
 		
@@ -106,6 +107,7 @@ public class AttackComponent extends Component {
 		if (damaging) {
 			damaging = false;
 			activeAttack.attackBody.body.removeFromWorld();
+			
 		}
 	}
 
@@ -115,7 +117,7 @@ public class AttackComponent extends Component {
 	 * 
 	 * @.pre	Parent must be set! Prototypes cannot attack.
 	 */
-	public void attack(int attackType) {
+	public void attack(SpriteComponent.AnimationState attackType) {
 		if (activeAttack == null) {
 			startAttack(attackType);
 		}
@@ -149,8 +151,8 @@ public class AttackComponent extends Component {
 	}
 
 
-	public void addAttack(Attack attack) {
-		attacks.add(attack);
+	public void addAttack(SpriteComponent.AnimationState name, Attack attack) {
+		attacks.put(name, attack);
 		
 	}
 

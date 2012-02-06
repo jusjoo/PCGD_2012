@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import sov.BodyComponent.SlopeShape;
+import sov.SpriteComponent.AnimationState;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -127,6 +128,7 @@ public class DynamicObjectFactory {
 				
 				
 				for(Entry<SpriteComponent.AnimationState, ArrayList<Object>> attackEntry: attackDefinitions.entrySet()) {
+					AnimationState attackName = attackEntry.getKey();
 					String attackType = attackEntry.getValue().get(0).toString();
 					//float attackTime = Float.parseFloat(attackEntry.getValue().get(1).toString());
 					//float frameDelay = Float.parseFloat(animationEntry.getValue().get(4).toString());
@@ -162,7 +164,7 @@ public class DynamicObjectFactory {
 						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), animations, false, 1.0f, false, SlopeShape.Even, true);
 						attack = new Attack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody, attackOffsetY);
 						//attackComponentPrototypes.add(ac);
-						attackComponent.addAttack(attack);
+						attackComponent.addAttack(attackName, attack);
 						
 					}
 					if (attackType.equals("Ranged")) {
@@ -172,7 +174,7 @@ public class DynamicObjectFactory {
 						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), miscAnimations.get(AnimationType.Fireball), false, 1.0f, false, SlopeShape.Even, true);
 						
 						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody, attackOffsetY, flightSpeed);
-						attackComponent.addAttack(attack);
+						attackComponent.addAttack(attackName, attack);
 		
 						//attackComponentPrototypes.add(ac);
 					}	
