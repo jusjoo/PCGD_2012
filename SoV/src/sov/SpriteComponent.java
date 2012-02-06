@@ -77,8 +77,13 @@ public class SpriteComponent extends Component {
 	}
 	
 	public void setCurrentAnimationState(SpriteComponent.AnimationState state) {
-		if(animations.get(currentAnimationState).looping || animations.get(currentAnimationState).isLastFrame(stateTime)) {
+		
+		//if(animations.get(currentAnimationState).animationLength < stateTime) {
+		
+		if(animations.get(currentAnimationState).looping || animations.get(currentAnimationState).animationLength < stateTime ) {
+			
 			currentAnimationState = state;
+			
 		}
 		
 		//if(previousAnimationState != currentAnimationState) { stateTime = 0; }

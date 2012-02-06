@@ -218,8 +218,8 @@ public class GameMap {
 	
 	public void removeCreature(Creature creature) {
 		
-		creature.removeFromWorld();
 		creatures.remove(creature);
+		creature.removeFromWorld();
 		
 	}
 	
@@ -318,6 +318,14 @@ public class GameMap {
 		renderLayer(LayerType.Foreground, cam, spriteBatch);
 		
 		
+	}
+	
+	public void addSpriteBody(SpriteBody sb) {
+		dynMapTiles.add(sb);
+	}
+	
+	public void removeSpriteBody(SpriteBody sb) {
+		dynMapTiles.remove(sb);
 	}
 	
 

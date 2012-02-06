@@ -213,9 +213,12 @@ public class BodyComponent extends Component {
 		body.setTransform(coordinates.mul(1/GameConfiguration.PIXELS_PER_METER), 0);
 	}
 	
+	// FIXME: If there are any problems, it should really be world.destroyBody(body);
 	public void removeFromWorld() {
-		body.destroyFixture(bodyFixture);
-		
+		if(body != null && bodyFixture != null) {
+			body.destroyFixture(bodyFixture);
+			//world.destroyBody(body);
+		}
 	}
 	
 	public void addToWorld(World world, Vector2 position) {
@@ -234,7 +237,10 @@ public class BodyComponent extends Component {
 		
 		
 		// Linear damping dictates along with friction how quickly the entity is slowed down.
-		body.setLinearDamping(2.6f);
+		if (!bodyFixtureDef.isSensor) body.setLinearDamping(2.6f);
+		// No linear damping for sensor bodies.
+		else body.setLinearDamping(0.0f);
+		
 		
 		// Set userdata for body, used to find out which object is touching the ground in MyContactListener
 		body.setUserData(this.parent);

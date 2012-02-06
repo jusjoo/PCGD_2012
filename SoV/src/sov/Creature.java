@@ -55,10 +55,10 @@ public class Creature extends SpriteBody implements Cloneable {
 		Creature creature = new Creature(new Vector2(prototype.hitboxSize[0], prototype.hitboxSize[1]), prototype.spriteComponent.animations, 0.8f, false);
 		creature.creatureType = prototype.creatureType;
 		creature.dexterity = prototype.dexterity;
-		creature.speed = creature.dexterity  / 2f;
-		creature.jumpHeight = prototype.dexterity * 1.5f;
+		creature.speed = creature.getSpeed();
+		creature.jumpHeight = creature.getJumpHeight();
 		
-		creature.body.setMaxVelocity(creature.speed*1.15f);
+		creature.body.setMaxVelocity(creature.speed*GameConfiguration.creatureMaxVelocityMultiplier);
 		
 		// Set the attack component
 		if(prototype.getComponent(AttackComponent.class) != null) {
@@ -69,6 +69,14 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		
 		return creature;
+	}
+	
+	public float getSpeed() {
+		return this.dexterity * GameConfiguration.dexSpeedMultiplier + GameConfiguration.speedBaseModifier;		
+	}
+	
+	public float getJumpHeight() {
+		return this.dexterity * GameConfiguration.dexJumpHeightMultiplier + GameConfiguration.jumpHeightBaseModifier;
 	}
 	
 	@Override

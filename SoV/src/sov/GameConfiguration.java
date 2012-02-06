@@ -8,14 +8,14 @@ import com.badlogic.gdx.Input.Keys;
 public class GameConfiguration {
 
 	// debug mode
-	public static boolean debugMode = true;
+	public static boolean debugMode = false;
 	// light rendering
 	public static boolean lightRendering = false;
 	// activates the developer controls
 	public static boolean devMode = true;
 	
 	// world
-	public static String firstMap = "barbarian_cave.tmx";
+	public static String firstMap = "barbarian_cave_hollowed.tmx";
 	// How quickly does the camera follow the player?
 	public static float interpolationAmount = 1.00f;
 	
@@ -26,6 +26,19 @@ public class GameConfiguration {
 	public static float speed = 0.8f;
 	public static float jumpHeight = 9.2f;
 	public static float attackImpulse = 0.8f;
+	
+	// creature
+	public static float strHealthMultiplier = 1.0f;
+	public static float strDamageMultiplier = 1.0f;
+	public static float healthBaseModifier = 1.0f;	
+	public static float dexSpeedMultiplier = 0.4f;
+	public static float speedBaseModifier = 1.0f;
+	public static float dexJumpHeightMultiplier = 1.0f;
+	public static float jumpHeightBaseModifier = 5.0f;
+	public static float creatureMaxVelocityMultiplier = 1.15f;
+	
+	
+	
 	
 	// immunity time in seconds after taking damage
 	public static float immuneTime = 0.2f;
@@ -39,6 +52,7 @@ public class GameConfiguration {
 	public static int actionJump = Keys.UP;
 	public static int actionCrouch = Keys.DOWN;
 	public static int actionAttack = Keys.SPACE;
+	public static int actionAltAttack = Keys.CONTROL_LEFT;
 	
 	// developer key mappings
 	public static int debugRenderKey = Keys.NUM_1;

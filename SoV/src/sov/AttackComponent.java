@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import sov.BodyComponent.SlopeShape;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -17,8 +18,6 @@ public class AttackComponent extends Component {
 	 * These keep track of the attacks stored in this component
 	 */
 	ArrayList<Attack> attacks;
-	
-	
 	
 	/*
 	 * timer keeps track of the whole attack from beginning to end
@@ -35,13 +34,9 @@ public class AttackComponent extends Component {
 	boolean damaging;
 
 	
+	// The attackers BodyComponent
 	protected BodyComponent bodyComponent;
-	/*
-	protected BodyComponent attackBodyComponent;
-	protected PolygonShape attackSensorShape;
-	protected Fixture attackSensorFixture;
-	protected SpriteComponent.AnimationState animation;*/
-	
+
 	public AttackComponent(Entity parent){
 		super(parent);	
 		attacks = new ArrayList<Attack>();
@@ -52,9 +47,13 @@ public class AttackComponent extends Component {
 	@Override
 	public void update(float deltaTime){
 		
+		
 		if (setToStopDamage) stopDamage();
 		
 		if (activeAttack != null) {
+			
+			// Update the spriteComponent, so we get animations, hooray!
+			if (damaging) activeAttack.attackBody.spriteComponent.update(deltaTime);
 			
 			/*
 			 * Update attack body's position relative to the Entity's body
@@ -62,25 +61,16 @@ public class AttackComponent extends Component {
 			if (activeAttack.getClass() == Attack.class) {
 				if (damaging) {
 					float offSet = getOffset();
-					activeAttack.attackBodyComponent.setPosition(new Vector2(bodyComponent.getPosition().x + offSet*16, bodyComponent.getPosition().y ));
+					activeAttack.attackBody.body.setPosition(new Vector2(bodyComponent.getPosition().x + offSet*16, bodyComponent.getPosition().y ));
 				}
-			} else if (activeAttack.getClass() == RangedAttack.class) {
-				if (damaging) {
-					if(((RangedAttack)activeAttack).attackingRight) {
-						activeAttack.attackBodyComponent.applyLinearImpulse(new Vector2( ((RangedAttack)activeAttack).flightSpeed, 0f));
-					} else {
-						activeAttack.attackBodyComponent.applyLinearImpulse(new Vector2( -((RangedAttack)activeAttack).flightSpeed, 0f));
-					}
-				}
-				
-			}
+			} 
 			
 			((Creature)parent).getComponent(SpriteComponent.class).setCurrentAnimationState(activeAttack.animation);
 			timer = timer - deltaTime;
 			
 			if (timer < activeAttack.attackTime-activeAttack.preDamageTime && 
 					timer > activeAttack.attackTime-activeAttack.preDamageTime-activeAttack.damageTime && !damaging){
-				
+
 				activeAttack.startDamage();
 			}
 			if (timer < activeAttack.attackTime-activeAttack.preDamageTime-activeAttack.damageTime){
@@ -115,7 +105,7 @@ public class AttackComponent extends Component {
 	protected void stopDamage() {
 		if (damaging) {
 			damaging = false;
-			activeAttack.attackBodyComponent.removeFromWorld();
+			activeAttack.attackBody.body.removeFromWorld();
 		}
 	}
 
@@ -130,10 +120,6 @@ public class AttackComponent extends Component {
 			startAttack(attackType);
 		}
 	}
-
-
-	
-
 
 	public void setToStopDamage() {
 		setToStopDamage = true;		
@@ -160,6 +146,22 @@ public class AttackComponent extends Component {
 
 	public void addAttack(Attack attack) {
 		attacks.add(attack);
+		
+	}
+
+
+	/*
+	 * Renders the possible attack SpriteBody
+	 */
+	public void render(SpriteBatch spriteBatch) {
+		if (damaging) {
+			activeAttack.attackBody.spriteComponent.render(spriteBatch, activeAttack.attackBody.body.getFacingRight(),
+					activeAttack.attackBody.body.getPosition().x,
+					activeAttack.attackBody.body.getPosition().y,
+					(float) (activeAttack.attackBody.body.getAngle()*180/Math.PI),
+					activeAttack.attackBody.body.getSize()
+					);
+		}
 		
 	}
 	
