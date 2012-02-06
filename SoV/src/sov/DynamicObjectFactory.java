@@ -146,7 +146,8 @@ public class DynamicObjectFactory {
 					
 					
 					HashMap<SpriteComponent.AnimationState, Animation> animations = creaturePrototype.getComponent(SpriteComponent.class).animations;
-					
+					//
+					// TODO: Send attackOffset to AttackComponent
 					if(attackType.equals("Melee")) {
 						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), animations, false, 1.0f, false, SlopeShape.Even, true);
 						attack = new Attack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody);
