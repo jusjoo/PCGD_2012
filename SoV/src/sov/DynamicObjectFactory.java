@@ -106,7 +106,7 @@ public class DynamicObjectFactory {
 					
 					boolean loops = Boolean.parseBoolean(animationEntry.getValue().get(5).toString());
 					
-					int offset = (int) Float.parseFloat(animationEntry.getValue().get(1).toString());
+					float offset = Float.parseFloat(animationEntry.getValue().get(1).toString());
 					
 					// Insert all keyframes into spriteAnimations, as an Animation, associated
 					// with the correct Animation. (animationEntry.getKey())
@@ -128,7 +128,17 @@ public class DynamicObjectFactory {
 				
 				for(Entry<SpriteComponent.AnimationState, ArrayList<Object>> attackEntry: attackDefinitions.entrySet()) {
 					String attackType = attackEntry.getValue().get(0).toString();
-					float attackTime = Float.parseFloat(attackEntry.getValue().get(1).toString());
+					//float attackTime = Float.parseFloat(attackEntry.getValue().get(1).toString());
+					//float frameDelay = Float.parseFloat(animationEntry.getValue().get(4).toString());
+					float frameDelay = Float.parseFloat(animationStates.get(attackEntry.getKey()).get(4).toString());
+					float frameAmount = Float.parseFloat(animationStates.get(attackEntry.getKey()).get(3).toString());
+					
+					float attackTime = frameDelay * frameAmount;
+					
+					//System.out.println("state: " + animationStates.get(attackEntry.getKey()) + " Frame delay:" + frameDelay);
+					
+					
+					//float attackTime =
 					float preDamageTime = Float.parseFloat(attackEntry.getValue().get(2).toString());
 					float damageTime = Float.parseFloat(attackEntry.getValue().get(3).toString());
 					SpriteComponent.AnimationState animation = SpriteComponent.AnimationState.valueOf(attackEntry.getKey().toString());

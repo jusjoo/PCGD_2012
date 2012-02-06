@@ -26,6 +26,9 @@ public class SpriteComponent extends Component {
 	// Used to keep track of animation time
 	float stateTime = 0;
 	
+	// Current frame offset
+	float currentOffset = 0;
+	
 	// Size of the sprite in pixels
 	//protected Vector2 size;
 	
@@ -51,16 +54,9 @@ public class SpriteComponent extends Component {
 	public void render(SpriteBatch spriteBatch, boolean facingRight, float x, float y, float angle, Vector2 collisionBoxSize) {
 		currentFrame.setSize(currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
 		
-		int offSet = 0;
+		//float offSet = 0;
 		
-		// FIXME: 16 should really be the... unit size or something?
-		if(facingRight) {
-			currentFrame.flip(false, false);
-			offSet = animations.get(currentAnimationState).offset * 16;
-		} else {
-			currentFrame.flip(true, false);
-			offSet = -animations.get(currentAnimationState).offset * 16;
-		}
+		
 		
 		
 		/*
@@ -68,9 +64,18 @@ public class SpriteComponent extends Component {
 		 *  
 		 *  This is full of shit!
 		 */
-		currentFrame.setPosition(x + 8 - currentFrame.getWidth()/2 + offSet/2,
+		currentFrame.setPosition(x + 8 - currentFrame.getWidth()/2 - currentOffset,
 								y -8 - currentFrame.getHeight()/2 + (currentFrame.getHeight() - collisionBoxSize.y)/2 ); 
 		//currentFrame.setPosition(x ,y);
+		
+		// FIXME: 16 should really be the... unit size or something? (put it into a static variable somewhere)
+				if(facingRight) {
+					currentFrame.flip(false, false);
+					currentOffset = animations.get(currentAnimationState).offset * 16;
+				} else {
+					currentFrame.flip(true, false);
+					currentOffset = -animations.get(currentAnimationState).offset * 16;
+				}
 		
 		currentFrame.setRotation(angle);
 		currentFrame.draw(spriteBatch);
@@ -80,13 +85,16 @@ public class SpriteComponent extends Component {
 		
 		//if(animations.get(currentAnimationState).animationLength < stateTime) {
 		
-		if(animations.get(currentAnimationState).looping || animations.get(currentAnimationState).animationLength < stateTime ) {
+		AnimationState previousAnimationState = currentAnimationState;
+		
+		//if(animations.get(currentAnimationState).looping || animations.get(currentAnimationState).animationLength < stateTime ) {
+		if(animations.get(currentAnimationState).looping || animations.get(currentAnimationState).isLastFrame(stateTime)) {
 			
 			currentAnimationState = state;
-			
+			if(previousAnimationState != currentAnimationState) { stateTime = 0; }	
 		}
 		
-		//if(previousAnimationState != currentAnimationState) { stateTime = 0; }
+		
 		
 	}
 	

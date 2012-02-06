@@ -65,7 +65,6 @@ public class AttackComponent extends Component {
 				}
 			} 
 			
-			((Creature)parent).getComponent(SpriteComponent.class).setCurrentAnimationState(activeAttack.animation);
 			timer = timer - deltaTime;
 			
 			if (timer < activeAttack.attackTime-activeAttack.preDamageTime && 
@@ -98,6 +97,7 @@ public class AttackComponent extends Component {
 		timer = attacks.get(attackType).attackTime;
 		activeAttack = attacks.get(attackType);
 		
+		((Creature)parent).getComponent(SpriteComponent.class).setCurrentAnimationState(activeAttack.animation);
 		//parent.getComponent(SpriteComponent.class).setCurrentAnimationState(attacks.get(attackType).animation);
 		
 	}
@@ -154,14 +154,14 @@ public class AttackComponent extends Component {
 	 * Renders the possible attack SpriteBody
 	 */
 	public void render(SpriteBatch spriteBatch) {
-		if (damaging) {
+		/*if (damaging) {
 			activeAttack.attackBody.spriteComponent.render(spriteBatch, activeAttack.attackBody.body.getFacingRight(),
 					activeAttack.attackBody.body.getPosition().x,
 					activeAttack.attackBody.body.getPosition().y,
 					(float) (activeAttack.attackBody.body.getAngle()*180/Math.PI),
 					activeAttack.attackBody.body.getSize()
 					);
-		}
+		}*/
 		
 	}
 	
