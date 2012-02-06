@@ -131,9 +131,8 @@ public class DynamicObjectFactory {
 					//float attackTime = Float.parseFloat(attackEntry.getValue().get(1).toString());
 					//float frameDelay = Float.parseFloat(animationEntry.getValue().get(4).toString());
 					
-					// "AttackType, attackTime, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, (flightSpeed)",
-					//	0			1			2					3				4					5				6	7
-					
+					// "AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, (flightSpeed)",
+					//	0			1			2			3				4							5   6		7				
 					float frameDelay = Float.parseFloat(animationStates.get(attackEntry.getKey()).get(4).toString());
 					float frameAmount = Float.parseFloat(animationStates.get(attackEntry.getKey()).get(3).toString());
 					
@@ -145,8 +144,8 @@ public class DynamicObjectFactory {
 					
 					
 					//float attackTime =
-					float damageStartFrame = Float.parseFloat(attackEntry.getValue().get(2).toString());
-					float damageEndFrame = Float.parseFloat(attackEntry.getValue().get(3).toString());
+					float damageStartFrame = Float.parseFloat(attackEntry.getValue().get(1).toString());
+					float damageEndFrame = Float.parseFloat(attackEntry.getValue().get(2).toString());
 					
 					float preDamageTime = damageStartFrame * frameDelay;
 					float damageTime = (damageEndFrame - damageStartFrame) * frameDelay;
@@ -156,9 +155,9 @@ public class DynamicObjectFactory {
 					SpriteComponent.AnimationState animation = SpriteComponent.AnimationState.valueOf(attackEntry.getKey().toString());
 					
 					// attackbox y-offset, attackbox size x, y, (flightSpeed)
-					float attackOffsetY = Float.parseFloat(attackEntry.getValue().get(4).toString());
-					float attackBoxSizeX = Float.parseFloat(attackEntry.getValue().get(5).toString());
-					float attackBoxSizeY = Float.parseFloat(attackEntry.getValue().get(6).toString());
+					float attackOffsetY = Float.parseFloat(attackEntry.getValue().get(3).toString());
+					float attackBoxSizeX = Float.parseFloat(attackEntry.getValue().get(4).toString());
+					float attackBoxSizeY = Float.parseFloat(attackEntry.getValue().get(5).toString());
 					
 				//	BodyComponent attackBodyComponent = new BodyComponent(attackComponent.parent,
 					//		new Vector2(attackBoxSizeX, attackBoxSizeY), false, 1.0f, false, SlopeShape.Even, true);
