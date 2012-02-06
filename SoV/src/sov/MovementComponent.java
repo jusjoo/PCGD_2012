@@ -72,7 +72,7 @@ public class MovementComponent extends Component {
 		}
 		
 		
-		if(bodyComponent.getLinearVelocity().y < -0.7f) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Fall); }
+		if(bodyComponent.getLinearVelocity().y < -0.7f && !allowJumping) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Fall); }
 		
 		moving = false;
 		

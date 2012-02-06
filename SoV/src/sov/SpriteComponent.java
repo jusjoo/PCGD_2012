@@ -11,8 +11,19 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class SpriteComponent extends Component {
 	
-	// Animation dictates which Animation is going to be drawn and updated
-	public enum AnimationState { Idle, Run, Jump, Fall, Hurt, WeaponRun, Attack1, Attack2, Die };
+	// Animation dictates which Animation is going to be drawn and updated - AnimationStates are in priority order
+	public enum AnimationState {
+		Die,
+		Attack1,
+		Attack2,
+		Hurt,
+		Jump,
+		Fall,
+		Run,
+		Idle,
+		WeaponRun
+		
+		};
 	
 	protected SpriteComponent.AnimationState currentAnimationState = SpriteComponent.AnimationState.Idle;
 	//protected SpriteComponent.AnimationState previousAnimationState = null;
@@ -87,11 +98,13 @@ public class SpriteComponent extends Component {
 		
 		AnimationState previousAnimationState = currentAnimationState;
 		
+		//System.out.println(currentAnimationState.ordinal());
+		
 		//if(animations.get(currentAnimationState).looping || animations.get(currentAnimationState).animationLength < stateTime ) {
-		if(animations.get(currentAnimationState).looping || animations.get(currentAnimationState).isLastFrame(stateTime)) {
-			
-			currentAnimationState = state;
-			if(previousAnimationState != currentAnimationState) { stateTime = 0; }	
+		//if(currentAnimationState.ordinal() < previousAnimationState.ordinal() && animations.get(currentAnimationState).looping || animations.get(currentAnimationState).isLastFrame(stateTime)) {
+			if(state.ordinal() <= previousAnimationState.ordinal() || (animations.get(currentAnimationState).looping && animations.get(state).looping) || animations.get(currentAnimationState).isLastFrame(stateTime)) {
+				currentAnimationState = state;
+				if(previousAnimationState != currentAnimationState) { stateTime = 0; }	
 		}
 		
 		
