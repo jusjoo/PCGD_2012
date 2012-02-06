@@ -30,6 +30,7 @@ public class MeleeAttack extends Attack {
 		
 		float offSet = getAttackBoxOffsetX();
 				
+		
 		// Adds the body in front of attacker
 		attackBody.body.addToWorld(attackComponent.bodyComponent.world, new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, attackComponent.bodyComponent.getPosition().y + offSetY));
 		
@@ -39,11 +40,11 @@ public class MeleeAttack extends Attack {
 		// Sets attack bodies user data as this, so that attack sensors can be identified
 		attackBody.body.setUserData(attackComponent);
 		attackBody.body.body.setGravityScale(0);
-	
+		
 	}
 	
 	public void stopDamage() {
-		attackBody.body.removeFromWorld();
+		if (damaging) attackBody.body.removeFromWorld();
 		damaging = false;
 	}
 
@@ -68,7 +69,7 @@ public class MeleeAttack extends Attack {
 		
 		if (timer < this.attackTime - this.preDamageTime && 
 				timer > this.attackTime - this.preDamageTime - this.damageTime && !damaging){
-
+			System.out.println("pöö");	
 			this.startDamage();
 		}
 		if (timer < this.attackTime - this.preDamageTime - this.damageTime){
@@ -76,6 +77,7 @@ public class MeleeAttack extends Attack {
 		}
 		if (timer < 0) {
 			attackComponent.stopAttack();
+			stopDamage();
 		}
 		
 	}

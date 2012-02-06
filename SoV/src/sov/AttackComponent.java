@@ -52,7 +52,7 @@ public class AttackComponent extends Component {
 	}
 		
 	protected void stopAttack() {
-		activeAttack.damaging = false;
+		
 		activeAttack = null;
 	}
 

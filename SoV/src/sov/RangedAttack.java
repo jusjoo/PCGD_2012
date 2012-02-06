@@ -36,7 +36,7 @@ public class RangedAttack extends Attack {
 			attackBody.body.setFacingRight(false);
 		}
 		
-		System.out.println("lol");
+
 		
 		attackBody.body.addToWorld(attackComponent.bodyComponent.world, 
 				new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, 
@@ -64,7 +64,29 @@ public class RangedAttack extends Attack {
 
 	@Override
 	public void update(float deltaTime) {
-		// TODO Auto-generated method stub
+		// Update the spriteComponent, so we get animations, hooray!
+		if (damaging) this.attackBody.spriteComponent.update(deltaTime);
 		
+		/*
+		 * Update attack body's position relative to the Entity's body
+		 */
+		
+		if (damaging) {
+			float offSet = this.getAttackBoxOffsetX();
+			this.attackBody.body.setPosition(new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, 
+					attackComponent.bodyComponent.getPosition().y + attackComponent.activeAttack.offSetY ));
+		}
+	
+		
+		timer = timer - deltaTime;
+		
+		if (timer < this.attackTime - this.preDamageTime && !damaging){
+
+			this.startDamage();
+		}
+	
+		if (timer < 0) {
+			attackComponent.stopAttack();
+		}
 	}
 }

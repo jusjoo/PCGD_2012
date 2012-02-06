@@ -40,7 +40,7 @@ public class MyContactListener implements ContactListener {
 					
 					//if(Creature.class.isAssignableFrom(fixtureUserData.getClass()) && Creature.class.isAssignableFrom(fixtureUserData2.getClass())) {
 					if(AttackComponent.class.isAssignableFrom(fixtureUserData.getClass()) && ((Entity)fixtureUserData2).getComponent(BodyComponent.class) != null) {	
-									
+								
 						//fixtureUserData.getDamage()	
 						((Entity)fixtureUserData2).getComponent(BodyComponent.class).setToTakeDamage(1);
 						
