@@ -169,11 +169,10 @@ public class DynamicObjectFactory {
 					
 					
 					HashMap<SpriteComponent.AnimationState, Animation> animations = creaturePrototype.getComponent(SpriteComponent.class).animations;
-					//
-					// TODO: Send attackOffset to AttackComponent
+					
 					if(attackType.equals("Melee")) {
 						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), animations, false, 1.0f, false, SlopeShape.Even, true);
-						attack = new Attack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody, attackOffsetY);
+						attack = new MeleeAttack(attackComponent, attackTime, preDamageTime,  animation, attackBody, attackOffsetY, damageTime);
 						//attackComponentPrototypes.add(ac);
 						attackComponent.addAttack(attackName, attack);
 						
@@ -184,7 +183,7 @@ public class DynamicObjectFactory {
 						
 						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), miscAnimations.get(AnimationType.Fireball), false, 1.0f, false, SlopeShape.Even, true);
 						
-						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, damageTime, animation, attackBody, attackOffsetY, flightSpeed);
+						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, animation, attackBody, attackOffsetY, flightSpeed);
 						attackComponent.addAttack(attackName, attack);
 		
 						//attackComponentPrototypes.add(ac);

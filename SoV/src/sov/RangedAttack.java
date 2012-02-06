@@ -13,16 +13,18 @@ public class RangedAttack extends Attack {
 	public boolean attackingRight;
 	
 
-	public RangedAttack(AttackComponent attackComponent, float attackTime,	float preDamageTime, 
-			float damageTime, AnimationState attackAnimation, SpriteBody attackSpriteBody, float offsetY, float flightSpeed) {
-		super(attackComponent, attackTime, preDamageTime, damageTime, attackAnimation, attackSpriteBody, offsetY);
+	public RangedAttack(AttackComponent attackComponent, float attackTime,	float preDamageTime,
+			AnimationState attackAnimation, SpriteBody attackSpriteBody, float offSetY, float flightSpeed) {
+		
+		super(attackComponent, attackTime, preDamageTime, attackAnimation,	attackSpriteBody, offSetY);
+		
 		this.flightSpeed = flightSpeed;
 		
 	}
 
 
-	protected void startDamage(){
-		attackComponent.damaging = true;
+	public void startDamage(){
+		damaging = true;
 		
 		float offSet = getAttackBoxOffsetX();
 		
@@ -56,6 +58,13 @@ public class RangedAttack extends Attack {
 	}
 	
 	public void stopDamage() {
+		
+	}
+
+
+	@Override
+	public void update(float deltaTime) {
+		// TODO Auto-generated method stub
 		
 	}
 }

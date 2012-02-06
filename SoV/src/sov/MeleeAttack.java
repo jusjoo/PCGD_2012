@@ -12,20 +12,21 @@ public class MeleeAttack extends Attack {
 	 * damageTime is how long the attack fixture is active.
 	 */
 	float damageTime;
+	
+	
 
-	public MeleeAttack(AttackComponent attackComponent, float attackTime,
-			float preDamageTime, float damageTime,
-			AnimationState attackAnimation, SpriteBody attackSpriteBody,
-			float offSetY) {
-		super(attackComponent, attackTime, preDamageTime, attackAnimation,
-				attackSpriteBody, offSetY);
+	public MeleeAttack(AttackComponent attackComponent, float attackTime,float preDamageTime, 
+			AnimationState attackAnimation, SpriteBody attackSpriteBody, float offSetY, float damageTime) {
+		
+		super(attackComponent, attackTime, preDamageTime, attackAnimation,	attackSpriteBody, offSetY);
+		
 		this.damageTime = damageTime;
 		
 		// TODO Auto-generated constructor stub
 	}
 	
-	protected void startDamage(){
-		attackComponent.damaging = true;
+	public void startDamage(){
+		damaging = true;
 		
 		float offSet = getAttackBoxOffsetX();
 				
@@ -43,5 +44,39 @@ public class MeleeAttack extends Attack {
 	
 	public void stopDamage() {
 		attackBody.body.removeFromWorld();
+		damaging = false;
+	}
+
+	@Override
+	public void update(float deltaTime) {
+		
+		// Update the spriteComponent, so we get animations, hooray!
+		if (damaging) this.attackBody.spriteComponent.update(deltaTime);
+		
+		/*
+		 * Update attack body's position relative to the Entity's body
+		 */
+		
+		if (damaging) {
+			float offSet = this.getAttackBoxOffsetX();
+			this.attackBody.body.setPosition(new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, 
+					attackComponent.bodyComponent.getPosition().y + attackComponent.activeAttack.offSetY ));
+		}
+	
+		
+		timer = timer - deltaTime;
+		
+		if (timer < this.attackTime - this.preDamageTime && 
+				timer > this.attackTime - this.preDamageTime - this.damageTime && !damaging){
+
+			this.startDamage();
+		}
+		if (timer < this.attackTime - this.preDamageTime - this.damageTime){
+			stopDamage();
+		}
+		if (timer < 0) {
+			attackComponent.stopAttack();
+		}
+		
 	}
 }
