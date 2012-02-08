@@ -12,6 +12,7 @@ import sov.SpriteComponent.AnimationState;
 public class RangedAttack extends Attack {
 	
 	public float flightSpeed;
+	
 
 	protected Projectile projectileProto;
 	
@@ -26,7 +27,7 @@ public class RangedAttack extends Attack {
 	}
 
 
-	public void startDamage(){
+	public void startDamage(){		
 		
 		Projectile projectile = new Projectile(projectileProto.body.getSize(), 
 				projectileProto.spriteComponent.animations, 
@@ -42,8 +43,9 @@ public class RangedAttack extends Attack {
 		}
 		
 		
-		
+		//adding new projectile
 		attackComponent.projectiles.add(projectile);
+		System.out.println("Adding new projectile");
 		
 		projectile.body.addToWorld(attackComponent.bodyComponent.world, 
 				new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, 
@@ -84,7 +86,7 @@ public class RangedAttack extends Attack {
 
 
 	public void stopDamage() {
-		
+		damaging = false;
 	}
 
 
@@ -94,14 +96,18 @@ public class RangedAttack extends Attack {
 		
 		timer = timer - deltaTime;
 		
-		if (timer < this.attackTime - this.preDamageTime && !damaging){
+		if (timer < this.attackTime - this.preDamageTime && attacking){
+		//if (timer < this.attackTime - this.preDamageTime && !damaging){
 			
 			this.startDamage();
-		}
-	
+			attacking = false;
+		}		
+		
+		
 		if (timer < 0) {
 			
 			attackComponent.stopAttack();
+			
 		}
 	}
 	

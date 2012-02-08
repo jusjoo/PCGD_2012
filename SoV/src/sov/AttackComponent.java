@@ -128,7 +128,7 @@ public class AttackComponent extends Component {
 
 	public void addAttack(SpriteComponent.AnimationState name, Attack attack) {
 		attacks.put(name, attack);
-		System.out.println(name.toString() + attack.toString());
+		System.out.println(name.toString() + attack.toString());		
 	}
 
 
