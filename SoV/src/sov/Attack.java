@@ -2,7 +2,7 @@ package sov;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Attack {
+public abstract class Attack {
 	
 	AttackComponent attackComponent;
 	
@@ -15,10 +15,7 @@ public class Attack {
 	 */
 	float preDamageTime;
 	
-	/*
-	 * damageTime is how long the attack fixture is active.
-	 */
-	float damageTime;
+	
 	
 	/*
 	 * attackTime is the total attack animation time
@@ -33,16 +30,17 @@ public class Attack {
 	/*
 	 * TODO: Takes in a custom attack fixture shape, which is then handled for attacks on both sides.
 	 */
-	public Attack(AttackComponent attackComponent, float attackTime, float preDamageTime, float damageTime, SpriteComponent.AnimationState attackAnimation, SpriteBody attackSpriteBody, float offSetY) {
+	public Attack(AttackComponent attackComponent, float attackTime, float preDamageTime, SpriteComponent.AnimationState attackAnimation, SpriteBody attackSpriteBody, float offSetY) {
 				
 		this.attackTime = attackTime;
 		this.preDamageTime = preDamageTime;
-		this.damageTime = damageTime;		
+
 		this.animation = attackAnimation;
 		this.attackBody = attackSpriteBody;
 		this.attackComponent = attackComponent;
 		this.offSetY = offSetY;
 	}
+
 	protected void startDamage(){
 		attackComponent.damaging = true;
 		
@@ -57,8 +55,8 @@ public class Attack {
 		// Sets attack bodies user data as this, so that attack sensors can be identified
 		attackBody.body.setUserData(new ContactEvent(attackComponent, "attack"));
 		attackBody.body.body.setGravityScale(0);
+
 	
-	}
 	
 	protected float getAttackBoxOffsetX() {
 		
@@ -72,5 +70,7 @@ public class Attack {
 		
 		return offset;
 	}
-
+	
+	public abstract void stopDamage();
+	
 }

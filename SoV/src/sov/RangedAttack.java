@@ -34,13 +34,17 @@ public class RangedAttack extends Attack {
 			attackBody.body.setFacingRight(false);
 		}
 		
-		attackBody.body.addToWorld(attackComponent.bodyComponent.world, new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, attackComponent.bodyComponent.getPosition().y + offSetY ));
+		System.out.println("lol");
+		
+		attackBody.body.addToWorld(attackComponent.bodyComponent.world, 
+				new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, 
+				attackComponent.bodyComponent.getPosition().y + offSetY ));
+		
 		attackBody.spriteComponent.setCurrentAnimationState(AnimationState.Idle);
 		
 		// Sets attack bodies user data as this, so that attack sensors can be identified
 		attackBody.body.setUserData(new ContactEvent(attackComponent, "ranged"));
 		attackBody.body.body.setGravityScale(0);
-		
 		
 	
 		if(attackingRight) {
@@ -48,7 +52,10 @@ public class RangedAttack extends Attack {
 		} else {
 			attackBody.body.applyLinearImpulse(new Vector2( -flightSpeed, 0f));
 		}
-
+		
+	}
 	
+	public void stopDamage() {
+		
 	}
 }

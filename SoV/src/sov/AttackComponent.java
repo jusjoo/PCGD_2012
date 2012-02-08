@@ -106,7 +106,7 @@ public class AttackComponent extends Component {
 	protected void stopDamage() {
 		if (damaging) {
 			damaging = false;
-			activeAttack.attackBody.body.removeFromWorld();
+			activeAttack.stopDamage();
 			
 		}
 	}
