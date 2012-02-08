@@ -13,7 +13,7 @@ public class Projectile extends Entity {
 	BodyComponent body;
 	SpriteComponent spriteComponent;
 	private boolean setToDie;
-	
+	public boolean setToDestroy;
 	
 	/*
 	 * Same as the normal constructor, but supports sensory body setting
@@ -25,6 +25,9 @@ public class Projectile extends Entity {
 		
 		addComponent(body);
 		addComponent(spriteComponent);
+		
+		setToDie = false;
+		setToDestroy = false;
 		
 	}
 	
@@ -49,13 +52,16 @@ public class Projectile extends Entity {
 		if (setToDie) {
 			spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Die);
 			body.die();
+			body.setLinearVelocity(0f, 0f);
 			setToDie = false;
+			setToDestroy = true;
+			
 		}
 		
+		
 		super.update(deltaTime);
-		Vector2 currentVelocity = body.getLinearVelocity();
 		
-		
+		//Vector2 currentVelocity = body.getLinearVelocity();
 		/*
 		if(currentVelocity.x > body.getMaxVelocity()) {
 			body.setLinearVelocity(body.getMaxVelocity(), body.getLinearVelocity().y);

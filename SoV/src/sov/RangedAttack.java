@@ -13,7 +13,6 @@ public class RangedAttack extends Attack {
 	
 	public float flightSpeed;
 
-	protected ArrayList<Projectile> projectiles;
 	protected Projectile projectileProto;
 	
 	public RangedAttack(AttackComponent attackComponent, float attackTime,	float preDamageTime,
@@ -23,8 +22,7 @@ public class RangedAttack extends Attack {
 		
 		this.flightSpeed = flightSpeed;
 		this.projectileProto = projectile;
-		this.projectiles = new ArrayList<Projectile>();
-		
+				
 	}
 
 
@@ -45,7 +43,7 @@ public class RangedAttack extends Attack {
 		
 		
 		
-		projectiles.add(projectile);
+		attackComponent.projectiles.add(projectile);
 		
 		projectile.body.addToWorld(attackComponent.bodyComponent.world, 
 				new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, 
@@ -57,7 +55,7 @@ public class RangedAttack extends Attack {
 		projectile.spriteComponent.setCurrentAnimationState(AnimationState.Idle);
 		
 		// Sets attack bodies user data as the created projectile, so that they can be identified
-		projectile.body.setUserData(new ContactEvent(attackComponent, "ranged"));
+		projectile.body.setUserData(new ContactEvent(projectile, "projectile"));
 		projectile.body.body.setGravityScale(0);
 
 		
@@ -92,15 +90,6 @@ public class RangedAttack extends Attack {
 
 	@Override
 	public void update(float deltaTime) {
-		// Update the spriteComponent, so we get animations, hooray!
-		for (Projectile projectile: projectiles) {
-			projectile.update(deltaTime);
-		}
-		
-		/*
-		 * Update attack body's position relative to the Entity's body
-		 */
-		
 		
 		
 		timer = timer - deltaTime;
@@ -119,9 +108,7 @@ public class RangedAttack extends Attack {
 
 	@Override
 	public void render(SpriteBatch spriteBatch) {
-		for (Projectile projectile: projectiles) {
-			projectile.render(spriteBatch);
-		}
+		
 	}
 
 

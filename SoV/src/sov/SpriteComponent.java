@@ -129,6 +129,10 @@ public class SpriteComponent extends Component {
 		currentFrame.setRegion(animations.get(currentAnimationState).getKeyFrame(stateTime, animations.get(currentAnimationState).looping));
 		
 	} 
+	
+	public boolean isAtLastFrame() {
+		return animations.get(currentAnimationState).isLastFrame(stateTime);
+	}
 }
 
 
