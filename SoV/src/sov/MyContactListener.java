@@ -44,18 +44,20 @@ public class MyContactListener implements ContactListener {
 				
 				if(fixtureUserData2 != null && Entity.class.isAssignableFrom(fixtureUserData2.parent.getClass())) {
 					
-					//if(Creature.class.isAssignableFrom(fixtureUserData.getClass()) && Creature.class.isAssignableFrom(fixtureUserData2.getClass())) {
-					if(AttackComponent.class.isAssignableFrom(fixtureUserData.parent.getClass()) && ((Entity)fixtureUserData2.parent).getComponent(BodyComponent.class) != null) {	
-									
-						//fixtureUserData.getDamage()	
-						((Entity)fixtureUserData2.parent).getComponent(BodyComponent.class).setToTakeDamage(1);
-						
-						/*
-						if(contact.getFixtureB() == ((Creature)fixtureUserData2).getComponent(AttackComponent.class).getAttackFixture()) {
-							((Creature)fixtureUserData).getComponent(BodyComponent.class).setToTakeDamage(1);
-							//((Creature)fixtureUserData2).getComponent(AttackComponent.class);
-						}*/
+
+					// If contact is coming from a MeleeAttack to a BodyComponent
+					if(MeleeAttack.class.isAssignableFrom(fixtureUserData.getClass()) && ((Entity)fixtureUserData2).getComponent(BodyComponent.class) != null) {	
+						// Deal some damage	
+						((MeleeAttack)fixtureUserData).dealDamageTo( ((Entity)fixtureUserData2).getComponent(BodyComponent.class));
+
 					}
+					
+					// If contact is coming from a Projectile to a BodyComponent
+					if(Projectile.class.isAssignableFrom(fixtureUserData.getClass()) && ((Entity)fixtureUserData2).getComponent(BodyComponent.class) != null) {	
+						// Deal some damage	
+						((Projectile)fixtureUserData).dealDamageTo( ((Entity)fixtureUserData2).getComponent(BodyComponent.class));
+					}
+					
 				}
 			}
 		}

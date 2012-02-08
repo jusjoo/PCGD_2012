@@ -168,7 +168,8 @@ public class BodyComponent extends Component {
 		
 	}
 	public void setToTakeDamage(float damage) {
-		setToTakeDamage = damage;
+		setToTakeDamage += damage;
+		
 	}
 	
 	// Return position in pixels
@@ -281,7 +282,9 @@ public class BodyComponent extends Component {
 		}
 	}
 
+
 	public void setUserData(ContactEvent attackComponent) {
+
 		
 		body.setUserData(attackComponent);
 		
