@@ -132,16 +132,19 @@ public class GameMap {
 			else if(layer.name.equals("Background")) {
 				layerIds.put(LayerType.Background, i);
 			} 
-			else if(layer.name.equals("Foreground")) {
-				layerIds.put(LayerType.Foreground, i);
-			}
-			else if(layer.name.equals("Traps")) {
-				layerIds.put(LayerType.Traps, i);
-			}
+			
 			else if(layer.name.equals("Accessories")) {
 				layerIds.put(LayerType.Accessories, i);
 			}
 			
+			else if(layer.name.equals("Traps")) {
+				layerIds.put(LayerType.Traps, i);
+			}
+			
+			else if(layer.name.equals("Foreground")) {
+				layerIds.put(LayerType.Foreground, i);
+			}
+		
 			
 		}
 	}
@@ -310,8 +313,8 @@ public class GameMap {
 		
 		
 		renderLayer(LayerType.Background, cam, spriteBatch);
-		renderLayer(LayerType.Traps, cam, spriteBatch);
 		renderLayer(LayerType.Accessories, cam, spriteBatch);
+		renderLayer(LayerType.Traps, cam, spriteBatch);
 		renderLayer(LayerType.Creatures, cam, spriteBatch);
 		renderLayer(LayerType.StaticTiles, cam, spriteBatch);
 		renderLayer(LayerType.DynamicTiles, cam, spriteBatch);
