@@ -28,14 +28,14 @@ public class MyContactListener implements ContactListener {
 			/*if(fixtureUserData2 != null && fixtureUserData2.name == "sensor") {
 				System.out.println("sensor colliding");
 			}*/
-						
+			
+			if (fixtureUserData == null) System.out.println("null lol "+i);
+			
 			if(fixtureUserData != null && fixtureUserData.parent != null) {
-				System.out.println(fixtureUserData.getClass());
-				System.out.println("parentti " + fixtureUserData.parent.getClass());
+				//System.out.println(fixtureUserData.getClass());
+				//System.out.println("parentti " + fixtureUserData.parent.getClass());
 				
-				if(fixtureUserData.name == "melee" ) { // && ((Entity)fixtureUserData2.parent).getComponent(BodyComponent.class) != null) {
-					System.out.println("melee lol");
-				} 
+				
 				// Check for jumping
 				//if(Creature.class.isAssignableFrom(fixtureUserData.parent.getClass()) && fixtureUserData.name == "sensor") {
 				if(fixtureUserData.name == "sensor") {
@@ -50,9 +50,26 @@ public class MyContactListener implements ContactListener {
 					
 				}
 				
+				// Handle a melee attack if one fixture is named "melee" and the other is a bodyComponent
+				if(fixtureUserData.name == "melee" && fixtureUserData2.parent.getClass() == BodyComponent.class) {
+					((MeleeAttack)fixtureUserData.parent).dealDamageTo((BodyComponent)fixtureUserData2.parent);			
+				}
 				
+				// Handle projectile contacts
+				if(fixtureUserData.name == "projectile")  {
+					
+					// If projectile hits a bodyComponent
+					if (fixtureUserData2.parent.getClass() == BodyComponent.class) {
+						((Projectile)fixtureUserData.parent).dealDamageTo((BodyComponent)fixtureUserData2.parent);
+					} else {
+						//Else it's hitting something else and should die
+						((Projectile)fixtureUserData.parent).setToDie();
+					}
+					
+					
+				}
 				
-				if(fixtureUserData2 != null && Entity.class.isAssignableFrom(fixtureUserData2.parent.getClass())) {
+				if(fixtureUserData2.name == "melee" && Entity.class.isAssignableFrom(fixtureUserData2.parent.getClass())) {
 					
 					
 

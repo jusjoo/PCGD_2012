@@ -14,7 +14,7 @@ public class MeleeAttack extends Attack {
 	 */
 	float damageTime;
 	SpriteBody attackBody;
-	
+	ContactEvent contactevent;
 
 	public MeleeAttack(AttackComponent attackComponent, float attackTime,float preDamageTime, 
 			AnimationState attackAnimation,  float offSetY, float damageTime, SpriteBody attackSpriteBody) {
@@ -42,7 +42,8 @@ public class MeleeAttack extends Attack {
 	 		else attackBody.body.setFacingRight(false);
 		
 		// Sets attack bodies user data as this, so that attack sensors can be identified
-		attackBody.body.setUserData(new ContactEvent(this, "melee"));
+		contactevent = new ContactEvent(this, "melee");
+		attackBody.body.setUserData(contactevent);
 		attackBody.body.body.setGravityScale(0);
 		
 	}

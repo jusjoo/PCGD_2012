@@ -250,7 +250,7 @@ public class BodyComponent extends Component {
 		
 		
 		// Set userdata for body, used to find out which object is touching the ground in MyContactListener
-		body.setUserData(new ContactEvent(this.parent, "body"));
+		setUserData(new ContactEvent(this, "body"));
 	}
 	
 	public void applyLinearImpulse(Vector2 impulse) {
@@ -284,8 +284,6 @@ public class BodyComponent extends Component {
 
 
 	public void setUserData(ContactEvent contact) {
-		if(contact.name != null) System.out.println(contact.name);
-		body.setUserData(contact);
-		
+		body.getFixtureList().get(0).setUserData(contact);
 	}
 }

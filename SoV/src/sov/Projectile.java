@@ -77,7 +77,7 @@ public class Projectile extends Entity {
 		
 	}
 
-	private void setToDie() {
+	public void setToDie() {
 		if (body.alive) setToDie = true;
 	}
 
@@ -85,4 +85,6 @@ public class Projectile extends Entity {
 		body.setUserData(contact);
 		
 	}
+
+
 }
