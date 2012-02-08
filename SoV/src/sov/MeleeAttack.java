@@ -3,6 +3,8 @@ package sov;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import sov.Creature.CreatureType;
+import sov.Creature.Stats;
 import sov.SpriteComponent.AnimationState;
 
 
@@ -17,9 +19,9 @@ public class MeleeAttack extends Attack {
 	ContactEvent contactevent;
 
 	public MeleeAttack(AttackComponent attackComponent, float attackTime,float preDamageTime, 
-			AnimationState attackAnimation,  float offSetY, float damageTime, SpriteBody attackSpriteBody) {
+			AnimationState attackAnimation,  float offSetY, float damageTime, SpriteBody attackSpriteBody, float damage) {
 		
-		super(attackComponent, attackTime, preDamageTime, attackAnimation, offSetY);
+		super(attackComponent, attackTime, preDamageTime, attackAnimation, offSetY,damage);
 		
 		this.damageTime = damageTime;
 		this.attackBody = attackSpriteBody;
@@ -105,6 +107,6 @@ public class MeleeAttack extends Attack {
 	}
 	
 	public void dealDamageTo(BodyComponent target) {
-		target.setToTakeDamage(1f);
+		target.setToTakeDamage(getDamage(Stats.Strength));		
 	}
 }
