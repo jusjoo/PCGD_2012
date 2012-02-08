@@ -37,7 +37,6 @@ public class MyContactListener implements ContactListener {
 				
 				
 				// Check for jumping
-				//if(Creature.class.isAssignableFrom(fixtureUserData.parent.getClass()) && fixtureUserData.name == "sensor") {
 				if(fixtureUserData.name == "sensor") {
 					//System.out.println("sensor colliding");
 					// Test to make sure the collision is actually coming from the bottom
@@ -68,25 +67,7 @@ public class MyContactListener implements ContactListener {
 					
 					
 				}
-				
-				if(fixtureUserData2.name == "melee" && Entity.class.isAssignableFrom(fixtureUserData2.parent.getClass())) {
-					
-					
 
-					// If contact is coming from a MeleeAttack to a BodyComponent
-					if(MeleeAttack.class.isAssignableFrom(fixtureUserData.parent.getClass()) && ((Entity)fixtureUserData2.parent).getComponent(BodyComponent.class) != null) {	
-						// Deal some damage	
-						((MeleeAttack)fixtureUserData.parent).dealDamageTo( ((Entity)fixtureUserData2.parent).getComponent(BodyComponent.class));
-						
-					}
-					
-					// If contact is coming from a Projectile to a BodyComponent
-					if(Projectile.class.isAssignableFrom(fixtureUserData.parent.getClass()) && ((Entity)fixtureUserData2.parent).getComponent(BodyComponent.class) != null) {	
-						// Deal some damage	
-						((Projectile)fixtureUserData.parent).dealDamageTo( ((Entity)fixtureUserData2.parent).getComponent(BodyComponent.class));
-					}
-					
-				}
 			}
 		}
 		

@@ -52,7 +52,7 @@ public class MovementComponent extends Component {
 	
 	public void move(boolean towardsRight) {
 		bodyComponent.setFacingRight(towardsRight);
-		if(towardsRight) { deltaMove.set(speed, 0f); }
+		if(towardsRight) { deltaMove.set(speed, 0f); } 
 		else { deltaMove.set(-speed, 0f); }
 		if(allowJumping) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run); }
 		moving = true;

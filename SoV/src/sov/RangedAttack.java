@@ -61,9 +61,9 @@ public class RangedAttack extends Attack {
 		
 	
 		if(offSet > 0) {
-			projectile.body.applyLinearImpulse(new Vector2( flightSpeed, 0f));
+			projectile.body.applyLinearImpulse(new Vector2( flightSpeed +  attackComponent.bodyComponent.getLinearVelocity().x, 0f));
 		} else {
-			projectile.body.applyLinearImpulse(new Vector2( -flightSpeed, 0f));
+			projectile.body.applyLinearImpulse(new Vector2( -flightSpeed + attackComponent.bodyComponent.getLinearVelocity().x, 0f));
 		}
 		
 		damaging = true;
@@ -104,6 +104,7 @@ public class RangedAttack extends Attack {
 			attackComponent.stopAttack();
 		}
 	}
+	
 
 
 	@Override
