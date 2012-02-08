@@ -42,7 +42,7 @@ public class MeleeAttack extends Attack {
 	 		else attackBody.body.setFacingRight(false);
 		
 		// Sets attack bodies user data as this, so that attack sensors can be identified
-		attackBody.body.setUserData(this);
+		attackBody.body.setUserData(new ContactEvent(this, "melee"));
 		attackBody.body.body.setGravityScale(0);
 		
 	}
@@ -61,7 +61,6 @@ public class MeleeAttack extends Attack {
 		/*
 		 * Update attack body's position relative to the Entity's body
 		 */
-		
 		if (damaging) {
 			float offSet = this.getAttackBoxOffsetX();
 			this.attackBody.body.setPosition(new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, 

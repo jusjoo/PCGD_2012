@@ -81,8 +81,8 @@ public class Projectile extends Entity {
 		if (body.alive) setToDie = true;
 	}
 
-	public void setUserData() {
-		body.setUserData(this);
+	public void setUserData(ContactEvent contact) {
+		body.setUserData(contact);
 		
 	}
 }

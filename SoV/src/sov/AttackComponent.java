@@ -28,6 +28,7 @@ public class AttackComponent extends Component {
 	Attack activeAttack;
 	
 	boolean setToStopDamage;
+	//boolean damaging;
 
 
 	

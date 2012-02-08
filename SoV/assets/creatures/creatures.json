@@ -51,8 +51,8 @@
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, (enum AnimationType projectile), (flightSpeed) ",
 	  	"attacks": {
-	  	  "Attack1": ["Melee", 2.5, 3.5, 0, 16, 16],
-	  	  "Attack2": ["Ranged", 1.0, 3.0, 0.0, 4, 4, 4, 10.0]
+	  	  "Attack1": ["Melee", 3, 5, 0, 16, 16],
+	  	  "Attack2": ["Ranged", 1, 5, 0.0, 4, 4, 4, 10.0]
 	  	}
 	},
 	
@@ -71,26 +71,17 @@
 		  "Run": [[1,2], 0, [3,0], 6, 0.15, true],
 		  "Jump": [[1,2], 0, [10,0], 1, 0, true],
 		  "Fall": [[1,2], 0, [12,0], 1, 0, true],
-<<<<<<< HEAD
-		  "Attack1": [[3,2], 0, [0,5], 6, 0.15, false],
-		  "Attack2": [[3,2], 0, [0,5], 6, 0.15, false], 
-=======
 		  "Attack1": [[3,3], 0, [0,4], 5, 0.15, false],
 		  "Attack2": [[3,3], 0, [0,4], 5, 0.15, false], 
->>>>>>> branch 'speak' of https://catmorbid@github.com/jusjoo/PCGD_2012.git
 		  "Hurt": [[1,2], 0, [1,2], 1, 0, false],
 		  "Die": [[2,2], 0.5, [0,2], 4, 0, false]
 	  	},
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y,  (enum AnimationType projectile), flightSpeed)",
 	  	"attacks": {
-<<<<<<< HEAD
 	  	  "Attack1": ["Melee", 4.5, 5.5, 0, 16, 16],
 	  	  "Attack2": ["Ranged", 4.5, 5.5, 0, 16, 16, LOL, 7.5]
-=======
-	  	  "Attack1": ["Melee", 4, 5, 1, 16, 16],
-	  	  "Attack2": ["Ranged", 4, 0.0, 0, 16, 16, 7, 7.5]
->>>>>>> branch 'speak' of https://catmorbid@github.com/jusjoo/PCGD_2012.git
+
 	  	}
 	},
 	

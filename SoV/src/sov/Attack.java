@@ -46,20 +46,7 @@ public abstract class Attack {
 		this.offSetY = offSetY;
 	}
 
-	protected void startDamage(){
-		attackComponent.damaging = true;
-		
-		float offSet = getAttackBoxOffsetX();
-				
-		// Adds the body in front of attacker
-		attackBody.body.addToWorld(attackComponent.bodyComponent.world, new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, attackComponent.bodyComponent.getPosition().y + offSetY));
-		
-		if (offSet > 0) attackBody.body.setFacingRight(true);
-	 		else attackBody.body.setFacingRight(false);
-		
-		// Sets attack bodies user data as this, so that attack sensors can be identified
-		attackBody.body.setUserData(new ContactEvent(attackComponent, "attack"));
-		attackBody.body.body.setGravityScale(0);
+	protected abstract void startDamage();
 
 	
 	

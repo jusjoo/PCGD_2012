@@ -283,10 +283,9 @@ public class BodyComponent extends Component {
 	}
 
 
-	public void setUserData(ContactEvent attackComponent) {
-
-		
-		body.setUserData(attackComponent);
+	public void setUserData(ContactEvent contact) {
+		if(contact.name != null) System.out.println(contact.name);
+		body.setUserData(contact);
 		
 	}
 }

@@ -51,7 +51,7 @@ public class RangedAttack extends Attack {
 				new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, 
 				attackComponent.bodyComponent.getPosition().y + offSetY ));
 		
-		projectile.setUserData();
+
 		
 
 		projectile.spriteComponent.setCurrentAnimationState(AnimationState.Idle);
