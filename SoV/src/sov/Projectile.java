@@ -14,6 +14,7 @@ public class Projectile extends Entity {
 	SpriteComponent spriteComponent;
 	private boolean setToDie;
 	public boolean setToDestroy;
+	private float damage;
 	
 	/*
 	 * Same as the normal constructor, but supports sensory body setting
@@ -78,7 +79,8 @@ public class Projectile extends Entity {
 	}
 	
 	public void dealDamageTo(BodyComponent target) {
-		target.setToTakeDamage(1f);
+		
+		target.setToTakeDamage(this.damage);
 		this.setToDie();
 		
 	}
@@ -90,6 +92,9 @@ public class Projectile extends Entity {
 	public void setUserData(ContactEvent contact) {
 		body.setUserData(contact);
 		
+	}
+	public void setDamage(float damage) {
+		this.damage = damage;
 	}
 
 

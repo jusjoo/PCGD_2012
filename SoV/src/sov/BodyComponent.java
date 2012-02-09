@@ -30,7 +30,8 @@ public class BodyComponent extends Component {
 	
 	boolean facingRight = true;
 	
-	protected float hitPoints = 2;
+	protected float hitPointsMax=1;
+	protected float hitPoints = 1;		//default hitpoints
 	protected boolean indestructible;
 	boolean alive = true;
 	boolean finalDeath = false;
@@ -134,6 +135,7 @@ public class BodyComponent extends Component {
 			}
 			setToTakeDamage = 0;
 			immuneTimer = GameConfiguration.immuneTime;
+			System.out.println("Health "+hitPoints+"/"+hitPointsMax+"(-"+damage+")");
 		}
 		
 	}
@@ -285,5 +287,18 @@ public class BodyComponent extends Component {
 
 	public void setUserData(ContactEvent contact) {
 		body.getFixtureList().get(0).setUserData(contact);
+	}
+	public void setHitPoints(float hitPoints) {
+		this.hitPointsMax = hitPoints;
+	}
+	public float getHitPoints() {
+		return this.hitPoints;
+	}
+	public void heal(float healAmount) {
+		
+		if (hitPoints+healAmount <= hitPointsMax) {
+			hitPoints+= healAmount;
+		}
+		else hitPoints = hitPointsMax;		
 	}
 }
