@@ -80,7 +80,7 @@
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y,  (enum AnimationType projectile), flightSpeed)",
 	  	"attacks": {
 	  	  "Attack1": ["Melee", 4, 5, 0, 16, 16],
-	  	  "Attack2": ["Ranged", 4, 5, 0, 16, 16, LOL, 7.5]
+	  	  "Attack2": ["Ranged", 4, 5, 0, 16, 16, "LOL", 7.5]
 
 	  	}
 	},
