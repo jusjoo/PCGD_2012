@@ -2,8 +2,10 @@ package sov;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import sov.BodyComponent.SlopeShape;
+import sov.SpriteComponent.AnimationState;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -56,7 +58,8 @@ public class Creature extends SpriteBody implements Cloneable {
 		Creature creature = new Creature(new Vector2(prototype.hitboxSize[0], prototype.hitboxSize[1]), prototype.spriteComponent.animations, 0.8f, false);
 		creature.creatureType = prototype.creatureType;
 		creature.dexterity = prototype.dexterity;
-		creature.strength = prototype.strength;		
+		creature.strength = prototype.strength;
+		creature.wisdom = prototype.wisdom;
 		creature.speed = creature.getSpeed();
 		//hitpoints are set when adding to world
 		creature.jumpHeight = creature.getJumpHeight();
@@ -65,9 +68,30 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		// Set the attack component
 		if(prototype.getComponent(AttackComponent.class) != null) {
+			AttackComponent protoAttackComponent = prototype.getComponent(AttackComponent.class);
+			AttackComponent newAttackComponent = new AttackComponent(creature);
+			
+			for (Entry<AnimationState, Attack> protoAttack : protoAttackComponent.attacks.entrySet() ) {
+				if (protoAttack.getValue().getClass() == RangedAttack.class) {
+					// Add cloning stuff here
+				}
+				if (protoAttack.getValue().getClass() == MeleeAttack.class) {
+					// Add cloning stuff here
+				}
+				
+				
+			}
+			
 			creature.addComponent(prototype.getComponent(AttackComponent.class));
 			creature.getComponent(AttackComponent.class).setParent(creature);
 		}
+		
+	
+		
+		
+		
+		
+		
 
 		
 		
