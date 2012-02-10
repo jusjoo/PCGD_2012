@@ -923,7 +923,7 @@
 </data>
  </layer>
  <objectgroup name="Creatures" width="256" height="128">
-  <object type="Barbarian" x="639" y="388">
+  <object type="Ninja" x="639" y="388">
    <properties>
     <property name="IsPlayer" value=""/>
    </properties>
@@ -1008,5 +1008,6 @@
   <object type="Goblin" x="3636" y="1694"/>
   <object type="Slime" x="3665" y="1692"/>
   <object type="Ninja" x="795" y="387"/>
+  <object type="Goblin" x="337" y="390"/>
  </objectgroup>
 </map>

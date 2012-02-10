@@ -157,13 +157,19 @@ public class BodyComponent extends Component {
 			parent.getComponent(SpriteComponent.class).setCurrentAnimationState(SpriteComponent.AnimationState.Die);
 			alive = false;
 			
-			
+			//TODO: siirrä nämä Entityyn!
 			
 			if(parent.getComponent(MovementComponent.class) != null) {
 				//parent.removeComponent(InputComponent.class);
 				parent.setComponentActive(InputComponent.class, false);
 				parent.setComponentActive(MovementComponent.class, false);
 				//parent.removeComponent(MovementComponent.class);
+				if (parent.getComponent(AIComponent.class) != null) {
+					parent.setComponentActive(AIComponent.class, false);
+				}
+				if (parent.getComponent(PlayerInputComponent.class) != null) {
+					parent.setComponentActive(PlayerInputComponent.class, false);
+				}
 				
 			}
 		}

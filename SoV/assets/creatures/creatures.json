@@ -106,7 +106,7 @@
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed)",
 	  	"attacks": {
-	  	  "Attack1": ["Melee", 1, 2, 1, 16, 4, 5]
+	  	  "Attack1": ["Melee", 0, 1, 1, 16.0, 16.0, 5]
 	  	}
 	},
 	

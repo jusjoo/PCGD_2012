@@ -51,14 +51,18 @@ public class AIComponent extends InputComponent {
 	private void handleAttack() {
 		float maximumAttackDistance = 32;
 		
-		if(target != null && isTargetVisible() && getTargetDistanceX() <= maximumAttackDistance) {
+		if(	target != null && isTargetVisible() &&
+			getTargetDistanceX() <= maximumAttackDistance &&
+			target.alive) {
 			parent.getComponent(AttackComponent.class).attack(AnimationState.Attack1);
 		}
 	}
 	
 	private void handleFollow() {
 		
-		if(target != null && isTargetVisible()) {
+		float minimumDistanceBetweenTarget = 16;
+		
+		if(target != null && isTargetVisible() && target.alive && getTargetDistanceX() > minimumDistanceBetweenTarget) {
 			if(bodyComponent.getPosition().x < target.getPosition().x) {
 //				bodyComponent.body.applyLinearImpulse(new Vector2(speed, 0), parent.getComponent(BodyComponent.class)getBodyComponent().body.getWorldCenter());
 //				bodyComponent.setFacingRight(true);
