@@ -50,8 +50,9 @@ public class Projectile extends Entity {
 	public void update(float deltaTime) {
 		
 		if (setToDie) {
-			spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Die);
+			//spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Die);
 			body.die();
+			//body.removeFromWorld();
 			body.setLinearVelocity(0f, 0f);
 			setToDie = false;
 			setToDestroy = true;
