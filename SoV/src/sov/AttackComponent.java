@@ -20,6 +20,11 @@ public class AttackComponent extends Component {
 	 */
 	HashMap<SpriteComponent.AnimationState, Attack> attacks;
 	
+	/*
+	 * keeps track of all the projectiles made by this AttackComponent
+	 */
+	ArrayList<Projectile> projectiles;
+	ArrayList<Projectile> removedProjectiles;
 	
 	
 	/*
@@ -28,6 +33,7 @@ public class AttackComponent extends Component {
 	Attack activeAttack;
 	
 	boolean setToStopDamage;
+	//boolean damaging;
 
 
 	
@@ -37,18 +43,36 @@ public class AttackComponent extends Component {
 	public AttackComponent(Entity parent){
 		super(parent);	
 		attacks = new HashMap<SpriteComponent.AnimationState, Attack>();
+		projectiles = new ArrayList<Projectile>();
+		removedProjectiles = new ArrayList<Projectile>();
 		activeAttack = null;
 	}
 	
 	
-	@Override
+	/*
+	 * Updates the activeAttack and all projectiles
+	 */
 	public void update(float deltaTime){
 	
+		
+		for (Projectile projectile: projectiles) {
+			projectile.update(deltaTime);
+			
+			if (projectile.setToDestroy && projectile.spriteComponent.isAtLastFrame()) {
+				projectile.body.removeFromWorld();
+				removedProjectiles.add(projectile);
+			}
+		}
+		
+		projectiles.removeAll(removedProjectiles);
+		
 		if (setToStopDamage) stopDamage();
 		
 		if (activeAttack != null) {
 			activeAttack.update(deltaTime);
 		}
+		
+		
 	}
 		
 	protected void stopAttack() {
@@ -104,6 +128,7 @@ public class AttackComponent extends Component {
 
 	public void addAttack(SpriteComponent.AnimationState name, Attack attack) {
 		attacks.put(name, attack);
+
 	}
 
 
@@ -113,6 +138,10 @@ public class AttackComponent extends Component {
 	public void render(SpriteBatch spriteBatch) {
 		for (Attack attack: attacks.values()) {
 			attack.render(spriteBatch);
+		}
+		
+		for (Projectile projectile: projectiles) {
+			projectile.render(spriteBatch);
 		}
 		
 		

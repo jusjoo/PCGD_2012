@@ -10,47 +10,64 @@ public class MyContactListener implements ContactListener {
 	@Override
 	public void beginContact(Contact contact) {
 		
-		Object fixtureUserData;
-		Object fixtureUserData2;
+		ContactEvent fixtureUserData;
+		ContactEvent fixtureUserData2;
 		
+		/*
+		 * Swap fixtureUserDatas on second run, so we check all contacts both ways.
+		 */
 		for(int i=0; i<2; i++) {
 			if(i==0) {
-				fixtureUserData = contact.getFixtureA().getBody().getUserData();
-				fixtureUserData2 = contact.getFixtureB().getBody().getUserData();
+				fixtureUserData = ContactEvent.class.cast(contact.getFixtureA().getUserData());
+				fixtureUserData2 = ContactEvent.class.cast(contact.getFixtureB().getUserData());
 			} else {
-				fixtureUserData = contact.getFixtureB().getBody().getUserData();
-				fixtureUserData2 = contact.getFixtureA().getBody().getUserData();
+				fixtureUserData = ContactEvent.class.cast(contact.getFixtureB().getUserData());
+				fixtureUserData2 = ContactEvent.class.cast(contact.getFixtureA().getUserData());
 			}
 			
+			/*if(fixtureUserData2 != null && fixtureUserData2.name == "sensor") {
+				System.out.println("sensor colliding");
+			}*/
 			
+			if (fixtureUserData == null) System.out.println("null lol "+i);
 			
-			if(fixtureUserData != null) {
+			if(fixtureUserData != null && fixtureUserData.parent != null) {
+				//System.out.println(fixtureUserData.getClass());
+				//System.out.println("parentti " + fixtureUserData.parent.getClass());
+				
 				
 				// Check for jumping
-				if(Creature.class.isAssignableFrom(fixtureUserData.getClass())) {
+				if(fixtureUserData.name == "sensor") {
+					//System.out.println("sensor colliding");
 					// Test to make sure the collision is actually coming from the bottom
 					// TODO: Support different angles (ninja might be able to jump from walls)
-					if(contact.getWorldManifold().getNormal().y > 0) {
-						((Entity)fixtureUserData).getComponent(MovementComponent.class).setAllowJumping(true);
-					}
+					//if(contact.getWorldManifold().getNormal().y > 0) {
+						
+						((Entity)fixtureUserData.parent).getComponent(MovementComponent.class).setAllowJumping(true);
+						//System.out.println(((Entity)fixtureUserData.parent));
+					//}
 					
 				}
 				
-				if(fixtureUserData2 != null && Entity.class.isAssignableFrom(fixtureUserData2.getClass())) {
+				// Handle a melee attack if one fixture is named "melee" and the other is a bodyComponent
+				if(fixtureUserData.name == "melee" && fixtureUserData2.parent.getClass() == BodyComponent.class) {
+					((MeleeAttack)fixtureUserData.parent).dealDamageTo((BodyComponent)fixtureUserData2.parent);			
+				}
+				
+				// Handle projectile contacts
+				if(fixtureUserData.name == "projectile")  {
 					
-					// If contact is coming from a MeleeAttack to a BodyComponent
-					if(MeleeAttack.class.isAssignableFrom(fixtureUserData.getClass()) && ((Entity)fixtureUserData2).getComponent(BodyComponent.class) != null) {	
-						// Deal some damage	
-						((MeleeAttack)fixtureUserData).dealDamageTo( ((Entity)fixtureUserData2).getComponent(BodyComponent.class));
+					// If projectile hits a bodyComponent
+					if (fixtureUserData2.parent.getClass() == BodyComponent.class) {
+						((Projectile)fixtureUserData.parent).dealDamageTo((BodyComponent)fixtureUserData2.parent);
+					} else {
+						//Else it's hitting something else and should die
+						((Projectile)fixtureUserData.parent).setToDie();
 					}
 					
-					// If contact is coming from a Projectile to a BodyComponent
-					if(Projectile.class.isAssignableFrom(fixtureUserData.getClass()) && ((Entity)fixtureUserData2).getComponent(BodyComponent.class) != null) {	
-						// Deal some damage	
-						((Projectile)fixtureUserData).dealDamageTo( ((Entity)fixtureUserData2).getComponent(BodyComponent.class));
-					}
 					
 				}
+
 			}
 		}
 		

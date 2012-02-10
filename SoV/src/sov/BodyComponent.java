@@ -30,9 +30,11 @@ public class BodyComponent extends Component {
 	
 	boolean facingRight = true;
 	
-	protected float hitPoints = 2;
+	protected float hitPointsMax=1;
+	protected float hitPoints = 1;		//default hitpoints
 	protected boolean indestructible;
 	boolean alive = true;
+	boolean finalDeath = false;
 	
 	// tracks incoming damage
 	protected float setToTakeDamage;
@@ -133,6 +135,7 @@ public class BodyComponent extends Component {
 			}
 			setToTakeDamage = 0;
 			immuneTimer = GameConfiguration.immuneTime;
+			System.out.println("Health "+hitPoints+"/"+hitPointsMax+"(-"+damage+")");
 		}
 		
 	}
@@ -154,10 +157,15 @@ public class BodyComponent extends Component {
 			parent.getComponent(SpriteComponent.class).setCurrentAnimationState(SpriteComponent.AnimationState.Die);
 			alive = false;
 			
-			body.destroyFixture(bodyFixture);
-			body.getFixtureList().clear();
-			body.setGravityScale(0);
-			body.setLinearVelocity(0f, 0f);
+			
+			
+			if(parent.getComponent(MovementComponent.class) != null) {
+				//parent.removeComponent(InputComponent.class);
+				parent.setComponentActive(InputComponent.class, false);
+				parent.setComponentActive(MovementComponent.class, false);
+				//parent.removeComponent(MovementComponent.class);
+				
+			}
 		}
 		
 	}
@@ -244,7 +252,7 @@ public class BodyComponent extends Component {
 		
 		
 		// Set userdata for body, used to find out which object is touching the ground in MyContactListener
-		body.setUserData(this.parent);
+		setUserData(new ContactEvent(this, "body"));
 	}
 	
 	public void applyLinearImpulse(Vector2 impulse) {
@@ -264,12 +272,33 @@ public class BodyComponent extends Component {
 		if (setToTakeDamage > 0 && immuneTimer <= 0) {
 			takeDamage(setToTakeDamage);
 		}
-		if(setToDie) { die(); }
+		if(setToDie) {
+			die();
+			if(!finalDeath && Math.abs(body.getLinearVelocity().x) < 0.5f && Math.abs(body.getLinearVelocity().y) < 0.5f) {
+				body.destroyFixture(bodyFixture);
+				body.getFixtureList().clear();
+				body.setGravityScale(0);
+				body.setLinearVelocity(0f, 0f);
+				finalDeath = true;
+			}
+		}
 	}
 
-	public void setUserData(Object obj) {
+
+	public void setUserData(ContactEvent contact) {
+		body.getFixtureList().get(0).setUserData(contact);
+	}
+	public void setHitPoints(float hitPoints) {
+		this.hitPointsMax = hitPoints;
+	}
+	public float getHitPoints() {
+		return this.hitPoints;
+	}
+	public void heal(float healAmount) {
 		
-		body.setUserData(obj);
-		
+		if (hitPoints+healAmount <= hitPointsMax) {
+			hitPoints+= healAmount;
+		}
+		else hitPoints = hitPointsMax;		
 	}
 }

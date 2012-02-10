@@ -18,6 +18,7 @@ import com.google.gson.annotations.Expose;
 public class Creature extends SpriteBody implements Cloneable {
 	
 	public enum CreatureType { Barbarian, Ninja, Sorceress, Goblin, Slime };
+	public enum Stats { Strength, Dexterity, Wisdom };
 
 	
 	// All the properties which are read from creatures.json must be declared here
@@ -55,7 +56,9 @@ public class Creature extends SpriteBody implements Cloneable {
 		Creature creature = new Creature(new Vector2(prototype.hitboxSize[0], prototype.hitboxSize[1]), prototype.spriteComponent.animations, 0.8f, false);
 		creature.creatureType = prototype.creatureType;
 		creature.dexterity = prototype.dexterity;
+		creature.strength = prototype.strength;		
 		creature.speed = creature.getSpeed();
+		//hitpoints are set when adding to world
 		creature.jumpHeight = creature.getJumpHeight();
 		
 		creature.body.setMaxVelocity(creature.speed*GameConfiguration.creatureMaxVelocityMultiplier);
@@ -91,6 +94,10 @@ public class Creature extends SpriteBody implements Cloneable {
 	}
 	
 	public void addToWorld(World world, Vector2 position) {
+		//set hitpoints
+		float hp = strength*strength;
+		getComponent(BodyComponent.class).setHitPoints(hp);
+		getComponent(BodyComponent.class).heal(hp);
 		getComponent(BodyComponent.class).addToWorld(world, position);
 		//super.addToWorld(world, position);
 		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
@@ -99,7 +106,7 @@ public class Creature extends SpriteBody implements Cloneable {
 		// TODO: Transfer creating the body, shape and fixture to a static helper function.
 		PolygonShape sensorShape = new PolygonShape();
 		sensorShape.setAsBox(body.getSize().x / (3 * PIXELS_PER_METER), body.getSize().y / (12 * PIXELS_PER_METER),
-				new Vector2(0, -body.getSize().y/PIXELS_PER_METER/2), 0);
+				new Vector2(0, -body.getSize().y/PIXELS_PER_METER/2.23f), 0);
 		FixtureDef sensorFixtureDef = new FixtureDef();
 		sensorFixtureDef.shape = sensorShape;
 		sensorFixtureDef.isSensor = true;
@@ -110,7 +117,8 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		// Attach the foot-sensor on the body.
 		sensorFixture = getComponent(BodyComponent.class).body.createFixture(sensorFixtureDef);
-		
+		//System.out.println(this);
+		sensorFixture.setUserData(new ContactEvent(this, "sensor"));
 		
 		
 		// Creatures shall not rotate according to physics!
@@ -119,4 +127,16 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 	}
 
+	public float getDexterity() {
+		System.out.println("Dexterity "+dexterity);
+		return dexterity; 
+	}
+	public float getStrength() {
+		System.out.println("Strength "+strength);
+		return strength;
+	}
+	public float getWisdom() {
+		System.out.println("Wisdom "+wisdom);
+		return wisdom;				
+	}
 }

@@ -3,6 +3,8 @@ package sov;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import sov.Creature.CreatureType;
+import sov.Creature.Stats;
 import sov.SpriteComponent.AnimationState;
 
 
@@ -14,12 +16,12 @@ public class MeleeAttack extends Attack {
 	 */
 	float damageTime;
 	SpriteBody attackBody;
-	
+	ContactEvent contactevent;
 
 	public MeleeAttack(AttackComponent attackComponent, float attackTime,float preDamageTime, 
-			AnimationState attackAnimation,  float offSetY, float damageTime, SpriteBody attackSpriteBody) {
+			AnimationState attackAnimation,  float offSetY, float damageTime, SpriteBody attackSpriteBody, float damage) {
 		
-		super(attackComponent, attackTime, preDamageTime, attackAnimation, offSetY);
+		super(attackComponent, attackTime, preDamageTime, attackAnimation, offSetY,damage);
 		
 		this.damageTime = damageTime;
 		this.attackBody = attackSpriteBody;
@@ -42,7 +44,8 @@ public class MeleeAttack extends Attack {
 	 		else attackBody.body.setFacingRight(false);
 		
 		// Sets attack bodies user data as this, so that attack sensors can be identified
-		attackBody.body.setUserData(this);
+		contactevent = new ContactEvent(this, "melee");
+		attackBody.body.setUserData(contactevent);
 		attackBody.body.body.setGravityScale(0);
 		
 	}
@@ -61,7 +64,6 @@ public class MeleeAttack extends Attack {
 		/*
 		 * Update attack body's position relative to the Entity's body
 		 */
-		
 		if (damaging) {
 			float offSet = this.getAttackBoxOffsetX();
 			this.attackBody.body.setPosition(new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, 
@@ -105,6 +107,6 @@ public class MeleeAttack extends Attack {
 	}
 	
 	public void dealDamageTo(BodyComponent target) {
-		target.setToTakeDamage(1f);
+		target.setToTakeDamage(getDamage(Stats.Strength));		
 	}
 }

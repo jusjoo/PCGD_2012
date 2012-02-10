@@ -133,8 +133,8 @@ public class DynamicObjectFactory {
 					//float attackTime = Float.parseFloat(attackEntry.getValue().get(1).toString());
 					//float frameDelay = Float.parseFloat(animationEntry.getValue().get(4).toString());
 					
-					// "AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, (flightSpeed)",
-					//	0			1			2			3				4							5   6		7				
+					// ""AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), (flightSpeed)",
+					//	0			1					2				3					4				 5   6			7								8
 					float frameDelay = Float.parseFloat(animationStates.get(attackEntry.getKey()).get(4).toString());
 					float frameAmount = Float.parseFloat(animationStates.get(attackEntry.getKey()).get(3).toString());
 					
@@ -170,20 +170,22 @@ public class DynamicObjectFactory {
 					
 					HashMap<SpriteComponent.AnimationState, Animation> animations = creaturePrototype.getComponent(SpriteComponent.class).animations;
 					
+					float damage = Float.parseFloat(attackEntry.getValue().get(6).toString());
+					
 					if(attackType.equals("Melee")) {
 						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), animations, false, 1.0f, false, SlopeShape.Even, true);
-						attack = new MeleeAttack(attackComponent, attackTime, preDamageTime,  animation, damageTime, attackOffsetY, attackBody);
+						attack = new MeleeAttack(attackComponent, attackTime, preDamageTime,  animation, damageTime, attackOffsetY, attackBody,damage);
 						//attackComponentPrototypes.add(ac);
 						attackComponent.addAttack(attackName, attack);
 						
 					}
 					if (attackType.equals("Ranged")) {
-						float flightSpeed = Float.parseFloat(attackEntry.getValue().get(7).toString());
+						float flightSpeed = Float.parseFloat(attackEntry.getValue().get(8).toString());
 						
 						
 						Projectile attackBody = new Projectile(new Vector2(attackBoxSizeX, attackBoxSizeY), miscAnimations.get(AnimationType.Fireball), true);
 						
-						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, animation, attackBody, attackOffsetY, flightSpeed);
+						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, animation, attackBody, attackOffsetY, damage, flightSpeed);
 						attackComponent.addAttack(attackName, attack);
 		
 						//attackComponentPrototypes.add(ac);
