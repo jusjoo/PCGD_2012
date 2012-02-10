@@ -201,19 +201,25 @@ public class CoffeeGDX implements ApplicationListener {
 			map.removeCreature(map.getPlayer());
 			//map.getPlayer().removeFromWorld();
 			createPlayer(CreatureType.Barbarian, pos);
+			map.setAItargets(map.getPlayer());
+			System.out.println(map.getPlayer().getComponent(AIComponent.class));
 		}
 		if (Gdx.input.isKeyPressed(GameConfiguration.selectNinjaKey)) {
 			debugKeyPressed();
 			Vector2 pos = map.getPlayer().getPosition();
 			map.removeCreature(map.getPlayer());
 			Creature player = createPlayer(CreatureType.Ninja, pos);
+			map.setAItargets(map.getPlayer());
 			//player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, SpriteComponent.AnimationState.Attack1 ));
+			System.out.println(map.getPlayer().getComponent(AIComponent.class));
 		}
 		if (Gdx.input.isKeyPressed(GameConfiguration.selectSorceressKey)) {
 			debugKeyPressed();
 			Vector2 pos = map.getPlayer().getPosition();
 			map.removeCreature(map.getPlayer());
 			Creature player = createPlayer(CreatureType.Sorceress, pos);
+			map.setAItargets(map.getPlayer());
+			System.out.println(map.getPlayer().getComponent(AIComponent.class));
 			
 			
 		}

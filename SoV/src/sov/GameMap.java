@@ -3,6 +3,7 @@ package sov;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import sov.AIComponent.AIstate;
 import sov.BodyComponent.SlopeShape;
 import sov.Creature.CreatureType;
 
@@ -82,7 +83,7 @@ public class GameMap {
 		
 		parallaxCamera = new OrthographicCamera(Gdx.graphics.getWidth()/1.2f, Gdx.graphics.getHeight()/1.2f);
 		
-		factory = new DynamicObjectFactory("assets/creatures");
+		factory = new DynamicObjectFactory("assets/creatures", this);
 		
 		createStaticTiles(world);
 		createDynamicTiles(world, atlas);
@@ -196,12 +197,13 @@ public class GameMap {
 					//dynMapTiles.add(asb);
 					Creature creature = factory.spawnCreature(world, Creature.CreatureType.valueOf(object.type),
 							new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));
-					creature.addComponent(new MovementComponent(creature, creature.speed, creature.jumpHeight));
+					creature.addComponent(new MovementComponent(creature, creature.getSpeed(), creature.getJumpHeight()));
 					if(object.properties.get("IsPlayer") != null) {
 						creature.addComponent(new PlayerInputComponent(creature));
 						this.setPlayer(creature);
 					} else {
 						creature.addComponent(new AIComponent(creature));	
+
 					}
 					
 					this.addCreature(world, creature);
@@ -209,7 +211,23 @@ public class GameMap {
 				}
 			}
 		}
+		
+		setAItargets(getPlayer());
 	}
+
+	public void setAItargets(Creature player2) {
+		// Add AI behaviours after all creatures have been added, making sure player is also added!
+		for (Creature creature: creatures) {
+			if (creature.getComponent(AIComponent.class) != null) {			
+				
+				creature.getComponent(AIComponent.class).setTarget(player2);
+				creature.getComponent(AIComponent.class).addAIstate(AIstate.Follow);
+				creature.getComponent(AIComponent.class).addAIstate(AIstate.Attack);
+				}
+		}
+		
+	}
+
 
 	public TileMapRenderer getTileMapRenderer() {
 		return tileMapRenderer;
