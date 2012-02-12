@@ -57,6 +57,14 @@ public class MovementComponent extends Component {
 		if(allowJumping) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run); }
 		moving = true;
 	}
+	public void moveAway(boolean towardsRight) {
+		//fixx todo
+		bodyComponent.setFacingRight(!towardsRight);
+		if(!towardsRight) { deltaMove.set(speed, 0f); } 
+		else { deltaMove.set(-speed, 0f); }
+		if(allowJumping) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run); }
+		moving = true;
+	}
 	
 	public void jump() {
 		if(allowJumping && jumpTimer >= jumpDelay) {

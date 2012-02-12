@@ -1,5 +1,7 @@
 package sov;
 
+import sov.AIComponent.AIstate;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -135,6 +137,9 @@ public class BodyComponent extends Component {
 			}
 			setToTakeDamage = 0;
 			immuneTimer = GameConfiguration.immuneTime;
+			 if (parent.hasComponent(AIComponent.class)) {
+				 parent.getComponent(AIComponent.class).addAIstate(AIstate.Alarmed);
+			 }
 			System.out.println("Health "+hitPoints+"/"+hitPointsMax+"(-"+damage+")");
 		}
 		
