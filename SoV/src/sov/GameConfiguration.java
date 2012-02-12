@@ -41,7 +41,7 @@ public class GameConfiguration {
 	
 	
 	// immunity time in seconds after taking damage
-	public static float immuneTime = 0.2f;
+	public static float immuneTime = 1.0f;
 	
 	//key mappings
 	// naming
