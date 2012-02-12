@@ -6,6 +6,7 @@ import sov.BodyComponent.SlopeShape;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.MassData;
 
 public class Projectile extends Entity {
 
@@ -21,7 +22,7 @@ public class Projectile extends Entity {
 	 */
 	public Projectile(Vector2 size, HashMap<SpriteComponent.AnimationState, Animation> animations, boolean isSensor) {
 		
-		body = new BodyComponent(this, size, false, 1.0f, false, SlopeShape.Even, isSensor);
+		body = new BodyComponent(this, size, false, 1.0f, false, SlopeShape.Even, isSensor);		
 		spriteComponent = new SpriteComponent(this, animations);
 		
 		addComponent(body);

@@ -2,6 +2,7 @@ package sov;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import sov.BodyComponent.SlopeShape;
 
@@ -18,7 +19,7 @@ public class AttackComponent extends Component {
 	/*
 	 * This keeps track of the attacks stored in this component
 	 */
-	HashMap<SpriteComponent.AnimationState, Attack> attacks;
+	TreeMap<SpriteComponent.AnimationState, Attack> attacks;
 	
 	/*
 	 * keeps track of all the projectiles made by this AttackComponent
@@ -42,7 +43,7 @@ public class AttackComponent extends Component {
 
 	public AttackComponent(Entity parent){
 		super(parent);	
-		attacks = new HashMap<SpriteComponent.AnimationState, Attack>();
+		attacks = new TreeMap<SpriteComponent.AnimationState, Attack>();
 		projectiles = new ArrayList<Projectile>();
 		removedProjectiles = new ArrayList<Projectile>();
 		activeAttack = null;
@@ -109,7 +110,7 @@ public class AttackComponent extends Component {
 	protected float getOffsetX() {
 		float offSet = 0;
 		
-		offSet = parent.getComponent(BodyComponent.class).getSize().x/GameConfiguration.PIXELS_PER_METER/2;
+		offSet = parent.getComponent(BodyComponent.class).getSize().x/2;
 		
 		if( !parent.getComponent(BodyComponent.class).getFacingRight()) offSet = -offSet;
 		
@@ -155,6 +156,7 @@ public class AttackComponent extends Component {
 		}*/
 		
 	}
+	
 	
 
 	

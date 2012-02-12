@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import sov.AIComponent.AIstate;
 import sov.BodyComponent.SlopeShape;
 import sov.SpriteComponent.AnimationState;
 
@@ -32,14 +33,16 @@ public class DynamicObjectFactory {
 	 */
 	public enum AnimationType {SlimeBomb, Fireball};
 	
+	private GameMap gameMap;
+	
 	// A list of the prototypes
 	HashMap<Creature.CreatureType, Creature> creatures = new HashMap<Creature.CreatureType, Creature>();
 	HashMap<AnimationType, HashMap<SpriteComponent.AnimationState, Animation>> miscAnimations;
 	
 	
-	public DynamicObjectFactory(String directory) {
+	public DynamicObjectFactory(String directory, GameMap map) {
 		
-		
+		this.gameMap = map;
 		
 		// Only read in fields which have @Expose in front of them
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
@@ -196,6 +199,8 @@ public class DynamicObjectFactory {
 				
 				
 				creaturePrototype.addComponent(attackComponent);
+				
+
 			
 				// add the prototype to "creatures".
 				creatures.put(creaturePrototype.creatureType, creaturePrototype);
@@ -295,7 +300,9 @@ public class DynamicObjectFactory {
 		
 
 		Creature creature = Creature.createFromPrototype(creatures.get(type));
-
+		
+		
+		
 		creature.addToWorld(world, coordinates);
 		return creature;
 	}
