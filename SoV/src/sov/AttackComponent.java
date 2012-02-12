@@ -2,9 +2,11 @@ package sov;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import sov.BodyComponent.SlopeShape;
+import sov.SpriteComponent.AnimationState;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -26,8 +28,7 @@ public class AttackComponent extends Component {
 	 */
 	ArrayList<Projectile> projectiles;
 	ArrayList<Projectile> removedProjectiles;
-	
-	
+		
 	/*
 	 * active attack type
 	 */
@@ -36,17 +37,57 @@ public class AttackComponent extends Component {
 	boolean setToStopDamage;
 	//boolean damaging;
 
-
-	
 	// The attackers BodyComponent
 	protected BodyComponent bodyComponent;
 
+	
 	public AttackComponent(Entity parent){
 		super(parent);	
 		attacks = new TreeMap<SpriteComponent.AnimationState, Attack>();
 		projectiles = new ArrayList<Projectile>();
 		removedProjectiles = new ArrayList<Projectile>();
 		activeAttack = null;
+	}
+	
+	public static AttackComponent attackComponentFromPrototype(AttackComponent proto, Entity parent) {
+		AttackComponent attackComponent = new AttackComponent(parent);
+		
+		for(Entry<AnimationState, Attack> protoAttack : proto.attacks.entrySet()) {
+		
+
+			if (protoAttack.getValue().getClass() == MeleeAttack.class) {
+				
+				MeleeAttack meleeProto = (MeleeAttack) protoAttack.getValue();
+				MeleeAttack attack = new MeleeAttack(attackComponent, 
+						meleeProto.attackTime,
+						meleeProto.preDamageTime,
+						meleeProto.animation, 
+						meleeProto.offSetY,
+						meleeProto.damageTime,
+						SpriteBody.dynamicSpriteBodyFromProto(meleeProto.attackBody),
+						meleeProto.baseDamage);
+				System.out.println(attack.attackBody);
+				attackComponent.addAttack(protoAttack.getKey(), attack);
+			} 
+			if (protoAttack.getValue().getClass() == RangedAttack.class) {
+				RangedAttack rangedProto = (RangedAttack) protoAttack.getValue();
+				RangedAttack attack = new RangedAttack(attackComponent, 
+						rangedProto.attackTime,
+						rangedProto.preDamageTime,
+						rangedProto.animation,
+						rangedProto.projectileProto,
+						rangedProto.offSetY,
+						rangedProto.baseDamage,
+						rangedProto.flightSpeed);
+				attackComponent.addAttack(protoAttack.getKey(), attack);
+				
+			}
+			
+			
+			
+		}
+		
+		return attackComponent;
 	}
 	
 	
@@ -129,7 +170,7 @@ public class AttackComponent extends Component {
 
 	public void addAttack(SpriteComponent.AnimationState name, Attack attack) {
 		attacks.put(name, attack);
-		System.out.println(name.toString() + attack.toString());		
+
 	}
 
 

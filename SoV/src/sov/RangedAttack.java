@@ -26,6 +26,7 @@ public class RangedAttack extends Attack {
 		this.projectileProto = projectile;
 				
 	}
+	
 
 
 	public void startDamage(){		

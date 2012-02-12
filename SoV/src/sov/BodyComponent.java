@@ -29,7 +29,7 @@ public class BodyComponent extends Component {
 	protected Vector2 size;
 	
 	boolean facingRight = true;
-	
+	float rounding;
 	protected float hitPointsMax=1;
 	protected float hitPoints = 1;		//default hitpoints
 	protected boolean indestructible;
@@ -62,7 +62,7 @@ public class BodyComponent extends Component {
 
 		
 		this.size = size;
-		
+		this.rounding = rounding;
 		
 		
 		bodyFixtureDef = new FixtureDef();

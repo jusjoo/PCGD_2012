@@ -49,10 +49,12 @@ public class AIComponent extends InputComponent {
 	}
 	
 	private void handleAttack() {
-		float maximumAttackDistance = 32;
+		float maximumAttackDistanceX = 32;
+		float maximumAttackDistanceY = 16;
 		
 		if(	target != null && isTargetVisible() &&
-			getTargetDistanceX() <= maximumAttackDistance &&
+			getTargetDistanceX() <= maximumAttackDistanceX &&
+			getTargetDistanceY() <= maximumAttackDistanceY &&
 			target.alive) {
 			parent.getComponent(AttackComponent.class).attack(AnimationState.Attack1);
 		}
@@ -102,7 +104,7 @@ public class AIComponent extends InputComponent {
 		//we only have one state of each type
 		
 			activeStates.add(state);
-			System.out.println("Added AI state " +state);
+		//	System.out.println("Added AI state " +state);
 		
 	}
 	

@@ -69,20 +69,11 @@ public class Creature extends SpriteBody implements Cloneable {
 		// Set the attack component
 		if(prototype.getComponent(AttackComponent.class) != null) {
 			AttackComponent protoAttackComponent = prototype.getComponent(AttackComponent.class);
-			AttackComponent newAttackComponent = new AttackComponent(creature);
 			
-			for (Entry<AnimationState, Attack> protoAttack : protoAttackComponent.attacks.entrySet() ) {
-				if (protoAttack.getValue().getClass() == RangedAttack.class) {
-					// Add cloning stuff here
-				}
-				if (protoAttack.getValue().getClass() == MeleeAttack.class) {
-					// Add cloning stuff here
-				}
-				
-				
-			}
+			AttackComponent newAttackComponent = AttackComponent.attackComponentFromPrototype(protoAttackComponent, creature);
+		
 			
-			creature.addComponent(prototype.getComponent(AttackComponent.class));
+			creature.addComponent(newAttackComponent);
 			creature.getComponent(AttackComponent.class).setParent(creature);
 		}
 		
