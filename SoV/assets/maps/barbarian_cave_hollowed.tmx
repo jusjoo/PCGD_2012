@@ -288,7 +288,7 @@
   </data>
  </layer>
  <objectgroup name="Creatures" width="256" height="128">
-  <object type="Sorceress" x="639" y="388">
+  <object type="Ninja" x="579" y="393">
    <properties>
     <property name="IsPlayer" value=""/>
    </properties>

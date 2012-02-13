@@ -90,6 +90,14 @@ public class SpriteComponent extends Component {
 		
 		currentFrame.setRotation(angle);
 		currentFrame.draw(spriteBatch);
+		
+		// If we have a health bar attached to bodycomponent, draw that too
+		if(parent.getComponent(BodyComponent.class) != null) {
+			BodyComponent body = parent.getComponent(BodyComponent.class);
+				if(body.healthBar != null) {
+					body.healthBar.render(spriteBatch, body.getPosition().x, body.getPosition().y);
+				}
+		}
 	}
 	
 	public void setCurrentAnimationState(SpriteComponent.AnimationState state) {
