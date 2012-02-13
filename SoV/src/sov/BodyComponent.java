@@ -39,6 +39,7 @@ public class BodyComponent extends Component {
 	boolean finalDeath = false;
 	
 	BarElement healthBar;
+	boolean healthBarIsStatic = false;
 	float healthBarTimer;
 	
 	// tracks incoming damage
@@ -327,11 +328,19 @@ public class BodyComponent extends Component {
 		else hitPoints = hitPointsMax;		
 	}
 	public void addHealthBar() {
-		healthBar = new BarElement(new Vector2(0,-this.getSize().y/2), new Vector2(16,2), hitPointsMax);
-		healthBarTimer = 3f;
+		if (!healthBarIsStatic) {
+			healthBar = new BarElement(new Vector2(0, -this.getSize().y/2), new Vector2(16,2), hitPointsMax);
+			healthBarTimer = 3f;
+		}
 	}
 	
 	public void removeHealthBar() {
-		healthBar = null;
+		if (!healthBarIsStatic) healthBar = null;
+	}
+
+	public void addHealthBar(BarElement playerHealthBar) {
+		healthBar = playerHealthBar;
+		healthBarIsStatic = true;
+		
 	}
 }

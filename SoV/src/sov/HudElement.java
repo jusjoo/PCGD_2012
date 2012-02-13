@@ -26,7 +26,7 @@ public class HudElement {
 	public void render(SpriteBatch spriteBatch, float x, float y) {
 		
 		sprite.setPosition(	x + position.x , 
-							y + position.y - texture.getHeight());
+							y - position.y - texture.getHeight());
 		sprite.draw(spriteBatch);
 	}
 }
