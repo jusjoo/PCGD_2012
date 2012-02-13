@@ -1,6 +1,6 @@
 package sov;
 
-import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,7 +17,7 @@ public class HudElement {
 		
 		this.texture = texture;
 		sprite = new Sprite(texture);
-		sprite.setPosition(position.x, position.y);
+		//sprite.setPosition(position.x, position.y);
 		
 		
 	}
@@ -25,7 +25,8 @@ public class HudElement {
 	
 	public void render(SpriteBatch spriteBatch, float x, float y) {
 		
-		sprite.setPosition(x, y);
+		sprite.setPosition(	x + position.x , 
+							y + position.y - texture.getHeight());
 		sprite.draw(spriteBatch);
 	}
 }

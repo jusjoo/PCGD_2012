@@ -94,7 +94,7 @@ public class AIComponent extends InputComponent {
 		
 		if (distanceRandomizeTimer <= 0) {
 			minimumDistanceNow = ((float)Math.random()*3+1)*minimumDistanceBetweenTarget;
-			System.out.println("Min Distance set to "+minimumDistanceNow);
+			//System.out.println("Min Distance set to "+minimumDistanceNow);
 			distanceRandomizeTimer = distanceRandomDuration;
 		}
 		

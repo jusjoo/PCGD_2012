@@ -38,6 +38,9 @@ public class BodyComponent extends Component {
 	boolean alive = true;
 	boolean finalDeath = false;
 	
+	BarElement healthBar;
+	float healthBarTimer;
+	
 	// tracks incoming damage
 	protected float setToTakeDamage;
 	// makes body immune to damage after being attacked
@@ -123,6 +126,9 @@ public class BodyComponent extends Component {
 			
 			bodyFixtureDef.shape = polygonShape;
 			
+			
+			
+			
 		}
 		
 		
@@ -130,6 +136,7 @@ public class BodyComponent extends Component {
 	}
 	
 	private void takeDamage(float damage) {
+		addHealthBar();
 		if (immuneTimer <= 0) {
 			hitPoints -= damage;
 			if(hitPoints <= 0) {
@@ -293,6 +300,13 @@ public class BodyComponent extends Component {
 				finalDeath = true;
 			}
 		}
+		if(healthBar != null) {
+			healthBar.setCurrentValue(getHitPoints());
+			healthBarTimer -= deltaTime;
+			if (healthBarTimer < 0) {
+				removeHealthBar();
+			}
+		}
 	}
 
 
@@ -311,5 +325,13 @@ public class BodyComponent extends Component {
 			hitPoints+= healAmount;
 		}
 		else hitPoints = hitPointsMax;		
+	}
+	public void addHealthBar() {
+		healthBar = new BarElement(new Vector2(0,-this.getSize().y/2), new Vector2(16,2), hitPointsMax);
+		healthBarTimer = 3f;
+	}
+	
+	public void removeHealthBar() {
+		healthBar = null;
 	}
 }

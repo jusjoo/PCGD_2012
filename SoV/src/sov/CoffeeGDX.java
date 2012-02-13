@@ -57,9 +57,12 @@ public class CoffeeGDX implements ApplicationListener {
 		map = new GameMap(GameConfiguration.firstMap, world);
 
 		hud = new GameHud();
+		
 		Texture texture = new Texture(new FileHandle("assets/creatures/mrEggEverything.png"));
-		Vector2 position = new Vector2(-5,-5);
-		hud.addElement(new HudElement(position,texture));
+		Vector2 position = new Vector2(-100,-100);
+		BarElement bar = new BarElement(new Vector2(0,0), new Vector2(4,32), 100); //new BarElement(position, texture, new Vector2(6,6), new Vector2(32, 4), 100);
+		//hud.addElement(bar);
+		bar.setCurrentValue(10);
 		
 		
 		cam = new OrthographicCamera(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
