@@ -7,6 +7,7 @@ import box2dLight.RayHandler;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -34,6 +35,7 @@ public class CoffeeGDX implements ApplicationListener {
 	Box2DDebugRenderer debugRenderer;
 	
 	GameMap map;
+	GameHud hud;
 	
 	TiledMap map2;
 	
@@ -54,7 +56,10 @@ public class CoffeeGDX implements ApplicationListener {
 		world = new World(new Vector2(0.0f,-10.0f), true);
 		map = new GameMap(GameConfiguration.firstMap, world);
 
-		
+		hud = new GameHud();
+		Texture texture = new Texture(new FileHandle("assets/creatures/mrEggEverything.png"));
+		Vector2 position = new Vector2(-5,-5);
+		hud.addElement(new HudElement(position,texture));
 		
 		
 		cam = new OrthographicCamera(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
@@ -107,6 +112,7 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		
 		
+		
 		// spriteBatch.disableBlending();
 		// colourMultiplier dictates how bright the sky is
 		float colourMultiplier = 1;
@@ -127,6 +133,8 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		map.render(cam, spriteBatch);
 		
+		
+		hud.render(spriteBatch, cam.position.x, cam.position.y);
 		
 		
 
