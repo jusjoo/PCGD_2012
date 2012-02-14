@@ -56,7 +56,8 @@ public class Creature extends SpriteBody implements Cloneable {
 		Creature creature = new Creature(new Vector2(prototype.hitboxSize[0], prototype.hitboxSize[1]), prototype.spriteComponent.animations, 0.8f, false);
 		creature.creatureType = prototype.creatureType;
 		creature.dexterity = prototype.dexterity;
-		creature.strength = prototype.strength;		
+		creature.strength = prototype.strength;
+		creature.wisdom = prototype.wisdom;
 		creature.speed = creature.getSpeed();
 		//hitpoints are set when adding to world
 		creature.jumpHeight = creature.getJumpHeight();
@@ -68,6 +69,13 @@ public class Creature extends SpriteBody implements Cloneable {
 			creature.addComponent(prototype.getComponent(AttackComponent.class));
 			creature.getComponent(AttackComponent.class).setParent(creature);
 		}
+		
+	
+		
+		
+		
+		
+		
 
 		
 		

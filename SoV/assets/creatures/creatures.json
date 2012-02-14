@@ -52,7 +52,7 @@
 	  			"AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), (flightSpeed) ",
 	  	"attacks": {
 	  	  "Attack1": ["Melee", 3, 5, 1.0, 16.0, 16.0, 5],
-	  	  "Attack2": ["Ranged", 1, 5, 1.0, 4.0, 4.0, 5, "LOL", 8.0,]
+	  	  "Attack2": ["Ranged", 3, 5, 0.0, 8.0, 8.0, 5, "LOL", 2.5,]
 	  	}
 	},
 	
@@ -80,7 +80,7 @@
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed)",
 	  	"attacks": {
 	  	  "Attack1": ["Melee", 4, 5, 1.0, 16.0, 16.0, 5],
-	  	  "Attack2": ["Ranged", 4, 5, 0.0, 16.0, 16.0, 10, "LOL", 7.5]
+	  	  "Attack2": ["Ranged", 4, 5, 0.0, 16.0, 16.0, 10, "LOL", 8.0]
 	  	}
 	},
 	
@@ -106,7 +106,7 @@
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed)",
 	  	"attacks": {
-	  	  "Attack1": ["Melee", 0.5, 1.5, 0, 16, 4, 5]
+	  	  "Attack1": ["Melee", 1, 2, 1, 16, 4, 5]
 	  	}
 	},
 	
@@ -123,7 +123,7 @@
 		  "Idle": [[1,1], 0, [0,1], 5, 0.15, true],
 		  "Run": [[1,1], 0, [0,1], 5, 0.15, true],
 		  "Jump": [[1,1], 0, [0,1], 5, 0.15, false],
-		  "Attack1": [[1,1], 0, [0,1], 5, 0.15, false],
+		  "Attack1": [[1,1], 0, [0,1], 2, 0.10, false],
 		  "Fall": [[1,1], 0, [0,1], 5, 0.15, true],
 		  "Hurt": [[1,1], 0, [0,1], 5, 0.15, false],
 		  "Die": [[1,1], 0, [0,1], 5, 0.15, false]
@@ -131,7 +131,7 @@
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed)",
 	  	"attacks": {
-	  	  "Attack1": ["Melee", 0.5, 1.5, 0, 8, 8, 5]
+	  	  "Attack1": ["Melee", 1, 2, 1, 8, 8, 5]
 	  	}
 	}
 	

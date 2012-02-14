@@ -109,7 +109,7 @@ public class AttackComponent extends Component {
 	protected float getOffsetX() {
 		float offSet = 0;
 		
-		offSet = parent.getComponent(BodyComponent.class).getSize().x/GameConfiguration.PIXELS_PER_METER/2;
+		offSet = parent.getComponent(BodyComponent.class).getSize().x/2;
 		
 		if( !parent.getComponent(BodyComponent.class).getFacingRight()) offSet = -offSet;
 		
@@ -155,6 +155,7 @@ public class AttackComponent extends Component {
 		}*/
 		
 	}
+	
 	
 
 	

@@ -55,7 +55,7 @@ public class RangedAttack extends Attack {
 				new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, 
 				attackComponent.bodyComponent.getPosition().y + offSetY ));
 		
-
+		//projectile.body.body.getFixtureList().get(0).set(10);
 		
 
 		projectile.spriteComponent.setCurrentAnimationState(AnimationState.Idle);
@@ -68,6 +68,7 @@ public class RangedAttack extends Attack {
 	
 		if(offSet > 0) {
 			projectile.body.applyLinearImpulse(new Vector2( flightSpeed, 0f));
+
 		} else {
 			projectile.body.applyLinearImpulse(new Vector2( -flightSpeed, 0f));
 		}
@@ -78,12 +79,16 @@ public class RangedAttack extends Attack {
 	
 	private float getAttackBoxOffsetX() {
 		float offset = attackComponent.getOffsetX();
+				
+		float projectileOffset = projectileProto.body.getSize().x/2+1;
 		
 		if(offset > 0) {
-			offset += projectileProto.body.getSize().x;
+			offset += projectileOffset;
 		} else {
-			offset -= projectileProto.body.getSize().x;
+			offset -= projectileOffset;
 		}
+		
+		System.out.println("offset:"+ offset);
 		
 		return offset;
 	}
