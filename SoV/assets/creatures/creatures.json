@@ -22,7 +22,7 @@
 	  			"AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), (flightSpeed)",
 	  	"attacks": {
 	  	  "Attack1": ["Melee", 3, 4, 32, 24.0, 24.0, 5],
-	  	  "Attack2": ["Melee", 4, 5, 8, 24.0, 10.0, 10]
+	  	  "Attack2": ["Melee", 4, 5, 8, 24.0, 10.0, 15]
 	  	 }
 	  	
 	},
@@ -51,8 +51,8 @@
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), (flightSpeed) ",
 	  	"attacks": {
-	  	  "Attack1": ["Melee", 3, 5, 1.0, 16.0, 16.0, 5],
-	  	  "Attack2": ["Ranged", 3, 5, 0.0, 8.0, 8.0, 5, "LOL", 2.5,]
+	  	  "Attack1": ["Melee", 3, 4, 1.0, 16.0, 16.0, 5],
+	  	  "Attack2": ["Ranged", 3, 4, 0.0, 8.0, 8.0, 5, "LOL", 2.5]
 	  	}
 	},
 	
@@ -80,7 +80,7 @@
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed)",
 	  	"attacks": {
 	  	  "Attack1": ["Melee", 4, 5, 1.0, 16.0, 16.0, 5],
-	  	  "Attack2": ["Ranged", 4, 5, 0.0, 16.0, 16.0, 10, "LOL", 8.0]
+	  	  "Attack2": ["Ranged", 4, 5, 0.0, 16.0, 16.0, 10, "LOL", 10]
 	  	}
 	},
 	
@@ -88,8 +88,8 @@
 		"creatureType": "Goblin",
 		"textureName": "sprites_monster_goblin.png",
 		"hitboxSize": [15, 24],
-		"dexterity": 1,
-		"strength": 3,
+		"dexterity": 2,
+		"strength": 5,
 		"wisdom": 0,
 		"_frames_description":
 				"Frame size, Origin offset, Start frame coordinates, Length, Speed (ms)",
@@ -106,7 +106,7 @@
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed)",
 	  	"attacks": {
-	  	  "Attack1": ["Melee", 1, 2, 1, 16, 4, 5]
+	  	  "Attack1": ["Melee", 1.5, 2, 1, 16.0, 16.0, 5]
 	  	}
 	},
 	
@@ -115,7 +115,7 @@
 		"textureName": "sprites_monster_slime.png",
 		"hitboxSize": [15, 10],
 		"dexterity": 4,
-		"strength": 1,
+		"strength": 4,
 		"wisdom": 0,
 		"_frames_description":
 				"Frame size(16px*x, 16px*y), Origin offset, Start frame coordinates, Length, Speed (ms)",
@@ -131,7 +131,7 @@
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed)",
 	  	"attacks": {
-	  	  "Attack1": ["Melee", 1, 2, 1, 8, 8, 5]
+	  	  "Attack1": ["Melee", 1.5, 2, 1, 8, 8, 5]
 	  	}
 	}
 	

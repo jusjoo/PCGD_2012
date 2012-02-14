@@ -44,4 +44,10 @@ public class Entity {
 		}
 		
 	}
+	public boolean hasComponent(Class<? extends Component> className) {
+		if (components.containsKey(className)) {
+			return true;
+		}
+		else return false;
+	}
 }

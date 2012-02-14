@@ -2,8 +2,10 @@ package sov;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import sov.BodyComponent.SlopeShape;
+import sov.SpriteComponent.AnimationState;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -66,7 +68,12 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		// Set the attack component
 		if(prototype.getComponent(AttackComponent.class) != null) {
-			creature.addComponent(prototype.getComponent(AttackComponent.class));
+			AttackComponent protoAttackComponent = prototype.getComponent(AttackComponent.class);
+			
+			AttackComponent newAttackComponent = AttackComponent.attackComponentFromPrototype(protoAttackComponent, creature);
+		
+			
+			creature.addComponent(newAttackComponent);
 			creature.getComponent(AttackComponent.class).setParent(creature);
 		}
 		

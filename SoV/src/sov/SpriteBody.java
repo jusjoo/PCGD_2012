@@ -2,6 +2,8 @@ package sov;
 
 import java.util.HashMap;
 
+import sov.BodyComponent.SlopeShape;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -86,6 +88,25 @@ public class SpriteBody extends Entity {
 	
 	public Vector2 getPosition() {
 		return getComponent(BodyComponent.class).getPosition();
+	}
+
+	/*
+	 * Note! Currently works correctly only for attack bodies, remake appropriately for other usage!
+	 */
+	public static SpriteBody dynamicSpriteBodyFromProto(SpriteBody proto) {
+		
+		SpriteBody spriteBody = new SpriteBody();
+		
+		BodyComponent body = new BodyComponent(spriteBody, proto.body.size, false, 1.0f, false, SlopeShape.Even, true);
+		SpriteComponent spriteComponent = new SpriteComponent(spriteBody, proto.spriteComponent.animations);
+		
+		spriteBody.addComponent(body);
+		spriteBody.addComponent(spriteComponent);
+		
+		spriteBody.body = body;
+		spriteBody.spriteComponent = spriteComponent;
+		
+		return spriteBody;
 	}
 	
 	

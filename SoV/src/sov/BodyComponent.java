@@ -1,5 +1,7 @@
 package sov;
 
+import sov.AIComponent.AIstate;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -29,12 +31,16 @@ public class BodyComponent extends Component {
 	protected Vector2 size;
 	
 	boolean facingRight = true;
-	
+	float rounding;
 	protected float hitPointsMax=1;
 	protected float hitPoints = 1;		//default hitpoints
 	protected boolean indestructible;
 	boolean alive = true;
 	boolean finalDeath = false;
+	
+	BarElement healthBar;
+	boolean healthBarIsStatic = false;
+	float healthBarTimer;
 	
 	// tracks incoming damage
 	protected float setToTakeDamage;
@@ -62,7 +68,7 @@ public class BodyComponent extends Component {
 
 		
 		this.size = size;
-		
+		this.rounding = rounding;
 		
 		
 		bodyFixtureDef = new FixtureDef();
@@ -121,6 +127,9 @@ public class BodyComponent extends Component {
 			
 			bodyFixtureDef.shape = polygonShape;
 			
+			
+			
+			
 		}
 		
 		
@@ -128,6 +137,7 @@ public class BodyComponent extends Component {
 	}
 	
 	private void takeDamage(float damage) {
+		addHealthBar();
 		if (immuneTimer <= 0) {
 			hitPoints -= damage;
 			if(hitPoints <= 0) {
@@ -135,6 +145,9 @@ public class BodyComponent extends Component {
 			}
 			setToTakeDamage = 0;
 			immuneTimer = GameConfiguration.immuneTime;
+			 if (parent.hasComponent(AIComponent.class)) {
+				 parent.getComponent(AIComponent.class).addAIstate(AIstate.Alarmed);
+			 }
 			System.out.println("Health "+hitPoints+"/"+hitPointsMax+"(-"+damage+")");
 		}
 		
@@ -157,13 +170,19 @@ public class BodyComponent extends Component {
 			parent.getComponent(SpriteComponent.class).setCurrentAnimationState(SpriteComponent.AnimationState.Die);
 			alive = false;
 			
-			
+			//TODO: siirrä nämä Entityyn!
 			
 			if(parent.getComponent(MovementComponent.class) != null) {
 				//parent.removeComponent(InputComponent.class);
 				parent.setComponentActive(InputComponent.class, false);
 				parent.setComponentActive(MovementComponent.class, false);
 				//parent.removeComponent(MovementComponent.class);
+				if (parent.getComponent(AIComponent.class) != null) {
+					parent.setComponentActive(AIComponent.class, false);
+				}
+				if (parent.getComponent(PlayerInputComponent.class) != null) {
+					parent.setComponentActive(PlayerInputComponent.class, false);
+				}
 				
 			}
 		}
@@ -282,6 +301,13 @@ public class BodyComponent extends Component {
 				finalDeath = true;
 			}
 		}
+		if(healthBar != null) {
+			healthBar.setCurrentValue(getHitPoints());
+			healthBarTimer -= deltaTime;
+			if (healthBarTimer < 0) {
+				removeHealthBar();
+			}
+		}
 	}
 
 
@@ -300,5 +326,21 @@ public class BodyComponent extends Component {
 			hitPoints+= healAmount;
 		}
 		else hitPoints = hitPointsMax;		
+	}
+	public void addHealthBar() {
+		if (!healthBarIsStatic) {
+			healthBar = new BarElement(new Vector2(0, -this.getSize().y/2), new Vector2(16,2), hitPointsMax);
+			healthBarTimer = 3f;
+		}
+	}
+	
+	public void removeHealthBar() {
+		if (!healthBarIsStatic) healthBar = null;
+	}
+
+	public void addHealthBar(BarElement playerHealthBar) {
+		healthBar = playerHealthBar;
+		healthBarIsStatic = true;
+		
 	}
 }
