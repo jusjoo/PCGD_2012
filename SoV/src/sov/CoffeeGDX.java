@@ -30,8 +30,8 @@ public class CoffeeGDX implements ApplicationListener {
 	
 	//DynamicObjectFactory dynamicObjectFactory;
 	
-	public boolean canPressDebugKey = true;
-	public float debugInputTimer = 0;
+	public boolean canPressKey = true;
+	public float inputTimer = 0;
 	Box2DDebugRenderer debugRenderer;
 	
 	GameMap map;
@@ -48,11 +48,15 @@ public class CoffeeGDX implements ApplicationListener {
 	
 	OrthographicCamera cam;
 
+	private HudElement mainMenuElement;
+
+	boolean paused;
+
 	@Override
 	public void create() {
 		
 		config = new GameConfiguration();
-		hud = new GameHud();
+		hud = new GameHud(this);
 		
 		world = new World(new Vector2(0.0f,-10.0f), true);
 		map = new GameMap(GameConfiguration.firstMap, world);
@@ -106,9 +110,12 @@ public class CoffeeGDX implements ApplicationListener {
 
 		Gdx.graphics.setTitle(Integer.toString(Gdx.graphics.getFramesPerSecond()));
 		
-		// handles the debug input, if devmode is on
-		if (GameConfiguration.devMode && canPressDebugKey) handleInput();
-		
+		// handle the input
+		if (canPressKey) {
+			handleInput();
+			if (GameConfiguration.devMode) handleDebugInput();
+		}
+			
 		update();
 		// Update camera
 		cam.update();
@@ -174,12 +181,15 @@ public class CoffeeGDX implements ApplicationListener {
 	public void update() {
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		
-		map.update(deltaTime);
+		if (!paused) {
+			map.update(deltaTime);
+			world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
+		}
 		
-		if (!canPressDebugKey) {
-			debugInputTimer -= deltaTime;
-			if (debugInputTimer < 0)
-				canPressDebugKey = true;
+		if (!canPressKey) {
+			inputTimer -= deltaTime;
+			if (inputTimer < 0)
+				canPressKey = true;
 		}
 		/*
 		if(Math.random() > 0.99) {
@@ -187,27 +197,37 @@ public class CoffeeGDX implements ApplicationListener {
 			addGoblin();
 		}*/
 		
-		world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
+		
 	}
 	
 	/*
-	 * Handles all the debug button inputs.
+	 * Handles all the button inputs.
 	 */
-	public void debugKeyPressed() {
-		canPressDebugKey = false;
-		debugInputTimer = 0.5f;
+	public void keyPressed() {
+		canPressKey = false;
+		inputTimer = 0.5f;
 	}
+	
 	public void handleInput() {
+		if (Gdx.input.isKeyPressed(GameConfiguration.escapeKey)) {
+			keyPressed();
+			hud.toggleMainMenu();
+		}
+	}
+	
+
+
+	public void handleDebugInput() {
 		
 		if (Gdx.input.isKeyPressed(GameConfiguration.debugRenderKey)) {
-			debugKeyPressed();
+			keyPressed();
 			if (GameConfiguration.debugMode) {
 				GameConfiguration.debugMode = false;				
 			} else GameConfiguration.debugMode = true;
 		}
 		
 		if (Gdx.input.isKeyPressed(GameConfiguration.selectBarbarianKey)) {
-			debugKeyPressed();
+			keyPressed();
 			Vector2 pos = map.getPlayer().getPosition();
 			map.removeCreature(map.getPlayer());
 			//map.getPlayer().removeFromWorld();
@@ -216,7 +236,7 @@ public class CoffeeGDX implements ApplicationListener {
 			System.out.println(map.getPlayer().getComponent(AIComponent.class));
 		}
 		if (Gdx.input.isKeyPressed(GameConfiguration.selectNinjaKey)) {
-			debugKeyPressed();
+			keyPressed();
 			Vector2 pos = map.getPlayer().getPosition();
 			map.removeCreature(map.getPlayer());
 			Creature player = createPlayer(CreatureType.Ninja, pos);
@@ -225,7 +245,7 @@ public class CoffeeGDX implements ApplicationListener {
 			System.out.println(map.getPlayer().getComponent(AIComponent.class));
 		}
 		if (Gdx.input.isKeyPressed(GameConfiguration.selectSorceressKey)) {
-			debugKeyPressed();
+			keyPressed();
 			Vector2 pos = map.getPlayer().getPosition();
 			map.removeCreature(map.getPlayer());
 			Creature player = createPlayer(CreatureType.Sorceress, pos);
