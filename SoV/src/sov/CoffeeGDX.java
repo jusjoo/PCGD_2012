@@ -282,7 +282,7 @@ public class CoffeeGDX implements ApplicationListener {
 
 	
 	public static void main (String[] args) {
-        new LwjglApplication(new CoffeeGDX(), "Game", 1024, 768, false);
+        new LwjglApplication(new CoffeeGDX(), "Game", GameConfiguration.windowSizeX, GameConfiguration.windowSizeY, false);
 		 /// new LwjglApplication(new CoffeeGDX(), "Game", 800, 600, false);
 }
 
