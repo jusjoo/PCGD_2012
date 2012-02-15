@@ -214,6 +214,7 @@ public class CoffeeGDX implements ApplicationListener {
 			createPlayer(CreatureType.Barbarian, pos);
 			map.setAItargets(map.getPlayer());
 			System.out.println(map.getPlayer().getComponent(AIComponent.class));
+			hud.setPlayer(map.getPlayer());
 		}
 		if (Gdx.input.isKeyPressed(GameConfiguration.selectNinjaKey)) {
 			debugKeyPressed();
@@ -223,6 +224,7 @@ public class CoffeeGDX implements ApplicationListener {
 			map.setAItargets(map.getPlayer());
 			//player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, SpriteComponent.AnimationState.Attack1 ));
 			System.out.println(map.getPlayer().getComponent(AIComponent.class));
+			hud.setPlayer(map.getPlayer());
 		}
 		if (Gdx.input.isKeyPressed(GameConfiguration.selectSorceressKey)) {
 			debugKeyPressed();
@@ -231,6 +233,7 @@ public class CoffeeGDX implements ApplicationListener {
 			Creature player = createPlayer(CreatureType.Sorceress, pos);
 			map.setAItargets(map.getPlayer());
 			System.out.println(map.getPlayer().getComponent(AIComponent.class));
+			hud.setPlayer(map.getPlayer());
 			
 			
 		}
