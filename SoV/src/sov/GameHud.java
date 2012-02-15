@@ -13,12 +13,27 @@ public class GameHud {
 	CoffeeGDX game;
 	ArrayList<HudElement> elements;
 	
-	
-	private HudElement mainMenuElement;
+	private MenuElement mainMenuElement;
+	boolean mainMenuActive = false;
 	
 	public GameHud(CoffeeGDX game) {
 		this.game = game;
 		elements = new ArrayList<HudElement>();
+		
+		// define the main menu element
+		Texture texture = new Texture(new FileHandle("assets/menu/mainMenuBackground.png"));
+		Vector2 position = new Vector2(0, 0);
+		mainMenuElement = new MenuElement(position, texture);
+		
+		// add some selectables to it
+		MenuItem item1 = new MenuItem(new Texture(new FileHandle("assets/menu/menuItem.png")), 
+				new Texture(new FileHandle("assets/menu/menuItemSelected.png")), 
+				new Vector2(100, 100));
+		
+		mainMenuElement.addItem(item1);
+		
+		
+		
 	}
 	
 	/*
@@ -60,17 +75,15 @@ public class GameHud {
 	}
 	
 	public void toggleMainMenu() {
-		if (mainMenuElement == null) {
-			System.out.println("debug");
-			Texture texture = new Texture(new FileHandle("assets/creatures/mrEggEverything.png"));
-			Vector2 position = new Vector2(500, 300);
-			mainMenuElement = new HudElement(position, texture);
+		if (mainMenuActive == false) {
+			//System.out.println("debug");
 			this.addElement(mainMenuElement);
 			game.paused = true;
+			mainMenuActive = true;
 		} else {
 			this.removeElement(mainMenuElement);
-			mainMenuElement = null;
 			game.paused = false;
+			mainMenuActive = false;
 		}
 		
 	}
