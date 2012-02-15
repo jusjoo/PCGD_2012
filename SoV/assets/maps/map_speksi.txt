@@ -1,5 +1,5 @@
 
-Mappispeksi v0.01
+Mappispeksi v0.02
 
 - tilesetit:
 	- tilesetit samaan kansioon mappien kanssa
@@ -10,7 +10,21 @@ Mappispeksi v0.01
 		- Foreground: Pelaajan peittÃ¤vÃ¤t palikat, joihin ei tÃ¶rmÃ¤Ã¤
 		- StaticTiles: Staattiset palikat, johon pelaaja tÃ¶rmÃ¤Ã¤
 		- Background: Pelaajan alla olevat palikat, joihin ei tÃ¶rmÃ¤Ã¤
+		- Accessories: Pelaajan alla olevat palikat, joihin ei törmää, background layerin edessä
+		- Traps: Ansat, static tilejen alla, backgroundin ja accessoriesin päällä
 		
 	- Object Layerit:
 		- DynamicTiles: Liikkuvat palikat, yms
 		- Creatures: Otuksien spawn-pointit
+		
+
+- fysiikan vaatimukset:
+	- Hahmon tulee hypätä väh. 3 tilen korkeudelle
+	- Hahmon tulee hypätä eteenpäin väh. kolmen tilen matka
+
+- objektit:
+	
+	- Objektien tyypit lisätään tiledissä Edit > Preferences > Object Types
+	- Mikäli lista on tyhjä, importaa tiedosto objecttypes.xml (löytyy Dropboxin maps-kansisota)
+		
+	
