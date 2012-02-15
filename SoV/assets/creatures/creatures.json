@@ -52,7 +52,7 @@
 	  			"AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), (flightSpeed) ",
 	  	"attacks": {
 	  	  "Attack1": ["Melee", 3, 4, 1.0, 16.0, 16.0, 5],
-	  	  "Attack2": ["Ranged", 3, 4, 0.0, 8.0, 8.0, 5, "LOL", 2.5]
+	  	  "Attack2": ["Ranged", 3, 4, 0.0, 8.0, 8.0, 5, "Fireball", 2.5]
 	  	}
 	},
 	
@@ -79,8 +79,8 @@
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
 	  	"attacks": {
-	  	  "Attack1": ["Melee", 4, 5, 1.0, 16.0, 16.0, 5],
-	  	  "Attack2": ["Magic", 4, 5, 0.0, 16.0, 16.0, 10, "LOL", 10,1]
+	  	  "Attack1": ["Magic", 4, 5, 0.0, 16.0, 16.0, 10, "SlimeBomb", 10,1],
+	  	  "Attack2": ["Magic", 4, 5, 0.0, 16.0, 16.0, 10, "Fireball", 10,1]
 	  	}
 	},
 	
