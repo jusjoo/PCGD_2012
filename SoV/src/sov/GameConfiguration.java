@@ -14,6 +14,10 @@ public class GameConfiguration {
 	// activates the developer controls
 	public static boolean devMode = true;
 	
+	// game window dimensions
+	public static int windowSizeX = 1024;
+	public static int windowSizeY = 768;
+	
 	// world
 	public static String firstMap = "barbarian_cave_hollowed.tmx";
 	// How quickly does the camera follow the player?
