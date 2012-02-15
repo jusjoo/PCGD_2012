@@ -20,22 +20,41 @@ public class MenuElement extends HudElement {
 	}
 	
 	public void addItem(MenuItem item) {
+		if (menuItems.isEmpty()) {
+			selected = item;
+		}
 		menuItems.add(item);
+		
 	}
 	
 	public void selectNext() {
-		selected = menuItems.get( menuItems.indexOf(selected) + 1);
+		
+		int nextIndex = menuItems.indexOf(selected) + 1;
+		
+		if (menuItems.size() > nextIndex) {
+			selected = menuItems.get(nextIndex);
+		}
+		
 	}
 	
 	public void selectPrevious() {
-		selected = menuItems.get( menuItems.indexOf(selected) - 1);
+		int nextIndex = menuItems.indexOf(selected) - 1;
+		
+		if (nextIndex >= 0) {
+			selected = menuItems.get(nextIndex);
+		}
 	}
 	
 	public void render(SpriteBatch spriteBatch, float x, float y) {
 		super.render(spriteBatch, x, y);
 		
 		for (MenuItem item : menuItems) {
-			item.render(spriteBatch, x, y);
+			if (item == selected) {
+				item.renderSelected(spriteBatch, x, y);
+			} else {
+				item.render(spriteBatch, x, y);
+			}
+		
 		}
 	}
 	

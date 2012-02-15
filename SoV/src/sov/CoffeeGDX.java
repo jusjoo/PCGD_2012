@@ -113,7 +113,6 @@ public class CoffeeGDX implements ApplicationListener {
 		// handle the input
 		if (canPressKey) {
 			handleInput();
-			if (GameConfiguration.devMode) handleDebugInput();
 		}
 			
 		update();
@@ -206,13 +205,19 @@ public class CoffeeGDX implements ApplicationListener {
 	 */
 	public void keyPressed() {
 		canPressKey = false;
-		inputTimer = 0.5f;
+		inputTimer = 0.2f;
 	}
 	
 	public void handleInput() {
 		if (Gdx.input.isKeyPressed(GameConfiguration.escapeKey)) {
 			keyPressed();
 			hud.toggleMainMenu();
+		}
+		
+		if (GameConfiguration.devMode) handleDebugInput();
+		
+		if (hud.mainMenuActive){
+			hud.handleMenuInput();
 		}
 	}
 	
