@@ -58,9 +58,10 @@ public abstract class Attack {
 
 	
 	
-	
-	
 	protected void startAttack() {
+		
+		//System.out.println("Starting attack");
+		
 		timer = attackTime;
 		attacking = true;
 		//System.out.println("starting attack... timer:"+timer);
