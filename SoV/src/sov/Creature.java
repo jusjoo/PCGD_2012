@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
 import sov.BodyComponent.SlopeShape;
 import sov.SpriteComponent.AnimationState;
 
@@ -102,8 +104,8 @@ public class Creature extends SpriteBody implements Cloneable {
 		super.update(deltaTime);
 		
 		
-		float staminaregen = deltaTime * GameConfiguration.staminaRegenRate;
-		float manaregen = deltaTime * GameConfiguration.manaRegenRate;
+		float staminaregen = deltaTime * GameConfiguration.staminaRegenRate * staminaMax;
+		float manaregen = deltaTime * GameConfiguration.manaRegenRate * manaMax;
 		modifyStamina(staminaregen);
 		modifyMana(manaregen);
 

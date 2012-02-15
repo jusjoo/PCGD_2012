@@ -15,6 +15,10 @@ public class GameHud {
 	
 	private MenuElement mainMenuElement;
 	boolean mainMenuActive = false;
+	private HudBarElement playerHealthBar;
+	private HudBarElement playerStaminaBar;
+	private HudBarElement playerManaBar;
+	private Creature player;
 	
 	public GameHud(CoffeeGDX game) {
 		this.game = game;
@@ -72,16 +76,27 @@ public class GameHud {
 	}
 	
 	public void setPlayer(Creature player){
+		this.player = player;
 		
 		Texture texture = new Texture(new FileHandle("assets/creatures/mrEggEverything.png"));
 		Vector2 position = new Vector2(0, 0);
-		HudBarElement playerHealthBar = new HudBarElement(position, texture, new Vector2(0,0), new Vector2(64,8), player.body.getHitPoints());
+		playerHealthBar = new HudBarElement(position, texture, new Vector2(0,0), new Vector2(64,8), player.body.getHitPoints());
+		playerStaminaBar = new HudBarElement(new Vector2(0,12), texture, new Vector2(0,0), new Vector2(64,8), player.getStamina());
+		playerManaBar = new HudBarElement(new Vector2(0,24), texture, new Vector2(0,0), new Vector2(64,8), player.getMana());
 		
 		player.body.addHealthBar(playerHealthBar.bar);
 		
+		
 		elements.add(playerHealthBar);
+		elements.add(playerStaminaBar);
+		elements.add(playerManaBar);
 	}
 
+	public void update(float deltaTime) {
+		playerHealthBar.bar.setCurrentValue(player.body.getHitPoints());
+		playerStaminaBar.bar.setCurrentValue(player.getStamina());
+		playerManaBar.bar.setCurrentValue(player.getMana());
+	}
 	public void removeElement(HudElement hudElement) {
 		elements.remove(hudElement);
 	}
