@@ -98,27 +98,52 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		
 		return creature;
-	}		
+	}	
+	
 	@Override
 	public void update(float deltaTime) {
 		super.update(deltaTime);
+				
+		if (!body.finalDeath) {
+			regenerateStamina(deltaTime);
+			regenerateMana(deltaTime);
+		}
 		
-		
-		float staminaregen = deltaTime * GameConfiguration.staminaRegenRate * staminaMax;
-		float manaregen = deltaTime * GameConfiguration.manaRegenRate * manaMax;
-		modifyStamina(staminaregen);
-		modifyMana(manaregen);
-
 	}
 	
+	private void regenerateMana(float deltaTime) {
+		
+		float manaregen;
+		
+		if (GameConfiguration.manaRegenAsPercentage)
+			manaregen = deltaTime * GameConfiguration.manaRegenRatePercentage * manaMax;
+		else
+			manaregen = deltaTime * GameConfiguration.manaRegenRateStatic;			
+			
+		modifyMana(manaregen);
+		
+	}
+
+	private void regenerateStamina(float deltaTime) {
+		float staminaregen;
+		
+		if (GameConfiguration.staminaRegenAsPercentage)
+			staminaregen = deltaTime * GameConfiguration.staminaRegenRatePercentage * staminaMax;
+		else
+			staminaregen = deltaTime * GameConfiguration.staminaRegenRateStatic;
+		
+		modifyStamina(staminaregen);
+		
+	}
+
 	public void removeFromWorld(){
 		getComponent(BodyComponent.class).removeFromWorld();
 		getComponent(BodyComponent.class).body.destroyFixture(sensorFixture);
 	}
 	
 	public void addToWorld(World world, Vector2 position) {
-		//set hitpoints
-		float hp = strength*strength;
+		//set hitpoints		 
+		float hp = deriveHitpoints();
 		getComponent(BodyComponent.class).setHitPoints(hp);
 		getComponent(BodyComponent.class).heal(hp);
 		getComponent(BodyComponent.class).addToWorld(world, position);
@@ -182,12 +207,16 @@ public class Creature extends SpriteBody implements Cloneable {
 		return this.dexterity * GameConfiguration.dexJumpHeightMultiplier + GameConfiguration.jumpHeightBaseModifier;
 	}
 	public float deriveMana(){
-		float value = wisdom*10;
+		float value = wisdom * GameConfiguration.wisManaMultiplier + GameConfiguration.manaBaseModifier;
 		return value;
 	}
 	public float deriveStamina(){
-		float value = dexterity*10+30;
+		float value = dexterity * GameConfiguration.dexStaminaMultiplier + GameConfiguration.staminaBaseModifier;
 		return value;				
+	}
+	private float deriveHitpoints() {
+		float value = strength * GameConfiguration.strHealthMultiplier + GameConfiguration.healthBaseModifier; 
+		return value;
 	}
 	// return true if legal operation
 	public boolean modifyMana(float value){
