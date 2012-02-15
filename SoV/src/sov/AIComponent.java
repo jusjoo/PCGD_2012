@@ -107,7 +107,7 @@ public class AIComponent extends InputComponent {
 			} else {
 					movementComponent.move(false);	
 			}
-			return true;
+			//return true;
 		}
 		//move away from target
 		else if (target != null && isTargetVisible() && target.alive && getTargetDistanceX() < (minimumDistanceNow - minimumDistanceTolerance)) {
@@ -117,14 +117,21 @@ public class AIComponent extends InputComponent {
 			} else {
 				movementComponent.move(true);
 			}
-			return true;
-		}	
+			//return true;
+		}
+		
+		if(target.getPosition().x <= bodyComponent.getPosition().x) {
+			movementComponent.setFacingRight(false);
+		} else {
+			movementComponent.setFacingRight(true);
+		}
+		
 		return false;
 	}
 	
 	private boolean isTargetVisible() {
 		
-		// FIXME: Palikkaimplementaatio, lisää visibility detection!
+		// FIXME: Palikkaimplementaatio, lisï¿½ï¿½ visibility detection!
 		float visibilityX = this.visibilityX;
 		
 		if (activeStates.contains(AIstate.Alarmed))		// if alarmed, follow from further away.
