@@ -28,6 +28,18 @@ import com.google.gson.annotations.Expose;
  */
 public class DynamicObjectFactory {
 	
+//	public enum AttackAttributes {
+//		attackType,
+//		damageStartFrame,
+//		damageEndFrame,
+//		attackBoxYoffset,
+//		attackBoxSizeX,
+//		attackBoxSizeY,
+//		damage,
+//		projectile,
+//		flightspeed,
+//		spellType
+//	}
 	/*
 	 * This Contains all the misc animation types.
 	 */
@@ -182,14 +194,22 @@ public class DynamicObjectFactory {
 						attackComponent.addAttack(attackName, attack);
 						
 					}
-					if (attackType.equals("Ranged")) {
+					
+					if (attackType.equals("Ranged") || attackType.equals("Magic")) {
 						float flightSpeed = Float.parseFloat(attackEntry.getValue().get(8).toString());
 						
 						
 						Projectile attackBody = new Projectile(new Vector2(attackBoxSizeX, attackBoxSizeY), miscAnimations.get(AnimationType.Fireball), true);
 						
 						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, animation, attackBody, attackOffsetY, damage, flightSpeed);
+						if (attackType.equals("Magic")){
+							System.out.println("Magic attack detected!");
+							//int spell = (int)Float.parseFloat(attackEntry.getValue().get(9).toString());
+							int spell = 1;
+							((RangedAttack)attack).setSpellType(spell);
+						}
 						attackComponent.addAttack(attackName, attack);
+						
 		
 						//attackComponentPrototypes.add(ac);
 					}	

@@ -37,6 +37,12 @@ public class GameConfiguration {
 	public static float dexJumpHeightMultiplier = 1.0f;
 	public static float jumpHeightBaseModifier = 5.0f;
 	public static float creatureMaxVelocityMultiplier = 1.15f;
+	public static float staminaCostJump = 10;
+	public static float staminaCostDoubleJump = 20;
+	public static float staminaCostAttackMultiplier = 1;
+	public static float staminaRegenRate = 1;		//regen per second
+	public static float manaRegenRate = 1;			//regen per second
+	public static float manaCostAttackMultiplier = 1;
 	
 	
 	

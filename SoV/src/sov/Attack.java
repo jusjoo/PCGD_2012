@@ -99,5 +99,10 @@ public abstract class Attack {
 		System.out.println("damage("+stat+" "+statDamage+"+"+baseDamage+"):"+" damage");
 		return damage;		
 	}
+	public float getBaseDamage() {
+		return baseDamage;
+	}
+
+	public abstract boolean consumeResource();
 	
 }
