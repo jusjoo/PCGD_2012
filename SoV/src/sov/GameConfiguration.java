@@ -44,8 +44,8 @@ public class GameConfiguration {
 	public static float staminaCostJump = 10;
 	public static float staminaCostDoubleJump = 20;
 	public static float staminaCostAttackMultiplier = 1;
-	public static float staminaRegenRate = 1;		//regen per second
-	public static float manaRegenRate = 1;			//regen per second
+	public static float staminaRegenRate = 0.05f;		//regen per second
+	public static float manaRegenRate = 0.01f;			//regen per second
 	public static float manaCostAttackMultiplier = 1;
 	
 	

@@ -19,7 +19,7 @@ public class HudBarElement extends HudElement {
 	
 	public void render(SpriteBatch spriteBatch, float x, float y) {
 		bar.render(spriteBatch, x, y);
-		super.render(spriteBatch, x, y);
+		//super.render(spriteBatch, x, y);
 		
 	}
 

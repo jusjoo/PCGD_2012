@@ -184,6 +184,7 @@ public class CoffeeGDX implements ApplicationListener {
 		if (!paused) {
 			map.update(deltaTime);
 			world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
+			hud.update(deltaTime);
 		}
 		
 		if (!canPressKey) {
