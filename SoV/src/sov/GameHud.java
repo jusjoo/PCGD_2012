@@ -28,9 +28,21 @@ public class GameHud {
 		// add some selectables to it
 		MenuItem item1 = new MenuItem(new Texture(new FileHandle("assets/menu/menuItem.png")), 
 				new Texture(new FileHandle("assets/menu/menuItemSelected.png")), 
-				new Vector2(100, 100));
+				new Vector2(300, 250));
+		
+		MenuItem item2 = new MenuItem(new Texture(new FileHandle("assets/menu/menuItem.png")), 
+				new Texture(new FileHandle("assets/menu/menuItemSelected.png")), 
+				new Vector2(300, 400));
+		
+		MenuItem item3 = new MenuItem(new Texture(new FileHandle("assets/menu/menuItem.png")), 
+				new Texture(new FileHandle("assets/menu/menuItemSelected.png")), 
+				new Vector2(300, 550));
 		
 		mainMenuElement.addItem(item1);
+		mainMenuElement.addItem(item2);
+		mainMenuElement.addItem(item3);
+		
+		mainMenuElement.selectPrevious();
 		
 		
 		
@@ -84,6 +96,22 @@ public class GameHud {
 			this.removeElement(mainMenuElement);
 			game.paused = false;
 			mainMenuActive = false;
+		}
+		
+	}
+
+	public void handleMenuInput() {
+		
+		if (Gdx.input.isKeyPressed(GameConfiguration.moveLeft) || 
+				Gdx.input.isKeyPressed(GameConfiguration.moveUp)) {
+				game.keyPressed();
+				mainMenuElement.selectPrevious();
+		}
+		
+		if (Gdx.input.isKeyPressed(GameConfiguration.moveRight) || 
+				Gdx.input.isKeyPressed(GameConfiguration.moveDown)) {
+				game.keyPressed();
+				mainMenuElement.selectNext();
 		}
 		
 	}
