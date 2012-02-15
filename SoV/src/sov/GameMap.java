@@ -197,7 +197,7 @@ public class GameMap {
 					//dynMapTiles.add(asb);
 					Creature creature = factory.spawnCreature(world, Creature.CreatureType.valueOf(object.type),
 							new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));
-					creature.addComponent(new MovementComponent(creature, creature.getSpeed(), creature.getJumpHeight()));
+					creature.addComponent(new MovementComponent(creature, creature.deriveSpeed(), creature.deriveJumpHeight()));
 					if(object.properties.get("IsPlayer") != null) {
 						creature.addComponent(new PlayerInputComponent(creature));
 						this.setPlayer(creature);

@@ -57,6 +57,11 @@ public class MovementComponent extends Component {
 		if(allowJumping) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run); }
 		moving = true;
 	}
+	
+	public void setFacingRight(boolean faceRight) {
+		bodyComponent.setFacingRight(faceRight);
+	}
+	
 	public void moveAway(boolean towardsRight) {
 		//fixx todo
 		bodyComponent.setFacingRight(!towardsRight);
