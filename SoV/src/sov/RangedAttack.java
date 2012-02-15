@@ -50,7 +50,7 @@ public class RangedAttack extends Attack {
 		
 		//adding new projectile
 		attackComponent.projectiles.add(projectile);
-		System.out.println("Adding new projectile");
+		//System.out.println("Adding new projectile");
 		
 		projectile.body.addToWorld(attackComponent.bodyComponent.world, 
 				new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, 
@@ -69,7 +69,7 @@ public class RangedAttack extends Attack {
 	
 		if(offSet > 0) {
 			projectile.body.applyLinearImpulse(new Vector2( flightSpeed, 0f));
-			//projectile.body.applyLinearImpulse(new Vector2( flightSpeed +  attackComponent.bodyComponent.getLinearVelocity().x, 0f));
+
 		} else {
 			projectile.body.applyLinearImpulse(new Vector2( -flightSpeed, 0f));
 		}

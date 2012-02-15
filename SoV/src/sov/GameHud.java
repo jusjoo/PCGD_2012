@@ -9,9 +9,13 @@ import com.badlogic.gdx.math.Vector2;
 
 public class GameHud {
 
+	CoffeeGDX game;
 	ArrayList<HudElement> elements;
 	
-	public GameHud() {
+	private HudElement mainMenuElement;
+	
+	public GameHud(CoffeeGDX game) {
+		this.game = game;
 		elements = new ArrayList<HudElement>();
 	}
 	
@@ -37,4 +41,25 @@ public class GameHud {
 		
 		elements.add(playerHealthBar);
 	}
+
+	public void removeElement(HudElement hudElement) {
+		elements.remove(hudElement);
+	}
+	
+	public void toggleMainMenu() {
+		if (mainMenuElement == null) {
+			System.out.println("debug");
+			Texture texture = new Texture(new FileHandle("assets/creatures/mrEggEverything.png"));
+			Vector2 position = new Vector2(-(texture.getHeight() /2), -(texture.getWidth() /2) );
+			mainMenuElement = new HudElement(position, texture);
+			this.addElement(mainMenuElement);
+			game.paused = true;
+		} else {
+			this.removeElement(mainMenuElement);
+			mainMenuElement = null;
+			game.paused = false;
+		}
+		
+	}
+	
 }
