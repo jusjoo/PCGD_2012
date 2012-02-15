@@ -153,7 +153,7 @@ public class DynamicObjectFactory {
 					float frameDelay = Float.parseFloat(animationStates.get(attackEntry.getKey()).get(4).toString());
 					float frameAmount = Float.parseFloat(animationStates.get(attackEntry.getKey()).get(3).toString());
 					
-					float attackTime = frameDelay * frameAmount;
+					float attackTime = frameDelay * frameAmount + 0.2f;
 					
 					//System.out.println("Attacktime: " + attackTime);
 					
@@ -189,7 +189,7 @@ public class DynamicObjectFactory {
 					
 					if(attackType.equals("Melee")) {
 						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), animations, false, 1.0f, false, SlopeShape.Even, true);
-						attack = new MeleeAttack(attackComponent, attackTime, preDamageTime,  animation, damageTime, attackOffsetY, attackBody,damage);
+						attack = new MeleeAttack(attackComponent, attackTime, preDamageTime, animation, attackOffsetY, damageTime, attackBody, damage);
 						//attackComponentPrototypes.add(ac);
 						attackComponent.addAttack(attackName, attack);
 						

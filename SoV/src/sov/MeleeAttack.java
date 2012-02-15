@@ -18,10 +18,10 @@ public class MeleeAttack extends Attack {
 	SpriteBody attackBody;
 	ContactEvent contactevent;
 
-	public MeleeAttack(AttackComponent attackComponent, float attackTime,float preDamageTime, 
-			AnimationState attackAnimation,  float offSetY, float damageTime, SpriteBody attackSpriteBody, float damage) {
+	public MeleeAttack(AttackComponent attackComponent, float attackTime, float preDamageTime, 
+			AnimationState attackAnimation, float offSetY, float damageTime, SpriteBody attackSpriteBody, float damage) {
 		
-		super(attackComponent, attackTime, preDamageTime, attackAnimation, offSetY,damage);
+		super(attackComponent, attackTime, preDamageTime, attackAnimation, offSetY ,damage);
 		
 		this.damageTime = damageTime;
 		this.attackBody = attackSpriteBody;
@@ -38,7 +38,9 @@ public class MeleeAttack extends Attack {
 				
 		
 		// Adds the body in front of attacker
-		attackBody.body.addToWorld(attackComponent.bodyComponent.world, new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, attackComponent.bodyComponent.getPosition().y + offSetY));
+		attackBody.body.addToWorld(attackComponent.bodyComponent.world,
+				new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, attackComponent.bodyComponent.getPosition().y + offSetY));
+		
 
 		if (offSet > 0) attackBody.body.setFacingRight(true);
 	 		else attackBody.body.setFacingRight(false);
@@ -67,22 +69,25 @@ public class MeleeAttack extends Attack {
 		if (damaging) {
 			float offSet = this.getAttackBoxOffsetX();
 			this.attackBody.body.setPosition(new Vector2(attackComponent.bodyComponent.getPosition().x + offSet, 
-					attackComponent.bodyComponent.getPosition().y + attackComponent.activeAttack.offSetY ));
+					attackComponent.bodyComponent.getPosition().y + offSetY ));
 		}
 	
 		
 		timer = timer - deltaTime;
+		//System.out.println(timer);
 		
 		if (timer < this.attackTime - this.preDamageTime && 
 				timer > this.attackTime - this.preDamageTime - this.damageTime && !damaging){
-			
+			//System.out.println("starting damage");
 			this.startDamage();
 		}
 		if (timer < this.attackTime - this.preDamageTime - this.damageTime){
+			//System.out.println("stopping damage");
 			stopDamage();
 		}
 		if (timer < 0) {
 			attackComponent.stopAttack();
+			//System.out.println("stopping attack");
 			stopDamage();
 		}
 		
