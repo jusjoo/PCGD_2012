@@ -109,4 +109,12 @@ public class MeleeAttack extends Attack {
 	public void dealDamageTo(BodyComponent target) {
 		target.setToTakeDamage(getDamage(Stats.Strength));		
 	}
+	
+	public boolean consumeResource() {
+		boolean result;
+		float consumption = getBaseDamage() * GameConfiguration.staminaCostAttackMultiplier;
+		result = ((Creature)attackComponent.parent).modifyStamina(-consumption);		
+		
+		return result;
+	}
 }

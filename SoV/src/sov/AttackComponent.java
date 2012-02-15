@@ -80,6 +80,7 @@ public class AttackComponent extends Component {
 						rangedProto.baseDamage,
 						rangedProto.flightSpeed);
 				attackComponent.addAttack(protoAttack.getKey(), attack);
+				attack.setSpellType(rangedProto.getSpellType());
 				
 			}
 			
@@ -139,7 +140,8 @@ public class AttackComponent extends Component {
 	public void attack(SpriteComponent.AnimationState attackType) {
 		if (activeAttack == null) {
 			activeAttack = attacks.get(attackType);
-			activeAttack.startAttack();
+			if (activeAttack.consumeResource())
+				activeAttack.startAttack();
 			
 		}
 	}

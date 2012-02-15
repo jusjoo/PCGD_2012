@@ -100,6 +100,12 @@ public class Creature extends SpriteBody implements Cloneable {
 	@Override
 	public void update(float deltaTime) {
 		super.update(deltaTime);
+		
+		
+		float staminaregen = deltaTime * GameConfiguration.staminaRegenRate;
+		float manaregen = deltaTime * GameConfiguration.manaRegenRate;
+		modifyStamina(staminaregen);
+		modifyMana(manaregen);
 
 	}
 	
@@ -191,6 +197,7 @@ public class Creature extends SpriteBody implements Cloneable {
 			mana = manaMax;
 		else mana = newValue;
 		
+		//System.out.println("Mana("+mana+"/"+manaMax+"): "+value);
 		return true;
 	}
 	
@@ -203,6 +210,9 @@ public class Creature extends SpriteBody implements Cloneable {
 			stamina = staminaMax;
 		else stamina = newValue;
 		
-		return true;		
+		//System.out.println("Stamina("+stamina+"/"+staminaMax+"): "+value);
+		
+		return true;	
+		
 	}	
 }
