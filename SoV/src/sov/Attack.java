@@ -63,7 +63,7 @@ public abstract class Attack {
 	protected void startAttack() {
 		timer = attackTime;
 		attacking = true;
-		System.out.println("starting attack... timer:"+timer);
+		//System.out.println("starting attack... timer:"+timer);
 		attackComponent.parent.getComponent(SpriteComponent.class).setCurrentAnimationState(animation);
 		//parent.getComponent(SpriteComponent.class).setCurrentAnimationState(attacks.get(attackType).animation);
 		

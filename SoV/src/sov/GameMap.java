@@ -201,8 +201,9 @@ public class GameMap {
 					if(object.properties.get("IsPlayer") != null) {
 						creature.addComponent(new PlayerInputComponent(creature));
 						this.setPlayer(creature);
+						
 					} else {
-						creature.addComponent(new AIComponent(creature));	
+						creature.addComponent(new AIComponent(creature));
 
 					}
 					

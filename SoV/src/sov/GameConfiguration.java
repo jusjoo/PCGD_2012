@@ -21,6 +21,7 @@ public class GameConfiguration {
 	
 	// Pixels per meter is used to translate Box2d coordinates into pixel coordinates.
 	public static final float PIXELS_PER_METER = 32;
+	
 		
 	// player
 	public static float speed = 0.8f;
@@ -53,6 +54,7 @@ public class GameConfiguration {
 	public static int actionCrouch = Keys.DOWN;
 	public static int actionAttack = Keys.SPACE;
 	public static int actionAltAttack = Keys.CONTROL_LEFT;
+	public static int escapeKey = Keys.ESCAPE;
 	
 	// developer key mappings
 	public static int debugRenderKey = Keys.NUM_1;

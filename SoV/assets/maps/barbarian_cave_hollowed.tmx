@@ -372,7 +372,6 @@
   <object type="Slime" x="3612" y="1695"/>
   <object type="Goblin" x="3636" y="1694"/>
   <object type="Slime" x="3665" y="1692"/>
-  <object type="Ninja" x="795" y="387"/>
   <object type="Goblin" x="337" y="390"/>
  </objectgroup>
 </map>
