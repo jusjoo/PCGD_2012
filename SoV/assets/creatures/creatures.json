@@ -29,8 +29,7 @@
 	 	"_sounds_description":
 	 			"soundFile in assets/sounds",
 	 	"sounds": {
-	 		"Die": "chord.wav",
-	 		"Run": "chord.wav"
+	 		"Die": "chord.wav"
 	 	}
 
 	  	
