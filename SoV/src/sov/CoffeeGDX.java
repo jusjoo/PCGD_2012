@@ -60,7 +60,6 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		world = new World(new Vector2(0.0f,-10.0f), true);
 		map = new GameMap(GameConfiguration.firstMap, world);
-
 		
 		hud.setPlayer(map.getPlayer());
 		

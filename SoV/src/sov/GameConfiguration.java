@@ -19,7 +19,7 @@ public class GameConfiguration {
 	public static int windowSizeY = 768;
 	
 	// world
-	public static String firstMap = "barbarian_village_hollowed.tmx";
+	public static String firstMap = "barbarian_cave_hollowed.tmx";
 	// How quickly does the camera follow the player?
 	public static float interpolationAmount = 1.00f;
 	
@@ -87,6 +87,7 @@ public class GameConfiguration {
 	public static int selectSorceressKey = Keys.NUM_8; 
 	
 	public static DynamicObjectFactory dynamicObjectFactory;
+	public static float trapDamage = 50f;
 	
 	
 	
