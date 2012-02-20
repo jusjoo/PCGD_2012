@@ -25,6 +25,7 @@ public class GameConfiguration {
 	
 	// Pixels per meter is used to translate Box2d coordinates into pixel coordinates.
 	public static final float PIXELS_PER_METER = 32;
+	public static final float audioComponentTimer = 0.3f;
 	
 		
 	// player

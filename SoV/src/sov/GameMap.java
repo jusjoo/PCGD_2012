@@ -98,7 +98,7 @@ public class GameMap {
 		if (musicFile != null) {
 			backgroundMusic = Gdx.audio.newMusic(new FileHandle("assets/music/"+ musicFile));
 			backgroundMusic.setLooping(true);
-			backgroundMusic.play();
+			//backgroundMusic.play();
 		}
 		
 	}
