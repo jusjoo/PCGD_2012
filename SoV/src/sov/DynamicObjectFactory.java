@@ -10,6 +10,8 @@ import sov.AIComponent.AIstate;
 import sov.BodyComponent.SlopeShape;
 import sov.SpriteComponent.AnimationState;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -218,8 +220,24 @@ public class DynamicObjectFactory {
 				}
 				
 				
+				/*
+				 * Add sounds for the creature prototype
+				 */
+				if (creaturePrototype.sounds != null) {
+					HashMap<AnimationState, String> soundDefinitions = creaturePrototype.sounds;
+				
+					AudioComponent audioComponent = new AudioComponent(creaturePrototype);
+				
+					for(Entry<SpriteComponent.AnimationState, String> soundEntry: soundDefinitions.entrySet()) {
+						Sound sound = Gdx.audio.newSound(new FileHandle("assets/sound/" + soundEntry.getValue()));
+						audioComponent.addSound(soundEntry.getKey(), sound);
+					}
+					creaturePrototype.addComponent(audioComponent);
+				}
+					
 				
 				creaturePrototype.addComponent(attackComponent);
+				
 				
 
 			
