@@ -17,6 +17,8 @@ public class BarElement {
 	private int barPositionY;
 	private int barSizeX;
 	private int barSizeY;
+	
+	Sprite bar;
 
 	public BarElement(Vector2 barPosition, Vector2 barSize, float maxValue) {
 		
@@ -29,6 +31,8 @@ public class BarElement {
 		
 		this.maxValue = maxValue;
 		this.currentValue = maxValue;
+		
+		updateBar();
 
 	}
 
@@ -38,14 +42,14 @@ public class BarElement {
 	
 	public void render(SpriteBatch spriteBatch, float x, float y) {
 						
-		Sprite bar = getBar();
+		updateBar();
 		bar.setPosition(x + barPositionX, 
 						y - barPositionY - barSizeY);
 		bar.draw(spriteBatch);
 		
 	}
 	
-	private Sprite getBar() {
+	private void updateBar() {
 		
 		
 		Pixmap pixmap = new Pixmap(barSizeX, barSizeY, Pixmap.Format.RGB565);
@@ -57,9 +61,9 @@ public class BarElement {
 		}
 		
 		Texture texture = new Texture(pixmap);
-		Sprite sprite = new Sprite(texture);
+		bar = new Sprite(texture);
 		
-		return sprite;
+		//return sprite;
 		
 	}
 	
