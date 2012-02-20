@@ -12,6 +12,7 @@ public class BarElement {
 	private float currentValue;
 	private float maxValue;
 	
+	private Sprite barSprite;
 	
 	private int barPositionX;
 	private int barPositionY;
@@ -38,10 +39,10 @@ public class BarElement {
 	
 	public void render(SpriteBatch spriteBatch, float x, float y) {
 						
-		Sprite bar = getBar();
-		bar.setPosition(x + barPositionX, 
+		barSprite = getBar();
+		barSprite.setPosition(x + barPositionX, 
 						y - barPositionY - barSizeY);
-		bar.draw(spriteBatch);
+		barSprite.draw(spriteBatch);
 		
 	}
 	
