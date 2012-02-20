@@ -25,6 +25,7 @@ public class GameConfiguration {
 	
 	// Pixels per meter is used to translate Box2d coordinates into pixel coordinates.
 	public static final float PIXELS_PER_METER = 32;
+	public static final float audioComponentTimer = 0.3f;
 	
 		
 	// player
@@ -51,14 +52,14 @@ public class GameConfiguration {
 	public static boolean staminaRegenAsPercentage = false;	
 	public static float staminaRegenRatePercentage = 0.05f;		//regen per second
 	public static float staminaRegenRateStatic = 7;
-	public static float staminaCostJump = 20.0f;
-	public static float staminaCostDoubleJump = 20.0f;
+	public static float staminaCostJump = 7.0f;
+	public static float staminaCostDoubleJump = 21.0f;
 	public static float staminaCostAttackMultiplier = 2.0f;
 	
 	public static boolean manaRegenAsPercentage = true;
-	public static float manaRegenRatePercentage = 0.07f;			//regen per second
+	public static float manaRegenRatePercentage = 0.02f;			//regen per second
 	public static float manaRegenRateStatic = 1;	
-	public static float manaCostAttackMultiplier = 1.5f;
+	public static float manaCostAttackMultiplier = 1.0f;
 	
 	
 	
@@ -77,6 +78,7 @@ public class GameConfiguration {
 	public static int actionAttack = Keys.SPACE;
 	public static int actionAltAttack = Keys.CONTROL_LEFT;
 	public static int escapeKey = Keys.ESCAPE;
+	public static int activateMenu = Keys.ENTER;
 	
 	// developer key mappings
 	public static int debugRenderKey = Keys.NUM_1;
@@ -84,8 +86,12 @@ public class GameConfiguration {
 	public static int selectBarbarianKey = Keys.NUM_0;
 	public static int selectNinjaKey = Keys.NUM_9;
 	public static int selectSorceressKey = Keys.NUM_8; 
+	public static int mapSelectKey = Keys.M;
+	
 	
 	public static DynamicObjectFactory dynamicObjectFactory;
+	public static float trapDamage = 50f;
+	
 	
 	
 	

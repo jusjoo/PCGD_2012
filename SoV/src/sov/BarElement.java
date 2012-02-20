@@ -1,5 +1,7 @@
 package sov;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,13 +14,14 @@ public class BarElement {
 	private float currentValue;
 	private float maxValue;
 	
+	private HashMap<Integer, Sprite> savedStates;
 	
 	private int barPositionX;
 	private int barPositionY;
 	private int barSizeX;
 	private int barSizeY;
 	
-	Sprite bar;
+	
 
 	public BarElement(Vector2 barPosition, Vector2 barSize, float maxValue) {
 		
@@ -32,7 +35,8 @@ public class BarElement {
 		this.maxValue = maxValue;
 		this.currentValue = maxValue;
 		
-		updateBar();
+
+		savedStates = new HashMap<Integer, Sprite>();
 
 	}
 
@@ -41,30 +45,43 @@ public class BarElement {
 	}
 	
 	public void render(SpriteBatch spriteBatch, float x, float y) {
-						
-		updateBar();
+		Sprite bar = getBar();
+		
 		bar.setPosition(x + barPositionX, 
 						y - barPositionY - barSizeY);
 		bar.draw(spriteBatch);
 		
 	}
 	
-	private void updateBar() {
-		
-		
-		Pixmap pixmap = new Pixmap(barSizeX, barSizeY, Pixmap.Format.RGB565);
-		pixmap.setColor(Color.BLACK);
-		pixmap.fillRectangle(0, 0, barSizeX, barSizeY);
-		pixmap.setColor(Color.GREEN);
-		if(currentValue > 0) {
-			pixmap.fillRectangle(0, 0, (int) ((int) barSizeX*getPercentage()), barSizeY);
+
+	private Sprite getBar() {
+		int barWidth = (int) (barSizeX * getPercentage());
+		// Check that the wanted sprite doesn't exist already
+		Sprite sprite = savedStates.get(barWidth);
+		if (sprite != null) {
+			return sprite;
+		} else {
+			Pixmap pixmap = new Pixmap(barSizeX, barSizeY, Pixmap.Format.RGB565);
+			pixmap.setColor(Color.BLACK);
+			pixmap.fillRectangle(0, 0, barSizeX, barSizeY);
+			pixmap.setColor(Color.GREEN);
+			
+			// get the rounded bar width, so we don't have to save every float value in savedStates
+			
+			if(currentValue > 0) {
+				
+				pixmap.fillRectangle(0, 0, barWidth, barSizeY);
+			}
+			
+			Texture texture = new Texture(pixmap);
+			sprite = new Sprite(texture);
+			
+			savedStates.put(barWidth, sprite);
+			
+			return sprite;
+
 		}
-		
-		Texture texture = new Texture(pixmap);
-		bar = new Sprite(texture);
-		
-		//return sprite;
-		
+
 	}
 	
 	private float getPercentage() {

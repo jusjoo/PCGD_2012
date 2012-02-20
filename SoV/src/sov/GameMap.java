@@ -9,6 +9,9 @@ import sov.Creature.CreatureType;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.AudioDevice;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.analysis.AudioTools;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -29,13 +32,15 @@ import com.badlogic.gdx.physics.box2d.World;
 public class GameMap {
 	
 	// LayerTypes correspond to layers in Tiled-maps
-	enum LayerType { Foreground, Background, StaticTiles, DynamicTiles, Creatures, Traps, Accessories };
+	enum LayerType { Foreground, Background, StaticTiles, DynamicTiles, Creatures, Traps, Accessories, TrapSensors };
 	
 	// Hold a reference to the player, for camera positioning etc.
 	Creature player;
 	
 	// Map which is loaded from the Tiled map, has information on nearly everything!
 	TiledMap map;
+	
+	Music backgroundMusic;
 	
 	// Background image
 	Sprite backgroundImage;
@@ -88,10 +93,39 @@ public class GameMap {
 		createStaticTiles(world);
 		createDynamicTiles(world, atlas);
 		spawnCreatures(world);
+		createTrapSensors(world);
+		
+		String musicFile = tileMapRenderer.getMap().properties.get("music");
+		if (musicFile != null) {
+			backgroundMusic = Gdx.audio.newMusic(new FileHandle("assets/music/"+ musicFile));
+			backgroundMusic.setLooping(true);
+			backgroundMusic.play();
+		}
 		
 	}
 	
 	
+	private void createTrapSensors(World world) {
+		TiledObjectGroup objects = null;
+		for (TiledObjectGroup objectGroup: map.objectGroups) {
+			if (objectGroup.name.equals("TrapSensors")) {
+				objects = objectGroup;
+			}
+		}
+		
+		for (TiledObject trap: objects.objects) {
+			BodyComponent trapBody = new BodyComponent(null, new Vector2(trap.width, trap.height), true, 1.0f, false, SlopeShape.Even, true);	
+			
+			trapBody.addToWorld(world, new Vector2(trap.x + trap.width/2 -8, -trap.y+(map.height)*map.tileHeight - trap.height/2 +8 ));
+			
+			trapBody.setUserData(new ContactEvent(trapBody, "trap"));
+		}
+		
+		
+		
+	}
+
+
 	/*  Create BodyEntities based on static tile positions. Used so that
 	 *  we can use tileMapRenderer for rendering, and Box2D for collision
 	 *  and physics handling.
@@ -142,6 +176,10 @@ public class GameMap {
 				layerIds.put(LayerType.Traps, i);
 			}
 			
+			else if(layer.name.equals("TrapSensors")) {
+				layerIds.put(LayerType.TrapSensors, i);
+			}
+			
 			else if(layer.name.equals("Foreground")) {
 				layerIds.put(LayerType.Foreground, i);
 			}
@@ -156,8 +194,8 @@ public class GameMap {
 		
 		for(TiledObjectGroup objectGroup : objectGroups) {
 			if(objectGroup.name.equals("DynamicTiles")) {
-				ArrayList<TiledObject> dynTiles = map.objectGroups.get(0).objects;
-				
+				//ArrayList<TiledObject> dynTiles = map.objectGroups.get(0).objects;
+				ArrayList<TiledObject> dynTiles = objectGroup.objects;
 				for(TiledObject object : dynTiles) {
 					
 					
@@ -180,7 +218,9 @@ public class GameMap {
 		
 		for(TiledObjectGroup objectGroup : objectGroups) {
 			if(objectGroup.name.equals("Creatures")) {
-				ArrayList<TiledObject> dynTiles = map.objectGroups.get(1).objects;
+				//ArrayList<TiledObject> dynTiles = map.objectGroups.get(1).objects;
+				
+				ArrayList<TiledObject> dynTiles = objectGroup.objects;
 				
 				for(TiledObject object : dynTiles) {
 					

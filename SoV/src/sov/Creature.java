@@ -35,6 +35,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	@Expose float wisdom;
 	@Expose HashMap<SpriteComponent.AnimationState, ArrayList<Object>> frames;
 	@Expose HashMap<SpriteComponent.AnimationState, ArrayList<Object>> attacks;
+	@Expose HashMap<SpriteComponent.AnimationState, String> sounds;
 	
 	protected float speed;
 	protected float jumpHeight;
@@ -88,8 +89,9 @@ public class Creature extends SpriteBody implements Cloneable {
 			creature.getComponent(AttackComponent.class).setParent(creature);
 		}
 		
-	
-		
+		if (prototype.getComponent(AudioComponent.class) != null) {
+			creature.addComponent(prototype.getComponent(AudioComponent.class));
+		}
 		
 		
 		
