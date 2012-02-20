@@ -64,7 +64,7 @@ public class MovementComponent extends Component {
 		bodyComponent.setFacingRight(towardsRight);
 		if(towardsRight) { deltaMove.set(speed, 0f); } 
 		else { deltaMove.set(-speed, 0f); }
-		if(allowJumping()) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run); }
+		if(onGround()) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run); }
 		moving = true;
 	}
 	
@@ -77,12 +77,20 @@ public class MovementComponent extends Component {
 		bodyComponent.setFacingRight(!towardsRight);
 		if(!towardsRight) { deltaMove.set(speed, 0f); } 
 		else { deltaMove.set(-speed, 0f); }
-		if(allowJumping()) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run); }
+		if(onGround()) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run); }
 		moving = true;
 	}
 	
 	public void jump() {
-		if(allowJumping() && jumpTimer >= jumpDelay && ((Creature)parent).modifyStamina(-GameConfiguration.staminaCostJump)) {
+		/*
+		 * Set correct staminacost - different for second jump.
+		 */
+		float staminacost;
+		if (jumpsLeft > 0 && jumpsLeft < maxJumps)
+			staminacost = GameConfiguration.staminaCostDoubleJump;
+		else staminacost = GameConfiguration.staminaCostJump;
+		
+		if(allowJumping() && jumpTimer >= jumpDelay && ((Creature)parent).modifyStamina(-staminacost)) {
 			System.out.println("Jumping!");			
 			spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Jump);
 			deltaMove.set(deltaMove.x, jumpHeight);
@@ -102,7 +110,7 @@ public class MovementComponent extends Component {
 		}
 		
 		
-		if(bodyComponent.getLinearVelocity().y < -0.7f && !allowJumping()) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Fall); }
+		if(bodyComponent.getLinearVelocity().y < -0.7f && jumpsLeft < maxJumps) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Fall); }
 		
 		moving = false;
 		
@@ -114,6 +122,13 @@ public class MovementComponent extends Component {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean onGround() {
+		if (jumpsLeft == 0 || jumpsLeft > 0 && jumpsLeft < maxJumps)
+			return false;		
+		else
+			return true;
 	}
 
 }

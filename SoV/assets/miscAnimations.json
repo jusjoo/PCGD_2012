@@ -35,7 +35,7 @@
 		"_frames_description":
 				"Frame size(16px*x, 16px*y), Origin offset, Start frame coordinates, Length, Speed (ms), Looping",
 		"frames": {   
-		  "Idle": [[1,1], 0, [0,1], 5, 0.15, true],
+		  "Idle": [[1,1], 0, [0,1], 5, 0.05, true],
 		  "Run": [[1,1], 0, [0,1], 5, 0.15, true],
 		  "Jump": [[1,1], 0, [0,1], 5, 0.15, false],
 		  "Fall": [[1,1], 0, [0,1], 5, 0.15, true],

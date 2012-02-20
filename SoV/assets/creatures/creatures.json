@@ -61,7 +61,7 @@
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
 	  	"attacks": {
 	  	  "Attack1": ["Melee", 3, 4, 1.0, 16.0, 16.0, 10],
-	  	  "Attack2": ["Ranged", 3, 4, 0.0, 8.0, 8.0, 5, "Shuriken", 2.5]
+	  	  "Attack2": ["Ranged", 3, 4, 0.0, 8.0, 8.0, 5, "Shuriken", 3.0]
 
 	  	},
 	  	"sounds": {
