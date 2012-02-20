@@ -57,6 +57,11 @@ public class MovementComponent extends Component {
 		if(allowJumping) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run); }
 		moving = true;
 	}
+	
+	public void setFacingRight(boolean faceRight) {
+		bodyComponent.setFacingRight(faceRight);
+	}
+	
 	public void moveAway(boolean towardsRight) {
 		//fixx todo
 		bodyComponent.setFacingRight(!towardsRight);
@@ -67,7 +72,7 @@ public class MovementComponent extends Component {
 	}
 	
 	public void jump() {
-		if(allowJumping && jumpTimer >= jumpDelay) {
+		if(allowJumping && jumpTimer >= jumpDelay && ((Creature)parent).modifyStamina(-GameConfiguration.staminaCostJump)) {
 			System.out.println("Jumping!");
 			spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Jump);
 			deltaMove.set(deltaMove.x, jumpHeight);

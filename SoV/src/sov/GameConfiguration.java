@@ -14,6 +14,10 @@ public class GameConfiguration {
 	// activates the developer controls
 	public static boolean devMode = true;
 	
+	// game window dimensions
+	public static int windowSizeX = 1024;
+	public static int windowSizeY = 768;
+	
 	// world
 	public static String firstMap = "barbarian_village_hollowed.tmx";
 	// How quickly does the camera follow the player?
@@ -29,14 +33,32 @@ public class GameConfiguration {
 	public static float attackImpulse = 0.8f;
 	
 	// creature
-	public static float strHealthMultiplier = 1.0f;
-	public static float strDamageMultiplier = 1.0f;
-	public static float healthBaseModifier = 1.0f;	
+	public static boolean randomizedDamage = true;
+	
+	public static float strHealthMultiplier = 15f;
+	public static float healthBaseModifier = 25f;	
+	public static float strDamageMultiplier = 1.0f;	
 	public static float dexSpeedMultiplier = 0.4f;
+	public static float dexStaminaMultiplier = 10;
+	public static float staminaBaseModifier = 50;
+	public static float wisManaMultiplier = 10;
+	public static float manaBaseModifier = 0;	
 	public static float speedBaseModifier = 1.0f;
 	public static float dexJumpHeightMultiplier = 1.0f;
 	public static float jumpHeightBaseModifier = 5.0f;
 	public static float creatureMaxVelocityMultiplier = 1.15f;
+		
+	public static boolean staminaRegenAsPercentage = false;	
+	public static float staminaRegenRatePercentage = 0.05f;		//regen per second
+	public static float staminaRegenRateStatic = 7;
+	public static float staminaCostJump = 20.0f;
+	public static float staminaCostDoubleJump = 20.0f;
+	public static float staminaCostAttackMultiplier = 2.0f;
+	
+	public static boolean manaRegenAsPercentage = true;
+	public static float manaRegenRatePercentage = 0.07f;			//regen per second
+	public static float manaRegenRateStatic = 1;	
+	public static float manaCostAttackMultiplier = 1.5f;
 	
 	
 	

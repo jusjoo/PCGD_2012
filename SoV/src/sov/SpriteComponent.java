@@ -95,7 +95,11 @@ public class SpriteComponent extends Component {
 		if(parent.getComponent(BodyComponent.class) != null) {
 			BodyComponent body = parent.getComponent(BodyComponent.class);
 				if(body.healthBar != null) {
-					body.healthBar.render(spriteBatch, body.getPosition().x, body.getPosition().y);
+					
+					// Check that the player's health bar isn't drawn, since it's done in the hud-class.
+					if (body.parent.getComponent(PlayerInputComponent.class) == null) {
+						body.healthBar.render(spriteBatch, body.getPosition().x, body.getPosition().y);
+					}
 				}
 		}
 	}

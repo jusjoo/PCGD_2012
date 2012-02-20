@@ -58,9 +58,10 @@ public abstract class Attack {
 
 	
 	
-	
-	
 	protected void startAttack() {
+		
+		//System.out.println("Starting attack");
+		
 		timer = attackTime;
 		attacking = true;
 		//System.out.println("starting attack... timer:"+timer);
@@ -85,6 +86,7 @@ public abstract class Attack {
 	}
 	
 	public float getDamage(Stats stat) {
+		
 		float statDamage;
 		
 		switch (stat) {
@@ -94,10 +96,22 @@ public abstract class Attack {
 		default: statDamage = 0;
 		}
 		
+		float damage;
 		
-		float damage = statDamage + baseDamage;
+		if (GameConfiguration.randomizedDamage) {
+			damage = Math.round(((float)Math.random()) * (baseDamage + statDamage) + statDamage);
+			
+		}
+		else {
+			damage = Math.round(statDamage + baseDamage);
+		}
 		System.out.println("damage("+stat+" "+statDamage+"+"+baseDamage+"):"+" damage");
 		return damage;		
 	}
+	public float getBaseDamage() {
+		return baseDamage;
+	}
+
+	public abstract boolean consumeResource();
 	
 }

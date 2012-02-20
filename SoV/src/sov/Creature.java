@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
 import sov.BodyComponent.SlopeShape;
 import sov.SpriteComponent.AnimationState;
 
@@ -36,6 +38,10 @@ public class Creature extends SpriteBody implements Cloneable {
 	
 	protected float speed;
 	protected float jumpHeight;
+	protected float staminaMax;
+	protected float stamina;
+	protected float manaMax;
+	protected float mana;
 	
 	Fixture sensorFixture;
 	
@@ -60,9 +66,14 @@ public class Creature extends SpriteBody implements Cloneable {
 		creature.dexterity = prototype.dexterity;
 		creature.strength = prototype.strength;
 		creature.wisdom = prototype.wisdom;
-		creature.speed = creature.getSpeed();
+		creature.speed = creature.deriveSpeed();
 		//hitpoints are set when adding to world
-		creature.jumpHeight = creature.getJumpHeight();
+		creature.jumpHeight = creature.deriveJumpHeight();
+		creature.manaMax = prototype.deriveMana();
+		creature.staminaMax = prototype.deriveStamina();
+		creature.mana = creature.manaMax;
+		creature.stamina = creature.staminaMax;
+		
 		
 		creature.body.setMaxVelocity(creature.speed*GameConfiguration.creatureMaxVelocityMultiplier);
 		
@@ -87,30 +98,52 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		
 		return creature;
-	}
-	
-	public float getSpeed() {
-		return this.dexterity * GameConfiguration.dexSpeedMultiplier + GameConfiguration.speedBaseModifier;		
-	}
-	
-	public float getJumpHeight() {
-		return this.dexterity * GameConfiguration.dexJumpHeightMultiplier + GameConfiguration.jumpHeightBaseModifier;
-	}
+	}	
 	
 	@Override
 	public void update(float deltaTime) {
 		super.update(deltaTime);
-
+				
+		if (!body.finalDeath) {
+			regenerateStamina(deltaTime);
+			regenerateMana(deltaTime);
+		}
+		
 	}
 	
+	private void regenerateMana(float deltaTime) {
+		
+		float manaregen;
+		
+		if (GameConfiguration.manaRegenAsPercentage)
+			manaregen = deltaTime * GameConfiguration.manaRegenRatePercentage * manaMax;
+		else
+			manaregen = deltaTime * GameConfiguration.manaRegenRateStatic;			
+			
+		modifyMana(manaregen);
+		
+	}
+
+	private void regenerateStamina(float deltaTime) {
+		float staminaregen;
+		
+		if (GameConfiguration.staminaRegenAsPercentage)
+			staminaregen = deltaTime * GameConfiguration.staminaRegenRatePercentage * staminaMax;
+		else
+			staminaregen = deltaTime * GameConfiguration.staminaRegenRateStatic;
+		
+		modifyStamina(staminaregen);
+		
+	}
+
 	public void removeFromWorld(){
 		getComponent(BodyComponent.class).removeFromWorld();
 		getComponent(BodyComponent.class).body.destroyFixture(sensorFixture);
 	}
 	
 	public void addToWorld(World world, Vector2 position) {
-		//set hitpoints
-		float hp = strength*strength;
+		//set hitpoints		 
+		float hp = deriveHitpoints();
 		getComponent(BodyComponent.class).setHitPoints(hp);
 		getComponent(BodyComponent.class).heal(hp);
 		getComponent(BodyComponent.class).addToWorld(world, position);
@@ -154,4 +187,63 @@ public class Creature extends SpriteBody implements Cloneable {
 		System.out.println("Wisdom "+wisdom);
 		return wisdom;				
 	}
+	public float getSpeed(){
+		return speed;
+	}
+	public float getJumpHeight(){
+		return jumpHeight;				
+	}
+	public float getMana() {
+		return mana;
+	}
+	public float getStamina() {
+		return stamina;
+	}
+	public float deriveSpeed() {
+		return this.dexterity * GameConfiguration.dexSpeedMultiplier + GameConfiguration.speedBaseModifier;		
+	}
+	
+	public float deriveJumpHeight() {
+		return this.dexterity * GameConfiguration.dexJumpHeightMultiplier + GameConfiguration.jumpHeightBaseModifier;
+	}
+	public float deriveMana(){
+		float value = wisdom * GameConfiguration.wisManaMultiplier + GameConfiguration.manaBaseModifier;
+		return value;
+	}
+	public float deriveStamina(){
+		float value = dexterity * GameConfiguration.dexStaminaMultiplier + GameConfiguration.staminaBaseModifier;
+		return value;				
+	}
+	private float deriveHitpoints() {
+		float value = strength * GameConfiguration.strHealthMultiplier + GameConfiguration.healthBaseModifier; 
+		return value;
+	}
+	// return true if legal operation
+	public boolean modifyMana(float value){
+		
+		float newValue = mana+value;
+		if (newValue < 0)
+			return false;
+		else if (newValue > manaMax)
+			mana = manaMax;
+		else mana = newValue;
+		
+		//System.out.println("Mana("+mana+"/"+manaMax+"): "+value);
+		return true;
+	}
+	
+	public boolean modifyStamina(float value){
+		
+		float newValue = stamina+value;
+		if (newValue < 0)
+			return false;
+		else if (newValue > staminaMax)
+			stamina = staminaMax;
+		else stamina = newValue;
+		
+		//System.out.println("Stamina("+stamina+"/"+staminaMax+"): "+value);
+		
+		return true;	
+		
+	}	
 }

@@ -9,6 +9,9 @@ import sov.Creature.CreatureType;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.AudioDevice;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.analysis.AudioTools;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -36,6 +39,8 @@ public class GameMap {
 	
 	// Map which is loaded from the Tiled map, has information on nearly everything!
 	TiledMap map;
+	
+	Music backgroundMusic;
 	
 	// Background image
 	Sprite backgroundImage;
@@ -88,6 +93,13 @@ public class GameMap {
 		createStaticTiles(world);
 		createDynamicTiles(world, atlas);
 		spawnCreatures(world);
+		
+		String musicFile = tileMapRenderer.getMap().properties.get("music");
+		if (musicFile != null) {
+			backgroundMusic = Gdx.audio.newMusic(new FileHandle("assets/music/"+ musicFile));
+			backgroundMusic.setLooping(true);
+			backgroundMusic.play();
+		}
 		
 	}
 	
@@ -197,7 +209,7 @@ public class GameMap {
 					//dynMapTiles.add(asb);
 					Creature creature = factory.spawnCreature(world, Creature.CreatureType.valueOf(object.type),
 							new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));
-					creature.addComponent(new MovementComponent(creature, creature.getSpeed(), creature.getJumpHeight()));
+					creature.addComponent(new MovementComponent(creature, creature.deriveSpeed(), creature.deriveJumpHeight()));
 					if(object.properties.get("IsPlayer") != null) {
 						creature.addComponent(new PlayerInputComponent(creature));
 						this.setPlayer(creature);

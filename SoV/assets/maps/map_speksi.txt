@@ -1,6 +1,9 @@
 
 Mappispeksi v0.02
 
+- musiikki: 
+	- map propertyihin key "music", jolle valueksi musiikkitiedosto assets/music/ -kansiossa
+
 - tilesetit:
 	- tilesetit samaan kansioon mappien kanssa
 	- vinojen palikoiden asetuksiin lisättävä avain "slope", jolle arvoksi left tai right

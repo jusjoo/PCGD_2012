@@ -113,7 +113,6 @@ public class CoffeeGDX implements ApplicationListener {
 		// handle the input
 		if (canPressKey) {
 			handleInput();
-			if (GameConfiguration.devMode) handleDebugInput();
 		}
 			
 		update();
@@ -184,6 +183,7 @@ public class CoffeeGDX implements ApplicationListener {
 		if (!paused) {
 			map.update(deltaTime);
 			world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
+			hud.update(deltaTime);
 		}
 		
 		if (!canPressKey) {
@@ -205,13 +205,19 @@ public class CoffeeGDX implements ApplicationListener {
 	 */
 	public void keyPressed() {
 		canPressKey = false;
-		inputTimer = 0.5f;
+		inputTimer = 0.2f;
 	}
 	
 	public void handleInput() {
 		if (Gdx.input.isKeyPressed(GameConfiguration.escapeKey)) {
 			keyPressed();
 			hud.toggleMainMenu();
+		}
+		
+		if (GameConfiguration.devMode) handleDebugInput();
+		
+		if (hud.mainMenuActive){
+			hud.handleMenuInput();
 		}
 	}
 	
@@ -282,7 +288,7 @@ public class CoffeeGDX implements ApplicationListener {
 
 	
 	public static void main (String[] args) {
-        new LwjglApplication(new CoffeeGDX(), "Game", 1024, 768, false);
+        new LwjglApplication(new CoffeeGDX(), "Game", GameConfiguration.windowSizeX, GameConfiguration.windowSizeY, false);
 		 /// new LwjglApplication(new CoffeeGDX(), "Game", 800, 600, false);
 }
 

@@ -13,9 +13,11 @@ import sov.SpriteComponent.AnimationState;
 public class RangedAttack extends Attack {
 	
 	public float flightSpeed;
-	
+	private int spellType = -1;
 
 	protected Projectile projectileProto;
+	private float ammo;
+	private float ammoMax;
 	
 	public RangedAttack(AttackComponent attackComponent, float attackTime,	float preDamageTime,
 			AnimationState attackAnimation, Projectile projectile, float offSetY, float damage, float flightSpeed) {
@@ -24,7 +26,21 @@ public class RangedAttack extends Attack {
 		
 		this.flightSpeed = flightSpeed;
 		this.projectileProto = projectile;
+		this.ammo = 20;
+		this.ammoMax = ammo;
 				
+	}
+	public void setSpellType(int type) {
+		this.spellType = type;
+	}
+	
+	public boolean isSpell(){
+		System.out.println("Spelltype: "+spellType);
+		if (spellType < 0) {
+			return false;
+		}
+					
+		else return true;
 	}
 	
 
@@ -36,8 +52,7 @@ public class RangedAttack extends Attack {
 				 true);
 		
 		
-		projectile.setDamage(getDamage(Stats.Wisdom));
-		
+		projectile.setDamage(getDamage(Stats.Wisdom));		
 		
 		float offSet = getAttackBoxOffsetX();
 		
@@ -78,6 +93,28 @@ public class RangedAttack extends Attack {
 		
 	}
 	
+	public boolean consumeResource() {
+		boolean result;
+		float consumption = 1;
+		if (isSpell()) {
+			consumption = getBaseDamage() * GameConfiguration.manaCostAttackMultiplier;			
+			result = ((Creature)attackComponent.parent).modifyMana(-consumption);
+		}
+		else result = modifyAmmo(-consumption);
+		
+		return result;
+		
+	}
+	private boolean modifyAmmo(float mod) {
+		boolean result;
+		if (ammo+mod > 0 && ammo+mod <= ammoMax) {
+			ammo += mod;
+			result = true;
+		}
+		else result = false;
+		System.out.println("Ammo: "+ammo+"/"+ammoMax);
+		return result;
+	}
 	private float getAttackBoxOffsetX() {
 		float offset = attackComponent.getOffsetX();
 				
@@ -97,6 +134,10 @@ public class RangedAttack extends Attack {
 
 	public void stopDamage() {
 		damaging = false;
+	}
+	
+	public int getSpellType(){
+		return this.spellType;
 	}
 
 
