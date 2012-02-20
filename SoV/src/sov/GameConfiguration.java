@@ -85,9 +85,12 @@ public class GameConfiguration {
 	public static int selectBarbarianKey = Keys.NUM_0;
 	public static int selectNinjaKey = Keys.NUM_9;
 	public static int selectSorceressKey = Keys.NUM_8; 
+	public static int mapSelectKey = Keys.M;
+	
 	
 	public static DynamicObjectFactory dynamicObjectFactory;
 	public static float trapDamage = 50f;
+	
 	
 	
 	

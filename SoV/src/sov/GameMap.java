@@ -194,8 +194,8 @@ public class GameMap {
 		
 		for(TiledObjectGroup objectGroup : objectGroups) {
 			if(objectGroup.name.equals("DynamicTiles")) {
-				ArrayList<TiledObject> dynTiles = map.objectGroups.get(0).objects;
-				
+				//ArrayList<TiledObject> dynTiles = map.objectGroups.get(0).objects;
+				ArrayList<TiledObject> dynTiles = objectGroup.objects;
 				for(TiledObject object : dynTiles) {
 					
 					
