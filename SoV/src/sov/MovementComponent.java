@@ -47,8 +47,11 @@ public class MovementComponent extends Component {
 	}
 	
 	public void setAllowJumping(boolean allowJumping) {
+
 		if (allowJumping == true){
-			jumpsLeft = maxJumps;
+			if(jumpTimer >= jumpDelay) {
+				jumpsLeft = maxJumps;
+			}			
 		}
 		else jumpsLeft--;
 	}
