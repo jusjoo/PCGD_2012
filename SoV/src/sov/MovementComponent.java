@@ -43,7 +43,10 @@ public class MovementComponent extends Component {
 	}
 	
 	public void setAllowJumping(boolean allowJumping) {
-		this.allowJumping = allowJumping;
+		if(jumpTimer >= jumpDelay) {
+			this.allowJumping = allowJumping;
+		}
+		
 	}
 	
 	public void setJumpHeight(float jumpHeight) {
