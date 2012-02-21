@@ -97,15 +97,17 @@ public abstract class Attack {
 		}
 		
 		float damage;
+		String dmgString;
 		
 		if (GameConfiguration.randomizedDamage) {
-			damage = Math.round(((float)Math.random()) * (baseDamage + statDamage) + statDamage);
-			
+			damage = Math.round(((float)Math.random()) * (statDamage*2) + baseDamage);
+			dmgString = (baseDamage+"-"+(statDamage*2+baseDamage));
 		}
 		else {
 			damage = Math.round(statDamage + baseDamage);
+			dmgString = (statDamage+"+"+baseDamage);
 		}
-		System.out.println("damage("+stat+" "+statDamage+"+"+baseDamage+"):"+" damage");
+		System.out.println("damage("+dmgString+"):"+damage+" damage");
 		return damage;		
 	}
 	public float getBaseDamage() {
