@@ -26,8 +26,6 @@ public class MeleeAttack extends Attack {
 		this.damageTime = damageTime;
 		this.attackBody = attackSpriteBody;
 		
-		
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void startDamage(){
