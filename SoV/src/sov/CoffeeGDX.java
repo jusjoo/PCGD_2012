@@ -60,7 +60,6 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		world = new World(new Vector2(0.0f,-10.0f), true);
 		map = new GameMap(GameConfiguration.firstMap, world);
-
 		
 		hud.setPlayer(map.getPlayer());
 		
@@ -264,7 +263,20 @@ public class CoffeeGDX implements ApplicationListener {
 			
 		}
 		
+		if (Gdx.input.isKeyPressed(GameConfiguration.mapSelectKey)) {
+			keyPressed();
+			changeMap("barbarian_village_hollowed.tmx");
+		}
 		
+		
+	}
+	
+	public void changeMap(String newMap) {
+		world.dispose();
+		world = new World(new Vector2(0.0f,-10.0f), true);
+		map = new GameMap(newMap, world);
+		hud.setPlayer(map.getPlayer());
+		world.setContactListener(new MyContactListener());
 	}
 	
 	/*
@@ -285,10 +297,12 @@ public class CoffeeGDX implements ApplicationListener {
 		return player;
 	}
 	
-
+	public void startApplication() {
+		
+	}
 	
 	public static void main (String[] args) {
-        new LwjglApplication(new CoffeeGDX(), "Game", GameConfiguration.windowSizeX, GameConfiguration.windowSizeY, false);
+		GameConfiguration.instance = new LwjglApplication(new CoffeeGDX(), "Game", GameConfiguration.windowSizeX, GameConfiguration.windowSizeY, false);
 		 /// new LwjglApplication(new CoffeeGDX(), "Game", 800, 600, false);
 }
 

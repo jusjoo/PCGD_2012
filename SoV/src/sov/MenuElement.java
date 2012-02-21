@@ -11,20 +11,25 @@ import sov.HudElement;
 public class MenuElement extends HudElement {
 	
 	ArrayList<MenuItem> menuItems;
+	ArrayList<HudElement> hudElements;
 	MenuItem selected;
 
 	public MenuElement(Vector2 position, Texture texture) {
 		super(position, texture);
 		
 		menuItems = new ArrayList<MenuItem>();
+		hudElements = new ArrayList<HudElement>();
 	}
 	
 	public void addItem(MenuItem item) {
 		if (menuItems.isEmpty()) {
 			selected = item;
 		}
-		menuItems.add(item);
-		
+		menuItems.add(item);		
+	}	
+	
+	public void AddHudElement(HudElement element) {
+		hudElements.add(element);
 	}
 	
 	public void selectNext() {
@@ -55,6 +60,9 @@ public class MenuElement extends HudElement {
 				item.render(spriteBatch, x, y);
 			}
 		
+		}
+		for (HudElement el : hudElements) {
+			el.render(spriteBatch, x, y);
 		}
 	}
 	

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class MenuItem extends HudElement {
+public class MenuItem extends HudElement {	
 	
 	Sprite selected;
 

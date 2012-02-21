@@ -1,16 +1,16 @@
 [
 	{
 		"name": "SlimeBomb",
-		"textureName": "creatures/sprites_monster_slime.png",
+		"textureName": "sprites_projectiles.png",
 		"_frames_description":
 				"Frame size(16px*x, 16px*y), Origin offset, Start frame coordinates, Length, Speed (ms), Looping",
 		"frames": {   
-		  "Idle": [[1,1], 0, [0,1], 5, 0.15, true],
-		  "Run": [[1,1], 0, [0,1], 5, 0.15, true],
-		  "Jump": [[1,1], 0, [0,1], 5, 0.15, false],
-		  "Fall": [[1,1], 0, [0,1], 5, 0.15, true],
-		  "Hurt": [[1,1], 0, [0,1], 5, 0.15, false],
-		  "Die": [[1,1], 0, [0,1], 5, 0.15, false]
+		  "Idle": [[1,1], 0, [0,0], 5, 0.15, true],
+		  "Run": [[1,1], 0, [0,0], 5, 0.15, true],
+		  "Jump": [[1,1], 0, [0,0], 5, 0.15, false],
+		  "Fall": [[1,1], 0, [0,0], 5, 0.15, true],
+		  "Hurt": [[1,1], 0, [0,0], 5, 0.15, false],
+		  "Die": [[1,1], 0, [0,0], 1, 0.15, false]
 	  	}
 	},
 	
@@ -26,6 +26,21 @@
 		  "Fall": [[1,1], 0, [0,0], 5, 0.15, true],
 		  "Hurt": [[1,1], 0, [0,0], 5, 0.15, false],
 		  "Die": [[2,2], 0, [0,1], 6, 0.15, false]
+	  	}
+	},
+	
+	{
+		"name": "Shuriken",
+		"textureName": "sprites_projectiles.png",
+		"_frames_description":
+				"Frame size(16px*x, 16px*y), Origin offset, Start frame coordinates, Length, Speed (ms), Looping",
+		"frames": {   
+		  "Idle": [[1,1], 0, [0,1], 5, 0.05, true],
+		  "Run": [[1,1], 0, [0,1], 5, 0.15, true],
+		  "Jump": [[1,1], 0, [0,1], 5, 0.15, false],
+		  "Fall": [[1,1], 0, [0,1], 5, 0.15, true],
+		  "Hurt": [[1,1], 0, [0,1], 5, 0.15, false],
+		  "Die": [[1,1], 0, [0,1], 1, 0.15, false]
 	  	}
 	}
 ]
