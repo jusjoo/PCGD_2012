@@ -4,7 +4,7 @@
 		"textureName": "sprites_human_barbarian.png",
 		"hitboxSize": [14, 29],
 		"dexterity": 7,
-		"strength": 10,
+		"strength": 12,
 		"wisdom": 4,
 		"_frames_description":
 				"Frame size, Origin offset, Start frame coordinates, Length, Speed (ms)",
@@ -23,7 +23,7 @@
 	  	"attacks": {
 
 	  	  "Attack1": ["Melee", 3, 4, 0, 24.0, 24.0, 5],
-	  	  "Attack2": ["Melee", 4, 5, 8, 24.0, 10.0, 25]
+	  	  "Attack2": ["Melee", 4, 5, 8, 24.0, 10.0, 30]
 	 	},
 	 	
 	 	"_sounds_description":

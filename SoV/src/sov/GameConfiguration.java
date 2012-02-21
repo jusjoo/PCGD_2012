@@ -58,7 +58,7 @@ public class GameConfiguration {
 	public static float staminaRegenRateStatic = 7;
 	public static float staminaCostJump = 7.0f;
 	public static float staminaCostDoubleJump = 21.0f;
-	public static float staminaCostAttackMultiplier = 2.0f;
+	public static float staminaCostAttackMultiplier = 1.75f;
 	
 	public static boolean manaRegenAsPercentage = true;
 	public static float manaRegenRatePercentage = 0.02f;			//regen per second
