@@ -15,8 +15,8 @@
 		  "Fall": [[1,2], 0, [10,0], 1, 0, true],
 		  "Attack1": [[4,3], -0.5, [0,17], 5, 0.08, false],
 		  "Attack2": [[4,2], -0.5, [0,12], 5, 0.12, false], 
-		  "Hurt": [[2,2], 0.5 , [1,23], 4, 0.10, false],
-		  "Die": [[2,2], -0.5, [8,23], 8, 0.10, false]
+		  "Hurt": [[2,2], 0.5, [0,23], 4, 0.10, false],
+		  "Die": [[2,2], 0, [8,23], 8, 0.15, false]
 	  	},
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
@@ -53,7 +53,7 @@
 		  "Fall": [[1,2], 0, [12,0], 1, 0, true],
 		  "Attack1": [[2,2], -0.5, [0,4], 5, 0.10, false],
 		  "Attack2": [[2,2], -0.5, [0,6], 5, 0.08, false], 
-		  "Hurt": [[1,1], 0, [1,9], 1, 0.5, false],
+		  "Hurt": [[1,2], 0, [1,9], 1, 0.5, false],
 		  "Die": [[2,2], 0, [0,9], 4, 0.15, false]
 	  	},
 	  	"_attacks_description":

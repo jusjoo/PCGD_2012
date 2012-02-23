@@ -25,6 +25,8 @@ public class Animation extends com.badlogic.gdx.graphics.g2d.Animation {
 	public boolean isLastFrame(float stateTime) {
 		return (stateTime) >= animationLength*frameDuration;
 	}
-	
+	public static void play(Entity entity, SpriteComponent.AnimationState animation) {
+		entity.getComponent(SpriteComponent.class).setCurrentAnimationState(animation);		
+	}
 
 }
