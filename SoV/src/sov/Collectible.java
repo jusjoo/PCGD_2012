@@ -54,7 +54,7 @@ public class Collectible extends Entity {
 				prototype.sound, 
 				prototype.effects, 
 				prototype.size);
-		
+				
 		return collectible;
 
 	}
@@ -62,26 +62,24 @@ public class Collectible extends Entity {
 	public void createComponents(HashMap<AnimationState, Animation> animations) {
 		
 		body = new BodyComponent(this, new Vector2(size,size), false, 1.0f, true, SlopeShape.Even, false);
-		
 		this.addComponent(body);
 		
-		
-		
-		System.out.println(animations);
-		
 		sprites = new SpriteComponent(this, animations);
-		
-		
 		this.addComponent(sprites);
+		
+		AudioComponent audio = new AudioComponent(this);
+		audio.addSound(AnimationState.Die, sound);
+		this.addComponent(audio);
+		
+		
+		
 		
 	}
 	
 	public void createAudioComponent(Sound sound) {
 		this.sound = sound;
 		
-		AudioComponent audio = new AudioComponent(this);
 		
-		audio.addSound(AnimationState.Die, sound);
 	}
 
 	public void addToWorld(World world, Vector2 coordinates) {
