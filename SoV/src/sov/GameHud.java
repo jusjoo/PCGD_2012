@@ -32,8 +32,28 @@ public class GameHud {
 	
 	public GameHud(CoffeeGDX game) {
 		this.game = game;
-		elements = new ArrayList<HudElement>();		
 		
+		
+		
+		elements = new ArrayList<HudElement>();		
+		initMainMenu();
+				
+	}
+	
+	private void initHud() {
+		Texture backtex = new Texture(new FileHandle("assets/menu/hudBackground.png"));
+		HudElement hudBackground = new HudElement(new Vector2(0,0), backtex);
+		//hud foreground
+		
+		elements.add(hudBackground);
+		elements.add(playerHealthBar);
+		elements.add(playerStaminaBar);
+		elements.add(playerManaBar);
+		
+		
+	}
+
+	private void initMainMenu() {
 		// define the main menu element
 		Texture texture = new Texture(new FileHandle("assets/menu/logo_v3.png"));
 		Vector2 position = new Vector2(0, 0);
@@ -81,9 +101,8 @@ public class GameHud {
 		chargenMenuElement.addItem(sorceress);
 		chargenMenuElement.addItem(back);
 		
-		
 	}
-	
+
 	/*
 	 * Takes in the camera's position in the world, and translates
 	 * it to screen (x,y) for the elements. Elements will then have 
@@ -108,20 +127,21 @@ public class GameHud {
 	}
 	
 	public void setPlayer(Creature player){
-		this.player = player;
+		this.player = player;		
 		
 		Texture texture = new Texture(new FileHandle("assets/creatures/mrEggEverything.png"));
 		Vector2 position = new Vector2(0, 0);
-		playerHealthBar = new HudBarElement(position, texture, new Vector2(0,0), new Vector2(64,8), player.body.getHitPoints());
-		playerStaminaBar = new HudBarElement(new Vector2(0,12), texture, new Vector2(0,0), new Vector2(64,8), player.getStamina());
-		playerManaBar = new HudBarElement(new Vector2(0,24), texture, new Vector2(0,0), new Vector2(64,8), player.getMana());
+		playerHealthBar = new HudBarElement(new Vector2(4,7), texture, new Vector2(0,0), new Vector2(32,32), player.body.getHitPoints());
+		playerStaminaBar = new HudBarElement(new Vector2(227,6), texture, new Vector2(0,0), new Vector2(32,32), player.getStamina());
+		playerManaBar = new HudBarElement(new Vector2(477,7), texture, new Vector2(0,0), new Vector2(32,32), player.getMana());
+		
+//		playerHealthBar = new HudBarElement(new Vector2(4,7), texture, new Vector2(0,0), new Vector2(31,47), player.body.getHitPoints());
+//		playerStaminaBar = new HudBarElement(new Vector2(227,6), texture, new Vector2(0,0), new Vector2(58,33), player.getStamina());
+//		playerManaBar = new HudBarElement(new Vector2(477,7), texture, new Vector2(0,0), new Vector2(31,47), player.getMana());
 		
 		player.body.addHealthBar(playerHealthBar.bar);
 		
-		
-		elements.add(playerHealthBar);
-		elements.add(playerStaminaBar);
-		elements.add(playerManaBar);
+		initHud();		
 	}
 
 	public void update(float deltaTime) {
