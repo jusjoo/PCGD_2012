@@ -1,0 +1,12 @@
+[
+	{
+		"type": "RejuvenationPotion",
+		"animations": "Fireball",
+		"soundFile": "chord.wav",
+		"size": 16,
+		"effects": {
+			"heal": 50,
+			"giveMana": 50
+		}
+	}
+]

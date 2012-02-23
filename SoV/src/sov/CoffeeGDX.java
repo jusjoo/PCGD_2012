@@ -274,6 +274,7 @@ public class CoffeeGDX implements ApplicationListener {
 	public void changeMap(String newMap) {
 		world.dispose();
 		world = new World(new Vector2(0.0f,-10.0f), true);
+		map.stopMusic();
 		map = new GameMap(newMap, world);
 		hud.setPlayer(map.getPlayer());
 		world.setContactListener(new MyContactListener());

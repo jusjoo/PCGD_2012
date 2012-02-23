@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import sov.AIComponent.AIstate;
 import sov.BodyComponent.SlopeShape;
+import sov.Collectible.CollectibleType;
 import sov.SpriteComponent.AnimationState;
 
 import com.badlogic.gdx.Gdx;
@@ -52,6 +53,7 @@ public class DynamicObjectFactory {
 	// A list of the prototypes
 	HashMap<Creature.CreatureType, Creature> creatures = new HashMap<Creature.CreatureType, Creature>();
 	HashMap<AnimationType, HashMap<SpriteComponent.AnimationState, Animation>> miscAnimations;
+	HashMap<CollectibleType, Collectible> collectibles;
 	
 	
 	public DynamicObjectFactory(String directory, GameMap map) {
@@ -66,6 +68,7 @@ public class DynamicObjectFactory {
 		try {
 			// Load the misc animations
 			loadMiscAnimations();
+			loadCollectibles();
 			
 			creaturePrototypes = gson.fromJson(new FileReader("assets/creatures/"+filename+".json"), Creature[].class);
 		
@@ -257,6 +260,28 @@ public class DynamicObjectFactory {
 	}
 	
 	
+	private void loadCollectibles() throws JsonSyntaxException, JsonIOException, FileNotFoundException {
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		
+		String filename = "collectibles";
+		Collectible[] collectibleSet = null;
+		
+		collectibleSet = gson.fromJson(new FileReader("assets/"+filename+".json"), Collectible[].class);
+		
+			collectibles = new HashMap<CollectibleType, Collectible>();
+
+			for(Collectible collectible : collectibleSet) {
+								
+
+				System.out.println("Collectible: " + collectible.type);
+				Sound sound = Gdx.audio.newSound(new FileHandle("assets/sound/" + collectible.soundFile));
+				collectible.createAudioComponent(sound);
+	
+				collectibles.put(collectible.type, collectible);			
+			}
+	}
+
+
 	/*
 	 * Loads misc animations, animation names need to be defined in AnimationType
 	 */
@@ -336,24 +361,30 @@ public class DynamicObjectFactory {
 	
 	// Spawn a creature based on a prototype!
 	public Creature spawnCreature(World world, Creature.CreatureType type, Vector2 coordinates) {
-		
 
 		Creature creature = Creature.createFromPrototype(creatures.get(type));
-		
-		
 		
 		creature.addToWorld(world, coordinates);
 		return creature;
 	}
 	
+	public Collectible spawnCollectible(World world, CollectibleType type, Vector2 coordinates) {
+		Collectible collectible = Collectible.fromPrototype(collectibles.get(type));
+		
+		System.out.println("animaatiot: "+ miscAnimations.get(collectible.animations));
+		collectible.createComponents(miscAnimations.get(collectible.animations));
+		collectible.addToWorld(world, coordinates);
+		return collectible;
+	}
+	
 
 	class AnimationSet {
-		
-		
 		@Expose String name;
 		@Expose String textureName;
 		@Expose HashMap<SpriteComponent.AnimationState, ArrayList<Object>> frames;
 	}
+
+
 	
 
 }
