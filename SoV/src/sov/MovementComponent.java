@@ -15,14 +15,18 @@ public class MovementComponent extends Component {
 	protected float jumpDelay = 0.5f;
 	protected boolean moving;
 	
-	boolean allowJumping = true;
+	protected int maxJumps;
+	protected int jumpsLeft;
 	
 	public MovementComponent(Entity parent, float speed, float jumpHeight) {
 		super(parent);
+		int jumps = 2;		
 		bodyComponent = parent.getComponent(BodyComponent.class);
 		spriteComponent = parent.getComponent(SpriteComponent.class);
 		this.speed = speed;
 		this.jumpHeight = jumpHeight;
+		this.maxJumps = jumps;
+		this.jumpsLeft = maxJumps;
 	}
 
 	public MovementComponent addInputComponent(InputComponent inputComponent) {
@@ -43,10 +47,13 @@ public class MovementComponent extends Component {
 	}
 	
 	public void setAllowJumping(boolean allowJumping) {
-		if(jumpTimer >= jumpDelay) {
-			this.allowJumping = allowJumping;
+
+		if (allowJumping == true){
+			if(jumpTimer >= jumpDelay) {
+				jumpsLeft = maxJumps;
+			}			
 		}
-		
+		else jumpsLeft--;
 	}
 	
 	public void setJumpHeight(float jumpHeight) {
@@ -57,7 +64,7 @@ public class MovementComponent extends Component {
 		bodyComponent.setFacingRight(towardsRight);
 		if(towardsRight) { deltaMove.set(speed, 0f); } 
 		else { deltaMove.set(-speed, 0f); }
-		if(allowJumping) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run); }
+		if(onGround()) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run); }
 		moving = true;
 	}
 	
@@ -70,13 +77,21 @@ public class MovementComponent extends Component {
 		bodyComponent.setFacingRight(!towardsRight);
 		if(!towardsRight) { deltaMove.set(speed, 0f); } 
 		else { deltaMove.set(-speed, 0f); }
-		if(allowJumping) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run); }
+		if(onGround()) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run); }
 		moving = true;
 	}
 	
 	public void jump() {
-		if(allowJumping && jumpTimer >= jumpDelay && ((Creature)parent).modifyStamina(-GameConfiguration.staminaCostJump)) {
-			System.out.println("Jumping!");
+		/*
+		 * Set correct staminacost - different for second jump.
+		 */
+		float staminacost;
+		if (jumpsLeft > 0 && jumpsLeft < maxJumps)
+			staminacost = GameConfiguration.staminaCostDoubleJump;
+		else staminacost = GameConfiguration.staminaCostJump;
+		
+		if(allowJumping() && jumpTimer >= jumpDelay && ((Creature)parent).modifyStamina(-staminacost)) {
+			System.out.println("Jumping!");			
 			spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Jump);
 			deltaMove.set(deltaMove.x, jumpHeight);
 			setAllowJumping(false);
@@ -90,16 +105,30 @@ public class MovementComponent extends Component {
 		jumpTimer += deltaTime;
 		
 		bodyComponent.applyLinearImpulse(deltaMove);
-		if(allowJumping && !moving) {
+		if(allowJumping() && !moving) {
 			spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Idle);
 		}
 		
 		
-		if(bodyComponent.getLinearVelocity().y < -0.7f && !allowJumping) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Fall); }
+		if(bodyComponent.getLinearVelocity().y < -0.7f && jumpsLeft < maxJumps) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Fall); }
 		
 		moving = false;
 		
 		deltaMove.set(0, 0);
+	}
+	
+	public boolean allowJumping() {
+		if (jumpsLeft > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean onGround() {
+		if (jumpsLeft == 0 || jumpsLeft > 0 && jumpsLeft < maxJumps)
+			return false;		
+		else
+			return true;
 	}
 
 }

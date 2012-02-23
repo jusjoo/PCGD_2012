@@ -1,6 +1,7 @@
 package sov;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 
 import sov.AIComponent.AIstate;
@@ -29,10 +30,12 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
+import sov.Collectible.CollectibleType;
+
 public class GameMap {
 	
 	// LayerTypes correspond to layers in Tiled-maps
-	enum LayerType { Foreground, Background, StaticTiles, DynamicTiles, Creatures, Traps, Accessories };
+	enum LayerType { Foreground, Background, StaticTiles, DynamicTiles, Creatures, Traps, Accessories, TrapSensors, Collectibles };
 	
 	// Hold a reference to the player, for camera positioning etc.
 	Creature player;
@@ -52,6 +55,9 @@ public class GameMap {
 	
 	// Holds all creatures, including the player.
 	ArrayList<Creature> creatures = new ArrayList<Creature>();
+	
+	// Holds all the collectibles
+	ArrayList<Collectible> collectibles = new ArrayList<Collectible>();
 	
 	// Renders only static tiles, dynamic tiles and creatures are rendered manually
 	// Excellent for static tiles because of optimizations.
@@ -93,17 +99,62 @@ public class GameMap {
 		createStaticTiles(world);
 		createDynamicTiles(world, atlas);
 		spawnCreatures(world);
+		createTrapSensors(world);
+		createCollectibles(world);
 		
 		String musicFile = tileMapRenderer.getMap().properties.get("music");
 		if (musicFile != null) {
 			backgroundMusic = Gdx.audio.newMusic(new FileHandle("assets/music/"+ musicFile));
 			backgroundMusic.setLooping(true);
+			backgroundMusic.setVolume(GameConfiguration.musicVolume);
 			backgroundMusic.play();
 		}
 		
 	}
 	
 	
+	private void createCollectibles(World world) {
+		TiledObjectGroup objects = null;
+		for (TiledObjectGroup objectGroup: map.objectGroups) {
+			if (objectGroup.name.equals("Collectibles")) {
+				objects = objectGroup;
+			}
+		}
+		
+		for (TiledObject spawn : objects.objects) {
+			
+			//System.out.println(spawn.type);
+			
+			collectibles.add(
+					factory.spawnCollectible(world, 
+					CollectibleType.valueOf(spawn.type), 
+					new Vector2(spawn.x + spawn.width/2 -8, -spawn.y+(map.height)*map.tileHeight - spawn.height/2 +8 )) ) ;
+		}
+		
+	}
+
+
+	private void createTrapSensors(World world) {
+		TiledObjectGroup objects = null;
+		for (TiledObjectGroup objectGroup: map.objectGroups) {
+			if (objectGroup.name.equals("TrapSensors")) {
+				objects = objectGroup;
+			}
+		}
+		
+		for (TiledObject trap: objects.objects) {
+			BodyComponent trapBody = new BodyComponent(null, new Vector2(trap.width, trap.height), true, 1.0f, false, SlopeShape.Even, true);	
+			
+			trapBody.addToWorld(world, new Vector2(trap.x + trap.width/2 -8, -trap.y+(map.height)*map.tileHeight - trap.height/2 +8 ));
+			
+			trapBody.setUserData(new ContactEvent(trapBody, "trap"));
+		}
+		
+		
+		
+	}
+
+
 	/*  Create BodyEntities based on static tile positions. Used so that
 	 *  we can use tileMapRenderer for rendering, and Box2D for collision
 	 *  and physics handling.
@@ -154,6 +205,10 @@ public class GameMap {
 				layerIds.put(LayerType.Traps, i);
 			}
 			
+			else if(layer.name.equals("TrapSensors")) {
+				layerIds.put(LayerType.TrapSensors, i);
+			}
+			
 			else if(layer.name.equals("Foreground")) {
 				layerIds.put(LayerType.Foreground, i);
 			}
@@ -168,8 +223,8 @@ public class GameMap {
 		
 		for(TiledObjectGroup objectGroup : objectGroups) {
 			if(objectGroup.name.equals("DynamicTiles")) {
-				ArrayList<TiledObject> dynTiles = map.objectGroups.get(0).objects;
-				
+				//ArrayList<TiledObject> dynTiles = map.objectGroups.get(0).objects;
+				ArrayList<TiledObject> dynTiles = objectGroup.objects;
 				for(TiledObject object : dynTiles) {
 					
 					
@@ -192,7 +247,9 @@ public class GameMap {
 		
 		for(TiledObjectGroup objectGroup : objectGroups) {
 			if(objectGroup.name.equals("Creatures")) {
-				ArrayList<TiledObject> dynTiles = map.objectGroups.get(1).objects;
+				//ArrayList<TiledObject> dynTiles = map.objectGroups.get(1).objects;
+				
+				ArrayList<TiledObject> dynTiles = objectGroup.objects;
 				
 				for(TiledObject object : dynTiles) {
 					
@@ -303,12 +360,28 @@ public class GameMap {
 			spriteBatch.end();
 		}
 		
+		if(type == LayerType.Collectibles) {
+			spriteBatch.begin();
+			for (Collectible c: collectibles) {
+				c.render(spriteBatch);
+			}
+			spriteBatch.end();
+		}
+		
 	}
 	
 	public void update(float deltaTime) {
 		for(Creature creature : creatures) {
 			creature.update(deltaTime);
 		}
+		
+		ArrayList<Collectible> removed = new ArrayList<Collectible>();
+		for(Collectible c: collectibles){
+			if (c.setToDestroy) removed.add(c);
+			c.update(deltaTime);
+		}
+		
+		collectibles.removeAll(removed);
 	}
 	
 	// TODO: Add layer rendering order in an ordered list or array.
@@ -349,7 +422,9 @@ public class GameMap {
 		renderLayer(LayerType.Creatures, cam, spriteBatch);
 		renderLayer(LayerType.StaticTiles, cam, spriteBatch);
 		renderLayer(LayerType.DynamicTiles, cam, spriteBatch);
+		renderLayer(LayerType.Collectibles, cam, spriteBatch);
 		renderLayer(LayerType.Foreground, cam, spriteBatch);
+		
 		
 		
 	}
@@ -360,6 +435,11 @@ public class GameMap {
 	
 	public void removeSpriteBody(SpriteBody sb) {
 		dynMapTiles.remove(sb);
+	}
+
+
+	public void stopMusic() {
+		backgroundMusic.dispose();
 	}
 	
 

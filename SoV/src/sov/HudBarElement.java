@@ -12,9 +12,7 @@ public class HudBarElement extends HudElement {
 		super(position, texture);
 		
 		bar = new BarElement(barPosition.add(position), barSize, maxValue);
-		
-		
-		// TODO Auto-generated constructor stub
+
 	}
 	
 	public void render(SpriteBatch spriteBatch, float x, float y) {

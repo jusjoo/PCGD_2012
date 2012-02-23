@@ -14,12 +14,15 @@ public class BarElement {
 	private float currentValue;
 	private float maxValue;
 	
+
 	private HashMap<Integer, Sprite> savedStates;
 	
 	private int barPositionX;
 	private int barPositionY;
 	private int barSizeX;
 	private int barSizeY;
+	
+	
 
 	public BarElement(Vector2 barPosition, Vector2 barSize, float maxValue) {
 		
@@ -33,6 +36,7 @@ public class BarElement {
 		this.maxValue = maxValue;
 		this.currentValue = maxValue;
 		
+
 		savedStates = new HashMap<Integer, Sprite>();
 
 	}
@@ -42,14 +46,16 @@ public class BarElement {
 	}
 	
 	public void render(SpriteBatch spriteBatch, float x, float y) {
-						
+
 		Sprite bar = getBar();
+		
 		bar.setPosition(x + barPositionX, 
 						y - barPositionY - barSizeY);
 		bar.draw(spriteBatch);
 		
 	}
 	
+
 	private Sprite getBar() {
 		int barWidth = (int) (barSizeX * getPercentage());
 		// Check that the wanted sprite doesn't exist already
@@ -75,7 +81,9 @@ public class BarElement {
 			savedStates.put(barWidth, sprite);
 			
 			return sprite;
+
 		}
+
 	}
 	
 	private float getPercentage() {

@@ -49,6 +49,20 @@ public class MyContactListener implements ContactListener {
 					
 				}
 				
+				// Check for traps
+				if(fixtureUserData.name == "trap" && fixtureUserData2.parent.getClass() == BodyComponent.class) {
+					((BodyComponent)fixtureUserData2.parent).setToTakeDamage(GameConfiguration.trapDamage);
+				}
+				
+				// Check for collectibles
+				if(fixtureUserData.name == "collectible" 
+						&& fixtureUserData2 != null
+						&& fixtureUserData2.name == "body"
+						&& ((Component)fixtureUserData2.parent).parent != null
+						&& ((Component)fixtureUserData2.parent).parent.hasComponent(PlayerInputComponent.class) )  {
+					((Collectible)fixtureUserData.parent).consumeBy( (Creature) ((Component)fixtureUserData2.parent).parent );
+				}
+				
 				// Handle a melee attack if one fixture is named "melee" and the other is a bodyComponent
 				if(fixtureUserData.name == "melee" && fixtureUserData2.parent.getClass() == BodyComponent.class) {
 					((MeleeAttack)fixtureUserData.parent).dealDamageTo((BodyComponent)fixtureUserData2.parent);			

@@ -4,7 +4,7 @@
 		"textureName": "sprites_human_barbarian.png",
 		"hitboxSize": [14, 29],
 		"dexterity": 7,
-		"strength": 10,
+		"strength": 12,
 		"wisdom": 4,
 		"_frames_description":
 				"Frame size, Origin offset, Start frame coordinates, Length, Speed (ms)",
@@ -15,17 +15,23 @@
 		  "Fall": [[1,2], 0, [10,0], 1, 0, true],
 		  "Attack1": [[4,3], -0.5, [0,17], 5, 0.08, false],
 		  "Attack2": [[4,2], -0.5, [0,12], 5, 0.12, false], 
-		  "Hurt": [[2,2], 0.5 , [1,23], 4, 0.10, false],
-		  "Die": [[2,2], -0.5, [8,23], 8, 0.10, false]
+		  "Hurt": [[2,2], 0.5, [0,23], 4, 0.10, false],
+		  "Die": [[2,2], 0, [8,23], 8, 0.15, false]
 	  	},
 	  	"_attacks_description":
-	  			"AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), (flightSpeed)",
+	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
 	  	"attacks": {
 
 	  	  "Attack1": ["Melee", 3, 4, 0, 24.0, 24.0, 5],
-	  	  "Attack2": ["Melee", 4, 5, 8, 24.0, 10.0, 25]
+	  	  "Attack2": ["Melee", 4, 5, 8, 24.0, 10.0, 30]
+	 	},
+	 	
+	 	"_sounds_description":
+	 			"soundFile in assets/sounds",
+	 	"sounds": {
+	 		"Die": "chord.wav"
+	 	}
 
-	  	 }
 	  	
 	},
 	
@@ -47,16 +53,20 @@
 		  "Fall": [[1,2], 0, [12,0], 1, 0, true],
 		  "Attack1": [[2,2], -0.5, [0,4], 5, 0.10, false],
 		  "Attack2": [[2,2], -0.5, [0,6], 5, 0.08, false], 
-		  "Hurt": [[1,1], 0, [1,9], 1, 0.5, false],
+		  "Hurt": [[1,2], 0, [1,9], 1, 0.5, false],
 		  "Die": [[2,2], 0, [0,9], 4, 0.15, false]
 	  	},
 	  	"_attacks_description":
-	  			"AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), (flightSpeed) ",
+	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
 	  	"attacks": {
 	  	  "Attack1": ["Melee", 3, 4, 1.0, 16.0, 16.0, 10],
-	  	  "Attack2": ["Ranged", 3, 4, 0.0, 8.0, 8.0, 5, "Fireball", 2.5]
+	  	  "Attack2": ["Ranged", 3, 4, 0.0, 8.0, 8.0, 5, "Shuriken", 3.0]
 
-	  	}
+	  	},
+	  	"sounds": {
+	 		"Die": "chord.wav",
+	 		"Jump": "chord.wav"
+	 	}
 	},
 	
 	
@@ -107,7 +117,7 @@
 		  "Die": [[3,2], 0, [0,4], 12, 0.10, false]
 	  	},
 	  	"_attacks_description":
-	  			"AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed)",
+	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
 	  	"attacks": {
 	  	  "Attack1": ["Melee", 1.5, 2, 1, 16.0, 16.0, 9]
 	  	}
@@ -119,7 +129,7 @@
 		"hitboxSize": [15, 10],
 		"dexterity": 4,
 		"strength": -1,
-		"wisdom": 0,
+		"wisdom": 3,
 		"_frames_description":
 				"Frame size(16px*x, 16px*y), Origin offset, Start frame coordinates, Length, Speed (ms)",
 		"frames": {   
@@ -132,9 +142,9 @@
 		  "Die": [[1,1], 0, [0,1], 5, 0.15, false]
 	  	},
 	  	"_attacks_description":
-	  			"AttackType, damageStartFrame, damageEndFrame, attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed)",
+	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
 	  	"attacks": {
-	  	  "Attack1": ["Melee", 1.5, 2, 1, 8, 8, 10]
+	  	  "Attack1": ["Magic", 1.5, 2, 0.0, 8.0, 8.0, 3, "SlimeBomb", 1,1]
 	  	}
 	}
 	

@@ -167,7 +167,8 @@ public class BodyComponent extends Component {
 			//body.destroyFixture(body.getFixtureList().get(0));
 			//body.getFixtureList().clear();
 			
-			parent.getComponent(SpriteComponent.class).setCurrentAnimationState(SpriteComponent.AnimationState.Die);
+			//parent.getComponent(SpriteComponent.class).setCurrentAnimationState(SpriteComponent.AnimationState.Die);
+			Animation.play(parent, SpriteComponent.AnimationState.Die);
 			alive = false;
 			
 			//TODO: siirrä nämä Entityyn!
@@ -290,6 +291,7 @@ public class BodyComponent extends Component {
 		
 		if (setToTakeDamage > 0 && immuneTimer <= 0) {
 			takeDamage(setToTakeDamage);
+			Animation.play(parent, SpriteComponent.AnimationState.Hurt);
 		}
 		if(setToDie) {
 			die();
@@ -300,7 +302,8 @@ public class BodyComponent extends Component {
 				body.setLinearVelocity(0f, 0f);
 				finalDeath = true;
 			}
-		}
+		}					
+		
 		if(healthBar != null) {
 			healthBar.setCurrentValue(getHitPoints());
 			healthBarTimer -= deltaTime;

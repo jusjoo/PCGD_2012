@@ -2,6 +2,9 @@ package sov;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -24,6 +27,8 @@ public class SpriteComponent extends Component {
 		WeaponRun
 		
 		};
+		
+	private Sound sound;
 	
 	protected SpriteComponent.AnimationState currentAnimationState = SpriteComponent.AnimationState.Idle;
 	//protected SpriteComponent.AnimationState previousAnimationState = null;
@@ -54,6 +59,7 @@ public class SpriteComponent extends Component {
 		super(parent);
 		this.animations.putAll(animations);
 		currentFrame = new Sprite(animations.get(currentAnimationState).getKeyFrame(0, true));
+		
 	}
 	
 	public SpriteComponent(Entity parent) {
@@ -112,11 +118,24 @@ public class SpriteComponent extends Component {
 		
 		//System.out.println(currentAnimationState.ordinal());
 		
+		/*
+		 * Play a sound from audioComponent
+		 */
+		if (parent.getComponent(AudioComponent.class) != null) {
+			parent.getComponent(AudioComponent.class).playSound(state);
+		}
+		
 		//if(animations.get(currentAnimationState).looping || animations.get(currentAnimationState).animationLength < stateTime ) {
 		//if(currentAnimationState.ordinal() < previousAnimationState.ordinal() && animations.get(currentAnimationState).looping || animations.get(currentAnimationState).isLastFrame(stateTime)) {
-			if(state.ordinal() <= previousAnimationState.ordinal() || (animations.get(currentAnimationState).looping && animations.get(state).looping) || animations.get(currentAnimationState).isLastFrame(stateTime)) {
-				currentAnimationState = state;
-				if(previousAnimationState != currentAnimationState) { stateTime = 0; }	
+		if(state.ordinal() <= previousAnimationState.ordinal() || (animations.get(currentAnimationState).looping && animations.get(state).looping) || animations.get(currentAnimationState).isLastFrame(stateTime)) {
+			currentAnimationState = state;
+			
+			if(previousAnimationState != currentAnimationState) { 
+				
+				
+				stateTime = 0; 
+			}	
+			
 		}
 		
 		
