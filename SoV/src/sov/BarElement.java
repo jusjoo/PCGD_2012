@@ -14,7 +14,7 @@ public class BarElement {
 	private float currentValue;
 	private float maxValue;
 	private Color fillColor = Color.GREEN;
-	private Color backgroundColor = new Color(1f, 0.1f, 0.1f, 1f);	
+	private Color backgroundColor = Color.BLACK;	
 	
 
 	private HashMap<Integer, Sprite> savedStates;
@@ -23,7 +23,7 @@ public class BarElement {
 	private int barPositionY;
 	private int barSizeX;
 	private int barSizeY;
-	private boolean verticalRender = true;
+	private boolean verticalRender = false;
 	
 	
 
@@ -37,13 +37,12 @@ public class BarElement {
 		this.barSizeY = (int)barSize.y;
 		
 		this.maxValue = maxValue;
-		this.currentValue = maxValue;
-		
+		this.currentValue = maxValue;		
 
 		savedStates = new HashMap<Integer, Sprite>();
 
 	}
-	public BarElement(Vector2 barPosition, Vector2 barSize, float maxValue, Color fillcolor, Color backColor) {
+	public BarElement(Vector2 barPosition, Vector2 barSize, float maxValue, Color color) {
 		this.barPositionX = (int)barPosition.x;
 		this.barPositionY = (int)barPosition.y;
 		
@@ -55,8 +54,22 @@ public class BarElement {
 
 		savedStates = new HashMap<Integer, Sprite>();
 		
-		this.fillColor = fillcolor;
-		this.backgroundColor = backColor;
+		this.fillColor = color;		
+	}
+	public BarElement(Vector2 barPosition, Vector2 barSize, float maxValue, Color color, boolean verticalRender) {
+		this.barPositionX = (int)barPosition.x;
+		this.barPositionY = (int)barPosition.y;
+		
+		this.barSizeX =	(int)barSize.x;
+		this.barSizeY = (int)barSize.y;
+		
+		this.maxValue = maxValue;
+		this.currentValue = maxValue;		
+
+		savedStates = new HashMap<Integer, Sprite>();
+		
+		this.fillColor = color;
+		this.verticalRender = verticalRender;
 	}
 
 	public void setCurrentValue(float value) {

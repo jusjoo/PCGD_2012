@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -41,14 +42,15 @@ public class GameHud {
 	}
 	
 	private void initHud() {
-		Texture backtex = new Texture(new FileHandle("assets/menu/hudBackground.png"));
-		HudElement hudBackground = new HudElement(new Vector2(0,0), backtex);
+		Texture tex = new Texture(new FileHandle("assets/menu/hudForeground.png"));
+		HudElement hudElement = new HudElement(new Vector2(0,0), tex);
 		//hud foreground
 		
-		elements.add(hudBackground);
+		
 		elements.add(playerHealthBar);
 		elements.add(playerStaminaBar);
 		elements.add(playerManaBar);
+		elements.add(hudElement);
 		
 		
 	}
@@ -131,9 +133,9 @@ public class GameHud {
 		
 		Texture texture = new Texture(new FileHandle("assets/creatures/mrEggEverything.png"));
 		Vector2 position = new Vector2(0, 0);
-		playerHealthBar = new HudBarElement(new Vector2(4,7), texture, new Vector2(0,0), new Vector2(32,32), player.body.getHitPoints());
-		playerStaminaBar = new HudBarElement(new Vector2(227,6), texture, new Vector2(0,0), new Vector2(32,32), player.getStamina());
-		playerManaBar = new HudBarElement(new Vector2(477,7), texture, new Vector2(0,0), new Vector2(32,32), player.getMana());
+		playerHealthBar = new HudBarElement(new Vector2(4,8), texture, new Vector2(0,0), new Vector2(32,64), player.body.getHitPoints(), Color.GREEN, true);
+		playerStaminaBar = new HudBarElement(new Vector2(224,8), texture, new Vector2(0,0), new Vector2(64,32), player.getStamina(), new Color(0.9f, 0.8f, 0.0f,1.0f), true);
+		playerManaBar = new HudBarElement(new Vector2(476,8), texture, new Vector2(0,0), new Vector2(32,64), player.getMana(), new Color(0.40f, 0.69f, 1.0f, 1.0f), true);
 		
 //		playerHealthBar = new HudBarElement(new Vector2(4,7), texture, new Vector2(0,0), new Vector2(31,47), player.body.getHitPoints());
 //		playerStaminaBar = new HudBarElement(new Vector2(227,6), texture, new Vector2(0,0), new Vector2(58,33), player.getStamina());
