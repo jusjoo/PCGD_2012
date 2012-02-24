@@ -1,7 +1,7 @@
 [
 	{
 		"type": "RejuvenationPotion",
-		"animations": "Fireball",
+		"animations": "RedPotion",
 		"soundFile": "menu_3.ogg",
 		"size": 16,
 		"effects": {
