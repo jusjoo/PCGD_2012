@@ -1,5 +1,6 @@
 package sov;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -74,8 +75,17 @@ public class MyContactListener implements ContactListener {
 					// If projectile hits a bodyComponent
 					if (fixtureUserData2.parent.getClass() == BodyComponent.class) {
 						((Projectile)fixtureUserData.parent).dealDamageTo((BodyComponent)fixtureUserData2.parent);
+						
+					} else if (fixtureUserData2.name == "collectible") {
+						Vector2 pos1 = ((Projectile)fixtureUserData.parent).body.getPosition();
+						Vector2 pos2 = ((Collectible)fixtureUserData2.parent).body.getPosition();
+						
+						pos1.add(pos2);
+						((Collectible)fixtureUserData2.parent).body.applyLinearImpulse(pos1.nor());
+					
 					} else {
-						//Else it's hitting something else and should die
+					
+						// it's hitting something else and should die
 						((Projectile)fixtureUserData.parent).setToDie();
 					}
 					
