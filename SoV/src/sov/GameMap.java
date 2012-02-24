@@ -377,6 +377,7 @@ public class GameMap {
 		
 		ArrayList<Collectible> removed = new ArrayList<Collectible>();
 		for(Collectible c: collectibles){
+			
 			if (c.setToDestroy) removed.add(c);
 			c.update(deltaTime);
 		}
