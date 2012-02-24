@@ -3,6 +3,7 @@ package sov;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -31,14 +32,22 @@ public class GameHud {
 	private MenuItem ninja;
 	private MenuItem sorceress;
 	
+	
+	private Sound menuMoveSound;
+	private Sound menuConfirmSound;
+	private Sound startGameSound;
+	private Sound menuBackSound;
+	
 	public GameHud(CoffeeGDX game) {
 		this.game = game;
-		
-		
-		
+			
 		elements = new ArrayList<HudElement>();		
 		initMainMenu();
 				
+		menuMoveSound = Gdx.audio.newSound(new FileHandle(GameConfiguration.menuMoveSoundFile));
+		menuConfirmSound = Gdx.audio.newSound(new FileHandle(GameConfiguration.menuConfirmSoundFile));
+		startGameSound = Gdx.audio.newSound(new FileHandle(GameConfiguration.startGameSoundFile));
+		menuBackSound = Gdx.audio.newSound(new FileHandle(GameConfiguration.menuBackSoundFile));
 	}
 	
 	private void initHud() {
@@ -176,36 +185,41 @@ public class GameHud {
 				Gdx.input.isKeyPressed(GameConfiguration.moveUp)) {
 				game.keyPressed();
 				activeMenuElement.selectPrevious();
+				menuMoveSound.play();
 		}
 		
 		if (Gdx.input.isKeyPressed(GameConfiguration.moveRight) || 
 				Gdx.input.isKeyPressed(GameConfiguration.moveDown)) {
 				game.keyPressed();
 				activeMenuElement.selectNext();
+				menuMoveSound.play();
 		}
 		
 		if (Gdx.input.isKeyPressed(GameConfiguration.activateMenu)) {			
 			game.keyPressed();
+			
+			
 			if (activeMenuElement.selected.equals(play)) {
-				System.out.println("play!!!");
 				this.removeElement(activeMenuElement);
 				activeMenuElement = chargenMenuElement;
-				this.addElement(chargenMenuElement);				
+				this.addElement(chargenMenuElement);
+				menuConfirmSound.play();
 				
 			}
 			else if (activeMenuElement.selected.equals(hiscore)) {
-				
+				menuConfirmSound.play();
 			}
 			else if (activeMenuElement.selected.equals(quit)) {
 				GameConfiguration.instance.exit();
 			}
 			else if (activeMenuElement.selected.equals(barbarian)) {
-				
+				startGameSound.play();
 			}
 			else if (activeMenuElement.selected.equals(back)) {
 				this.removeElement(activeMenuElement);
 				this.addElement(mainMenuElement);
 				this.activeMenuElement = mainMenuElement;
+				menuBackSound.play();
 				
 			}
 			

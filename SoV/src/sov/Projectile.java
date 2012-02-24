@@ -83,6 +83,7 @@ public class Projectile extends Entity {
 	public void dealDamageTo(BodyComponent target) {
 		
 		target.setToTakeDamage(this.damage);
+		 
 		this.setToDie();
 		
 	}

@@ -64,8 +64,8 @@
 
 	  	},
 	  	"sounds": {
-	 		"Die": "chord.wav",
-	 		"Jump": "chord.wav"
+	  		"Attack1": "ninja_kick_1.ogg",
+	 		"Jump": "ninja_jump_1.ogg"
 	 	}
 	},
 	

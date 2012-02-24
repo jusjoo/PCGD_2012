@@ -32,6 +32,11 @@ public class GameConfiguration {
 	public static final float audioComponentTimer = 0.3f;
 
 	public static final float musicVolume = 0.7f;
+
+	public static final String menuMoveSoundFile = "assets/sound/menu_4.ogg";
+	public static final String menuConfirmSoundFile = "assets/sound/menu_2.ogg";
+	public static final String menuBackSoundFile = "assets/sound/menu_3.ogg";
+	public static final String startGameSoundFile = "assets/sound/start_game.ogg";
 	
 		
 	// player
