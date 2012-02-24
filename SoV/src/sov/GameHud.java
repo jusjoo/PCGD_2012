@@ -156,9 +156,13 @@ public class GameHud {
 	}
 
 	public void update(float deltaTime) {
-		playerHealthBar.bar.setCurrentValue(player.body.getHitPoints());
+		playerHealthBar.bar.setCurrentValue(player.body.getHitPoints());	
 		playerStaminaBar.bar.setCurrentValue(player.getStamina());
 		playerManaBar.bar.setCurrentValue(player.getMana());
+		
+		playerHealthBar.bar.setMaxValue(player.body.getHitPointsMax());
+		playerStaminaBar.bar.setMaxValue(player.getStaminaMax());
+		playerManaBar.bar.setMaxValue(player.getManaMax());
 	}
 	public void removeElement(HudElement hudElement) {
 		elements.remove(hudElement);

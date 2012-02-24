@@ -247,5 +247,40 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		return true;	
 		
+	}
+
+	public void modifyStrength(float strengthModifier) {
+		strength += strengthModifier;
+		float newHp = deriveHitpoints();
+		
+		BodyComponent body = getComponent(BodyComponent.class);		
+		body.setHitPoints(newHp);
+		body.heal(newHp);
+		
+	}
+
+	public void modifyDexterity(float dexterityModifier) {
+		dexterity += dexterityModifier;
+		speed = deriveSpeed();
+		jumpHeight = deriveJumpHeight();
+		staminaMax = deriveStamina();
+		MovementComponent movement = getComponent(MovementComponent.class);
+		movement.setJumpHeight(jumpHeight);
+		movement.setSpeed(speed);
 	}	
+	
+	public void modifyWisdom (float wisdomModifier) {
+		wisdom += wisdomModifier;
+		manaMax = deriveMana();
+		mana = manaMax;		
+	}
+
+	public float getStaminaMax() {
+		return staminaMax;
+	}
+
+	public float getManaMax() {
+
+		return manaMax;
+	}
 }
