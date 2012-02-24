@@ -146,6 +146,31 @@
 	  	"attacks": {
 	  	  "Attack1": ["Magic", 14, 15, 0.0, 8.0, 8.0, 3, "SlimeBomb", 1,1]
 	  	}
+	},
+	
+	{
+		"creatureType": "Troll",
+		"textureName": "sprites_monster_troll.png",
+		"hitboxSize": [31, 47],
+		"dexterity": 2,
+		"strength": 25,
+		"wisdom": 0,
+		"_frames_description":
+				"Frame size(16px*x, 16px*y), Origin offset, Start frame coordinates, Length, Speed (ms)",
+		"frames": {   
+		  "Idle": [[3,3], 0, [0,0], 1, 0, true],
+		  "Run": [[3,3], 0, [3,0], 8, 0.2, true],
+		  "Jump": [[3,3], 0, [0,0], 1, 0.15, false],
+		  "Attack1": [[5,4], 0.5, [0,4], 8, 0.15, false],
+		  "Fall": [[1,1], 0, [0,0], 1, 0.15, true],
+		  "Hurt": [[5,4], 0, [0,8], 5, 0.15, false],
+		  "Die": [[5,4], 0, [0,12], 12, 0.15, false]
+	  	},
+	  	"_attacks_description":
+	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
+	  	"attacks": {
+	  	  "Attack1": ["Melee", 5.5, 7, 0.0, 32.0, 48.0, 25]
+	  	}
 	}
 	
 	

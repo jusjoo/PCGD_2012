@@ -21,7 +21,7 @@ import com.google.gson.annotations.Expose;
  */
 public class Creature extends SpriteBody implements Cloneable {
 	
-	public enum CreatureType { Barbarian, Ninja, Sorceress, Goblin, Slime };
+	public enum CreatureType { Barbarian, Ninja, Sorceress, Goblin, Slime, Troll };
 	public enum Stats { Strength, Dexterity, Wisdom };
 
 	
