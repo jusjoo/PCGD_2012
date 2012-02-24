@@ -412,8 +412,8 @@
   <object type="Slime" x="3065" y="439"/>
   <object type="Goblin" x="3305" y="397"/>
   <object type="Goblin" x="3406" y="393"/>
-  <object type="Goblin" x="3501" y="395"/>
-  <object type="Goblin" x="3579" y="392"/>
+  <object type="Goblin" x="3459" y="394"/>
+  <object type="Goblin" x="3623" y="392"/>
   <object type="Goblin" x="3663" y="393"/>
   <object type="Goblin" x="3737" y="393"/>
   <object type="Goblin" x="3512" y="654"/>
@@ -486,5 +486,7 @@
   <object type="Goblin" x="3636" y="1694"/>
   <object type="Slime" x="3665" y="1692"/>
   <object type="Goblin" x="337" y="390"/>
+  <object type="Troll" x="3537" y="373"/>
+  <object type="Troll" x="2749" y="1709"/>
  </objectgroup>
 </map>
