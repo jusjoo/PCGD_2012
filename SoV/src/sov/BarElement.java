@@ -92,7 +92,7 @@ public class BarElement {
 	}
 	
 	private Sprite getBarVertical() {
-		int barHeight = (int) (barSizeY * getPercentage());
+		int barHeight = (int) Math.ceil((barSizeY * getPercentage()));
 		// Check that the wanted sprite doesn't exist already
 		Sprite sprite = savedStates.get(barHeight);
 		if (sprite != null) {
@@ -122,7 +122,7 @@ public class BarElement {
 	}
 	
 	private Sprite getBar() {
-		int barWidth = (int) (barSizeX * getPercentage());
+		int barWidth = (int) Math.ceil((barSizeX * getPercentage()));
 		// Check that the wanted sprite doesn't exist already
 		Sprite sprite = savedStates.get(barWidth);
 		if (sprite != null) {
