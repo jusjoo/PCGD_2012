@@ -57,7 +57,7 @@ public class GameConfiguration {
 	public static float manaBaseModifier = 0;	
 	public static float speedBaseModifier = 1.0f;
 	public static float dexJumpHeightMultiplier = 1.0f;
-	public static float jumpHeightBaseModifier = 5.0f;
+	public static float jumpHeightBaseModifier = 70.0f;
 	public static float creatureMaxVelocityMultiplier = 1.15f;
 		
 	public static boolean staminaRegenAsPercentage = false;	
