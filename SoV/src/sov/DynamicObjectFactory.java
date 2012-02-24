@@ -29,20 +29,8 @@ import com.google.gson.annotations.Expose;
  * These prototypes can then be used via various public Spawn functions.
  * TODO: Read in special tiles as well, not just creatures.
  */
-public class DynamicObjectFactory {
-	
-//	public enum AttackAttributes {
-//		attackType,
-//		damageStartFrame,
-//		damageEndFrame,
-//		attackBoxYoffset,
-//		attackBoxSizeX,
-//		attackBoxSizeY,
-//		damage,
-//		projectile,
-//		flightspeed,
-//		spellType
-//	}
+public class DynamicObjectFactory {	
+
 	/*
 	 * This Contains all the misc animation types.
 	 */
