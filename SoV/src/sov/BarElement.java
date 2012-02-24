@@ -75,6 +75,9 @@ public class BarElement {
 	public void setCurrentValue(float value) {
 		currentValue = value;
 	}
+	public void setMaxValue(float value) {
+		maxValue = value;
+	}
 	
 	public void render(SpriteBatch spriteBatch, float x, float y) {
 		

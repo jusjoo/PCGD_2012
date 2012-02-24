@@ -270,6 +270,27 @@ public class GameMap {
 					if(object.properties.get("IsPlayer") != null) {
 						creature.addComponent(new PlayerInputComponent(creature));
 						this.setPlayer(creature);
+						//give player an experience component
+						creature.addComponent( new ExperienceComponent(player) );
+						switch (creature.creatureType) {
+							case Barbarian:
+								creature.getComponent(ExperienceComponent.class).setStatBonuses(GameConfiguration.BarbarianLevelUpStr,
+																								GameConfiguration.BarbarianLevelUpDex,
+																								GameConfiguration.BarbarianLevelUpWis);
+								break;
+							case Ninja:
+								creature.getComponent(ExperienceComponent.class).setStatBonuses(GameConfiguration.NinjaLevelUpStr,
+																								GameConfiguration.NinjaLevelUpDex,
+																								GameConfiguration.NinjaLevelUpWis);
+								break;
+							case Sorceress:
+								creature.getComponent(ExperienceComponent.class).setStatBonuses(GameConfiguration.SorceressLevelUpStr,
+																								GameConfiguration.SorceressLevelUpDex,
+																								GameConfiguration.SorceressLevelUpWis);
+								break;
+							default:
+								creature.getComponent(ExperienceComponent.class).setStatBonuses(1.0f, 1.0f, 1.0f);								
+						}
 						
 					} else {
 						creature.addComponent(new AIComponent(creature));

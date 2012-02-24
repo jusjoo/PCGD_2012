@@ -346,4 +346,8 @@ public class BodyComponent extends Component {
 		healthBarIsStatic = true;
 		
 	}
+
+	public float getHitPointsMax() {
+		return hitPointsMax;
+	}
 }

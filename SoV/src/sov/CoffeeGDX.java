@@ -19,7 +19,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class CoffeeGDX implements ApplicationListener {
-	
+		
 	GameConfiguration config;
 	
 	Vector2 oldPosition = new Vector2(0,0);
@@ -268,6 +268,15 @@ public class CoffeeGDX implements ApplicationListener {
 			changeMap("barbarian_village_hollowed.tmx");
 		}
 		
+		if (Gdx.input.isKeyPressed(GameConfiguration.giveExp10)) {
+			keyPressed();
+			map.getPlayer().getComponent(ExperienceComponent.class).giveExperience(10);			
+		}
+		if (Gdx.input.isKeyPressed(GameConfiguration.giveExp50)) {
+			keyPressed();
+			map.getPlayer().getComponent(ExperienceComponent.class).giveExperience(50);			
+		}
+		
 		
 	}
 	
@@ -284,11 +293,32 @@ public class CoffeeGDX implements ApplicationListener {
 	 * Creates a new player with controls
 	 */
 	public Creature createPlayer(CreatureType playerClass, Vector2 position) {
-		
+				
 		Creature player = map.factory.spawnCreature(world, playerClass, position);
-		player.addComponent(new MovementComponent(player, player.speed, player.jumpHeight));
-		player.addComponent(new PlayerInputComponent(player));
+		player.addComponent( new MovementComponent(player, player.speed, player.jumpHeight) );
+		player.addComponent( new PlayerInputComponent(player) );
 		
+		//give player an experience component
+		player.addComponent( new ExperienceComponent(player) );
+		switch (playerClass) {
+			case Barbarian:
+				player.getComponent(ExperienceComponent.class).setStatBonuses(GameConfiguration.BarbarianLevelUpStr,
+																				GameConfiguration.BarbarianLevelUpDex,
+																				GameConfiguration.BarbarianLevelUpWis);
+				break;
+			case Ninja:
+				player.getComponent(ExperienceComponent.class).setStatBonuses(GameConfiguration.NinjaLevelUpStr,
+																				GameConfiguration.NinjaLevelUpDex,
+																				GameConfiguration.NinjaLevelUpWis);
+				break;
+			case Sorceress:
+				player.getComponent(ExperienceComponent.class).setStatBonuses(GameConfiguration.SorceressLevelUpStr,
+																				GameConfiguration.SorceressLevelUpDex,
+																				GameConfiguration.SorceressLevelUpWis);
+				break;
+			default:
+				player.getComponent(ExperienceComponent.class).setStatBonuses(1.0f, 1.0f, 1.0f);
+		}
 		
 		//give player an attack component
 		map.addCreature(world, player);
