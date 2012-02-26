@@ -243,19 +243,41 @@ public class GameHud {
 			
 			//Chargen menu elements
 			else if (activeMenuElement.selected.equals(barbarian)) {
-				game.createNewGame("barbarian_village_hollowed.tmx");
-				game.inMenu = false;
 				startGameSound.play();
+
+				if (game.inMenu) {
+					game.createNewGame("barbarian_village_hollowed.tmx");
+					game.inMenu = false;
+				} else {
+					game.changeMap("barbarian_village_hollowed.tmx");
+					toggleMainMenu();
+				}
+				
 			}
 			else if (activeMenuElement.selected.equals(ninja)) {
-				game.createNewGame("barbarian_cave_hollowed.tmx");
-				game.inMenu = false;
 				startGameSound.play();
+				
+				if (game.inMenu) {
+					game.createNewGame("barbarian_cave_hollowed.tmx");
+					game.inMenu = false;
+				} else {
+					game.changeMap("barbarian_cave_hollowed.tmx");
+					toggleMainMenu();
+				}
+				
+				
 			}
 			else if (activeMenuElement.selected.equals(sorceress)) {
-				game.createNewGame("barbarian_cave_hollowed.tmx");
-				game.inMenu = false;
 				startGameSound.play();
+
+				if (game.inMenu) {
+					game.createNewGame("barbarian_cave_hollowed.tmx");
+					game.inMenu = false;
+				} else {
+					game.changeMap("barbarian_cave_hollowed.tmx");
+					toggleMainMenu();
+				}
+			
 			}
 			
 			
