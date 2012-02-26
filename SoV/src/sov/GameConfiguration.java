@@ -23,7 +23,7 @@ public class GameConfiguration {
 	public static int windowSizeY = 768;
 	
 	// world
-	public static String firstMap = "barbarian_cave_hollowed.tmx";
+	public static String firstMap = "emptymap.tmx";
 	// How quickly does the camera follow the player?
 	public static float interpolationAmount = 1.00f;
 	
