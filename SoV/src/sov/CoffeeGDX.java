@@ -51,30 +51,29 @@ public class CoffeeGDX implements ApplicationListener {
 	private HudElement mainMenuElement;
 
 	boolean paused;
+	
+	boolean inMenu;
 
 	@Override
 	public void create() {
-		
 		config = new GameConfiguration();
 		hud = new GameHud(this);
-		
-		world = new World(new Vector2(0.0f,-10.0f), true);
-		map = new GameMap(GameConfiguration.firstMap, world);
-		
-		hud.setPlayer(map.getPlayer());
-		
-		
-		
-		
-		
-		
+		hud.toggleMainMenu();
 		cam = new OrthographicCamera(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 				
 		//cam.rotate(45, 0, 0, 1);
 		debugRenderer = new Box2DDebugRenderer();
-		
 		spriteBatch = new SpriteBatch();
+		inMenu = true;
+	
 		
+	}
+	
+	public void createNewGame(String mapName) {
+		hud.toggleMainMenu();
+		world = new World(new Vector2(0.0f,-10.0f), true);
+		map = new GameMap(mapName, world);
+		hud.setPlayer(map.getPlayer());		
 		world.setContactListener(new MyContactListener());
 
 		
@@ -95,8 +94,6 @@ public class CoffeeGDX implements ApplicationListener {
 		//playerLight.setSoft(true);
 		//playerLight.setXray(true);
 		//playerLight.attachToBody(player.getComponent(BodyComponent.class).body, 0, 1f);
-		
-		
 	}
 
 	@Override
@@ -129,28 +126,37 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		float interpolationAmount = GameConfiguration.interpolationAmount;
 		
-		// Perform camera interpolation on player location
-		oldPosition = new Vector2(cam.position.x, cam.position.y);
-		Creature player = map.getPlayer();
+		if(map != null) {
+			// Perform camera interpolation on player location
+			oldPosition = new Vector2(cam.position.x, cam.position.y);
+			Creature player = map.getPlayer();
 		
-		Vector2 newPosition = new Vector2(	oldPosition.x + interpolationAmount*(player.getPosition().x - oldPosition.x),
+			Vector2 newPosition = new Vector2(	oldPosition.x + interpolationAmount*(player.getPosition().x - oldPosition.x),
 											oldPosition.y + interpolationAmount*(player.getPosition().y - oldPosition.y));
-		cam.position.set(newPosition.x, newPosition.y, 0);
+			cam.position.set(newPosition.x, newPosition.y, 0);
 		
-		cam.apply(Gdx.gl10);
+			cam.apply(Gdx.gl10);
 		
-		map.render(cam, spriteBatch);
+			map.render(cam, spriteBatch);
+			
+			// Debug render
+			if (GameConfiguration.debugMode) {
+				debugRenderer.render(world, cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
+						GameConfiguration.PIXELS_PER_METER).translate(0.25f, -0.25f, 0));
+			}
+			
+			hud.render(spriteBatch, cam.position.x, cam.position.y);
+		}
+		else {
+			hud.render(spriteBatch, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+		}
 		
 		
-		hud.render(spriteBatch, cam.position.x, cam.position.y);
+		
 		
 		
 
-		// Debug render
-		if (GameConfiguration.debugMode) {
-			debugRenderer.render(world, cam.combined.scale(GameConfiguration.PIXELS_PER_METER, GameConfiguration.PIXELS_PER_METER,
-					GameConfiguration.PIXELS_PER_METER).translate(0.25f, -0.25f, 0));
-		}
+
 
 		
 		// TODO: Lighting renderer
@@ -178,8 +184,8 @@ public class CoffeeGDX implements ApplicationListener {
 	
 	public void update() {
 		float deltaTime = Gdx.graphics.getDeltaTime();
-		
-		if (!paused) {
+						
+		if (map !=null && !paused) {
 			map.update(deltaTime);
 			world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
 			hud.update(deltaTime);
@@ -190,6 +196,8 @@ public class CoffeeGDX implements ApplicationListener {
 			if (inputTimer < 0)
 				canPressKey = true;
 		}
+		
+		
 		/*
 		if(Math.random() > 0.99) {
 			addNinjaMonster();
@@ -208,9 +216,10 @@ public class CoffeeGDX implements ApplicationListener {
 	}
 	
 	public void handleInput() {
-		if (Gdx.input.isKeyPressed(GameConfiguration.escapeKey)) {
+		if (!inMenu && Gdx.input.isKeyPressed(GameConfiguration.escapeKey)) {
 			keyPressed();
 			hud.toggleMainMenu();
+
 		}
 		
 		if (GameConfiguration.devMode) handleDebugInput();
