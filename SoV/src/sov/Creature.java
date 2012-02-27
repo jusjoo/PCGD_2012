@@ -283,4 +283,17 @@ public class Creature extends SpriteBody implements Cloneable {
 
 		return manaMax;
 	}
+	public String getStatsAsString() {
+		String str = ("STR: " + strength);
+		String dex = ("DEX: " + dexterity);
+		String wis = ("WIS: " + wisdom);
+		String hp = ("Health: "+ getComponent(BodyComponent.class).getHitPoints()+"/"+getComponent(BodyComponent.class).getHitPointsMax());
+		String stamina = ("Stamina: "+Math.round(this.stamina)+"/"+staminaMax);
+		String mana = ("Mana: "+Math.round(this.mana)+"/"+manaMax);
+		String jump = ("Jump: "+getComponent(MovementComponent.class).getJumpHeight()+"/"+deriveJumpHeight());
+		String speed = ("Speed: "+getComponent(MovementComponent.class).getSpeed()+"/"+deriveSpeed());
+		
+		return (str+" "+dex+" "+wis+" "+hp+" "+stamina+" "+mana+" "+jump+" "+speed);
+	}
+	
 }

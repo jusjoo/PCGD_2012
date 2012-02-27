@@ -277,6 +277,11 @@ public class CoffeeGDX implements ApplicationListener {
 			changeMap("barbarian_village_hollowed.tmx");
 		}
 		
+		if (Gdx.input.isKeyPressed(GameConfiguration.showStats)) {
+			keyPressed();
+			System.out.println(map.getPlayer().getStatsAsString());
+		}
+		
 		if (Gdx.input.isKeyPressed(GameConfiguration.giveExp10)) {
 			keyPressed();
 			map.getPlayer().getComponent(ExperienceComponent.class).giveExperience(10);			
