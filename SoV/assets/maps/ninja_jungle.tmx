@@ -5,7 +5,7 @@
   <property name="music" value="inthejungle.ogg"/>
  </properties>
  <tileset firstgid="1" name="tiles_desert" tilewidth="16" tileheight="16">
-  <image source="../../../../../Desktop/tiles_desert.png" width="512" height="512"/>
+  <image source="tiles_desert.png" width="512" height="512"/>
   <tile id="3">
    <properties>
     <property name="slope" value="left"/>
@@ -223,7 +223,7 @@
   </tile>
  </tileset>
  <tileset firstgid="1025" name="tiles_general" tilewidth="16" tileheight="16">
-  <image source="../../../../../Desktop/tiles_general.png" width="512" height="512"/>
+  <image source="tiles_general.png" width="512" height="512"/>
   <tile id="97">
    <properties>
     <property name="slope" value="left"/>
@@ -286,7 +286,7 @@
   </tile>
  </tileset>
  <tileset firstgid="2049" name="tiles_forest" tilewidth="16" tileheight="16">
-  <image source="../../../../../Desktop/tiles_forest.png" trans="000000" width="512" height="512"/>
+  <image source="tiles_forest.png" trans="000000" width="512" height="512"/>
   <tile id="32">
    <properties>
     <property name="slope" value="left"/>
