@@ -284,11 +284,11 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		if (Gdx.input.isKeyPressed(GameConfiguration.giveExp10)) {
 			keyPressed();
-			map.getPlayer().getComponent(ExperienceComponent.class).giveExperience(10);			
+			map.getPlayer().getComponent(ExperienceComponent.class).giveExperience(50);			
 		}
 		if (Gdx.input.isKeyPressed(GameConfiguration.giveExp50)) {
 			keyPressed();
-			map.getPlayer().getComponent(ExperienceComponent.class).giveExperience(50);			
+			map.getPlayer().getComponent(ExperienceComponent.class).giveExperience(500);			
 		}
 		
 		

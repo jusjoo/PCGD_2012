@@ -100,8 +100,10 @@ public abstract class Attack {
 		String dmgString;
 		
 		if (GameConfiguration.randomizedDamage) {
-			damage = Math.round(((float)Math.random()) * (statDamage*2) + baseDamage);
-			dmgString = (baseDamage+"-"+(statDamage*2+baseDamage));
+			float minDamage = statDamage * 0.5f + baseDamage;
+			float maxDamage = statDamage * 2.0f + baseDamage;
+			damage = Math.round( (float)Math.random() * (maxDamage-minDamage) + minDamage );
+			dmgString = (minDamage+"-"+maxDamage);
 		}
 		else {
 			damage = Math.round(statDamage + baseDamage);

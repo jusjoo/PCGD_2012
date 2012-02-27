@@ -60,7 +60,7 @@ public class GameConfiguration {
 	public static float jumpHeightBaseModifier = 70.0f;
 	public static float creatureMaxVelocityMultiplier = 1.15f;
 		
-	public static boolean staminaRegenAsPercentage = false;	
+	public static boolean staminaRegenAsPercentage = true;	
 	public static float staminaRegenRatePercentage = 0.05f;		//regen per second
 	public static float staminaRegenRateStatic = 7;
 	public static float staminaCostJump = 7.0f;

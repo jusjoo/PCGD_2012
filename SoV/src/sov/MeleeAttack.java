@@ -33,7 +33,7 @@ public class MeleeAttack extends Attack {
 		damaging = true;
 		
 		float offSet = getAttackBoxOffsetX();
-				
+		//float offSet = 0;				
 		
 		// Adds the body in front of attacker
 		attackBody.body.addToWorld(attackComponent.bodyComponent.world,
@@ -100,11 +100,12 @@ public class MeleeAttack extends Attack {
 	protected float getAttackBoxOffsetX() {
 		
 		float offset = attackComponent.getOffsetX();
+		float offset2 = attackBody.body.getSize().x/2+1; 
 		
 		if(offset > 0) {
-			offset += attackBody.body.getSize().x;
+			offset += offset2;
 		} else {
-			offset -= attackBody.body.getSize().x;
+			offset -= offset2;
 		}	
 		return offset;
 	}

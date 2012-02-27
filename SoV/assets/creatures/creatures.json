@@ -40,7 +40,7 @@
 	{
 		"creatureType": "Ninja",
 		"textureName": "sprites_human_ninja.png",
-		"hitboxSize": [13, 27],  
+		"hitboxSize": [14, 29],  
 		"dexterity": 10,
 		"strength": 7,
 		"wisdom": 5,
