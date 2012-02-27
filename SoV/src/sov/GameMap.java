@@ -85,7 +85,12 @@ public class GameMap {
 		
 		tileMapRenderer = new TileMapRenderer(map, atlas, 5, 5);
 		
-		Texture backgroundTexture = new Texture(new FileHandle("assets/maps/background.jpg"));
+		String bgFile = map.properties.get("background");
+		
+		if (bgFile == null) bgFile = "background.jpg";
+		
+		Texture backgroundTexture = new Texture(new FileHandle("assets/maps/" + bgFile));
+		
 		
 		//new Texture(new FileHandle("assets/creatures/sprites_human_barbarian.png"));
 		backgroundImage = new Sprite(backgroundTexture);
@@ -401,11 +406,9 @@ public class GameMap {
 		
 		ArrayList<Collectible> removed = new ArrayList<Collectible>();
 		for(Collectible c: collectibles){
-			
 			if (c.setToDestroy) removed.add(c);
 			c.update(deltaTime);
 		}
-		
 		collectibles.removeAll(removed);
 	}
 	
@@ -423,14 +426,18 @@ public class GameMap {
 		*/
 		spriteBatch.begin();
 		//backgroundImage.setPosition((player.getPosition().x-backgroundImage.getWidth()/2)*0.5f, player.getPosition().y-backgroundImage.getHeight()/2);
-		for(int y=0; y<3; y++) {
-			for(int x=0; x<3; x++) {
+		
+		backgroundImage.setPosition(cam.position.x - backgroundImage.getWidth()/2, cam.position.y - backgroundImage.getHeight()/2) ;
+		backgroundImage.draw(spriteBatch);
+		
+		/*for(int y=0; y<4; y++) {
+			for(int x=0; x<4; x++) {
 				backgroundImage.setPosition(x*backgroundImage.getWidth()-backgroundImage.getWidth()*1.25f,
 						y*backgroundImage.getHeight()-backgroundImage.getHeight()*1.25f);
 				backgroundImage.draw(spriteBatch);	
 			}
 			
-		}
+		}*/
 		//backgroundImage.setPosition(player.getPosition().x, player.getPosition().y);
 		spriteBatch.end();
 		
@@ -465,6 +472,11 @@ public class GameMap {
 
 	public void stopMusic() {
 		backgroundMusic.dispose();
+	}
+
+
+	public void addCollectible(Collectible c) {
+		collectibles.add(c);
 	}
 	
 

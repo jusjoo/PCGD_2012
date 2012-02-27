@@ -171,14 +171,21 @@ public class BodyComponent extends Component {
 			//parent.getComponent(SpriteComponent.class).setCurrentAnimationState(SpriteComponent.AnimationState.Die);
 			Animation.play(parent, SpriteComponent.AnimationState.Die);
 			alive = false;
+
+			bodyFixture.setFriction(0);
+
 			
-			GameConfiguration.factory.spawnCollectible(world, CollectibleType.BigDiamond, new Vector2(this.getPosition().x -8, 
-					- this.getPosition().y+
-					(GameConfiguration.map.map.height)*
-					GameConfiguration.map.map.tileHeight +8 ));
+			
+
 			//TODO: siirrä nämä Entityyn!
 			
 			if(parent.getComponent(MovementComponent.class) != null) {
+				
+				GameConfiguration.map.addCollectible(
+						GameConfiguration.factory.spawnCollectible(world, CollectibleType.BigDiamond, 
+						new Vector2(this.getPosition().x -8, this.getPosition().y + (GameConfiguration.map.map.height) * GameConfiguration.map.map.tileHeight +8 ))
+						);
+				
 				//parent.removeComponent(InputComponent.class);
 				parent.setComponentActive(InputComponent.class, false);
 				parent.setComponentActive(MovementComponent.class, false);
