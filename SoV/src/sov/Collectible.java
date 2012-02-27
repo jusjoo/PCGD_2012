@@ -107,7 +107,8 @@ public class Collectible extends Entity {
 			}
 		}
 		
-		body.setToDie = true;
+		//body.setToDie = true;
+		setToDestroy = true;
 	}
 
 	/*
@@ -123,11 +124,11 @@ public class Collectible extends Entity {
 	public void update(float deltaTime) {
 		super.update(deltaTime);
 		
-		if (body.setToDie) {
-			//body.removeFromWorld();
-			if (sprites.isAtLastFrame()) {
+		if (this.setToDestroy) {
+			body.removeFromWorld();
+			/*if (sprites.isAtLastFrame()) {
 				this.setToDestroy = true;
-			}
+			}*/
 		}
 		
 		
