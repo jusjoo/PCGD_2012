@@ -8,6 +8,8 @@ public class ExperienceComponent extends Component {
 	private int levelThreshold;				// experience threshold required to reach next level	
 	private int thresholdModifier;		// how much levelthreshold increases after each levelup
 	private int nextLevelExpTotal;
+	private int score = 0;
+	
 	/*
 	 * Modifiers determine how much each stat goes up on levelup
 	 */
@@ -64,5 +66,14 @@ public class ExperienceComponent extends Component {
 	public int getNextLevelExp() {
 		return this.nextLevelExpTotal;
 	}
+	
+	public int getScore() {
+		return this.score;
+	}
+	
+	public void giveScore(int sc) {
+		this.score += sc;
+		System.out.println("+"+sc+" Score now: " + score);
+	} 
 
 }
