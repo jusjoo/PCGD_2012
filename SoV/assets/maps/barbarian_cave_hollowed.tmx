@@ -394,6 +394,11 @@
  <objectgroup name="DynamicTiles" width="256" height="128"/>
  <objectgroup name="Collectibles" width="256" height="128">
   <object type="RejuvenationPotion" x="683" y="394"/>
+  <object type="ManaPotion" x="817" y="381"/>
+  <object type="ExpBall" x="843" y="392"/>
+  <object type="GoldCoin" x="1028" y="356"/>
+  <object type="GoldCoin" x="1321" y="347"/>
+  <object type="BigDiamond" x="447" y="380"/>
  </objectgroup>
  <layer name="Foreground" width="256" height="128">
   <data encoding="base64" compression="zlib">
@@ -401,7 +406,7 @@
   </data>
  </layer>
  <objectgroup name="Creatures" width="256" height="128">
-  <object type="Ninja" x="579" y="393">
+  <object type="Sorceress" x="579" y="393">
    <properties>
     <property name="IsPlayer" value=""/>
    </properties>
