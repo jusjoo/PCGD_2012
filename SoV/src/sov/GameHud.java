@@ -261,10 +261,10 @@ public class GameHud {
 				playStartGameSound();
 				
 				if (game.inMenu) {
-					game.createNewGame("barbarian_cave_hollowed.tmx");
+					game.createNewGame("ninja_jungle.tmx");
 					game.inMenu = false;
 				} else {
-					game.changeMap("barbarian_cave_hollowed.tmx");
+					game.changeMap("ninja_jungle.tmx");
 					toggleMainMenu();
 				}
 				

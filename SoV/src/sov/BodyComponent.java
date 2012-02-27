@@ -170,7 +170,7 @@ public class BodyComponent extends Component {
 			//parent.getComponent(SpriteComponent.class).setCurrentAnimationState(SpriteComponent.AnimationState.Die);
 			Animation.play(parent, SpriteComponent.AnimationState.Die);
 			alive = false;
-			
+			bodyFixture.setFriction(0);
 			//TODO: siirrä nämä Entityyn!
 			
 			if(parent.getComponent(MovementComponent.class) != null) {
