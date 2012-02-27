@@ -134,5 +134,11 @@ public class MovementComponent extends Component {
 		else
 			return true;
 	}
+	public float getSpeed() {
+		return speed;
+	}
+	public float getJumpHeight() {
+		return this.jumpHeight;
+	}
 
 }

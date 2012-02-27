@@ -76,7 +76,7 @@ public class GameConfiguration {
 	
 	
 	// immunity time in seconds after taking damage
-	public static float immuneTime = 1.0f;
+	public static float immuneTime = 0.5f;
 	
 	//key mappings
 	// naming
@@ -94,6 +94,7 @@ public class GameConfiguration {
 	// developer key mappings
 	public static int debugRenderKey = Keys.NUM_1;
 	public static int lightRenderKey = Keys.NUM_2;
+	public static int showStats = Keys.NUM_4;
 	public static int giveExp10 = Keys.NUM_5;
 	public static int giveExp50 = Keys.NUM_6;	
 	public static int selectBarbarianKey = Keys.NUM_0;
@@ -105,12 +106,19 @@ public class GameConfiguration {
 	public static DynamicObjectFactory dynamicObjectFactory;
 	public static float trapDamage = 50f;
 	
+	
+	/*
+	 * 		Leveling variables for stats
+	 */
+	
 	public static float BarbarianLevelUpStr = 1.0f;
 	public static float NinjaLevelUpStr = 0.6f;
 	public static float SorceressLevelUpStr = 0.4f;
+	
 	public static float BarbarianLevelUpDex = 0.5f;
 	public static float NinjaLevelUpDex = 0.7f;
 	public static float SorceressLevelUpDex = 0.33f;
+	
 	public static float BarbarianLevelUpWis= 0.3f;
 	public static float NinjaLevelUpWis = 0.5f;
 	public static float SorceressLevelUpWis = 1.2f;
