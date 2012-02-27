@@ -42,6 +42,8 @@ public class GameHud {
 	private Sound startGameSound;
 	private Sound menuBackSound;
 	
+	private boolean startGameSoundPlayed = false;
+	
 	public GameHud(CoffeeGDX game) {
 		this.game = game;
 			
@@ -192,7 +194,8 @@ public class GameHud {
 			activeMenuElement = mainMenuElement;
 			this.addElement(activeMenuElement);
 			game.paused = true;			
-			mainMenuActive = true;			
+			mainMenuActive = true;	
+			startGameSoundPlayed = false;
 		} else {
 			this.removeElement(activeMenuElement);
 			game.paused = false;
@@ -243,8 +246,8 @@ public class GameHud {
 			
 			//Chargen menu elements
 			else if (activeMenuElement.selected.equals(barbarian)) {
-				startGameSound.play();
-
+				playStartGameSound();
+				
 				if (game.inMenu) {
 					game.createNewGame("barbarian_village_hollowed.tmx");
 					game.inMenu = false;
@@ -255,7 +258,7 @@ public class GameHud {
 				
 			}
 			else if (activeMenuElement.selected.equals(ninja)) {
-				startGameSound.play();
+				playStartGameSound();
 				
 				if (game.inMenu) {
 					game.createNewGame("barbarian_cave_hollowed.tmx");
@@ -268,7 +271,7 @@ public class GameHud {
 				
 			}
 			else if (activeMenuElement.selected.equals(sorceress)) {
-				startGameSound.play();
+				playStartGameSound();
 
 				if (game.inMenu) {
 					game.createNewGame("barbarian_cave_hollowed.tmx");
@@ -282,7 +285,13 @@ public class GameHud {
 			
 			
 		}
-		
+	
 	}
 	
+	private void playStartGameSound() {
+		if (!startGameSoundPlayed) {
+			startGameSound.play();
+			startGameSoundPlayed = true;
+		}
+	}
 }
