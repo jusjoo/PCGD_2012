@@ -21,8 +21,8 @@ public class GameHud {
 	private MenuElement mainMenuElement;
 	private MenuElement chargenMenuElement;
 	boolean mainMenuActive = false;
-	private Sprite menuBackground;
 	private SpriteBatch menuBatch;
+	private Sprite menuBackground;
 	private HudBarElement playerHealthBar;
 	private HudBarElement playerStaminaBar;
 	private HudBarElement playerManaBar;
@@ -76,7 +76,13 @@ public class GameHud {
 		// define the main menu element
 		Texture texture = new Texture(new FileHandle("assets/menu/logo_v3.png"));
 		Vector2 position = new Vector2(0, 0);
-		mainMenuElement = new MenuElement(position, texture);		
+		mainMenuElement = new MenuElement(position, texture);
+		
+		
+		Texture menuTexture = new Texture(new FileHandle("assets/menu/menubackground.jpg"));
+		menuBackground = new Sprite(menuTexture);
+		menuBackground.setPosition(0, 0);
+		menuBatch = new SpriteBatch();
 		
 		// add some selectables to it
 		play = new MenuItem(new Texture(new FileHandle("assets/menu/menuPlayNormal.png")), 
@@ -90,14 +96,14 @@ public class GameHud {
 		quit = new MenuItem(new Texture(new FileHandle("assets/menu/menuQuitNormal.png")), 
 				new Texture(new FileHandle("assets/menu/menuQuitSelected.png")), 
 				new Vector2(300, 550));
-					
+		
 		mainMenuElement.addItem(play);
 		mainMenuElement.addItem(hiscore);
 		mainMenuElement.addItem(quit);
 		
-		Texture backgroundTexture = new Texture(new FileHandle("assets/menu/menubackground.jpg"));
-		menuBackground = new Sprite(backgroundTexture);
-		menuBatch = new SpriteBatch();
+		
+		
+
 				
 		/*
 		 * Sub-menu
@@ -124,6 +130,7 @@ public class GameHud {
 		chargenMenuElement.addItem(sorceress);
 		chargenMenuElement.addItem(back);
 		
+		
 	}
 
 	/*
@@ -134,11 +141,19 @@ public class GameHud {
 	public void render(SpriteBatch spriteBatch, float camX, float camY) {
 			float x = camX - Gdx.graphics.getWidth() / 4;
 			float y = camY + Gdx.graphics.getHeight() / 4;
+			if(game.map == null) {
+				menuBatch.begin();
+				menuBackground.draw(menuBatch);
+				menuBatch.end();
+			}
+			
 			spriteBatch.begin();
 			//System.out.println(Gdx.graphics.getWidth());
 			for (HudElement element: elements) {
+				
 				element.render(spriteBatch, x, y);
 			}
+			
 			
 			spriteBatch.end();
 
@@ -187,10 +202,6 @@ public class GameHud {
 	public void toggleMainMenu() {
 		if (mainMenuActive == false) {
 			//System.out.println("debug");
-			//menuBackground.setPosition(0, 0);
-			//menuBatch.begin();
-			//menuBackground.draw(menuBatch);
-			//menuBatch.end();
 			activeMenuElement = mainMenuElement;
 			this.addElement(activeMenuElement);
 			game.paused = true;			
