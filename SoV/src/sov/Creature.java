@@ -21,7 +21,7 @@ import com.google.gson.annotations.Expose;
  */
 public class Creature extends SpriteBody implements Cloneable {
 	
-	public enum CreatureType { Barbarian, Ninja, Sorceress, Goblin, Slime };
+	public enum CreatureType { Barbarian, Ninja, Sorceress, Goblin, Slime, Troll };
 	public enum Stats { Strength, Dexterity, Wisdom };
 
 	
@@ -247,5 +247,53 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		return true;	
 		
+	}
+
+	public void modifyStrength(float strengthModifier) {
+		strength += strengthModifier;
+		float newHp = deriveHitpoints();
+		
+		BodyComponent body = getComponent(BodyComponent.class);		
+		body.setHitPoints(newHp);
+		body.heal(newHp);
+		
+	}
+
+	public void modifyDexterity(float dexterityModifier) {
+		dexterity += dexterityModifier;
+		speed = deriveSpeed();
+		jumpHeight = deriveJumpHeight();
+		staminaMax = deriveStamina();
+		MovementComponent movement = getComponent(MovementComponent.class);
+		movement.setJumpHeight(jumpHeight);
+		movement.setSpeed(speed);
 	}	
+	
+	public void modifyWisdom (float wisdomModifier) {
+		wisdom += wisdomModifier;
+		manaMax = deriveMana();
+		mana = manaMax;		
+	}
+
+	public float getStaminaMax() {
+		return staminaMax;
+	}
+
+	public float getManaMax() {
+
+		return manaMax;
+	}
+	public String getStatsAsString() {
+		String str = ("STR: " + strength);
+		String dex = ("DEX: " + dexterity);
+		String wis = ("WIS: " + wisdom);
+		String hp = ("Health: "+ getComponent(BodyComponent.class).getHitPoints()+"/"+getComponent(BodyComponent.class).getHitPointsMax());
+		String stamina = ("Stamina: "+Math.round(this.stamina)+"/"+staminaMax);
+		String mana = ("Mana: "+Math.round(this.mana)+"/"+manaMax);
+		String jump = ("Jump: "+getComponent(MovementComponent.class).getJumpHeight()+"/"+deriveJumpHeight());
+		String speed = ("Speed: "+getComponent(MovementComponent.class).getSpeed()+"/"+deriveSpeed());
+		
+		return (str+" "+dex+" "+wis+" "+hp+" "+stamina+" "+mana+" "+jump+" "+speed);
+	}
+	
 }

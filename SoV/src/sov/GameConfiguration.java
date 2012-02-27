@@ -23,7 +23,7 @@ public class GameConfiguration {
 	public static int windowSizeY = 768;
 	
 	// world
-	public static String firstMap = "barbarian_cave_hollowed.tmx";
+	public static String firstMap = "emptymap.tmx";
 	// How quickly does the camera follow the player?
 	public static float interpolationAmount = 1.00f;
 	
@@ -32,6 +32,11 @@ public class GameConfiguration {
 	public static final float audioComponentTimer = 0.3f;
 
 	public static final float musicVolume = 0.7f;
+
+	public static final String menuMoveSoundFile = "assets/sound/menu_4.ogg";
+	public static final String menuConfirmSoundFile = "assets/sound/menu_2.ogg";
+	public static final String menuBackSoundFile = "assets/sound/menu_3.ogg";
+	public static final String startGameSoundFile = "assets/sound/start_game.ogg";
 	
 		
 	// player
@@ -52,10 +57,10 @@ public class GameConfiguration {
 	public static float manaBaseModifier = 0;	
 	public static float speedBaseModifier = 1.0f;
 	public static float dexJumpHeightMultiplier = 1.0f;
-	public static float jumpHeightBaseModifier = 5.0f;
+	public static float jumpHeightBaseModifier = 70.0f;
 	public static float creatureMaxVelocityMultiplier = 1.15f;
 		
-	public static boolean staminaRegenAsPercentage = false;	
+	public static boolean staminaRegenAsPercentage = true;	
 	public static float staminaRegenRatePercentage = 0.05f;		//regen per second
 	public static float staminaRegenRateStatic = 7;
 	public static float staminaCostJump = 7.0f;
@@ -71,7 +76,7 @@ public class GameConfiguration {
 	
 	
 	// immunity time in seconds after taking damage
-	public static float immuneTime = 1.0f;
+	public static float immuneTime = 0.5f;
 	
 	//key mappings
 	// naming
@@ -89,6 +94,9 @@ public class GameConfiguration {
 	// developer key mappings
 	public static int debugRenderKey = Keys.NUM_1;
 	public static int lightRenderKey = Keys.NUM_2;
+	public static int showStats = Keys.NUM_4;
+	public static int giveExp10 = Keys.NUM_5;
+	public static int giveExp50 = Keys.NUM_6;	
 	public static int selectBarbarianKey = Keys.NUM_0;
 	public static int selectNinjaKey = Keys.NUM_9;
 	public static int selectSorceressKey = Keys.NUM_8; 
@@ -97,6 +105,23 @@ public class GameConfiguration {
 	
 	public static DynamicObjectFactory dynamicObjectFactory;
 	public static float trapDamage = 50f;
+	
+	
+	/*
+	 * 		Leveling variables for stats
+	 */
+	
+	public static float BarbarianLevelUpStr = 1.0f;
+	public static float NinjaLevelUpStr = 0.6f;
+	public static float SorceressLevelUpStr = 0.4f;
+	
+	public static float BarbarianLevelUpDex = 0.5f;
+	public static float NinjaLevelUpDex = 0.7f;
+	public static float SorceressLevelUpDex = 0.33f;
+	
+	public static float BarbarianLevelUpWis= 0.3f;
+	public static float NinjaLevelUpWis = 0.5f;
+	public static float SorceressLevelUpWis = 1.2f;
 	
 	
 	

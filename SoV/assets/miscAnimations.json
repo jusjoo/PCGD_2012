@@ -42,5 +42,49 @@
 		  "Hurt": [[1,1], 0, [0,1], 5, 0.15, false],
 		  "Die": [[1,1], 0, [0,1], 1, 0.15, false]
 	  	}
+	},
+		{
+		"name": "RedPotion",
+		"textureName": "sprites_collectibles.png",
+		"_frames_description":
+				"Frame size(16px*x, 16px*y), Origin offset, Start frame coordinates, Length, Speed (ms), Looping",
+		"frames": {   
+		  "Idle": [[1,1], 0, [1,0], 1, 0.15, true],
+		  "Run": [[1,1], 0, [1,0], 1, 0.15, true],
+		  "Jump": [[1,1], 0, [1,0], 1, 0.15, false],
+		  "Fall": [[1,1], 0, [1,0], 1, 0.15, true],
+		  "Hurt": [[1,1], 0, [1,0], 1, 0.15, false],
+		  "Die": [[1,1], 0, [1,0], 1, 0.15, false]
+	  	}
+	},
+	
+	{
+		"name": "BluePotion",
+		"textureName": "sprites_collectibles.png",
+		"_frames_description":
+				"Frame size(16px*x, 16px*y), Origin offset, Start frame coordinates, Length, Speed (ms), Looping",
+		"frames": {   
+		  "Idle": [[1,1], 0, [0,0], 1, 0.15, true],
+		  "Run": [[1,1], 0, [0,0], 1, 0.15, true],
+		  "Jump": [[1,1], 0, [0,0], 1, 0.15, false],
+		  "Fall": [[1,1], 0, [0,0], 1, 0.15, true],
+		  "Hurt": [[1,1], 0, [0,0], 1, 0.15, false],
+		  "Die": [[1,1], 0, [0,0], 1, 0.15, false]
+	  	}
+	},
+	
+	{
+		"name": "SoulOrb",
+		"textureName": "sprites_collectibles.png",
+		"_frames_description":
+				"Frame size(16px*x, 16px*y), Origin offset, Start frame coordinates, Length, Speed (ms), Looping",
+		"frames": {   
+		  "Idle": [[1,1], 0, [0,1], 6, 0.10, true],
+		  "Run": [[1,1], 0, [0,1], 6, 0.10, true],
+		  "Jump": [[1,1], 0, [0,1], 6, 0.10, false],
+		  "Fall": [[1,1], 0, [0,1], 6, 0.10, true],
+		  "Hurt": [[1,1], 0, [0,1], 6, 0.10, false],
+		  "Die": [[1,1], 0, [0,1], 6, 0.10, false]
+	  	}
 	}
 ]

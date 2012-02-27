@@ -116,9 +116,14 @@ public class Collectible extends Entity {
 	public void update(float deltaTime) {
 		super.update(deltaTime);
 		
-		if (body.setToDie && sprites.isAtLastFrame()) {
-			this.setToDestroy = true;
+		if (body.setToDie) {
+			//body.removeFromWorld();
+			if (sprites.isAtLastFrame()) {
+				this.setToDestroy = true;
+			}
 		}
+		
+		
 	}
 	
 }

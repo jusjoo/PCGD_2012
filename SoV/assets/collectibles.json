@@ -1,8 +1,8 @@
 [
 	{
 		"type": "RejuvenationPotion",
-		"animations": "Fireball",
-		"soundFile": "chord.wav",
+		"animations": "RedPotion",
+		"soundFile": "menu_3.ogg",
 		"size": 16,
 		"effects": {
 			"heal": 50,

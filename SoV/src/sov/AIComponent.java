@@ -23,7 +23,7 @@ public class AIComponent extends InputComponent {
 	/*
 	 * AI Behaviour
 	 */
-	private float maximumAttackDistanceX = 48;
+	private float maximumAttackDistanceX = 128;
 	private float maximumAttackDistanceY = 16;
 	private float minimumDistanceBetweenTarget = 16;
 	private float minimumDistanceNow = 16;
@@ -163,6 +163,6 @@ public class AIComponent extends InputComponent {
 	public void removeAIstate(AIstate state ) {
 		
 			activeStates.remove(state);		
-	}	
+	}
 
 }

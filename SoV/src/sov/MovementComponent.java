@@ -62,8 +62,8 @@ public class MovementComponent extends Component {
 	
 	public void move(boolean towardsRight) {
 		bodyComponent.setFacingRight(towardsRight);
-		if(towardsRight) { deltaMove.set(speed, 0f); } 
-		else { deltaMove.set(-speed, 0f); }
+		if(towardsRight) { deltaMove.add(speed, 0f); } 
+		else { deltaMove.add(-speed, 0f); }
 		if(onGround()) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Run); }
 		moving = true;
 	}
@@ -103,8 +103,12 @@ public class MovementComponent extends Component {
 	public void update(float deltaTime) {
 		
 		jumpTimer += deltaTime;
+				
+		deltaMove.mul(deltaTime).mul(10);
 		
 		bodyComponent.applyLinearImpulse(deltaMove);
+		
+		
 		if(allowJumping() && !moving) {
 			spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Idle);
 		}
@@ -129,6 +133,12 @@ public class MovementComponent extends Component {
 			return false;		
 		else
 			return true;
+	}
+	public float getSpeed() {
+		return speed;
+	}
+	public float getJumpHeight() {
+		return this.jumpHeight;
 	}
 
 }
