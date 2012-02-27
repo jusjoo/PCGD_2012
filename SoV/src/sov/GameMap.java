@@ -94,7 +94,9 @@ public class GameMap {
 		
 		parallaxCamera = new OrthographicCamera(Gdx.graphics.getWidth()/1.2f, Gdx.graphics.getHeight()/1.2f);
 		
-		factory = new DynamicObjectFactory("assets/creatures", this);
+		
+		factory = new DynamicObjectFactory("assets/creatures", this);		
+		GameConfiguration.factory = factory;
 		
 		createStaticTiles(world);
 		createDynamicTiles(world, atlas);
@@ -110,6 +112,7 @@ public class GameMap {
 			backgroundMusic.play();
 		}
 		
+		GameConfiguration.map = this;
 	}
 	
 	

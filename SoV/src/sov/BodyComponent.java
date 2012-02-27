@@ -1,6 +1,7 @@
 package sov;
 
 import sov.AIComponent.AIstate;
+import sov.Collectible.CollectibleType;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -171,6 +172,10 @@ public class BodyComponent extends Component {
 			Animation.play(parent, SpriteComponent.AnimationState.Die);
 			alive = false;
 			
+			GameConfiguration.factory.spawnCollectible(world, CollectibleType.BigDiamond, new Vector2(this.getPosition().x -8, 
+					- this.getPosition().y+
+					(GameConfiguration.map.map.height)*
+					GameConfiguration.map.map.tileHeight +8 ));
 			//TODO: siirrä nämä Entityyn!
 			
 			if(parent.getComponent(MovementComponent.class) != null) {
@@ -184,7 +189,7 @@ public class BodyComponent extends Component {
 				if (parent.getComponent(PlayerInputComponent.class) != null) {
 					parent.setComponentActive(PlayerInputComponent.class, false);
 				}
-				
+							
 			}
 		}
 		

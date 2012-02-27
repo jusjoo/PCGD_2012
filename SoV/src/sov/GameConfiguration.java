@@ -10,7 +10,8 @@ public class GameConfiguration {
 	
 	// public reference to the application instance
 	public static LwjglApplication instance;
-
+	public static DynamicObjectFactory factory;
+	public static GameMap map;
 	// debug mode
 	public static boolean debugMode = false;
 	// light rendering
