@@ -10,7 +10,8 @@ public class GameConfiguration {
 	
 	// public reference to the application instance
 	public static LwjglApplication instance;
-
+	public static DynamicObjectFactory factory;
+	public static GameMap map;
 	// debug mode
 	public static boolean debugMode = false;
 	// light rendering
@@ -24,6 +25,9 @@ public class GameConfiguration {
 	
 	// world
 	public static String firstMap = "emptymap.tmx";
+	public static float physicsLinearDamping = 3.0f;
+	public static float physicsFrictionDef = 0.02f;
+	public static float physicsWorldGravity = -30;
 	// How quickly does the camera follow the player?
 	public static float interpolationAmount = 1.00f;
 	
@@ -50,15 +54,15 @@ public class GameConfiguration {
 	public static float strHealthMultiplier = 15f;
 	public static float healthBaseModifier = 25f;	
 	public static float strDamageMultiplier = 1.0f;	
-	public static float dexSpeedMultiplier = 0.4f;
+	public static float dexSpeedMultiplier = 0.7f;
 	public static float dexStaminaMultiplier = 10;
 	public static float staminaBaseModifier = 50;
 	public static float wisManaMultiplier = 10;
 	public static float manaBaseModifier = 0;	
-	public static float speedBaseModifier = 1.0f;
-	public static float dexJumpHeightMultiplier = 1.0f;
-	public static float jumpHeightBaseModifier = 70.0f;
-	public static float creatureMaxVelocityMultiplier = 1.15f;
+	public static float speedBaseModifier = 2.0f;
+	public static float dexJumpHeightMultiplier = 10.0f;
+	public static float jumpHeightBaseModifier = 50.0f;
+	public static float creatureMaxVelocityMultiplier = 1.15f;//redundant
 		
 	public static boolean staminaRegenAsPercentage = true;	
 	public static float staminaRegenRatePercentage = 0.05f;		//regen per second
@@ -122,6 +126,8 @@ public class GameConfiguration {
 	public static float BarbarianLevelUpWis= 0.3f;
 	public static float NinjaLevelUpWis = 0.5f;
 	public static float SorceressLevelUpWis = 1.2f;
+
+	
 	
 	
 	

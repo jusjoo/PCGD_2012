@@ -53,6 +53,12 @@ public class CoffeeGDX implements ApplicationListener {
 	boolean paused;
 	
 	boolean inMenu;
+	TextElement hudText;
+	TextElement version;
+	
+	boolean hudTextDisplay = false;
+
+	
 
 	@Override
 	public void create() {
@@ -65,13 +71,19 @@ public class CoffeeGDX implements ApplicationListener {
 		debugRenderer = new Box2DDebugRenderer();
 		spriteBatch = new SpriteBatch();
 		inMenu = true;
-	
 		
-	}
+		hudText = new TextElement(0, 200);		
+		version = new TextElement(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()-32);
+		hud.textElements.add(hudText);
+		hud.textElements.add(version);
+		
+		version.print("SoV v0.4");
+		
+	}	
 	
 	public void createNewGame(String mapName) {
 		hud.toggleMainMenu();
-		world = new World(new Vector2(0.0f,-10.0f), true);
+		world = new World(new Vector2(0.0f,GameConfiguration.physicsWorldGravity), true);
 		map = new GameMap(mapName, world);
 		hud.setPlayer(map.getPlayer());		
 		world.setContactListener(new MyContactListener());
@@ -151,13 +163,10 @@ public class CoffeeGDX implements ApplicationListener {
 			hud.render(spriteBatch, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 		}
 		
-		
-		
-		
-		
-
-
-
+		for (TextElement text : hud.textElements) {
+			if (text.isVisible())
+				text.render(spriteBatch);	
+		}		
 		
 		// TODO: Lighting renderer
 		/*if (GameConfiguration.lightRendering) {
@@ -204,6 +213,7 @@ public class CoffeeGDX implements ApplicationListener {
 			addGoblin();
 		}*/
 		
+		//hudText.print("Moi taas! "+deltaTime);
 		
 	}
 	
@@ -279,7 +289,16 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		if (Gdx.input.isKeyPressed(GameConfiguration.showStats)) {
 			keyPressed();
-			System.out.println(map.getPlayer().getStatsAsString());
+			
+			hudTextDisplay = !hudTextDisplay;
+			hudText.print(map.getPlayer().getStatsAsString());
+			
+			if (hudTextDisplay) {
+				hudText.setVisibility(true);
+			}
+			else {
+				hudText.setVisibility(false);
+			}
 		}
 		
 		if (Gdx.input.isKeyPressed(GameConfiguration.giveExp10)) {
@@ -296,7 +315,7 @@ public class CoffeeGDX implements ApplicationListener {
 	
 	public void changeMap(String newMap) {
 		world.dispose();
-		world = new World(new Vector2(0.0f,-10.0f), true);
+		world = new World(new Vector2(0.0f,GameConfiguration.physicsWorldGravity), true);
 		map.stopMusic();
 		map = new GameMap(newMap, world);
 		hud.setPlayer(map.getPlayer());

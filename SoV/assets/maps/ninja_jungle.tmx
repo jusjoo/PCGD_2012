@@ -401,8 +401,8 @@
   <object gid="1364" x="1037" y="1896"/>
   <object gid="1364" x="1119" y="1896"/>
   <object gid="1364" x="1086" y="1896"/>
-  <object gid="1257" x="1127" y="1807"/>
-  <object gid="1257" x="1131" y="1824"/>
+  <object gid="1257" x="1131" y="1806"/>
+  <object gid="1257" x="1136" y="1823"/>
  </objectgroup>
  <objectgroup name="Collectibles" width="256" height="142"/>
  <layer name="Foreground" width="256" height="142">

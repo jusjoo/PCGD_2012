@@ -1,6 +1,7 @@
 package sov;
 
 import sov.AIComponent.AIstate;
+import sov.Collectible.CollectibleType;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -170,10 +171,23 @@ public class BodyComponent extends Component {
 			//parent.getComponent(SpriteComponent.class).setCurrentAnimationState(SpriteComponent.AnimationState.Die);
 			Animation.play(parent, SpriteComponent.AnimationState.Die);
 			alive = false;
+
 			bodyFixture.setFriction(0);
+
+			
+			
+
 			//TODO: siirrä nämä Entityyn!
 			
 			if(parent.getComponent(MovementComponent.class) != null) {
+				
+				GameConfiguration.map.addCollectible(
+						GameConfiguration.factory.spawnCollectible(world, CollectibleType.BigDiamond, new Vector2(this.getPosition().x -8, 
+						- this.getPosition().y+
+						(GameConfiguration.map.map.height)*
+						GameConfiguration.map.map.tileHeight +8 ))
+						);
+				
 				//parent.removeComponent(InputComponent.class);
 				parent.setComponentActive(InputComponent.class, false);
 				parent.setComponentActive(MovementComponent.class, false);
@@ -184,7 +198,7 @@ public class BodyComponent extends Component {
 				if (parent.getComponent(PlayerInputComponent.class) != null) {
 					parent.setComponentActive(PlayerInputComponent.class, false);
 				}
-				
+							
 			}
 		}
 		
@@ -259,14 +273,14 @@ public class BodyComponent extends Component {
 		body = world.createBody(bodyDef);
 		
 		bodyFixtureDef.density = 3.5f;
-		bodyFixtureDef.friction = 0.02f;
+		bodyFixtureDef.friction = GameConfiguration.physicsFrictionDef;
 		
 		bodyFixture = body.createFixture(bodyFixtureDef);
 		
 		
 		
 		// Linear damping dictates along with friction how quickly the entity is slowed down.
-		if (!bodyFixtureDef.isSensor) body.setLinearDamping(2.6f);
+		if (!bodyFixtureDef.isSensor) body.setLinearDamping(GameConfiguration.physicsLinearDamping);
 		// No linear damping for sensor bodies.
 		else body.setLinearDamping(0.0f);
 		

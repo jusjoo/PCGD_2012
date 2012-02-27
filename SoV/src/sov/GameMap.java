@@ -89,7 +89,7 @@ public class GameMap {
 		
 		if (bgFile == null) bgFile = "background.jpg";
 		
-		Texture backgroundTexture = new Texture(new FileHandle("assets/maps/" + map.properties.get("background")));
+		Texture backgroundTexture = new Texture(new FileHandle("assets/maps/" + bgFile));
 		
 		
 		//new Texture(new FileHandle("assets/creatures/sprites_human_barbarian.png"));
@@ -99,7 +99,9 @@ public class GameMap {
 		
 		parallaxCamera = new OrthographicCamera(Gdx.graphics.getWidth()/1.2f, Gdx.graphics.getHeight()/1.2f);
 		
-		factory = new DynamicObjectFactory("assets/creatures", this);
+		
+		factory = new DynamicObjectFactory("assets/creatures", this);		
+		GameConfiguration.factory = factory;
 		
 		createStaticTiles(world);
 		createDynamicTiles(world, atlas);
@@ -115,6 +117,7 @@ public class GameMap {
 			backgroundMusic.play();
 		}
 		
+		GameConfiguration.map = this;
 	}
 	
 	
@@ -403,11 +406,9 @@ public class GameMap {
 		
 		ArrayList<Collectible> removed = new ArrayList<Collectible>();
 		for(Collectible c: collectibles){
-			
 			if (c.setToDestroy) removed.add(c);
 			c.update(deltaTime);
 		}
-		
 		collectibles.removeAll(removed);
 	}
 	
@@ -471,6 +472,11 @@ public class GameMap {
 
 	public void stopMusic() {
 		backgroundMusic.dispose();
+	}
+
+
+	public void addCollectible(Collectible c) {
+		collectibles.add(c);
 	}
 	
 

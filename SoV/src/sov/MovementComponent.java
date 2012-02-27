@@ -91,12 +91,13 @@ public class MovementComponent extends Component {
 		else staminacost = GameConfiguration.staminaCostJump;
 		
 		if(allowJumping() && jumpTimer >= jumpDelay && ((Creature)parent).modifyStamina(-staminacost)) {
-			System.out.println("Jumping!");			
+			System.out.println("Jumping! "+jumpHeight);			
 			spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Jump);
 			deltaMove.set(deltaMove.x, jumpHeight);
 			setAllowJumping(false);
 			jumpTimer = 0;
 		}
+		
 	}
 
 	@Override
