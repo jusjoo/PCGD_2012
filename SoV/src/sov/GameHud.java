@@ -53,6 +53,7 @@ public class GameHud {
 	private Sound menuBackSound;
 	
 	private boolean startGameSoundPlayed = false;
+	private TextElement level;
 	
 	public GameHud(CoffeeGDX game) {
 		this.game = game;
@@ -98,29 +99,57 @@ public class GameHud {
 		if (textElements.contains(textWis)) {
 			textElements.remove(textWis);			
 		}
-		textStr = new TextElement(80, 10);
-		textDex = new TextElement(80, 20);
-		textWis = new TextElement(80, 30);
-		ammo = new TextElement(); 
-		score = new TextElement();
+		if (textElements.contains(level)) {
+			textElements.remove(level);			
+		}
+		if (textElements.contains(exp)) {
+			textElements.remove(exp);			
+		}
+		if (textElements.contains(ammo)) {
+			textElements.remove(ammo);			
+		}
+		if (textElements.contains(score)) {
+			textElements.remove(score);			
+		}
+		textStr = new TextElement(120, 10);
+		textDex = new TextElement(120, 30);
+		textWis = new TextElement(120, 50);
+		level = new TextElement(600, 10);
+		score = new TextElement(600, 30);
+		exp = new TextElement(600, 50);
+		ammo = new TextElement(600, 70);
+		
+		
+		
 		
 		textElements.add(textStr);
 		textElements.add(textDex);
 		textElements.add(textWis);
-		
+		textElements.add(level);
+		textElements.add(exp);
+		textElements.add(ammo);
+		textElements.add(score);		
 				
-		updateText();		
+		updateStatText();		
 		
 	}
 
-	public void updateText() {
+	public void updateStatText() {
 		
 		Creature player = game.map.getPlayer();
 		textStr.print("Strength: "+ (int)player.getStrength() );
 		textDex.print("Dexterity: "+ (int)player.getDexterity());
-		textWis.print("Wisdom: "+ (int)player.getWisdom());
-		
+		textWis.print("Wisdom: "+ (int)player.getWisdom());		
 	}
+	public void updateCommonText() {
+		Creature player = game.map.getPlayer();
+		
+		level.print("Level: " + (int)player.getComponent(ExperienceComponent.class).getLevel());
+		score.print("Score: " + (int)player.getComponent(ExperienceComponent.class).getScore());
+		exp.print("Exp: " + (int)player.getComponent(ExperienceComponent.class).getExperience());
+		ammo.print("Ammo: " +0);
+	}
+	
 
 	private void initMainMenu() {
 		// define the main menu element
@@ -249,8 +278,11 @@ public class GameHud {
 			playerManaBar.bar.setMaxValue(player.getManaMax());
 			
 			if (player.statsUpdated())
-				updateText();
+				updateStatText();
+			
+			updateCommonText();
 		}
+		
 		
 	}
 	

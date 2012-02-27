@@ -54,14 +54,15 @@ public class GameConfiguration {
 	public static float strHealthMultiplier = 15f;
 	public static float healthBaseModifier = 25f;	
 	public static float strDamageMultiplier = 1.0f;	
-	public static float dexSpeedMultiplier = 0.7f;
+	public static float dexSpeedMultiplier = 0.45f;
+	public static float speedBaseModifier = 3.0f;
 	public static float dexStaminaMultiplier = 10;
 	public static float staminaBaseModifier = 50;
 	public static float wisManaMultiplier = 10;
 	public static float manaBaseModifier = 0;	
-	public static float speedBaseModifier = 2.0f;
-	public static float dexJumpHeightMultiplier = 10.0f;
-	public static float jumpHeightBaseModifier = 50.0f;
+	
+	public static float dexJumpHeightMultiplier = 4.0f;
+	public static float jumpHeightBaseModifier = 80.0f;
 	public static float creatureMaxVelocityMultiplier = 1.15f;//redundant
 		
 	public static boolean staminaRegenAsPercentage = true;	
