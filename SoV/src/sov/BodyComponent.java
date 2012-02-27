@@ -259,14 +259,14 @@ public class BodyComponent extends Component {
 		body = world.createBody(bodyDef);
 		
 		bodyFixtureDef.density = 3.5f;
-		bodyFixtureDef.friction = 0.02f;
+		bodyFixtureDef.friction = GameConfiguration.physicsFrictionDef;
 		
 		bodyFixture = body.createFixture(bodyFixtureDef);
 		
 		
 		
 		// Linear damping dictates along with friction how quickly the entity is slowed down.
-		if (!bodyFixtureDef.isSensor) body.setLinearDamping(2.6f);
+		if (!bodyFixtureDef.isSensor) body.setLinearDamping(GameConfiguration.physicsLinearDamping);
 		// No linear damping for sensor bodies.
 		else body.setLinearDamping(0.0f);
 		

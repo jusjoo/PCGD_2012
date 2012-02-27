@@ -16,6 +16,8 @@ public class GameHud {
 
 	CoffeeGDX game;
 	ArrayList<HudElement> elements;
+	
+	ArrayList<TextElement> textElements;
 		
 	private MenuElement activeMenuElement;
 	private MenuElement mainMenuElement;
@@ -26,6 +28,14 @@ public class GameHud {
 	private HudBarElement playerHealthBar;
 	private HudBarElement playerStaminaBar;
 	private HudBarElement playerManaBar;
+	
+	private TextElement textStr;
+	private TextElement textDex;
+	private TextElement textWis;
+	private TextElement score;
+	private TextElement ammo;
+	private TextElement exp;
+	
 	private Creature player;
 	
 	private MenuItem play;
@@ -46,14 +56,16 @@ public class GameHud {
 	
 	public GameHud(CoffeeGDX game) {
 		this.game = game;
-			
+		this.textElements = new ArrayList<TextElement>();
+		
 		elements = new ArrayList<HudElement>();		
 		initMainMenu();
 				
 		menuMoveSound = Gdx.audio.newSound(new FileHandle(GameConfiguration.menuMoveSoundFile));
 		menuConfirmSound = Gdx.audio.newSound(new FileHandle(GameConfiguration.menuConfirmSoundFile));
 		startGameSound = Gdx.audio.newSound(new FileHandle(GameConfiguration.startGameSoundFile));
-		menuBackSound = Gdx.audio.newSound(new FileHandle(GameConfiguration.menuBackSoundFile));
+		menuBackSound = Gdx.audio.newSound(new FileHandle(GameConfiguration.menuBackSoundFile));	
+		
 	}
 	
 	private void initHud() {
@@ -67,8 +79,46 @@ public class GameHud {
 			elements.add(playerStaminaBar);
 			elements.add(playerManaBar);
 			elements.add(hudElement);
+			
+			initText();
 		}
 		
+		
+	}
+
+	private void initText() {
+
+		// TODO: korjaa purkka!
+		if (textElements.contains(textStr)) {
+			textElements.remove(textStr);
+		}
+		if (textElements.contains(textDex)) {
+			textElements.remove(textDex);
+		}
+		if (textElements.contains(textWis)) {
+			textElements.remove(textWis);			
+		}
+		textStr = new TextElement(80, 10);
+		textDex = new TextElement(80, 20);
+		textWis = new TextElement(80, 30);
+		ammo = new TextElement(); 
+		score = new TextElement();
+		
+		textElements.add(textStr);
+		textElements.add(textDex);
+		textElements.add(textWis);
+		
+				
+		updateText();		
+		
+	}
+
+	public void updateText() {
+		
+		Creature player = game.map.getPlayer();
+		textStr.print("Strength: "+ (int)player.getStrength() );
+		textDex.print("Dexterity: "+ (int)player.getDexterity());
+		textWis.print("Wisdom: "+ (int)player.getWisdom());
 		
 	}
 
@@ -130,6 +180,11 @@ public class GameHud {
 		chargenMenuElement.addItem(sorceress);
 		chargenMenuElement.addItem(back);
 		
+		/*
+		 * Hud text
+		 */
+		
+		
 		
 	}
 
@@ -143,8 +198,9 @@ public class GameHud {
 			float y = camY + Gdx.graphics.getHeight() / 4;
 			if(game.map == null) {
 				menuBatch.begin();
-				menuBackground.draw(menuBatch);
+				//menuBackground.draw(menuBatch);				
 				menuBatch.end();
+				
 			}
 			
 			spriteBatch.begin();
@@ -152,10 +208,11 @@ public class GameHud {
 			for (HudElement element: elements) {
 				
 				element.render(spriteBatch, x, y);
-			}
+			}		
+			
+			spriteBatch.end();		
 			
 			
-			spriteBatch.end();
 
 	}
 
@@ -183,14 +240,18 @@ public class GameHud {
 
 	public void update(float deltaTime) {
 		if(game.map != null) {
-			playerHealthBar.bar.setCurrentValue(player.body.getHitPoints());	
+			playerHealthBar.bar.setCurrentValue(player.body.getHitPoints());			
 			playerStaminaBar.bar.setCurrentValue(player.getStamina());
 			playerManaBar.bar.setCurrentValue(player.getMana());
 			
 			playerHealthBar.bar.setMaxValue(player.body.getHitPointsMax());
 			playerStaminaBar.bar.setMaxValue(player.getStaminaMax());
 			playerManaBar.bar.setMaxValue(player.getManaMax());
+			
+			if (player.statsUpdated())
+				updateText();
 		}
+		
 	}
 	
 	public void removeElement(HudElement hudElement) {

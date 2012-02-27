@@ -44,6 +44,8 @@ public class Creature extends SpriteBody implements Cloneable {
 	protected float manaMax;
 	protected float mana;
 	
+	protected boolean statsUpdated = false;
+	
 	Fixture sensorFixture;
 	
 	public enum AttackType {Melee, Ranged};
@@ -76,7 +78,8 @@ public class Creature extends SpriteBody implements Cloneable {
 		creature.stamina = creature.staminaMax;
 		
 		
-		creature.body.setMaxVelocity(creature.speed*GameConfiguration.creatureMaxVelocityMultiplier);
+		creature.body.setMaxVelocity(creature.speed);
+		//creature.body.setMaxVelocity(9001);
 		
 		// Set the attack component
 		if(prototype.getComponent(AttackComponent.class) != null) {
@@ -257,6 +260,8 @@ public class Creature extends SpriteBody implements Cloneable {
 		body.setHitPoints(newHp);
 		body.heal(newHp);
 		
+		statsUpdated = true;
+		
 	}
 
 	public void modifyDexterity(float dexterityModifier) {
@@ -267,12 +272,17 @@ public class Creature extends SpriteBody implements Cloneable {
 		MovementComponent movement = getComponent(MovementComponent.class);
 		movement.setJumpHeight(jumpHeight);
 		movement.setSpeed(speed);
+		body.setMaxVelocity(speed);
+		
+		statsUpdated = true;
 	}	
 	
 	public void modifyWisdom (float wisdomModifier) {
 		wisdom += wisdomModifier;
 		manaMax = deriveMana();
 		mana = manaMax;		
+		
+		statsUpdated = true;
 	}
 
 	public float getStaminaMax() {
@@ -295,5 +305,10 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		return (str+" "+dex+" "+wis+" "+hp+" "+stamina+" "+mana+" "+jump+" "+speed);
 	}
+	public boolean statsUpdated() {
+		boolean wasUpdated = statsUpdated;
+		statsUpdated = false;
+		return wasUpdated; 
+	}	
 	
 }
