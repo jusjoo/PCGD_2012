@@ -12,7 +12,7 @@ public class MovementComponent extends Component {
 	protected float speed;
 	protected float jumpHeight;
 	protected float jumpTimer = 0;
-	protected float jumpDelay = 0.5f;
+	protected float jumpDelay = 0.3f;
 	protected boolean moving;
 	
 	protected int maxJumps;
