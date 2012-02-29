@@ -365,7 +365,9 @@ public class GameMap {
 	}
 	
 	public void renderLayer(LayerType type, OrthographicCamera cam, SpriteBatch spriteBatch) {
-		if(type == LayerType.Foreground) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Foreground)});
+		if(type == LayerType.Foreground) {
+			tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Foreground)});
+		}
 		if(type == LayerType.Background) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Background)});
 		if(type == LayerType.StaticTiles) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.StaticTiles)});
         if(type == LayerType.Traps) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Traps)});
