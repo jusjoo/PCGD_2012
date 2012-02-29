@@ -238,7 +238,7 @@ public class GameHud {
 				
 				element.render(spriteBatch, x, y);
 			}		
-			//spriteBatch.setColor(player.getComponent(SpriteComponent).)
+			
 			spriteBatch.end();		
 			
 			
