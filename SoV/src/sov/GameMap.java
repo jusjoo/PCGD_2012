@@ -203,7 +203,6 @@ public class GameMap {
 							
 							// if not skipping, then draw the tile and the tiles skipped before it, as one big tile
 							} else {
-								System.out.println(tilesSkipped);
 								BodyComponent tile = new BodyComponent(null, new Vector2(tileSize + tileSize*tilesSkipped, tileSize), true, 1.0f, false, shape, false);
 								tile.addToWorld(world, new Vector2(x*tileSize - (tilesSkipped)*tileSize/2 , -y*tileSize+map.height*tileSize));
 										
