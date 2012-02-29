@@ -2,8 +2,9 @@ package sov;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
+import java.util.Map.Entry;
 
-import sov.Creature.AttackType;
+import sov.Attack.AttackType;
 import sov.SpriteComponent.AnimationState;
 
 import com.badlogic.gdx.math.Vector2;
@@ -13,8 +14,12 @@ public class AIComponent extends InputComponent {
 	public enum AIstate {
 		Follow,
 		Attack,
-		Alarmed
+		Alarmed,
+		RangedAttacker
 	}
+	
+	private AnimationState meleeAttack = null;
+	private AnimationState rangedAttack = null;
 	
 	private TreeSet<AIstate> activeStates;	
 	
@@ -23,14 +28,16 @@ public class AIComponent extends InputComponent {
 	/*
 	 * AI Behaviour
 	 */
-	private float maximumAttackDistanceX = 128;
-	private float maximumAttackDistanceY = 16;
-	private float minimumDistanceBetweenTarget = 16;
-	private float minimumDistanceNow = 16;
+	private float maximumRangedAttackDistanceX = 256;
+	private float maximumMeleeAttackDistanceX = 32;
+	private float maximumAttackDistanceY = 32;
+	private float optimalRangedDistance = 64;
+	private float optimalMeleeDistance = 32;
+	private float optimalDistanceNow = 16;
 	private float minimumDistanceTolerance = 10;
 	private float distanceRandomizeTimer = 0;
 	private float distanceRandomDuration = 3;
-	private float visibilityX = 100;
+	private float visibilityX = 128;
 	private float visibilityY = 100;
 	private float alarmTime = 60;
 	private float alarmTimer = 0;
@@ -42,6 +49,23 @@ public class AIComponent extends InputComponent {
 		this.movementComponent = parent.getComponent(MovementComponent.class);
 		this.bodyComponent = parent.getComponent(BodyComponent.class);
 		this.activeStates = new TreeSet<AIstate>();
+		
+		// get reference for ranged and melee attacks
+		AttackComponent attackcompo = parent.getComponent(AttackComponent.class);
+		for(Entry<SpriteComponent.AnimationState, Attack> animationEntry: attackcompo.attacks.entrySet()) {
+			AttackType temp = animationEntry.getValue().getType();
+			
+			if ( temp == AttackType.Melee)
+				meleeAttack = animationEntry.getKey();
+			if ( temp == AttackType.Ranged)
+				rangedAttack = animationEntry.getKey();
+			if ( temp == AttackType.Magic)
+				rangedAttack = animationEntry.getKey();
+			
+			if (rangedAttack != null)
+				activeStates.add(AIstate.RangedAttacker);
+			
+		}
 	}
 	
 	public AIComponent setTarget(Entity entity) {
@@ -80,11 +104,16 @@ public class AIComponent extends InputComponent {
 	private boolean handleAttack() {		
 		
 		if(	target != null &&
+			target.alive &&
 			isTargetVisible() &&
-			getTargetDistanceX() <= maximumAttackDistanceX &&
-			getTargetDistanceY() <= maximumAttackDistanceY &&
-			target.alive) {
-			parent.getComponent(AttackComponent.class).attack(AnimationState.Attack1);
+			getTargetDistanceY() <= maximumAttackDistanceY ) {
+			
+			if (getTargetDistanceX() <= maximumMeleeAttackDistanceX && meleeAttack != null)
+				parent.getComponent(AttackComponent.class).attack(meleeAttack);
+			
+			if (getTargetDistanceX() <= maximumRangedAttackDistanceX && rangedAttack != null)
+				parent.getComponent(AttackComponent.class).attack(rangedAttack);
+				
 			return true;
 		}
 		else return false;
@@ -93,14 +122,21 @@ public class AIComponent extends InputComponent {
 	private boolean handleFollow() {
 		
 		if (distanceRandomizeTimer <= 0) {
-			minimumDistanceNow = ((float)Math.random()*3+1)*minimumDistanceBetweenTarget;
+			float optimalDistance;
+			if (activeStates.contains(AIstate.RangedAttacker))
+				optimalDistance = optimalRangedDistance;
+			else optimalDistance = optimalMeleeDistance;
+			
+			optimalDistanceNow = ((float)Math.random()*1 + 0.5f)*optimalDistance;
 			//System.out.println("Min Distance set to "+minimumDistanceNow);
 			distanceRandomizeTimer = distanceRandomDuration;
 		}
 		
 		
 		// move towards target
-		if(target != null && isTargetVisible() && target.alive && getTargetDistanceX() > (minimumDistanceNow + minimumDistanceTolerance)) {
+		
+		if ((activeStates.contains(AIstate.RangedAttacker) && target != null && isTargetVisible() && getTargetDistanceX() > maximumRangedAttackDistanceX) ||	
+			(!activeStates.contains(AIstate.RangedAttacker) && target != null && isTargetVisible() && target.alive && getTargetDistanceX() > (optimalDistanceNow + minimumDistanceTolerance)) ) {
 
 			if(bodyComponent.getPosition().x < target.getPosition().x) {
 					movementComponent.move(true);
@@ -110,7 +146,7 @@ public class AIComponent extends InputComponent {
 			//return true;
 		}
 		//move away from target
-		else if (target != null && isTargetVisible() && target.alive && getTargetDistanceX() < (minimumDistanceNow - minimumDistanceTolerance)) {
+		else if (target != null && isTargetVisible() && target.alive && getTargetDistanceX() < (optimalDistanceNow - minimumDistanceTolerance)) {
 			
 			if(bodyComponent.getPosition().x < target.getPosition().x) {
 				movementComponent.move(false);

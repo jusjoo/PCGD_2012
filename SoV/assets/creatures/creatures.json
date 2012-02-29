@@ -3,9 +3,9 @@
 		"creatureType": "Barbarian",
 		"textureName": "sprites_human_barbarian.png",
 		"hitboxSize": [14, 29],
-		"dexterity": 7,
-		"strength": 12,
-		"wisdom": 4,
+		"dexterity": 10,
+		"strength": 20,
+		"wisdom": 5,
 		"_frames_description":
 				"Frame size, Origin offset, Start frame coordinates, Length, Speed (ms)",
 		"frames": {   
@@ -41,9 +41,9 @@
 		"creatureType": "Ninja",
 		"textureName": "sprites_human_ninja.png",
 		"hitboxSize": [14, 29],  
-		"dexterity": 10,
-		"strength": 7,
-		"wisdom": 5,
+		"dexterity": 15,
+		"strength": 15,
+		"wisdom": 10,
 		"_frames_description":
 				"Frame size, Origin offset, Start frame coordinates, Length, Speed (ms)",
 		"frames": {   
@@ -74,9 +74,9 @@
 		"creatureType": "Sorceress",
 		"textureName": "sprites_human_sorceress.png",
 		"hitboxSize": [14, 29],
-		"dexterity": 5,
-		"strength": 5,
-		"wisdom": 10,
+		"dexterity": 8,
+		"strength": 8,
+		"wisdom": 20,
 		"_frames_description":
 				"Frame size, Origin offset, Start frame coordinates, Length, Speed (s), Looping",
 		"frames": {   
@@ -101,8 +101,8 @@
 		"creatureType": "Goblin",
 		"textureName": "sprites_monster_goblin.png",
 		"hitboxSize": [15, 24],
-		"dexterity": 2,
-		"strength": 1,
+		"dexterity": 5,
+		"strength": 5,
 		"wisdom": 0,
 		"_frames_description":
 				"Frame size, Origin offset, Start frame coordinates, Length, Speed (ms)",
@@ -127,8 +127,8 @@
 		"creatureType": "Slime",
 		"textureName": "sprites_monster_slime.png",
 		"hitboxSize": [15, 10],
-		"dexterity": 4,
-		"strength": -1,
+		"dexterity": 3,
+		"strength": 0,
 		"wisdom": 3,
 		"_frames_description":
 				"Frame size(16px*x, 16px*y), Origin offset, Start frame coordinates, Length, Speed (ms)",
@@ -152,8 +152,8 @@
 		"creatureType": "Troll",
 		"textureName": "sprites_monster_troll.png",
 		"hitboxSize": [31, 47],
-		"dexterity": 2,
-		"strength": 25,
+		"dexterity": 3,
+		"strength": 30,
 		"wisdom": 0,
 		"_frames_description":
 				"Frame size(16px*x, 16px*y), Origin offset, Start frame coordinates, Length, Speed (ms)",

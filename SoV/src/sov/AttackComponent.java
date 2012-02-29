@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import sov.Attack.AttackType;
 import sov.BodyComponent.SlopeShape;
 import sov.SpriteComponent.AnimationState;
 
@@ -58,7 +59,8 @@ public class AttackComponent extends Component {
 			if (protoAttack.getValue().getClass() == MeleeAttack.class) {
 				
 				MeleeAttack meleeProto = (MeleeAttack) protoAttack.getValue();
-				MeleeAttack attack = new MeleeAttack(attackComponent, 
+				MeleeAttack attack = new MeleeAttack(meleeProto.getType(),
+						attackComponent, 
 						meleeProto.attackTime,
 						meleeProto.preDamageTime,
 						meleeProto.animation, 
@@ -71,7 +73,8 @@ public class AttackComponent extends Component {
 			} 
 			if (protoAttack.getValue().getClass() == RangedAttack.class) {
 				RangedAttack rangedProto = (RangedAttack) protoAttack.getValue();
-				RangedAttack attack = new RangedAttack(attackComponent, 
+				RangedAttack attack = new RangedAttack(rangedProto.getType(),
+						attackComponent, 
 						rangedProto.attackTime,
 						rangedProto.preDamageTime,
 						rangedProto.animation,
@@ -200,7 +203,22 @@ public class AttackComponent extends Component {
 		
 	}
 	
-	
-
+	public float getAmmo() {
+		float ammo = 0;
+		
+		for (Attack attack : attacks.values()) {			
+			if (attack.getType() == AttackType.Ranged)
+				ammo = ((RangedAttack)attack).getAmmo();		
+		}
+		
+		return ammo;
+			
+	}
+	public void giveAmmo(float ammo) {
+		for (Attack attack : attacks.values()) {			
+			if (attack.getType() == AttackType.Ranged)
+				((RangedAttack)attack).giveAmmo(ammo);		
+		}		
+	}
 	
 }

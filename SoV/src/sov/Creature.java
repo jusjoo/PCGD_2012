@@ -46,9 +46,8 @@ public class Creature extends SpriteBody implements Cloneable {
 	
 	protected boolean statsUpdated = false;
 	
-	Fixture sensorFixture;
+	Fixture sensorFixture;	
 	
-	public enum AttackType {Melee, Ranged};
 	boolean canAttack = true;
 	
 	
