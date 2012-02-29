@@ -33,7 +33,7 @@
 	{
 		"type": "GoldCoin",
 		"animations": "Coin",
-		"soundFile": "menu_3.ogg",
+		"soundFile": "collect.ogg",
 		"size": 16,
 		"effects": {
 			"giveScore": 100
@@ -43,7 +43,7 @@
 	{
 		"type": "BigDiamond",
 		"animations": "Diamond",
-		"soundFile": "menu_3.ogg",
+		"soundFile": "collect.ogg",
 		"size": 16,
 		"effects": {
 			"giveScore": 200,
@@ -54,7 +54,7 @@
 	{
 		"type": "ExpBall",
 		"animations": "SoulOrb",
-		"soundFile": "menu_3.ogg",
+		"soundFile": "collect.ogg",
 		"size": 16,
 		"effects": {
 			"giveMana": 0,

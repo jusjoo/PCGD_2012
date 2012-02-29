@@ -107,6 +107,8 @@ public class Collectible extends Entity {
 			}
 		}
 		
+		this.getComponent(AudioComponent.class).playSound(AnimationState.Die);
+		
 		//body.setToDie = true;
 		setToDestroy = true;
 	}
