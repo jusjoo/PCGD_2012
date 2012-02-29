@@ -180,13 +180,30 @@ public class BodyComponent extends Component {
 			//TODO: siirrä nämä Entityyn!
 			
 			if(parent.getComponent(MovementComponent.class) != null) {
-				giveCollectible(CollectibleType.ExpBall);
-				double random = Math.random();
-				if (random < 0.2) {
-					giveCollectible(CollectibleType.BigDiamond);
+				
+				float level = ((Creature)parent).getCreatureDangerLevel();
+				System.out.println(((Creature)parent).creatureType+" died: dropping loot of level "+level);
+				
+				for (int i = 0; i < Math.floor(level); i++) {
+					giveCollectible(CollectibleType.ExpBall);
 				}
-				else {
+				double random = Math.random();
+				if (random < GameConfiguration.lootDropChanceDiamond * level) {
+					giveCollectible(CollectibleType.BigDiamond);
+					System.out.println("Drop Chance:"+GameConfiguration.lootDropChanceDiamond * level);
+				}
+				else if (random < GameConfiguration.lootDropChanceGold * level){
 					giveCollectible(CollectibleType.GoldCoin);
+					System.out.println("Drop Chance:"+GameConfiguration.lootDropChanceGold * level);
+				}
+				random = Math.random();
+				if (random < GameConfiguration.lootDropChancePotion * level) {
+					if (Math.random() < 0.5) 
+						giveCollectible(CollectibleType.HealthPotion);
+					else
+						giveCollectible(CollectibleType.ManaPotion);
+					
+					System.out.println("Drop Chance:"+GameConfiguration.lootDropChancePotion * level);
 				}
 				
 				//parent.removeComponent(InputComponent.class);
@@ -354,12 +371,13 @@ public class BodyComponent extends Component {
 	public float getHitPoints() {
 		return this.hitPoints;
 	}
-	public void heal(float healAmount) {
-		
+	public void heal(float healAmount) {		
 		if (hitPoints+healAmount <= hitPointsMax) {
-			hitPoints+= healAmount;
+			hitPoints+= healAmount;			
 		}
-		else hitPoints = hitPointsMax;		
+		else {
+			hitPoints = hitPointsMax;			
+		}
 	}
 	public void addHealthBar() {
 		if (!healthBarIsStatic) {

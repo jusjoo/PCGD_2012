@@ -58,7 +58,7 @@
 		"size": 16,
 		"effects": {
 			"giveMana": 0,
-			"giveExp": 20
+			"giveExp": 5
 		}
 	}
 ]

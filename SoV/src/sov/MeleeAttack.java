@@ -111,7 +111,18 @@ public class MeleeAttack extends Attack {
 	}
 	
 	public void dealDamageTo(BodyComponent target) {
-		target.setToTakeDamage(getDamage(Stats.Strength));		
+		float damageMultiplier = 1;
+		Creature parentCreature = (Creature)attackComponent.parent;
+		if ( parentCreature.applyCriticalDamage ) {
+			damageMultiplier = 2.5f;
+			parentCreature.activateSpecialAbility();
+			if (!parentCreature.modifyMana(-25))
+				parentCreature.modifyMana(-parentCreature.getMana());
+			if (!parentCreature.modifyStamina(-25))
+				parentCreature.modifyStamina(-parentCreature.getStamina());
+		}
+		
+		target.setToTakeDamage(getDamage(Stats.Strength)*damageMultiplier);		
 	}
 	
 	public boolean consumeResource() {

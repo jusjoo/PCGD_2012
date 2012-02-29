@@ -108,15 +108,19 @@ public class AIComponent extends InputComponent {
 			isTargetVisible() &&
 			getTargetDistanceY() <= maximumAttackDistanceY ) {
 			
-			if (getTargetDistanceX() <= maximumMeleeAttackDistanceX && meleeAttack != null)
+			if (getTargetDistanceX() <= maximumMeleeAttackDistanceX && meleeAttack != null) {
 				parent.getComponent(AttackComponent.class).attack(meleeAttack);
+				return true;
+			}
 			
-			if (getTargetDistanceX() <= maximumRangedAttackDistanceX && rangedAttack != null)
+			if (getTargetDistanceX() <= maximumRangedAttackDistanceX && rangedAttack != null) {
 				parent.getComponent(AttackComponent.class).attack(rangedAttack);
+				return true;
+			}
 				
-			return true;
+			
 		}
-		else return false;
+		return false;
 	}
 	
 	private boolean handleFollow() {
@@ -156,10 +160,12 @@ public class AIComponent extends InputComponent {
 			//return true;
 		}
 		
-		if(target.getPosition().x <= bodyComponent.getPosition().x) {
-			movementComponent.setFacingRight(false);
-		} else {
-			movementComponent.setFacingRight(true);
+		if (isTargetVisible()) {
+			if(target.getPosition().x <= bodyComponent.getPosition().x) {
+				movementComponent.setFacingRight(false);
+			} else {
+				movementComponent.setFacingRight(true);
+			}
 		}
 		
 		return false;
@@ -169,11 +175,17 @@ public class AIComponent extends InputComponent {
 		
 		// FIXME: Palikkaimplementaatio, lis�� visibility detection!
 		float visibilityX = this.visibilityX;
-		
+		float visibilityY = this.visibilityY;
 		if (activeStates.contains(AIstate.Alarmed))		// if alarmed, follow from further away.
 			visibilityX = visibilityX * 10;
 		
-		if (getTargetDistanceX() <= visibilityX &&
+		float stealth = ((Creature)target.parent).getStealth();
+		visibilityX -= stealth;
+		visibilityY -= stealth;
+		
+		if (visibilityX < 0) visibilityX = 0;
+		
+		if (getTargetDistanceX() < visibilityX &&
 			getTargetDistanceY() <= visibilityY)  {
 			return true;
 		} else return false;

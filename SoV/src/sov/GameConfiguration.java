@@ -57,7 +57,8 @@ public class GameConfiguration {
 	public static boolean randomizedDamage = true;
 	
 	public static float strHealthMultiplier = 15f;
-	public static float healthBaseModifier = 25f;	
+	public static float healthBaseModifier = 25f;
+	public static float healthRegenRatePercentage = 0.0f;	
 	public static float strDamageMultiplier = 1.0f;	
 	public static float dexSpeedMultiplier = 0.40f;
 	public static float speedBaseModifier = 1.0f;
@@ -73,14 +74,19 @@ public class GameConfiguration {
 	public static boolean staminaRegenAsPercentage = true;	
 	public static float staminaRegenRatePercentage = 0.05f;		//regen per second
 	public static float staminaRegenRateStatic = 7;
-	public static float staminaCostJump = 5.0f;
+	public static float staminaCostJump = 0.0f;
 	public static float staminaCostDoubleJump = 20.0f;
 	public static float staminaCostAttackMultiplier = 1.75f;
 	
 	public static boolean manaRegenAsPercentage = true;
 	public static float manaRegenRatePercentage = 0.02f;			//regen per second
 	public static float manaRegenRateStatic = 1;	
-	public static float manaCostAttackMultiplier = 1.0f;
+	public static float manaCostAttackMultiplier = 1.25f;
+	
+	//loot
+	public static float lootDropChanceDiamond = 0.05f;
+	public static float lootDropChanceGold = 0.20f;
+	public static float lootDropChancePotion = 0.10f;
 	
 	
 	
@@ -98,6 +104,7 @@ public class GameConfiguration {
 	public static int actionCrouch = Keys.DOWN;
 	public static int actionAttack = Keys.SPACE;
 	public static int actionAltAttack = Keys.CONTROL_LEFT;
+	public static int actionSpecial = Keys.S;
 	public static int escapeKey = Keys.ESCAPE;
 	public static int activateMenu = Keys.ENTER;
 	
@@ -132,6 +139,7 @@ public class GameConfiguration {
 	public static float BarbarianLevelUpWis= 0.25f;
 	public static float NinjaLevelUpWis = 0.5f;
 	public static float SorceressLevelUpWis = 1.0f;
+	
 	
 
 	

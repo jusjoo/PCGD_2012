@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import javax.swing.DebugGraphics;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 
 import sov.BodyComponent.SlopeShape;
@@ -22,7 +23,7 @@ import com.google.gson.annotations.Expose;
 public class Creature extends SpriteBody implements Cloneable {
 	
 	public enum CreatureType { Barbarian, Ninja, Sorceress, Goblin, Slime, Troll };
-	public enum Stats { Strength, Dexterity, Wisdom };
+	public enum Stats { Strength, Dexterity, Wisdom, HealthRegen, StaminaRegen, ManaRegen,Stealth};	
 
 	
 	// All the properties which are read from creatures.json must be declared here
@@ -44,11 +45,23 @@ public class Creature extends SpriteBody implements Cloneable {
 	protected float manaMax;
 	protected float mana;
 	
+	protected float stealth = 0; // determines how much enemy visibility is reduced
+	
+	protected float healthRegenBonus = 0f;
+	protected float staminaRegenBonus = 0f;
+	protected float manaRegenBonus = 0f;
+	protected ArrayList<Buff> activeBuffs;
+		
 	protected boolean statsUpdated = false;
+	protected boolean specialActive = false;
+	protected float specialTimer;
 	
 	Fixture sensorFixture;	
 	
 	boolean canAttack = true;
+	protected float manaDrain = 0;
+	private boolean activatedAbility = false;
+	boolean applyCriticalDamage = false;
 	
 	
 	public Creature() {
@@ -75,6 +88,7 @@ public class Creature extends SpriteBody implements Cloneable {
 		creature.staminaMax = prototype.deriveStamina();
 		creature.mana = creature.manaMax;
 		creature.stamina = creature.staminaMax;
+		creature.activeBuffs = new ArrayList<Buff>();
 		
 		
 		creature.body.setMaxVelocity(creature.speed);
@@ -110,7 +124,33 @@ public class Creature extends SpriteBody implements Cloneable {
 				
 		if (!body.finalDeath) {
 			regenerateStamina(deltaTime);
-			regenerateMana(deltaTime);
+			regenerateMana(deltaTime);			
+			regenerateHealth(deltaTime);
+			
+			ArrayList<Buff> buffsToRemove = new ArrayList<Buff>();
+			
+			if (activeBuffs.size() > 0) {
+				for (Buff buff : activeBuffs) {
+					
+					if (!activatedAbility) {
+						
+						if (buff.getDuration() != -1 && buff.reduceDuration(deltaTime) ){
+							buffsToRemove.add(buff);
+						}
+					}
+				}
+				if (buffsToRemove.size() > 0) {
+					for (Buff buff : buffsToRemove) {
+						applyDebuff(buff);
+					}
+				}
+			}
+			if (specialActive) {
+				specialTimer -= deltaTime;
+			}
+			if (specialTimer <= 0) {
+				specialActive = false;
+			}
 		}
 		
 	}
@@ -119,25 +159,51 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		float manaregen;
 		
-		if (GameConfiguration.manaRegenAsPercentage)
+		if (GameConfiguration.manaRegenAsPercentage) {
 			manaregen = deltaTime * GameConfiguration.manaRegenRatePercentage * manaMax;
+			if (manaRegenBonus < 0) {
+				manaregen += manaRegenBonus*deltaTime;
+			}
+			else {
+				manaregen = manaregen * (1+manaRegenBonus);
+			}
+		}
 		else
 			manaregen = deltaTime * GameConfiguration.manaRegenRateStatic;			
 			
-		modifyMana(manaregen);
+		
+		if (!modifyMana(manaregen) && activatedAbility == true) {
+			activateSpecialAbility();
+		}
 		
 	}
 
 	private void regenerateStamina(float deltaTime) {
 		float staminaregen;
 		
-		if (GameConfiguration.staminaRegenAsPercentage)
+		if (GameConfiguration.staminaRegenAsPercentage) {
 			staminaregen = deltaTime * GameConfiguration.staminaRegenRatePercentage * staminaMax;
+			if (staminaRegenBonus < 0) {
+				staminaregen += staminaRegenBonus*deltaTime;
+			}
+			else {
+				staminaregen = staminaregen * (1+staminaRegenBonus);
+			}
+		}
 		else
 			staminaregen = deltaTime * GameConfiguration.staminaRegenRateStatic;
 		
 		modifyStamina(staminaregen);
 		
+	}
+	
+	private void regenerateHealth(float deltaTime) {
+		float healthregen;		
+		if (healthRegenBonus > 0) {
+			BodyComponent bodycomp = getComponent(BodyComponent.class);
+			healthregen = deltaTime * healthRegenBonus * bodycomp.getHitPointsMax();
+			bodycomp.heal(healthregen);			
+		}
 	}
 
 	public void removeFromWorld(){
@@ -178,7 +244,10 @@ public class Creature extends SpriteBody implements Cloneable {
 		
 		
 	}
-
+	
+	public float getStealth() {		
+		return stealth;
+	}
 	public float getDexterity() {
 		System.out.println("Dexterity "+dexterity);
 		return dexterity; 
@@ -226,8 +295,10 @@ public class Creature extends SpriteBody implements Cloneable {
 	public boolean modifyMana(float value){
 		
 		float newValue = mana+value;
-		if (newValue < 0)
+		if (newValue < 0) {
+			System.out.println("Out of Mana!");
 			return false;
+		}
 		else if (newValue > manaMax)
 			mana = manaMax;
 		else mana = newValue;
@@ -255,9 +326,10 @@ public class Creature extends SpriteBody implements Cloneable {
 		strength += strengthModifier;
 		float newHp = deriveHitpoints();
 		
-		BodyComponent body = getComponent(BodyComponent.class);		
+		BodyComponent body = getComponent(BodyComponent.class);
+		float hpPercentage = body.hitPoints / body.hitPointsMax;
 		body.setHitPoints(newHp);
-		body.heal(newHp);
+		body.hitPoints = newHp*hpPercentage;
 		
 		statsUpdated = true;
 		
@@ -308,6 +380,123 @@ public class Creature extends SpriteBody implements Cloneable {
 		boolean wasUpdated = statsUpdated;
 		statsUpdated = false;
 		return wasUpdated; 
-	}	
+	}
+	
+	public float getCreatureDangerLevel() {
+		return (float)Math.sqrt((double)(strength + wisdom));
+	}
+	
+	public void applyBuff(Buff buff) {
+		switch (buff.getStat()) {
+			case Strength:
+				modifyStrength(buff.getBuffValue());
+				break;
+			case Dexterity:
+				modifyDexterity(buff.getBuffValue());
+				break;
+			case Wisdom:
+				modifyWisdom(buff.getBuffValue());
+				break;
+			case HealthRegen:
+				this.healthRegenBonus += buff.getBuffValue();
+				break;
+			case StaminaRegen:
+				this.staminaRegenBonus += buff.getBuffValue();
+				break;
+			case ManaRegen:
+				this.manaRegenBonus += buff.getBuffValue();
+			case Stealth:
+				this.stealth += buff.getBuffValue();
+				break;
+		}
+		activeBuffs.add(buff);			
+	}
+	private void applyDebuff(Buff buff) {
+		switch (buff.getStat()) {
+		case Strength:
+			modifyStrength(-buff.getBuffValue());
+			break;
+		case Dexterity:
+			modifyDexterity(-buff.getBuffValue());
+			break;
+		case Wisdom:
+			modifyWisdom(-buff.getBuffValue());
+			break;
+		case HealthRegen:
+			this.healthRegenBonus -= buff.getBuffValue();
+			break;
+		case StaminaRegen:
+			this.staminaRegenBonus -= buff.getBuffValue();
+			break;
+		case ManaRegen:
+			this.manaRegenBonus -= buff.getBuffValue();
+		case Stealth:
+			this.stealth -= buff.getBuffValue();
+			break;
+	}
+	System.out.println("Removing buff: "+buff.getStat()+" +"+buff.getBuffValue()+" "+buff.getDuration()+"s ");
+	activeBuffs.remove(buff);
+		
+	}
+
+	public void activateSpecialAbility() {
+		if (!specialActive || activatedAbility) {
+			System.out.println("Activating "+creatureType+" special ability...");
+			switch (creatureType) {
+				case Barbarian:
+					specialBarbarian();
+					break;
+				case Ninja:					
+					if (!activatedAbility) {
+						specialNinja();
+						activatedAbility = true;
+						applyCriticalDamage = true;
+					}
+					else {
+						activatedAbility = false;
+						applyCriticalDamage = false;
+					}
+					
+					
+					
+					break;
+				case Sorceress:
+					break;
+			}
+		}
+		
+	}
+
+	private void specialNinja() {
+		System.out.println("Activating "+creatureType+" special ability...phase2");
+		float manaCost = -10;		
+		if (modifyMana(manaCost)) {
+			//manaDrain  = -2.5f;
+			int level = getComponent(ExperienceComponent.class).getLevel();
+			float duration = -1;
+			applyBuff( new Buff(Stats.Stealth, 100.0f, duration ) );
+			applyBuff( new Buff(Stats.ManaRegen, -10.0f, duration ) );
+			applyBuff( new Buff(Stats.Dexterity, -dexterity*0.5f, duration) );			
+			
+		}
+	}
+
+	private void specialBarbarian() {		
+		System.out.println("Activating "+creatureType+" special ability...phase2");
+		float manaCost = -50;
+		if (modifyMana(manaCost)) {		
+		
+			int level = getComponent(ExperienceComponent.class).getLevel();
+			float duration = 6+0.5f*level;
+			
+			applyBuff( new Buff(Stats.Strength, (9f+level), duration ) );
+			applyBuff( new Buff(Stats.HealthRegen, 0.02f, duration) );
+			applyBuff( new Buff(Stats.StaminaRegen, 1.0f, duration) );
+			
+			specialActive = true;
+			specialTimer = duration;
+		}			
+	}
+	
 	
 }
