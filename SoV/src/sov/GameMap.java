@@ -136,7 +136,8 @@ public class GameMap {
 			collectibles.add(
 					factory.spawnCollectible(world, 
 					CollectibleType.valueOf(spawn.type), 
-					new Vector2(spawn.x + spawn.width/2 -8, -spawn.y+(map.height)*map.tileHeight - spawn.height/2 +8 )) ) ;
+					new Vector2(spawn.x + spawn.width/2 -8, -spawn.y+(map.height)*map.tileHeight - spawn.height/2 +8 ), 
+					new Vector2(0,0)));
 		}
 		
 	}

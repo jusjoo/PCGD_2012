@@ -356,12 +356,13 @@ public class DynamicObjectFactory {
 		return creature;
 	}
 	
-	public Collectible spawnCollectible(World world, CollectibleType type, Vector2 coordinates) {
+	public Collectible spawnCollectible(World world, CollectibleType type, Vector2 coordinates, Vector2 impulse) {
 		Collectible collectible = Collectible.fromPrototype(collectibles.get(type));
 		
 		System.out.println("animaatiot: "+ miscAnimations.get(collectible.animations));
 		collectible.createComponents(miscAnimations.get(collectible.animations));
 		collectible.addToWorld(world, coordinates);
+		collectible.getComponent(BodyComponent.class).applyLinearImpulse(impulse);
 		return collectible;
 	}
 	

@@ -180,11 +180,14 @@ public class BodyComponent extends Component {
 			//TODO: siirrä nämä Entityyn!
 			
 			if(parent.getComponent(MovementComponent.class) != null) {
-				
-				GameConfiguration.map.addCollectible(
-						GameConfiguration.factory.spawnCollectible(world, CollectibleType.BigDiamond, 
-						new Vector2(this.getPosition().x -8, this.getPosition().y + (GameConfiguration.map.map.height) * GameConfiguration.map.map.tileHeight +8 ))
-						);
+				giveCollectible(CollectibleType.ExpBall);
+				double random = Math.random();
+				if (random < 0.2) {
+					giveCollectible(CollectibleType.BigDiamond);
+				}
+				else {
+					giveCollectible(CollectibleType.GoldCoin);
+				}
 				
 				//parent.removeComponent(InputComponent.class);
 				parent.setComponentActive(InputComponent.class, false);
@@ -201,6 +204,21 @@ public class BodyComponent extends Component {
 		}
 		
 	}
+	
+	public void giveCollectible(CollectibleType type) {
+		float randomx = (float)Math.random()*4 - 2;
+		float randomy = (float)Math.random()*4 - 2;
+		Vector2 direction = new Vector2(randomx, randomy);		
+		
+		GameConfiguration.map.addCollectible(
+				GameConfiguration.factory.spawnCollectible(world, type, 
+				new Vector2(this.getPosition().x, this.getPosition().y),
+				direction));
+		
+	}
+	
+	
+	
 	public void setToTakeDamage(float damage) {
 		setToTakeDamage += damage;
 		
