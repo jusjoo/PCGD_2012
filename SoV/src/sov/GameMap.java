@@ -136,7 +136,8 @@ public class GameMap {
 			collectibles.add(
 					factory.spawnCollectible(world, 
 					CollectibleType.valueOf(spawn.type), 
-					new Vector2(spawn.x + spawn.width/2 -8, -spawn.y+(map.height)*map.tileHeight - spawn.height/2 +8 )) ) ;
+					new Vector2(spawn.x + spawn.width/2 -8, -spawn.y+(map.height)*map.tileHeight - spawn.height/2 +8 ), 
+					new Vector2(0,0)));
 		}
 		
 	}
@@ -365,7 +366,9 @@ public class GameMap {
 	}
 	
 	public void renderLayer(LayerType type, OrthographicCamera cam, SpriteBatch spriteBatch) {
-		if(type == LayerType.Foreground) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Foreground)});
+		if(type == LayerType.Foreground) {
+			tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Foreground)});
+		}
 		if(type == LayerType.Background) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Background)});
 		if(type == LayerType.StaticTiles) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.StaticTiles)});
         if(type == LayerType.Traps) tileMapRenderer.render(cam, new int[] {layerIds.get(LayerType.Traps)});

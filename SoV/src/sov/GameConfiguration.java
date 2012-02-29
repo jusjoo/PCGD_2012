@@ -2,6 +2,7 @@ package sov;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.graphics.Color;
 
 /*
  * Keeps all the configuration data neatly in one place.
@@ -41,6 +42,10 @@ public class GameConfiguration {
 	public static final String menuConfirmSoundFile = "assets/sound/menu_2.ogg";
 	public static final String menuBackSoundFile = "assets/sound/menu_3.ogg";
 	public static final String startGameSoundFile = "assets/sound/start_game.ogg";
+	public static final Color hurtHueColor = new Color(1, 0.1f, 0.1f, 0.8f);
+	public static final Color collectHueColor = new Color(0.4f, 0.6f, 1f, 0.8f);
+	public static final float hueFadeTimeMultiplier = 4;
+	
 	
 		
 	// player
@@ -127,6 +132,7 @@ public class GameConfiguration {
 	public static float BarbarianLevelUpWis= 0.3f;
 	public static float NinjaLevelUpWis = 0.5f;
 	public static float SorceressLevelUpWis = 1.2f;
+	
 
 	
 	

@@ -227,7 +227,7 @@ public class GameHud {
 			float y = camY + Gdx.graphics.getHeight() / 4;
 			if(game.map == null) {
 				menuBatch.begin();
-				//menuBackground.draw(menuBatch);				
+				menuBackground.draw(menuBatch);				
 				menuBatch.end();
 				
 			}
