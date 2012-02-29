@@ -397,6 +397,8 @@
   <object type="GoldCoin" x="527" y="752"/>
   <object type="GoldCoin" x="647" y="748"/>
   <object type="BigDiamond" x="338" y="783"/>
+  <object type="ManaPotion" x="2902" y="845"/>
+  <object type="GoldCoin" x="3583" y="683"/>
  </objectgroup>
  <layer name="Foreground" width="256" height="128">
   <data encoding="base64" compression="zlib">
