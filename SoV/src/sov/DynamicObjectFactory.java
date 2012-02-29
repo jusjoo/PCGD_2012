@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import sov.AIComponent.AIstate;
+import sov.Attack.AttackType;
 import sov.BodyComponent.SlopeShape;
 import sov.Collectible.CollectibleType;
 import sov.SpriteComponent.AnimationState;
@@ -137,7 +138,16 @@ public class DynamicObjectFactory {
 				
 				for(Entry<SpriteComponent.AnimationState, ArrayList<Object>> attackEntry: attackDefinitions.entrySet()) {
 					AnimationState attackName = attackEntry.getKey();
-					String attackType = attackEntry.getValue().get(0).toString();
+					String temp = attackEntry.getValue().get(0).toString();
+					AttackType attackType = AttackType.None; 
+					if (temp.equals("Melee")) attackType = AttackType.Melee;
+					if (temp.equals("Ranged")) attackType = AttackType.Ranged;
+					if (temp.equals("Magic")) attackType = AttackType.Magic;
+					
+					System.out.println(temp+"..."+attackType);
+					
+					//String attackType = attackEntry.getValue().get(0).toString();
+					
 					//float attackTime = Float.parseFloat(attackEntry.getValue().get(1).toString());
 					//float frameDelay = Float.parseFloat(animationEntry.getValue().get(4).toString());
 					
@@ -180,25 +190,23 @@ public class DynamicObjectFactory {
 					
 					float damage = Float.parseFloat(attackEntry.getValue().get(6).toString());
 					
-					if(attackType.equals("Melee")) {
+					if(attackType == AttackType.Melee) {
 						SpriteBody attackBody = new SpriteBody(new Vector2(attackBoxSizeX, attackBoxSizeY), animations, false, 1.0f, false, SlopeShape.Even, true);
-						attack = new MeleeAttack(attackComponent, attackTime, preDamageTime, animation, attackOffsetY, damageTime, attackBody, damage);
+						attack = new MeleeAttack(attackType, attackComponent, attackTime, preDamageTime, animation, attackOffsetY, damageTime, attackBody, damage);
 						//attackComponentPrototypes.add(ac);
 						attackComponent.addAttack(attackName, attack);
 						
 					}
 					
-					if (attackType.equals("Ranged") || attackType.equals("Magic")) {
+					if (attackType == AttackType.Ranged || attackType == AttackType.Magic) {
 						AnimationType projectileType = AnimationType.valueOf(attackEntry.getValue().get(7).toString());
 						float flightSpeed = Float.parseFloat(attackEntry.getValue().get(8).toString());
 						
 						
 						Projectile attackBody = new Projectile(new Vector2(attackBoxSizeX, attackBoxSizeY), miscAnimations.get(projectileType), true);
 						
-						attack = new RangedAttack(attackComponent, attackTime, preDamageTime, animation, attackBody, attackOffsetY, damage, flightSpeed);
-						if (attackType.equals("Magic")){
-							//System.out.println("Magic attack detected!");
-							//int spell = (int)Float.parseFloat(attackEntry.getValue().get(9).toString());
+						attack = new RangedAttack(attackType, attackComponent, attackTime, preDamageTime, animation, attackBody, attackOffsetY, damage, flightSpeed);
+						if (attackType == AttackType.Magic){		
 							int spell = 1;
 							((RangedAttack)attack).setSpellType(spell);
 						}

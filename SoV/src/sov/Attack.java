@@ -7,6 +7,10 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class Attack {
 	
+	public enum AttackType {None,Melee,Ranged,Magic}
+	
+	private AttackType type;
+	
 	AttackComponent attackComponent;
 	protected SpriteComponent.AnimationState animation;
 
@@ -42,8 +46,9 @@ public abstract class Attack {
 	/*
 	 * TODO: Takes in a custom attack fixture shape, which is then handled for attacks on both sides.
 	 */
-	public Attack(AttackComponent attackComponent, float attackTime, float preDamageTime, SpriteComponent.AnimationState attackAnimation,  float offSetY, float damage) {				
+	public Attack(AttackType attackType, AttackComponent attackComponent, float attackTime, float preDamageTime, SpriteComponent.AnimationState attackAnimation,  float offSetY, float damage) {				
 		
+		this.type = attackType;
 		this.baseDamage=damage;
 		this.attackTime = attackTime;
 		this.preDamageTime = preDamageTime;
@@ -117,5 +122,8 @@ public abstract class Attack {
 	}
 
 	public abstract boolean consumeResource();
+	public AttackType getType () {
+		return type; 
+	}
 	
 }

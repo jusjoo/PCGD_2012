@@ -18,10 +18,10 @@ public class MeleeAttack extends Attack {
 	SpriteBody attackBody;
 	ContactEvent contactevent;
 
-	public MeleeAttack(AttackComponent attackComponent, float attackTime, float preDamageTime, 
+	public MeleeAttack(AttackType attackType, AttackComponent attackComponent, float attackTime, float preDamageTime, 
 			AnimationState attackAnimation, float offSetY, float damageTime, SpriteBody attackSpriteBody, float damage) {
 		
-		super(attackComponent, attackTime, preDamageTime, attackAnimation, offSetY ,damage);
+		super(attackType, attackComponent, attackTime, preDamageTime, attackAnimation, offSetY ,damage);
 		
 		this.damageTime = damageTime;
 		this.attackBody = attackSpriteBody;
