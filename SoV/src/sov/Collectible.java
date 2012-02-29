@@ -107,6 +107,7 @@ public class Collectible extends Entity {
 			}
 		}
 		
+		creature.getComponent(SpriteComponent.class).setHue(GameConfiguration.collectHueColor);
 		this.getComponent(AudioComponent.class).playSound(AnimationState.Die);
 		
 		//body.setToDie = true;

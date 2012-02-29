@@ -2,6 +2,8 @@ package sov;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.graphics.Color;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
@@ -29,6 +31,8 @@ public class SpriteComponent extends Component {
 		};
 		
 	private Sound sound;
+	
+	Color hue = new Color(255, 255, 255, 1.0f);
 	
 	protected SpriteComponent.AnimationState currentAnimationState = SpriteComponent.AnimationState.Idle;
 	//protected SpriteComponent.AnimationState previousAnimationState = null;
@@ -95,6 +99,10 @@ public class SpriteComponent extends Component {
 				}
 		
 		currentFrame.setRotation(angle);
+		
+		currentFrame.setColor(hue);
+		
+		
 		currentFrame.draw(spriteBatch);
 		
 		// If we have a health bar attached to bodycomponent, draw that too
@@ -159,8 +167,26 @@ public class SpriteComponent extends Component {
 		//System.out.println(currentAnimationState);
 		currentFrame.setRegion(animations.get(currentAnimationState).getKeyFrame(stateTime, animations.get(currentAnimationState).looping));
 		
+		if ( hue.r < 2 || hue.b < 2 || hue.g < 2 || hue.a < 2) fadeToDefaultHue(deltaTime);
+		
+		
 	} 
 	
+	private void fadeToDefaultHue(float deltaTime) {
+		hue.mul(1 + deltaTime * GameConfiguration.hueFadeTimeMultiplier);
+		//hue.clamp();
+
+		//hue.luminanceAlpha(59, 1);
+//		if (hue.a > 1) hue.a = 1;
+//		if (hue.r > 1) hue.r = 1;
+//		if (hue.b > 1) hue.b = 1;
+//		if (hue.g > 1) hue.g = 1;
+	}
+	
+	public void setHue(Color color) {
+		hue = new Color(color);
+	}
+
 	public boolean isAtLastFrame() {
 		return animations.get(currentAnimationState).isLastFrame(stateTime);
 	}
