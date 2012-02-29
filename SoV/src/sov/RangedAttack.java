@@ -19,10 +19,10 @@ public class RangedAttack extends Attack {
 	private float ammo;
 	private float ammoMax;
 	
-	public RangedAttack(AttackComponent attackComponent, float attackTime,	float preDamageTime,
+	public RangedAttack(AttackType attackType, AttackComponent attackComponent, float attackTime,	float preDamageTime,
 			AnimationState attackAnimation, Projectile projectile, float offSetY, float damage, float flightSpeed) {
 		
-		super(attackComponent, attackTime, preDamageTime, attackAnimation, offSetY,damage);
+		super(attackType, attackComponent, attackTime, preDamageTime, attackAnimation, offSetY,damage);
 		
 		this.flightSpeed = flightSpeed;
 		this.projectileProto = projectile;
@@ -168,9 +168,14 @@ public class RangedAttack extends Attack {
 	public void render(SpriteBatch spriteBatch) {
 		
 	}
-
-
-
 	
+	public float getAmmo() {		
+		 return ammo;
+	}
+	public void giveAmmo(float ammo) {
+		this.ammo += ammo;
+		if (this.ammo > ammoMax)
+			this.ammo = ammoMax;
+	}
 
 }

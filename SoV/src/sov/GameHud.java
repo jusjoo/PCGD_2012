@@ -147,7 +147,7 @@ public class GameHud {
 		level.print("Level: " + (int)player.getComponent(ExperienceComponent.class).getLevel());
 		score.print("Score: " + (int)player.getComponent(ExperienceComponent.class).getScore());
 		exp.print("Exp: " + (int)player.getComponent(ExperienceComponent.class).getExperience());
-		ammo.print("Ammo: " +0);
+		ammo.print("Ammo: " +(int)player.getComponent(AttackComponent.class).getAmmo());
 	}
 	
 
