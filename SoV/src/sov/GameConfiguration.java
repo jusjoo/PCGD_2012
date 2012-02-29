@@ -59,22 +59,22 @@ public class GameConfiguration {
 	public static float strHealthMultiplier = 15f;
 	public static float healthBaseModifier = 25f;	
 	public static float strDamageMultiplier = 1.0f;	
-	public static float dexSpeedMultiplier = 0.45f;
-	public static float speedBaseModifier = 3.0f;
+	public static float dexSpeedMultiplier = 0.40f;
+	public static float speedBaseModifier = 1.0f;
 	public static float dexStaminaMultiplier = 10;
-	public static float staminaBaseModifier = 50;
+	public static float staminaBaseModifier = 100;
 	public static float wisManaMultiplier = 10;
 	public static float manaBaseModifier = 0;	
 	
-	public static float dexJumpHeightMultiplier = 4.0f;
+	public static float dexJumpHeightMultiplier = 2.0f;
 	public static float jumpHeightBaseModifier = 80.0f;
 	public static float creatureMaxVelocityMultiplier = 1.15f;//redundant
 		
 	public static boolean staminaRegenAsPercentage = true;	
 	public static float staminaRegenRatePercentage = 0.05f;		//regen per second
 	public static float staminaRegenRateStatic = 7;
-	public static float staminaCostJump = 0.0f;
-	public static float staminaCostDoubleJump = 15.0f;
+	public static float staminaCostJump = 5.0f;
+	public static float staminaCostDoubleJump = 20.0f;
 	public static float staminaCostAttackMultiplier = 1.75f;
 	
 	public static boolean manaRegenAsPercentage = true;
@@ -122,16 +122,16 @@ public class GameConfiguration {
 	 */
 	
 	public static float BarbarianLevelUpStr = 1.0f;
-	public static float NinjaLevelUpStr = 0.6f;
-	public static float SorceressLevelUpStr = 0.4f;
+	public static float NinjaLevelUpStr = 0.75f;
+	public static float SorceressLevelUpStr = 0.33f;
 	
 	public static float BarbarianLevelUpDex = 0.5f;
-	public static float NinjaLevelUpDex = 0.7f;
+	public static float NinjaLevelUpDex = 0.75f;
 	public static float SorceressLevelUpDex = 0.33f;
 	
-	public static float BarbarianLevelUpWis= 0.3f;
+	public static float BarbarianLevelUpWis= 0.25f;
 	public static float NinjaLevelUpWis = 0.5f;
-	public static float SorceressLevelUpWis = 1.2f;
+	public static float SorceressLevelUpWis = 1.0f;
 	
 
 	
