@@ -10,6 +10,7 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 import sov.BodyComponent.SlopeShape;
 import sov.SpriteComponent.AnimationState;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -131,8 +132,14 @@ public class Creature extends SpriteBody implements Cloneable {
 			
 			if (activeBuffs.size() > 0) {
 				for (Buff buff : activeBuffs) {
+					// quickndirty
+					if (buff.getStat().equals(Stats.Stealth)) {
+						System.out.println("stealthing");
+						getComponent(SpriteComponent.class).setHue(new Color(0.7f,0.7f,0.7f,0.3f));
+					}
 					
 					if (!activatedAbility) {
+												
 						
 						if (buff.getDuration() != -1 && buff.reduceDuration(deltaTime) ){
 							buffsToRemove.add(buff);
