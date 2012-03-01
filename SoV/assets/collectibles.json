@@ -60,5 +60,16 @@
 			"giveMana": 0,
 			"giveExp": 20
 		}
+	},
+	
+	{
+		"type": "Shuriken",
+		"animations": "Shuriken",
+		"soundFile": "collect.ogg",
+		"size": 16,
+		"effects": {
+			"giveAmmo": 3
+			
+		}
 	}
 ]
