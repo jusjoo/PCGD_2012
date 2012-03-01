@@ -64,7 +64,7 @@
 	
 	{
 		"type": "Shuriken",
-		"animations": "Shuriken",
+		"animations": "ShurikenAmmo",
 		"soundFile": "collect.ogg",
 		"size": 16,
 		"effects": {

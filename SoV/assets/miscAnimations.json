@@ -119,7 +119,7 @@
 	},
 	
 	{
-		"name": "Shuriken",
+		"name": "ShurikenAmmo",
 		"textureName": "sprites_collectibles.png",
 		"_frames_description":
 				"Frame size(16px*x, 16px*y), Origin offset, Start frame coordinates, Length, Speed (ms), Looping",
