@@ -184,18 +184,35 @@ public class GameMap {
 				ArrayList<BodyComponent> maptiles = new ArrayList<BodyComponent>();
 				
 				for(int y=0; y<tiles.length; y++) {
+					int tilesSkipped = 0;
 					for(int x=0; x<tiles[y].length; x++) {
+						
 						if(tiles[y][x] != 0) {
 							String property = map.getTileProperty(tiles[y][x], "slope");
 							BodyComponent.SlopeShape shape = SlopeShape.Even;
 							if(property != null && property.equals("left")) { shape = SlopeShape.Left; }
 							else if (property != null && property.equals("right")) { shape = SlopeShape.Right; }
-							BodyComponent tile = new BodyComponent(null, new Vector2(tileSize, tileSize), true, 1.0f, false, shape, false);
 							
-							tile.addToWorld(world, new Vector2(x*tileSize, -y*tileSize+map.height*tileSize));
-									
-							maptiles.add(tile);
+							
+							// if next tile is 1, and neither this tile or the next tile is a slope, we skip the tile
+							if (	x+1 < tiles[y].length 
+									&& tiles[y][x+1] != 0 
+									&& property == null
+									&& map.getTileProperty(tiles[y][x+1], "slope") == null ) {
+								tilesSkipped++;
+							
+							// if not skipping, then draw the tile and the tiles skipped before it, as one big tile
+							} else {
+								BodyComponent tile = new BodyComponent(null, new Vector2(tileSize + tileSize*tilesSkipped, tileSize), true, 1.0f, false, shape, false);
+								tile.addToWorld(world, new Vector2(x*tileSize - (tilesSkipped)*tileSize/2 , -y*tileSize+map.height*tileSize));
+										
+								maptiles.add(tile);
+								tilesSkipped = 0;
 							}
+							
+							
+							
+						}
 							
 						}
 					}

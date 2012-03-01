@@ -30,8 +30,8 @@ public class Collectible extends Entity {
 	
 	boolean setToDestroy = false;
 	
-	public enum CollectibleType {RejuvenationPotion, HealthPotion, ManaPotion, ExpBall, GoldCoin, BigDiamond}
-	public enum CollectibleEffect {heal, giveMana, giveExp, giveScore}
+	public enum CollectibleType {RejuvenationPotion, HealthPotion, ManaPotion, ExpBall, GoldCoin, BigDiamond,Shuriken}
+	public enum CollectibleEffect {heal, giveMana, giveExp, giveScore,giveAmmo}
 	
 	public Collectible(CollectibleType type, AnimationType animations, Sound sound, HashMap<CollectibleEffect, Float> effects, float size) {
 		this.type = type;
@@ -104,6 +104,9 @@ public class Collectible extends Entity {
 							break;
 			case giveScore: creature.getComponent(ExperienceComponent.class).giveScore((int)Math.floor(entry.getValue()));
 							System.out.println("Score" + entry.getValue());
+							break;
+			case giveAmmo:	//TODO functionality
+							break;
 			}
 		}
 		

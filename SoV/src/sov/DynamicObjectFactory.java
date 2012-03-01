@@ -35,7 +35,7 @@ public class DynamicObjectFactory {
 	/*
 	 * This Contains all the misc animation types.
 	 */
-	public enum AnimationType {SlimeBomb, Fireball, Shuriken, RedPotion, BluePotion, SoulOrb, Coin, Diamond};
+	public enum AnimationType {SlimeBomb, Fireball, Shuriken, RedPotion, BluePotion, SoulOrb, Coin, Diamond, ShurikenAmmo};
 	
 	private GameMap gameMap;
 	
