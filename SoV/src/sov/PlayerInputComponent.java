@@ -5,8 +5,8 @@ import com.badlogic.gdx.Gdx;
 public class PlayerInputComponent extends InputComponent {
 	
 	GameConfiguration config = new GameConfiguration();
-	private boolean canPressKey = true;
-	private float inputTimer = 0;
+	private static boolean canPressKey = true;
+	private static float inputTimer = 0;
 
 	public PlayerInputComponent(Entity parent) {
 		super(parent);
@@ -49,13 +49,13 @@ public class PlayerInputComponent extends InputComponent {
 				//((Creature)parent).attack(AttackType.Melee);
 				}
 				if (canPressKey && Gdx.input.isKeyPressed(GameConfiguration.actionSpecial) && Creature.class.isAssignableFrom(parent.getClass())) {
-					keyPressed();
+					
 					((Creature)parent).activateSpecialAbility();
 				}				
 				
 				
 	}
-	public void keyPressed() {
+	public static void keyPressed() {
 		canPressKey = false;
 		inputTimer = 0.2f;
 	}

@@ -130,10 +130,16 @@ public class MovementComponent extends Component {
 	}
 	
 	public boolean onGround() {
-		if (jumpsLeft == 0 || jumpsLeft > 0 && jumpsLeft < maxJumps)
-			return false;		
-		else
-			return true;
+		Vector2 velocity = getBodyComponent().getLinearVelocity();
+		if (Math.abs(velocity.x) > 0.1 || Math.abs(velocity.y) > 0.1 || jumpsLeft == 0 || jumpsLeft > 0 && jumpsLeft < maxJumps) {
+			return false;
+		}
+		else return true;
+			
+//		if (jumpsLeft == 0 || jumpsLeft > 0 && jumpsLeft < maxJumps)
+//			return false;		
+//		else
+//			return true;
 	}
 	public float getSpeed() {
 		return speed;

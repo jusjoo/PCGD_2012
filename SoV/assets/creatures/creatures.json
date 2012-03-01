@@ -16,7 +16,8 @@
 		  "Attack1": [[4,3], -0.5, [0,17], 5, 0.08, false],
 		  "Attack2": [[4,2], -0.5, [0,12], 5, 0.12, false], 
 		  "Hurt": [[2,2], 0.5, [0,23], 4, 0.10, false],
-		  "Die": [[2,2], 0, [8,23], 8, 0.15, false]
+		  "Die": [[2,2], 0, [8,23], 8, 0.15, false],
+		  "Rage":[[1,2],0,[14,0],6,0.15,false]
 	  	},
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
@@ -87,7 +88,9 @@
 		  "Attack1": [[3,3], 0, [0,4], 5, 0.10, false],
 		  "Attack2": [[3,3], 0, [0,4], 5, 0.18, false], 
 		  "Hurt": [[1,2], 0, [1,2], 1, 0.1, false],
-		  "Die": [[2,2], 0.5, [0,2], 4, 0.1, false]
+		  "Die": [[2,2], 0.5, [0,2], 4, 0.1, false],
+		  "LevitateCharge":[[3,2],0,[0,7],3,0.15,false],
+		  "LevitateLoop":[[3,3],0,[9,7],4,0.15,true]
 	  	},
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",

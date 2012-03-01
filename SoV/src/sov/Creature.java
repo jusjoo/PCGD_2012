@@ -39,6 +39,8 @@ public class Creature extends SpriteBody implements Cloneable {
 	@Expose HashMap<SpriteComponent.AnimationState, ArrayList<Object>> attacks;
 	@Expose HashMap<SpriteComponent.AnimationState, String> sounds;
 	
+	private float chargeTimer = 0f;
+	
 	protected float speed;
 	protected float jumpHeight;
 	protected float staminaMax;
@@ -124,6 +126,7 @@ public class Creature extends SpriteBody implements Cloneable {
 		super.update(deltaTime);
 				
 		if (!body.finalDeath) {
+			
 			regenerateStamina(deltaTime);
 			regenerateMana(deltaTime);			
 			regenerateHealth(deltaTime);
@@ -158,6 +161,8 @@ public class Creature extends SpriteBody implements Cloneable {
 			if (specialTimer <= 0) {
 				specialActive = false;
 			}
+			if (chargeTimer > 0)
+				chargeTimer -= deltaTime;
 		}
 		
 	}
@@ -451,9 +456,11 @@ public class Creature extends SpriteBody implements Cloneable {
 			System.out.println("Activating "+creatureType+" special ability...");
 			switch (creatureType) {
 				case Barbarian:
+					PlayerInputComponent.keyPressed();
 					specialBarbarian();
 					break;
 				case Ninja:					
+					PlayerInputComponent.keyPressed();
 					if (!activatedAbility) {
 						specialNinja();
 						activatedAbility = true;
@@ -462,16 +469,33 @@ public class Creature extends SpriteBody implements Cloneable {
 					else {
 						activatedAbility = false;
 						applyCriticalDamage = false;
-					}
-					
-					
+					}					
 					
 					break;
-				case Sorceress:
+				case Sorceress:					
+						specialSorceress();						
 					break;
 			}
 		}
 		
+	}
+
+	private void specialSorceress() {
+		// System.out.println("Activating "+creatureType+" special ability...phase2");
+		float manaCost = -1;
+		MovementComponent move = getComponent(MovementComponent.class);
+//		if (move.onGround() && chargeTimer <= 0) {
+//			Animation.play(this, AnimationState.LevitateCharge);	
+//			chargeTimer = 0.50f;
+//		}
+		 if (modifyMana(manaCost)) {
+			int level = getComponent(ExperienceComponent.class).getLevel();			
+			//if (chargeTimer <= 0.05f) {
+				SpriteComponent spriteComp = getComponent(SpriteComponent.class);
+				spriteComp.setCurrentAnimationState(AnimationState.LevitateLoop);				
+				getComponent(BodyComponent.class).applyLinearImpulse(new Vector2(0,1));			
+			//}
+		}		
 	}
 
 	private void specialNinja() {
@@ -499,6 +523,8 @@ public class Creature extends SpriteBody implements Cloneable {
 			applyBuff( new Buff(Stats.Strength, (9f+level), duration ) );
 			applyBuff( new Buff(Stats.HealthRegen, 0.02f, duration) );
 			applyBuff( new Buff(Stats.StaminaRegen, 1.0f, duration) );
+			
+			Animation.play(this, AnimationState.Rage);
 			
 			specialActive = true;
 			specialTimer = duration;

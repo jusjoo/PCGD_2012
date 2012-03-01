@@ -19,15 +19,17 @@ public class SpriteComponent extends Component {
 	// Animation dictates which Animation is going to be drawn and updated - AnimationStates are in priority order
 	public enum AnimationState {
 		Die,
+		Rage,
+		LevitateCharge,
+		LevitateLoop,
 		Attack1,
 		Attack2,
-		Hurt,
+		Hurt,		
 		Jump,
 		Fall,
 		Run,
 		Idle,
-		WeaponRun
-		
+		WeaponRun		
 		};
 		
 	private Sound sound;
