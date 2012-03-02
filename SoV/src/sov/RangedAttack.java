@@ -52,7 +52,7 @@ public class RangedAttack extends Attack {
 				 true);
 		
 		
-		projectile.setDamage(getDamage(Stats.Wisdom));		
+		projectile.setDamage(getDamage(Stats.Wisdom), spellType);		
 		
 		float offSet = getAttackBoxOffsetX();
 		
@@ -107,7 +107,7 @@ public class RangedAttack extends Attack {
 	}
 	private boolean modifyAmmo(float mod) {
 		boolean result;
-		if (ammo+mod > 0 && ammo+mod <= ammoMax) {
+		if (ammo+mod >= 0 && ammo+mod <= ammoMax) {
 			ammo += mod;
 			result = true;
 		}

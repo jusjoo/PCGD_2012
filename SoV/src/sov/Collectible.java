@@ -105,7 +105,8 @@ public class Collectible extends Entity {
 			case giveScore: creature.getComponent(ExperienceComponent.class).giveScore((int)Math.floor(entry.getValue()));
 							System.out.println("Score" + entry.getValue());
 							break;
-			case giveAmmo:	//TODO functionality
+			case giveAmmo:	creature.getComponent(AttackComponent.class).giveAmmo(entry.getValue());
+							System.out.println("Ammo" + entry.getValue());
 							break;
 			}
 		}
