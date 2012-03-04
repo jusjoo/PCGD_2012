@@ -30,7 +30,10 @@
 	 	"_sounds_description":
 	 			"soundFile in assets/sounds",
 	 	"sounds": {
-	 		"Die": "chord.wav"
+	 		"Attack1": "barbarian_attack_1.ogg",
+	 		"Attack2": "barbarian_attack_2.ogg",
+	 		"Jump": "barbarian_jump.ogg",
+	 		"Hurt": "barbarian_hurt.ogg"
 	 	}
 
 	  	
