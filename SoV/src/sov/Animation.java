@@ -28,5 +28,8 @@ public class Animation extends com.badlogic.gdx.graphics.g2d.Animation {
 	public static void play(Entity entity, SpriteComponent.AnimationState animation) {
 		entity.getComponent(SpriteComponent.class).setCurrentAnimationState(animation);		
 	}
+	public float getLength() {
+		return (animationLength*frameDuration);
+	}
 
 }

@@ -43,7 +43,11 @@ public class MovementComponent extends Component {
 	}
 	
 	public void setSpeed(float speed) {
-		this.speed = speed;
+		if (speed < 0.1f) {
+			this. speed = 0.1f;
+		}
+		else
+			this.speed = speed;
 	}
 	
 	public void setAllowJumping(boolean allowJumping) {
@@ -57,6 +61,8 @@ public class MovementComponent extends Component {
 	}
 	
 	public void setJumpHeight(float jumpHeight) {
+		if (jumpHeight < 1)
+			jumpHeight = 1;
 		this.jumpHeight = jumpHeight;
 	}
 	
@@ -131,7 +137,7 @@ public class MovementComponent extends Component {
 	
 	public boolean onGround() {
 		Vector2 velocity = getBodyComponent().getLinearVelocity();
-		if (Math.abs(velocity.x) > 0.1 || Math.abs(velocity.y) > 0.1 || jumpsLeft == 0 || jumpsLeft > 0 && jumpsLeft < maxJumps) {
+		if (Math.abs(velocity.y) > 0.5 || jumpsLeft == 0 || jumpsLeft > 0 && jumpsLeft < maxJumps) {
 			return false;
 		}
 		else return true;

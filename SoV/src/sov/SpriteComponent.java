@@ -20,8 +20,8 @@ public class SpriteComponent extends Component {
 	public enum AnimationState {
 		Die,
 		Rage,
-		LevitateCharge,
 		LevitateLoop,
+		LevitateCharge,		
 		Attack1,
 		Attack2,
 		Hurt,		
@@ -191,6 +191,10 @@ public class SpriteComponent extends Component {
 
 	public boolean isAtLastFrame() {
 		return animations.get(currentAnimationState).isLastFrame(stateTime);
+	}
+	public Animation getAnimation(AnimationState state) {
+		Animation animation = animations.get(state);
+		return animation;
 	}
 }
 

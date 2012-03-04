@@ -40,6 +40,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	@Expose HashMap<SpriteComponent.AnimationState, String> sounds;
 	
 	private float chargeTimer = 0f;
+	private boolean specialHasCharged = false;
 	
 	protected float speed;
 	protected float jumpHeight;
@@ -161,8 +162,17 @@ public class Creature extends SpriteBody implements Cloneable {
 			if (specialTimer <= 0) {
 				specialActive = false;
 			}
-			if (chargeTimer > 0)
-				chargeTimer -= deltaTime;
+			if (chargeTimer > 0) {
+				chargeTimer -= deltaTime;				
+			}
+			else if (specialHasCharged) {
+				if (getComponent(MovementComponent.class).onGround() ) {
+					specialHasCharged = false;
+				}
+					
+			}
+			
+			
 		}
 		
 	}
@@ -351,11 +361,14 @@ public class Creature extends SpriteBody implements Cloneable {
 		dexterity += dexterityModifier;
 		speed = deriveSpeed();
 		jumpHeight = deriveJumpHeight();
+		if (deriveStamina()<10)
+			staminaMax = 10;
 		staminaMax = deriveStamina();
 		MovementComponent movement = getComponent(MovementComponent.class);
 		movement.setJumpHeight(jumpHeight);
 		movement.setSpeed(speed);
-		body.setMaxVelocity(speed);
+		body.setMaxVelocity(movement.getSpeed());
+		System.out.println("Dex modified to: "+dexterity);
 		
 		statsUpdated = true;
 	}	
@@ -482,19 +495,21 @@ public class Creature extends SpriteBody implements Cloneable {
 
 	private void specialSorceress() {
 		// System.out.println("Activating "+creatureType+" special ability...phase2");
-		float manaCost = -1;
-		MovementComponent move = getComponent(MovementComponent.class);
-//		if (move.onGround() && chargeTimer <= 0) {
-//			Animation.play(this, AnimationState.LevitateCharge);	
-//			chargeTimer = 0.50f;
-//		}
-		 if (modifyMana(manaCost)) {
-			int level = getComponent(ExperienceComponent.class).getLevel();			
-			//if (chargeTimer <= 0.05f) {
-				SpriteComponent spriteComp = getComponent(SpriteComponent.class);
-				spriteComp.setCurrentAnimationState(AnimationState.LevitateLoop);				
-				getComponent(BodyComponent.class).applyLinearImpulse(new Vector2(0,1));			
-			//}
+		float manaCost = -0.75f;
+		float timerExtra = 0.01f;
+		//MovementComponent move = getComponent(MovementComponent.class);
+		//if (move.onGround() && chargeTimer <= 0) {
+		if (!specialHasCharged && chargeTimer <= 0) {
+			Animation.play(this, AnimationState.LevitateCharge);	
+			chargeTimer = getComponent(SpriteComponent.class).getAnimation(AnimationState.LevitateCharge).getLength()+timerExtra;
+			specialHasCharged = true;
+		}
+		if (chargeTimer <= timerExtra) {			
+			if (modifyMana(manaCost)) {			
+			SpriteComponent spriteComp = getComponent(SpriteComponent.class);
+			Animation.play(this, AnimationState.LevitateLoop);			
+			getComponent(BodyComponent.class).applyLinearImpulse(new Vector2(0,1));			
+			}
 		}		
 	}
 

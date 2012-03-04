@@ -207,7 +207,7 @@ public class DynamicObjectFactory {
 						
 						attack = new RangedAttack(attackType, attackComponent, attackTime, preDamageTime, animation, attackBody, attackOffsetY, damage, flightSpeed);
 						if (attackType == AttackType.Magic){		
-							int spell = 1;
+							int spell = (int)Float.parseFloat(attackEntry.getValue().get(9).toString());
 							((RangedAttack)attack).setSpellType(spell);
 						}
 						attackComponent.addAttack(attackName, attack);

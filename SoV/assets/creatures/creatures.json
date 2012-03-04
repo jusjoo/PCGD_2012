@@ -89,13 +89,13 @@
 		  "Attack2": [[3,3], 0, [0,4], 5, 0.18, false], 
 		  "Hurt": [[1,2], 0, [1,2], 1, 0.1, false],
 		  "Die": [[2,2], 0.5, [0,2], 4, 0.1, false],
-		  "LevitateCharge":[[3,2],0,[0,7],3,0.15,false],
+		  "LevitateCharge":[[3,2],0,[0,7],3,0.10,false],
 		  "LevitateLoop":[[3,3],0,[9,7],4,0.15,true]
 	  	},
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
 	  	"attacks": {
-	  	  "Attack1": ["Magic", 4, 5, 0.0, 16.0, 16.0, 2, "SlimeBomb", 10,1],
+	  	  "Attack1": ["Magic", 4, 5, 0.0, 16.0, 16.0, 2, "SlimeBomb", 10,2],
 	  	  "Attack2": ["Magic", 4, 5, 0.0, 16.0, 16.0, 20, "Fireball", 10,1]
 	  	}
 	},
@@ -103,8 +103,8 @@
 		{
 		"creatureType": "Goblin",
 		"textureName": "sprites_monster_goblin.png",
-		"hitboxSize": [15, 24],
-		"dexterity": 2,
+		"hitboxSize": [15, 30],
+		"dexterity": 6,
 		"strength": 5,
 		"wisdom": 0,
 		"_frames_description":
@@ -129,8 +129,8 @@
 	{
 		"creatureType": "Slime",
 		"textureName": "sprites_monster_slime.png",
-		"hitboxSize": [15, 10],
-		"dexterity": 3,
+		"hitboxSize": [16, 16],
+		"dexterity": 5,
 		"strength": -1,
 		"wisdom": 3,
 		"_frames_description":

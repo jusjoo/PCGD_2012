@@ -3,6 +3,7 @@ package sov;
 import java.util.HashMap;
 
 import sov.BodyComponent.SlopeShape;
+import sov.Creature.Stats;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -16,6 +17,7 @@ public class Projectile extends Entity {
 	private boolean setToDie;
 	public boolean setToDestroy;
 	private float damage;
+	private int damageType;
 	
 	/*
 	 * Same as the normal constructor, but supports sensory body setting
@@ -83,6 +85,14 @@ public class Projectile extends Entity {
 	public void dealDamageTo(BodyComponent target) {
 		
 		target.setToTakeDamage(this.damage);
+//		if (damageType == 2) {
+			//TODO: need to find a way to figure out if target is creature and then apply the slowdonw buff...
+//			System.out.println(target.parent.getClass());
+//			if ( target.parent.getClass() == Creature.class ) {
+//			Creature targetCreature = (Creature)target.parent;
+//			targetCreature.applyBuff(new Buff(Stats.Dexterity, -(this.damage/10), 3.0f));
+//			}
+//		}
 		 
 		this.setToDie();
 		
@@ -96,8 +106,9 @@ public class Projectile extends Entity {
 		body.setUserData(contact);
 		
 	}
-	public void setDamage(float damage) {
+	public void setDamage(float damage, int damageType) {
 		this.damage = damage;
+		this.damageType = damageType;
 	}
 
 
