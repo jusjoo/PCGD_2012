@@ -2,7 +2,7 @@
 <map version="1.0" orientation="orthogonal" width="256" height="142" tilewidth="16" tileheight="16">
  <properties>
   <property name="background" value="the_jungle_colored.jpg"/>
-  <property name="music" value="inthejungle.ogg"/>
+  <property name="music" value="inthejungle_2.ogg"/>
  </properties>
  <tileset firstgid="1" name="tiles_desert" tilewidth="16" tileheight="16">
   <image source="tiles_desert.png" width="512" height="512"/>
