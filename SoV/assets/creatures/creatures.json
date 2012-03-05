@@ -133,8 +133,8 @@
 		"creatureType": "Slime",
 		"textureName": "sprites_monster_slime.png",
 		"hitboxSize": [16, 16],
-		"dexterity": 5,
-		"strength": -1,
+		"dexterity": 1,
+		"strength": 1,
 		"wisdom": 3,
 		"_frames_description":
 				"Frame size(16px*x, 16px*y), Origin offset, Start frame coordinates, Length, Speed (ms)",

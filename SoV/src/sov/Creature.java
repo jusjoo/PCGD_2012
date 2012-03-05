@@ -134,16 +134,20 @@ public class Creature extends SpriteBody implements Cloneable {
 			
 			ArrayList<Buff> buffsToRemove = new ArrayList<Buff>();
 			
+			/*
+			 * Run through all buffs
+			 */
 			if (activeBuffs.size() > 0) {
 				for (Buff buff : activeBuffs) {
 					// quickndirty
 					if (buff.getStat().equals(Stats.Stealth)) {
-						System.out.println("stealthing");
+						//System.out.println("stealthing");
 						getComponent(SpriteComponent.class).setHue(new Color(0.7f,0.7f,0.7f,0.3f));
 					}
 					
-					if (!activatedAbility) {
-												
+					// If ability is not toggled manually we reduce the timer
+					// and remove the buff if duration has ran out
+					if (!activatedAbility) {												
 						
 						if (buff.getDuration() != -1 && buff.reduceDuration(deltaTime) ){
 							buffsToRemove.add(buff);

@@ -85,14 +85,14 @@ public class Projectile extends Entity {
 	public void dealDamageTo(BodyComponent target) {
 		
 		target.setToTakeDamage(this.damage);
-//		if (damageType == 2) {
+		if (damageType == 2) {
 			//TODO: need to find a way to figure out if target is creature and then apply the slowdonw buff...
-//			System.out.println(target.parent.getClass());
-//			if ( target.parent.getClass() == Creature.class ) {
-//			Creature targetCreature = (Creature)target.parent;
-//			targetCreature.applyBuff(new Buff(Stats.Dexterity, -(this.damage/10), 3.0f));
-//			}
-//		}
+			
+			if ( target.parent instanceof Creature ) {
+			Creature targetCreature = (Creature)target.parent;
+			targetCreature.applyBuff(new Buff(Stats.Dexterity, -(this.damage/10), 3.0f));
+			}
+		}
 		 
 		this.setToDie();
 		
