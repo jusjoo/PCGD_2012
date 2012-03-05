@@ -24,7 +24,7 @@ import com.google.gson.annotations.Expose;
 public class Creature extends SpriteBody implements Cloneable {
 	
 	public enum CreatureType { Barbarian, Ninja, Sorceress, Goblin, Slime, Troll };
-	public enum Stats { Strength, Dexterity, Wisdom, HealthRegen, StaminaRegen, ManaRegen,Stealth};	
+	public enum Stats { Strength, Dexterity, Wisdom, HealthRegen, StaminaRegen, ManaRegen,Stealth,Freeze};	
 
 	
 	// All the properties which are read from creatures.json must be declared here
@@ -143,6 +143,10 @@ public class Creature extends SpriteBody implements Cloneable {
 					if (buff.getStat().equals(Stats.Stealth)) {
 						//System.out.println("stealthing");
 						getComponent(SpriteComponent.class).setHue(new Color(0.7f,0.7f,0.7f,0.3f));
+					}
+					if (buff.getStat().equals(Stats.Freeze)) {
+						//System.out.println("stealthing");
+						getComponent(SpriteComponent.class).setHue(new Color(0.2f,0.2f,1.50f,0.9f));						
 					}
 					
 					// If ability is not toggled manually we reduce the timer

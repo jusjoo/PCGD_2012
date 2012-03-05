@@ -5,6 +5,7 @@ import java.util.HashMap;
 import sov.BodyComponent.SlopeShape;
 import sov.Creature.Stats;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.MassData;
@@ -90,7 +91,8 @@ public class Projectile extends Entity {
 			
 			if ( target.parent instanceof Creature ) {
 			Creature targetCreature = (Creature)target.parent;
-			targetCreature.applyBuff(new Buff(Stats.Dexterity, -(this.damage/10), 3.0f));
+			targetCreature.applyBuff(new Buff(Stats.Dexterity, -3.0f, 6.0f));
+			targetCreature.applyBuff(new Buff(Stats.Freeze, 0.0f, 6.0f));			
 			}
 		}
 		 

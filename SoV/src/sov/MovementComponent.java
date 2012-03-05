@@ -17,6 +17,7 @@ public class MovementComponent extends Component {
 	
 	protected int maxJumps;
 	protected int jumpsLeft;
+	private boolean hasJumped;
 	
 	public MovementComponent(Entity parent, float speed, float jumpHeight) {
 		super(parent);
@@ -92,14 +93,21 @@ public class MovementComponent extends Component {
 		 * Set correct staminacost - different for second jump.
 		 */
 		float staminacost;
-		if (jumpsLeft > 0 && jumpsLeft < maxJumps)
+		if (allowDoubleJump())
 			staminacost = GameConfiguration.staminaCostDoubleJump;
 		else staminacost = GameConfiguration.staminaCostJump;
 		
 		if(allowJumping() && jumpTimer >= jumpDelay && ((Creature)parent).modifyStamina(-staminacost)) {
 			System.out.println("Jumping! "+jumpHeight);			
 			spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Jump);
-			deltaMove.set(deltaMove.x, jumpHeight);
+			if (allowDoubleJump()) {
+				deltaMove.set(deltaMove.x, jumpHeight*1.25f);
+			}				
+			else {
+				hasJumped = true;
+				deltaMove.set(deltaMove.x, jumpHeight);
+			}
+				
 			setAllowJumping(false);
 			jumpTimer = 0;
 		}
@@ -111,17 +119,17 @@ public class MovementComponent extends Component {
 		
 		jumpTimer += deltaTime;
 				
-		deltaMove.mul(deltaTime).mul(10);
+		deltaMove.x = deltaMove.x* deltaTime * 10;
 		
 		bodyComponent.applyLinearImpulse(deltaMove);
 		
 		
-		if(allowJumping() && !moving) {
+		if(onGround() && !moving) {
 			spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Idle);
 		}
 		
 		
-		if(bodyComponent.getLinearVelocity().y < -0.7f && jumpsLeft < maxJumps) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Fall); }
+		if(bodyComponent.getLinearVelocity().y < -0.7f ) { spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Fall); }
 		
 		moving = false;
 		
@@ -129,7 +137,7 @@ public class MovementComponent extends Component {
 	}
 	
 	public boolean allowJumping() {
-		if (jumpsLeft > 0) {
+		if (onGround() || allowDoubleJump()) {
 			return true;
 		}
 		return false;
@@ -137,10 +145,13 @@ public class MovementComponent extends Component {
 	
 	public boolean onGround() {
 		Vector2 velocity = getBodyComponent().getLinearVelocity();
-		if (Math.abs(velocity.y) > 0.5 || jumpsLeft == 0 || jumpsLeft > 0 && jumpsLeft < maxJumps) {
+		if (Math.abs(velocity.y) > 0.3 || jumpsLeft == 0 || jumpsLeft > 0 && jumpsLeft < maxJumps) {
 			return false;
 		}
-		else return true;
+		else {
+			hasJumped = false;
+			return true;
+		}
 			
 //		if (jumpsLeft == 0 || jumpsLeft > 0 && jumpsLeft < maxJumps)
 //			return false;		
@@ -153,5 +164,11 @@ public class MovementComponent extends Component {
 	public float getJumpHeight() {
 		return this.jumpHeight;
 	}
-
+	public boolean allowDoubleJump() {
+		Vector2 velocity = getBodyComponent().getLinearVelocity();
+		if  (hasJumped && jumpsLeft > 0)
+			return true;
+		else
+			return false;
+	}
 }

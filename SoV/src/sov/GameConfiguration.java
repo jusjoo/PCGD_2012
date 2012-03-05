@@ -68,8 +68,8 @@ public class GameConfiguration {
 	public static float wisManaMultiplier = 10;
 	public static float manaBaseModifier = 0;	
 	
-	public static float dexJumpHeightMultiplier = 2.0f;
-	public static float jumpHeightBaseModifier = 80.0f;
+	public static float dexJumpHeightMultiplier = 0.5f;
+	public static float jumpHeightBaseModifier = 8.0f;
 	public static float creatureMaxVelocityMultiplier = 1.15f;//redundant
 		
 	public static boolean staminaRegenAsPercentage = true;	
@@ -103,8 +103,8 @@ public class GameConfiguration {
 	public static int moveDown = Keys.DOWN;
 	public static int actionJump = Keys.UP;
 	public static int actionCrouch = Keys.DOWN;
-	public static int actionAttack = Keys.SPACE;
-	public static int actionAltAttack = Keys.CONTROL_LEFT;
+	public static int actionAttack = Keys.X;
+	public static int actionAltAttack = Keys.Z;
 	public static int actionSpecial = Keys.S;
 	public static int escapeKey = Keys.ESCAPE;
 	public static int activateMenu = Keys.ENTER;
