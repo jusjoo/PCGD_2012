@@ -13,6 +13,7 @@ public class GameConfiguration {
 	public static LwjglApplication instance;
 	public static DynamicObjectFactory factory;
 	public static GameMap map;
+	public static GameHud hud;
 	// debug mode
 	public static boolean debugMode = false;
 	// light rendering

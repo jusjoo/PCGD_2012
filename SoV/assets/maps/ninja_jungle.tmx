@@ -473,6 +473,17 @@
   <object type="ExpBall" x="1408" y="113"/>
   <object type="ExpBall" x="1521" y="208"/>
   <object type="GoldCoin" x="1200" y="484"/>
+  <object type="Shuriken" x="1216" y="1975"/>
+  <object type="Shuriken" x="1200" y="1975"/>
+  <object type="Shuriken" x="1184" y="1975"/>
+  <object type="Shuriken" x="1402" y="1915"/>
+  <object type="Shuriken" x="1232" y="1975"/>
+  <object type="Shuriken" x="3173" y="1921"/>
+  <object type="Shuriken" x="3153" y="1921"/>
+  <object type="Shuriken" x="2805" y="1827"/>
+  <object type="Shuriken" x="1124" y="244"/>
+  <object type="Shuriken" x="1105" y="245"/>
+  <object type="Shuriken" x="673" y="324"/>
  </objectgroup>
  <layer name="Foreground" width="256" height="142">
   <data encoding="base64" compression="zlib">
@@ -480,7 +491,7 @@
   </data>
  </layer>
  <objectgroup name="Creatures" width="256" height="142">
-  <object type="Ninja" x="3758" y="2054" width="19" height="19">
+  <object type="Ninja" x="1062" y="324" width="19" height="19">
    <properties>
     <property name="IsPlayer" value="true"/>
    </properties>
@@ -525,5 +536,8 @@
   <object type="Slime" x="2559" y="153"/>
   <object type="Goblin" x="2725" y="175"/>
   <object type="Slime" x="2463" y="157"/>
+ </objectgroup>
+ <objectgroup name="Exit" width="256" height="142">
+  <object x="1023" y="305" width="34" height="45"/>
  </objectgroup>
 </map>

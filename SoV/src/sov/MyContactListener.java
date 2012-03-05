@@ -55,6 +55,10 @@ public class MyContactListener implements ContactListener {
 					((BodyComponent)fixtureUserData2.parent).setToTakeDamage(GameConfiguration.trapDamage);
 				}
 				
+				if(fixtureUserData.name == "exit" && fixtureUserData2.parent.getClass() == BodyComponent.class && ((BodyComponent)fixtureUserData2.parent).parent.getComponent(PlayerInputComponent.class) != null ) {
+					GameConfiguration.hud.activateWinScreen();
+				}
+				
 				// Check for collectibles
 				if(fixtureUserData.name == "collectible" 
 						&& fixtureUserData2 != null
