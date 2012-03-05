@@ -108,6 +108,7 @@ public class GameMap {
 		spawnCreatures(world);
 		createTrapSensors(world);
 		createCollectibles(world);
+		createExit(world);
 		
 		String musicFile = tileMapRenderer.getMap().properties.get("music");
 		if (musicFile != null) {
@@ -158,11 +159,26 @@ public class GameMap {
 			
 			trapBody.setUserData(new ContactEvent(trapBody, "trap"));
 		}
-		
-		
-		
 	}
 
+	
+	private void createExit(World world) {
+		TiledObjectGroup objects = null;
+		for (TiledObjectGroup objectGroup: map.objectGroups) {
+			if (objectGroup.name.equals("Exit")) {
+				objects = objectGroup;
+			}
+		}
+		
+		for (TiledObject trap: objects.objects) {
+			BodyComponent trapBody = new BodyComponent(null, new Vector2(trap.width, trap.height), true, 1.0f, false, SlopeShape.Even, true);	
+			
+			trapBody.addToWorld(world, new Vector2(trap.x + trap.width/2 -8, -trap.y+(map.height)*map.tileHeight - trap.height/2 +8 ));
+			
+			trapBody.setUserData(new ContactEvent(trapBody, "exit"));
+		}
+	}
+	
 
 	/*  Create BodyEntities based on static tile positions. Used so that
 	 *  we can use tileMapRenderer for rendering, and Box2D for collision
@@ -462,7 +478,7 @@ public class GameMap {
 		spriteBatch.end();
 		
 		cam.update();
-		cam.apply(Gdx.gl10);
+		//cam.apply(Gdx.gl10);
 		
 		spriteBatch.setProjectionMatrix(cam.combined);
 		

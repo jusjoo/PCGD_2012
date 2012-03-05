@@ -26,6 +26,7 @@ public class CoffeeGDX implements ApplicationListener {
 	
 	Texture spritesTexture = null;
 	SpriteBatch spriteBatch = null;
+	SpriteBatch menuBatch = null;
 	
 	
 	//DynamicObjectFactory dynamicObjectFactory;
@@ -62,14 +63,24 @@ public class CoffeeGDX implements ApplicationListener {
 
 	@Override
 	public void create() {
+		
 		config = new GameConfiguration();
+		cam = new OrthographicCamera(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+		cam.position.x = Gdx.graphics.getWidth()/4;
+		cam.position.y = Gdx.graphics.getHeight()/4;
+		cam.update();
 		hud = new GameHud(this);
 		hud.toggleMainMenu();
-		cam = new OrthographicCamera(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+		
 				
 		//cam.rotate(45, 0, 0, 1);
 		debugRenderer = new Box2DDebugRenderer();
 		spriteBatch = new SpriteBatch();
+		
+		//cam.apply(Gdx.gl10);
+		menuBatch.setProjectionMatrix(cam.combined);
+		spriteBatch.setProjectionMatrix(cam.combined);
+		
 		inMenu = true;
 		
 		hudText = new TextElement(0, 200);		
@@ -91,7 +102,7 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		
 		// Add player
-		//createPlayer(CreatureType.Barbarian, new Vector2(300, 250));
+		//Player(CreatureType.Barbarian, new Vector2(300, 250));
 		
 		rayHandler = new RayHandler(world);
 		//rayHandler.setAmbientLight(new Color(0f, 0f, 0f, 0.25f));
@@ -160,7 +171,7 @@ public class CoffeeGDX implements ApplicationListener {
 			hud.render(spriteBatch, cam.position.x, cam.position.y);
 		}
 		else {
-			hud.render(spriteBatch, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+			hud.render(spriteBatch, Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/4);
 		}
 		
 		for (TextElement text : hud.textElements) {
@@ -236,6 +247,10 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		if (hud.mainMenuActive){
 			hud.handleMenuInput();
+		}
+		
+		if(hud.winScreenActive && Gdx.input.isKeyPressed(GameConfiguration.activateMenu)) {
+			hud.exitWinScreen();
 		}
 	}
 	
@@ -320,6 +335,9 @@ public class CoffeeGDX implements ApplicationListener {
 		map = new GameMap(newMap, world);
 		hud.setPlayer(map.getPlayer());
 		world.setContactListener(new MyContactListener());
+		if(hud.winScreenElement != null){
+			hud.removeElement(hud.winScreenElement);
+		}
 	}
 	
 	/*

@@ -23,7 +23,7 @@ public class GameHud {
 	private MenuElement mainMenuElement;
 	private MenuElement chargenMenuElement;
 	boolean mainMenuActive = false;
-	private SpriteBatch menuBatch;
+	//private SpriteBatch menuBatch;
 	private Sprite menuBackground;
 	private HudBarElement playerHealthBar;
 	private HudBarElement playerStaminaBar;
@@ -54,6 +54,9 @@ public class GameHud {
 	
 	private boolean startGameSoundPlayed = false;
 	private TextElement level;
+	boolean winScreenActive;
+	HudElement winScreenElement;
+	private TextElement winScreenText;
 	
 	public GameHud(CoffeeGDX game) {
 		this.game = game;
@@ -67,6 +70,7 @@ public class GameHud {
 		startGameSound = Gdx.audio.newSound(new FileHandle(GameConfiguration.startGameSoundFile));
 		menuBackSound = Gdx.audio.newSound(new FileHandle(GameConfiguration.menuBackSoundFile));	
 		
+		GameConfiguration.hud = this;
 	}
 	
 	private void initHud() {
@@ -161,7 +165,7 @@ public class GameHud {
 		Texture menuTexture = new Texture(new FileHandle("assets/menu/menubackground.jpg"));
 		menuBackground = new Sprite(menuTexture);
 		menuBackground.setPosition(0, 0);
-		menuBatch = new SpriteBatch();
+		game.menuBatch = new SpriteBatch();
 		
 		// add some selectables to it
 		play = new MenuItem(new Texture(new FileHandle("assets/menu/menuPlayNormal.png")), 
@@ -189,16 +193,16 @@ public class GameHud {
 		 */
 		
 		chargenMenuElement = new MenuElement(position,texture);
-		HudElement sub1 = new HudElement( new Vector2(0,0), new Texture(new FileHandle("assets/menu/menuSelectCharacter.png")) );
+		HudElement sub1 = new HudElement( new Vector2(150,220), new Texture(new FileHandle("assets/menu/menuSelectCharacter.png")) );
 		barbarian = new MenuItem(new Texture(new FileHandle("assets/menu/menuBarbarianNormal.png")), 
 				new Texture(new FileHandle("assets/menu/menuBarbarianSelected.png")), 
-				new Vector2(200, 300));
+				new Vector2(Gdx.graphics.getWidth()/2-32 -200, 300));
 		ninja = new MenuItem(new Texture(new FileHandle("assets/menu/menuNinjaNormal.png")), 
 				new Texture(new FileHandle("assets/menu/menuNinjaSelected.png")), 
-				new Vector2(300, 300));
+				new Vector2(Gdx.graphics.getWidth()/2-32 - 0, 300));
 		sorceress = new MenuItem(new Texture(new FileHandle("assets/menu/menuSorceressNormal.png")), 
 				new Texture(new FileHandle("assets/menu/menuSorceressSelected.png")), 
-				new Vector2(400, 300));
+				new Vector2(Gdx.graphics.getWidth()/2-32 +200, 300));
 		back = new MenuItem(new Texture(new FileHandle("assets/menu/menuBackNormal.png")), 
 				new Texture(new FileHandle("assets/menu/menuBackSelected.png")), 
 				new Vector2(300, 550));
@@ -226,10 +230,10 @@ public class GameHud {
 			float x = camX - Gdx.graphics.getWidth() / 4;
 			float y = camY + Gdx.graphics.getHeight() / 4;
 			if(game.map == null) {
-				menuBatch.begin();
-				menuBackground.draw(menuBatch);				
-				menuBatch.end();
 				
+				game.menuBatch.begin();
+				menuBackground.draw(game.menuBatch);				
+				game.menuBatch.end();				
 			}
 			
 			spriteBatch.begin();
@@ -288,7 +292,7 @@ public class GameHud {
 	
 	public void removeElement(HudElement hudElement) {
 		elements.remove(hudElement);
-		menuBatch.dispose();
+		game.menuBatch.dispose();
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 	}
 	
@@ -305,9 +309,30 @@ public class GameHud {
 			game.paused = false;
 			mainMenuActive = false;
 		}
-		
 	}
 
+	public void activateWinScreen() {
+		winScreenActive = true;
+		game.paused = true;
+		winScreenElement = new HudElement(new Vector2(0,0), new Texture(new FileHandle("assets/menu/menubackground.jpg")));
+		winScreenText = new TextElement(200,200);
+		
+		
+		
+		this.textElements.add(winScreenText);
+		winScreenText.print("Victorious! Your score is " + (int)player.getComponent(ExperienceComponent.class).getScore());
+		this.addElement(winScreenElement);
+	}
+	
+	public void exitWinScreen() {
+		winScreenActive = false;
+		//this.elements.remove(winScreenElement);
+		this.textElements.remove(winScreenText);
+		
+		toggleMainMenu();
+	}
+	
+	
 	public void handleMenuInput() {
 		
 		if (Gdx.input.isKeyPressed(GameConfiguration.moveLeft) || 
@@ -398,4 +423,6 @@ public class GameHud {
 			startGameSoundPlayed = true;
 		}
 	}
+
+
 }

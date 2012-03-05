@@ -332,4 +332,7 @@
   <object type="Slime" x="1216" y="1932"/>
   <object type="Slime" x="1689" y="1932"/>
  </objectgroup>
+ <objectgroup name="Exit" width="256" height="140">
+  <object x="656" y="260" width="33" height="32"/>
+ </objectgroup>
 </map>
