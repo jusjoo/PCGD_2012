@@ -38,7 +38,7 @@ public class AIComponent extends InputComponent {
 	private float distanceRandomizeTimer = 0;
 	private float distanceRandomDuration = 3;
 	private float visibilityX = 128;
-	private float visibilityY = 100;
+	private float visibilityY = 128;
 	private float alarmTime = 60;
 	private float alarmTimer = 0;
 	private float attackFrequency = 2;			// average time between attacks (Randomized)
