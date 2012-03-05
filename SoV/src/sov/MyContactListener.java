@@ -30,7 +30,7 @@ public class MyContactListener implements ContactListener {
 				System.out.println("sensor colliding");
 			}*/
 			
-			if (fixtureUserData == null) System.out.println("null lol "+i);
+			//if (fixtureUserData == null) System.out.println("null lol "+i);
 			
 			if(fixtureUserData != null && fixtureUserData.parent != null) {
 				//System.out.println(fixtureUserData.getClass());
