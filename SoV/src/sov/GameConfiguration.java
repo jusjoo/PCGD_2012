@@ -102,8 +102,8 @@ public class GameConfiguration {
 	public static int moveDown = Keys.DOWN;
 	public static int actionJump = Keys.UP;
 	public static int actionCrouch = Keys.DOWN;
-	public static int actionAttack = Keys.SPACE;
-	public static int actionAltAttack = Keys.CONTROL_LEFT;
+	public static int actionAttack = Keys.X;
+	public static int actionAltAttack = Keys.Z;
 	public static int actionSpecial = Keys.S;
 	public static int escapeKey = Keys.ESCAPE;
 	public static int activateMenu = Keys.ENTER;

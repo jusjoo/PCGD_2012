@@ -50,6 +50,8 @@ public class SpriteComponent extends Component {
 	
 	// Current frame offset
 	float currentOffset = 0;
+
+	private boolean blue;
 	
 	// Size of the sprite in pixels
 	//protected Vector2 size;
@@ -102,7 +104,7 @@ public class SpriteComponent extends Component {
 		
 		currentFrame.setRotation(angle);
 		
-		currentFrame.setColor(hue);
+		currentFrame.setColor(hue);	
 		
 		
 		currentFrame.draw(spriteBatch);
@@ -186,7 +188,7 @@ public class SpriteComponent extends Component {
 	}
 	
 	public void setHue(Color color) {
-		hue = new Color(color);
+		hue = new Color(color);		
 	}
 
 	public boolean isAtLastFrame() {
