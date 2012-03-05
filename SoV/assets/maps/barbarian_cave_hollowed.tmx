@@ -399,6 +399,11 @@
   <object type="GoldCoin" x="3583" y="683"/>
   <object type="GoldCoin" x="429" y="1267"/>
   <object type="GoldCoin" x="452" y="1267"/>
+  <object type="ExpBall" x="1684" y="1059"/>
+  <object type="ExpBall" x="1517" y="1025"/>
+  <object type="ExpBall" x="1682" y="991"/>
+  <object type="ExpBall" x="1517" y="960"/>
+  <object type="ExpBall" x="1681" y="928"/>
  </objectgroup>
  <layer name="Foreground" width="256" height="128">
   <data encoding="base64" compression="zlib">
@@ -429,8 +434,7 @@
   <object type="Slime" x="2656" y="984"/>
   <object type="Goblin" x="2527" y="983"/>
   <object type="Slime" x="2773" y="1134"/>
-  <object type="Goblin" x="2391" y="1132"/>
-  <object type="Goblin" x="2070" y="1127"/>
+  <object type="Goblin" x="1518" y="1090"/>
   <object type="Slime" x="1685" y="1136"/>
   <object type="Slime" x="1447" y="698"/>
   <object type="Slime" x="1265" y="693"/>

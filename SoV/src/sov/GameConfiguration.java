@@ -3,6 +3,7 @@ package sov;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 /*
  * Keeps all the configuration data neatly in one place.
@@ -14,6 +15,7 @@ public class GameConfiguration {
 	public static DynamicObjectFactory factory;
 	public static GameMap map;
 	public static GameHud hud;
+	public static OrthographicCamera camera;
 	// debug mode
 	public static boolean debugMode = false;
 	// light rendering
@@ -47,7 +49,7 @@ public class GameConfiguration {
 	public static final Color collectHueColor = new Color(1f, 1f, 1f, 0.5f);
 	public static final float hueFadeTimeMultiplier = 4;
 	
-	
+	public static final float floatingDamageTextTimer = 1.5f;
 		
 	// player
 	public static float speed = 0.8f;
@@ -140,6 +142,7 @@ public class GameConfiguration {
 	public static float BarbarianLevelUpWis= 0.25f;
 	public static float NinjaLevelUpWis = 0.5f;
 	public static float SorceressLevelUpWis = 1.0f;
+	
 	
 	
 

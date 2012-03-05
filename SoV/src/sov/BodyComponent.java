@@ -1,5 +1,7 @@
 package sov;
 
+import java.util.ArrayList;
+
 import sov.AIComponent.AIstate;
 import sov.Collectible.CollectibleType;
 
@@ -43,6 +45,7 @@ public class BodyComponent extends Component {
 	boolean healthBarIsStatic = false;
 	float healthBarTimer;
 	
+	
 	// tracks incoming damage
 	protected float setToTakeDamage;
 	// makes body immune to damage after being attacked
@@ -54,7 +57,7 @@ public class BodyComponent extends Component {
 	public BodyComponent(Entity parent, Vector2 size,
 			boolean staticBody, float rounding, boolean circle, SlopeShape slopeShape, boolean sensorEntity) {	
 		super(parent);
-		
+	
 		float PIXELS_PER_METER = GameConfiguration.PIXELS_PER_METER;
 		
 		bodyDef = new BodyDef();
@@ -139,6 +142,7 @@ public class BodyComponent extends Component {
 	
 	private void takeDamage(float damage) {
 		addHealthBar();
+		addFloatingCombatText(damage);
 		if (immuneTimer <= 0) {
 			hitPoints -= damage;
 			if(hitPoints <= 0) {
@@ -154,6 +158,17 @@ public class BodyComponent extends Component {
 		
 	}
 	
+	private void addFloatingCombatText(float damage) {
+		TextElement text = new TextElement(	(getPosition().x - GameConfiguration.camera.position.x)*2 + GameConfiguration.windowSizeX/2 ,
+											GameConfiguration.camera.position.y - getPosition().y + GameConfiguration.windowSizeY/2 - this.getSize().y -20);
+//		System.out.println("Position of camera: " + GameConfiguration.camera.position.x + ", " + GameConfiguration.camera.position.y +
+//				" Position of object: " + getPosition().x + ", "+ getPosition().y);
+		text.print("" + (int)damage);
+		
+		GameConfiguration.hud.floatingDamageTexts.add(text);
+		GameConfiguration.hud.damageTextTimer = GameConfiguration.floatingDamageTextTimer;
+	}
+
 	protected BodyComponent setIndestructible(boolean indestructible) {
 		this.indestructible = indestructible;
 		return this;

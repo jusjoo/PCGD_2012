@@ -111,6 +111,7 @@ public class SpriteComponent extends Component {
 		
 		// If we have a health bar attached to bodycomponent, draw that too
 		if(parent.getComponent(BodyComponent.class) != null) {
+			
 			BodyComponent body = parent.getComponent(BodyComponent.class);
 				if(body.healthBar != null) {
 					
@@ -120,6 +121,8 @@ public class SpriteComponent extends Component {
 					}
 				}
 		}
+		
+		
 	}
 	
 	public void setCurrentAnimationState(SpriteComponent.AnimationState state) {
