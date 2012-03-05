@@ -4,8 +4,10 @@ import org.lwjgl.opengl.XRandR.Screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class TextElement {
 	
@@ -57,6 +59,13 @@ public class TextElement {
 		posY = y;
 	}	
 	
+	public float getPositionY() {
+		return posY;
+	}
+	public void setPositionY(float y) {
+		posY = y;
+	}
+	
 	public void print(String text) {		
 		this.text = text;
 	}
@@ -69,6 +78,7 @@ public class TextElement {
 		font.draw(textBatch, text, x, y);
 		textBatch.end();
 		
+		
 	}
 	
 	public void setVisibility(boolean vis) {
@@ -79,4 +89,10 @@ public class TextElement {
 		return visible;
 	}
 
+	public void setColor(Color color){
+		font.setColor(color);
+	}
+	public Color getColor() {
+		return font.getColor();
+	}
 }

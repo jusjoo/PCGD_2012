@@ -57,11 +57,13 @@ public class GameHud {
 	boolean winScreenActive;
 	HudElement winScreenElement;
 	private TextElement winScreenText;
+	public ArrayList<TextElement> floatingDamageTexts;
+	public float damageTextTimer;
 	
 	public GameHud(CoffeeGDX game) {
 		this.game = game;
 		this.textElements = new ArrayList<TextElement>();
-		
+		floatingDamageTexts = new ArrayList<TextElement>();
 		elements = new ArrayList<HudElement>();		
 		initMainMenu();
 				
@@ -243,6 +245,9 @@ public class GameHud {
 				element.render(spriteBatch, x, y);
 			}		
 			
+			
+			
+			
 			spriteBatch.end();		
 			
 			
@@ -272,6 +277,12 @@ public class GameHud {
 	}
 
 	public void update(float deltaTime) {
+		
+		
+		
+		
+	
+		
 		if(game.map != null) {
 			playerHealthBar.bar.setCurrentValue(player.body.getHitPoints());			
 			playerStaminaBar.bar.setCurrentValue(player.getStamina());
@@ -285,11 +296,28 @@ public class GameHud {
 				updateStatText();
 			
 			updateCommonText();
+			updateDamageText(deltaTime);
 		}
 		
 		
 	}
 	
+	private void updateDamageText(float deltaTime) {
+		if (damageTextTimer > 0){
+			damageTextTimer -= deltaTime;
+			
+			for (TextElement text: floatingDamageTexts ){
+				text.setColor(new Color(text.getColor().r, text.getColor().b, text.getColor().g, text.getColor().a - deltaTime/GameConfiguration.floatingDamageTextTimer));
+				text.setPositionY(text.getPositionY()-deltaTime*50 );
+			}
+			
+			if (damageTextTimer <= 0) {
+				floatingDamageTexts.clear();
+			}
+		}
+		
+	}
+
 	public void removeElement(HudElement hudElement) {
 		elements.remove(hudElement);
 		game.menuBatch.dispose();

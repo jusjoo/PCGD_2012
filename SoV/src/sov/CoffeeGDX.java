@@ -69,6 +69,7 @@ public class CoffeeGDX implements ApplicationListener {
 		cam.position.x = Gdx.graphics.getWidth()/4;
 		cam.position.y = Gdx.graphics.getHeight()/4;
 		cam.update();
+		GameConfiguration.camera = cam;
 		hud = new GameHud(this);
 		hud.toggleMainMenu();
 		
@@ -159,6 +160,8 @@ public class CoffeeGDX implements ApplicationListener {
 			cam.position.set(newPosition.x, newPosition.y, 0);
 		
 			cam.apply(Gdx.gl10);
+			
+			
 		
 			map.render(cam, spriteBatch);
 			
@@ -178,6 +181,10 @@ public class CoffeeGDX implements ApplicationListener {
 			if (text.isVisible())
 				text.render(spriteBatch);	
 		}		
+		for (TextElement e : hud.floatingDamageTexts) {
+			//System.out.println("Amount of damageText elements: "+hud.floatingDamageTexts.size());
+			e.render(spriteBatch);
+		}
 		
 		// TODO: Lighting renderer
 		/*if (GameConfiguration.lightRendering) {
