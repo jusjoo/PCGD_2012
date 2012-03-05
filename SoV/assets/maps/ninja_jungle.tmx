@@ -484,6 +484,7 @@
   <object type="Shuriken" x="1124" y="244"/>
   <object type="Shuriken" x="1105" y="245"/>
   <object type="Shuriken" x="673" y="324"/>
+  <object type="BigDiamond" x="1921" y="1921"/>
  </objectgroup>
  <layer name="Foreground" width="256" height="142">
   <data encoding="base64" compression="zlib">
@@ -491,7 +492,7 @@
   </data>
  </layer>
  <objectgroup name="Creatures" width="256" height="142">
-  <object type="Ninja" x="1062" y="324" width="19" height="19">
+  <object type="Ninja" x="3794" y="2050" width="19" height="19">
    <properties>
     <property name="IsPlayer" value="true"/>
    </properties>

@@ -193,16 +193,16 @@ public class GameHud {
 		 */
 		
 		chargenMenuElement = new MenuElement(position,texture);
-		HudElement sub1 = new HudElement( new Vector2(150,220), new Texture(new FileHandle("assets/menu/menuSelectCharacter.png")) );
+		HudElement sub1 = new HudElement( new Vector2(285,220), new Texture(new FileHandle("assets/menu/menuSelectCharacter.png")) );
 		barbarian = new MenuItem(new Texture(new FileHandle("assets/menu/menuBarbarianNormal.png")), 
 				new Texture(new FileHandle("assets/menu/menuBarbarianSelected.png")), 
-				new Vector2(Gdx.graphics.getWidth()/2-32 -200, 300));
+				new Vector2(Gdx.graphics.getWidth()/2-32 -200, 350));
 		ninja = new MenuItem(new Texture(new FileHandle("assets/menu/menuNinjaNormal.png")), 
 				new Texture(new FileHandle("assets/menu/menuNinjaSelected.png")), 
-				new Vector2(Gdx.graphics.getWidth()/2-32 - 0, 300));
+				new Vector2(Gdx.graphics.getWidth()/2-32 - 0, 350));
 		sorceress = new MenuItem(new Texture(new FileHandle("assets/menu/menuSorceressNormal.png")), 
 				new Texture(new FileHandle("assets/menu/menuSorceressSelected.png")), 
-				new Vector2(Gdx.graphics.getWidth()/2-32 +200, 300));
+				new Vector2(Gdx.graphics.getWidth()/2-32 +200, 350));
 		back = new MenuItem(new Texture(new FileHandle("assets/menu/menuBackNormal.png")), 
 				new Texture(new FileHandle("assets/menu/menuBackSelected.png")), 
 				new Vector2(300, 550));

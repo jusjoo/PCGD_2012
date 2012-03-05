@@ -11,6 +11,8 @@ import sov.BodyComponent.SlopeShape;
 import sov.SpriteComponent.AnimationState;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -66,6 +68,9 @@ public class Creature extends SpriteBody implements Cloneable {
 	protected float manaDrain = 0;
 	private boolean activatedAbility = false;
 	boolean applyCriticalDamage = false;
+	
+	private HudBarElement barbarianSpecialBar;
+	private float barbarianSpecialBarTimer = 0;
 	
 	
 	public Creature() {
@@ -161,6 +166,14 @@ public class Creature extends SpriteBody implements Cloneable {
 				if (buffsToRemove.size() > 0) {
 					for (Buff buff : buffsToRemove) {
 						applyDebuff(buff);
+					}
+				}
+				
+				if (barbarianSpecialBarTimer > 0) {
+					barbarianSpecialBar.bar.setCurrentValue(barbarianSpecialBarTimer);
+					barbarianSpecialBarTimer -= deltaTime;
+					if (barbarianSpecialBarTimer <= 0) {
+						GameConfiguration.hud.removeElement(barbarianSpecialBar);
 					}
 				}
 			}
@@ -540,10 +553,16 @@ public class Creature extends SpriteBody implements Cloneable {
 	private void specialBarbarian() {		
 		System.out.println("Activating "+creatureType+" special ability...phase2");
 		float manaCost = -50;
+	
 		if (modifyMana(manaCost)) {		
 		
 			int level = getComponent(ExperienceComponent.class).getLevel();
 			float duration = 6+0.5f*level;
+			barbarianSpecialBarTimer = duration;
+			barbarianSpecialBar = new HudBarElement(new Vector2(224,55), new Texture(1, 1, Format.RGB565), 
+													new Vector2(0,0), new Vector2(64,16), duration, new Color(0.7f,0.1f,0.1f,1f), false);
+			
+			GameConfiguration.hud.addElement(barbarianSpecialBar);
 			
 			applyBuff( new Buff(Stats.Strength, (9f+level), duration ) );
 			applyBuff( new Buff(Stats.HealthRegen, 0.02f, duration) );
