@@ -307,7 +307,10 @@ public class Creature extends SpriteBody implements Cloneable {
 	}
 	
 	public float deriveJumpHeight() {
-		return this.dexterity * GameConfiguration.dexJumpHeightMultiplier + GameConfiguration.jumpHeightBaseModifier;
+		return GameConfiguration.jumpHeightBaseModifier;
+	}
+	public float deriveDoubleJumpMultiplier() {
+		return GameConfiguration.dexJumpHeightMultiplier*dexterity;
 	}
 	public float deriveMana(){
 		float value = wisdom * GameConfiguration.wisManaMultiplier + GameConfiguration.manaBaseModifier;
@@ -367,13 +370,12 @@ public class Creature extends SpriteBody implements Cloneable {
 
 	public void modifyDexterity(float dexterityModifier) {
 		dexterity += dexterityModifier;
-		speed = deriveSpeed();
-		jumpHeight = deriveJumpHeight();
+		speed = deriveSpeed();	
 		if (deriveStamina()<10)
 			staminaMax = 10;
 		staminaMax = deriveStamina();
 		MovementComponent movement = getComponent(MovementComponent.class);
-		movement.setJumpHeight(jumpHeight);
+		movement.setDoubleJumpMultiplier(deriveDoubleJumpMultiplier());
 		movement.setSpeed(speed);
 		body.setMaxVelocity(movement.getSpeed());
 		System.out.println("Dex modified to: "+dexterity);
