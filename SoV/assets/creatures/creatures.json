@@ -78,8 +78,8 @@
 		"creatureType": "Sorceress",
 		"textureName": "sprites_human_sorceress.png",
 		"hitboxSize": [14, 29],
-		"dexterity": 8,
-		"strength": 8,
+		"dexterity": 7,
+		"strength": 7,
 		"wisdom": 20,
 		"_frames_description":
 				"Frame size, Origin offset, Start frame coordinates, Length, Speed (s), Looping",

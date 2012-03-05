@@ -11,6 +11,7 @@ public class MovementComponent extends Component {
 	protected Vector2 deltaMove = new Vector2();
 	protected float speed;
 	protected float jumpHeight;
+	protected float doubleJumpMultiplier; 
 	protected float jumpTimer = 0;
 	protected float jumpDelay = 0.3f;
 	protected boolean moving;
@@ -26,6 +27,7 @@ public class MovementComponent extends Component {
 		spriteComponent = parent.getComponent(SpriteComponent.class);
 		this.speed = speed;
 		this.jumpHeight = jumpHeight;
+		doubleJumpMultiplier = ((Creature)parent).deriveDoubleJumpMultiplier();
 		this.maxJumps = jumps;
 		this.jumpsLeft = maxJumps;
 	}
@@ -61,10 +63,10 @@ public class MovementComponent extends Component {
 		else jumpsLeft--;
 	}
 	
-	public void setJumpHeight(float jumpHeight) {
-		if (jumpHeight < 1)
-			jumpHeight = 1;
-		this.jumpHeight = jumpHeight;
+	public void setDoubleJumpMultiplier(float jumpHeight) {
+		if (jumpHeight < 0)
+			jumpHeight = 0;
+		this.doubleJumpMultiplier = jumpHeight;
 	}
 	
 	public void move(boolean towardsRight) {
@@ -101,7 +103,7 @@ public class MovementComponent extends Component {
 			System.out.println("Jumping! "+jumpHeight);			
 			spriteComponent.setCurrentAnimationState(SpriteComponent.AnimationState.Jump);
 			if (allowDoubleJump()) {
-				deltaMove.set(deltaMove.x, jumpHeight*1.25f);
+				deltaMove.set(deltaMove.x, jumpHeight*(0.3f+doubleJumpMultiplier));
 			}				
 			else {
 				hasJumped = true;
