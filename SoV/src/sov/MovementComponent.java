@@ -14,6 +14,8 @@ public class MovementComponent extends Component {
 	protected float doubleJumpMultiplier; 
 	protected float jumpTimer = 0;
 	protected float jumpDelay = 0.3f;
+	protected float jumpSensorCollisionDelay = 0.01f;
+
 	protected boolean moving;
 	
 	protected int maxJumps;
@@ -56,7 +58,7 @@ public class MovementComponent extends Component {
 	public void setAllowJumping(boolean allowJumping) {
 
 		if (allowJumping == true){
-			if(jumpTimer >= jumpDelay) {
+			if(jumpTimer >= jumpSensorCollisionDelay) {
 				jumpsLeft = maxJumps;
 			}			
 		}

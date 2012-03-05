@@ -281,6 +281,7 @@ public class Creature extends SpriteBody implements Cloneable {
 		//System.out.println(this);
 		sensorFixture.setUserData(new ContactEvent(this, "sensor"));
 		
+			
 		
 		// Creatures shall not rotate according to physics!
 		getComponent(BodyComponent.class).body.setFixedRotation(true);
