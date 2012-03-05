@@ -44,7 +44,7 @@ public class GameConfiguration {
 	public static final String menuBackSoundFile = "assets/sound/menu_3.ogg";
 	public static final String startGameSoundFile = "assets/sound/start_game.ogg";
 	public static final Color hurtHueColor = new Color(1, 0.1f, 0.1f, 0.8f);
-	public static final Color collectHueColor = new Color(0.4f, 0.6f, 1f, 0.8f);
+	public static final Color collectHueColor = new Color(1f, 1f, 1f, 0.5f);
 	public static final float hueFadeTimeMultiplier = 4;
 	
 	
