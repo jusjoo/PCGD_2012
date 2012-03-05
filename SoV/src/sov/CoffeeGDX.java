@@ -251,6 +251,7 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		if(hud.winScreenActive && Gdx.input.isKeyPressed(GameConfiguration.activateMenu)) {
 			hud.exitWinScreen();
+			keyPressed();
 		}
 	}
 	
