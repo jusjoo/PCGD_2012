@@ -132,9 +132,9 @@ public class BarElement {
 			return sprite;
 		} else {
 			Pixmap pixmap = new Pixmap(barSizeX, barSizeY, Pixmap.Format.RGB565);
-			pixmap.setColor(Color.BLACK);
+			pixmap.setColor(backgroundColor);
 			pixmap.fillRectangle(0, 0, barSizeX, barSizeY);
-			pixmap.setColor(Color.GREEN);
+			pixmap.setColor(fillColor);
 			
 			// get the rounded bar width, so we don't have to save every float value in savedStates
 			
