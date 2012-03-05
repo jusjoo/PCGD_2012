@@ -23,8 +23,8 @@
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
 	  	"attacks": {
 
-	  	  "Attack1": ["Melee", 3, 4, 0, 24.0, 24.0, 5],
-	  	  "Attack2": ["Melee", 4, 5, 8, 24.0, 10.0, 30]
+	  	  "Attack1": ["Melee", 3, 4, 0, 24.0, 24.0, 15],
+	  	  "Attack2": ["Melee", 4, 5, 8, 24.0, 10.0, 40]
 	 	},
 	 	
 	 	"_sounds_description":
@@ -63,8 +63,8 @@
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
 	  	"attacks": {
-	  	  "Attack1": ["Melee", 3, 4, 1.0, 16.0, 16.0, 10],
-	  	  "Attack2": ["Ranged", 3, 4, 0.0, 8.0, 8.0, 5, "Shuriken", 3.0]
+	  	  "Attack1": ["Melee", 3, 4, 1.0, 16.0, 16.0, 8],
+	  	  "Attack2": ["Ranged", 3, 4, 0.0, 8.0, 8.0, 10, "Shuriken", 3.0]
 
 	  	},
 	  	"sounds": {
@@ -158,7 +158,7 @@
 		"creatureType": "Troll",
 		"textureName": "sprites_monster_troll.png",
 		"hitboxSize": [31, 47],
-		"dexterity": 3,
+		"dexterity": 5,
 		"strength": 30,
 		"wisdom": 0,
 		"_frames_description":
@@ -175,7 +175,7 @@
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
 	  	"attacks": {
-	  	  "Attack1": ["Melee", 5.5, 7, 0.0, 32.0, 48.0, 25]
+	  	  "Attack1": ["Melee", 5.5, 7, 0.0, 32.0, 48.0, 50]
 	  	}
 	}
 	
