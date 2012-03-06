@@ -273,7 +273,7 @@ public class GameMap {
 					HashMap<SpriteComponent.AnimationState, Animation> tileAnimations = new HashMap<SpriteComponent.AnimationState, Animation>();
 					ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
 					textureRegions.add(atlas.getRegion(object.gid));
-					tileAnimations.put(SpriteComponent.AnimationState.Idle, new Animation(0.1f, textureRegions, false, 0));
+					tileAnimations.put(SpriteComponent.AnimationState.Idle, new Animation(0.1f, textureRegions, false, null));
 					
 					SpriteBody asb = new SpriteBody(new Vector2(16f,16f),tileAnimations, false, 1.0f, false, SlopeShape.Even);
 					asb.getComponent(BodyComponent.class).addToWorld(world, new Vector2(object.x, -object.y+(map.height+1)*map.tileHeight));
