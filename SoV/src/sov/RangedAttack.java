@@ -50,7 +50,9 @@ public class RangedAttack extends Attack {
 		Projectile projectile = new Projectile(projectileProto.body.getSize(), 
 				projectileProto.spriteComponent.animations, 
 				 true);
-		
+		if (projectileProto.impactSound != null) {
+			projectile.addImpactSound(projectileProto.impactSound);
+		}
 		
 		projectile.setDamage(getDamage(Stats.Wisdom), spellType);		
 		
