@@ -250,8 +250,13 @@ public class Creature extends SpriteBody implements Cloneable {
 	}
 
 	public void removeFromWorld(){
+		//System.out.println("DESTROYING in Creature!");
+		
+		//if(getComponent(BodyComponent.class).body.getFixtureList().size() > 0) {
+			System.out.println("DESTROYING sensorFixture!");
+			getComponent(BodyComponent.class).body.destroyFixture(sensorFixture);	
+		//}
 		getComponent(BodyComponent.class).removeFromWorld();
-		getComponent(BodyComponent.class).body.destroyFixture(sensorFixture);
 	}
 	
 	public void addToWorld(World world, Vector2 position) {

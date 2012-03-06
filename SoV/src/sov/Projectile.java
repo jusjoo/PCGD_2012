@@ -5,6 +5,9 @@ import java.util.HashMap;
 import sov.BodyComponent.SlopeShape;
 import sov.Creature.Stats;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -20,6 +23,8 @@ public class Projectile extends Entity {
 	private float damage;
 	private int damageType;
 	private Entity owner;
+
+	Sound impactSound;
 	
 	/*
 	 * Same as the normal constructor, but supports sensory body setting
@@ -104,8 +109,15 @@ public class Projectile extends Entity {
 				targetCreature.applyBuff(new Buff(Stats.Freeze, 0.0f, 6.0f));			
 			}
 		}
+
 		
 		 
+
+		System.out.println("yritet‰‰n toistaa ‰‰ni");
+		if (impactSound != null) {
+			impactSound.play();
+		}		
+
 		this.setToDie();
 		
 	}
@@ -128,5 +140,11 @@ public class Projectile extends Entity {
 		
 	}
 
+	public void addImpactSound(String filename) {
+		this.impactSound = Gdx.audio.newSound(new FileHandle("assets/sound/"+filename));
+	}
+	public void addImpactSound(Sound sound){
+		this.impactSound = sound;
+	}
 
 }

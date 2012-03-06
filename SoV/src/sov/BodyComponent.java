@@ -192,7 +192,7 @@ public class BodyComponent extends Component {
 			
 			
 
-			//TODO: siirrä nämä Entityyn!
+			//TODO: siirrï¿½ nï¿½mï¿½ Entityyn!
 			
 			if(parent.getComponent(MovementComponent.class) != null) {
 				
@@ -306,9 +306,13 @@ public class BodyComponent extends Component {
 	
 	// FIXME: If there are any problems, it should really be world.destroyBody(body);
 	public void removeFromWorld() {
+		
 		if(body != null && bodyFixture != null) {
-			body.destroyFixture(bodyFixture);
-			//world.destroyBody(body);
+			//if(body.getFixtureList().size() > 0) {
+				System.out.println("DESTROYING in BodyComponent");
+				//body.destroyFixture(bodyFixture);
+				world.destroyBody(body);
+			//}
 		}
 	}
 	

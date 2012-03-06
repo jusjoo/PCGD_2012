@@ -104,6 +104,10 @@ public class CoffeeGDX implements ApplicationListener {
 	
 	public void createNewGame(String mapName) {
 		hud.toggleMainMenu();
+		if(world != null) {
+			world.dispose();
+			world.getBodies().remove();
+		}
 		world = new World(new Vector2(0.0f,GameConfiguration.physicsWorldGravity), true);
 		map = new GameMap(mapName, world);
 		hud.setPlayer(map.getPlayer());		
@@ -285,13 +289,16 @@ public class CoffeeGDX implements ApplicationListener {
 		for(Entry<Integer, CreatureType> entry : creatureTypeMappings.entrySet()) {
 			if (Gdx.input.isKeyPressed(entry.getKey())) {
 				keyPressed();
-				Vector2 pos = map.getPlayer().getPosition();
-				map.removeCreature(map.getPlayer());
-				//map.getPlayer().removeFromWorld();
-				createPlayer(entry.getValue(), pos);
-				map.setAItargets(map.getPlayer());
-				System.out.println(map.getPlayer().getComponent(AIComponent.class));
-				hud.setPlayer(map.getPlayer());
+				if(map.getPlayer() != null) {
+					Vector2 pos = map.getPlayer().getPosition();
+					map.removeCreature(map.getPlayer());
+					//map.getPlayer().removeFromWorld();
+					createPlayer(entry.getValue(), pos);
+					map.setAItargets(map.getPlayer());
+					System.out.println(map.getPlayer().getComponent(AIComponent.class));
+					hud.setPlayer(map.getPlayer());
+				}
+				
 			}
 		}
 		
@@ -327,7 +334,9 @@ public class CoffeeGDX implements ApplicationListener {
 	}
 	
 	public void changeMap(String newMap) {
+//		world.getBodies().remove();
 		world.dispose();
+		
 		world = new World(new Vector2(0.0f,GameConfiguration.physicsWorldGravity), true);
 		map.stopMusic();
 		map = new GameMap(newMap, world);
