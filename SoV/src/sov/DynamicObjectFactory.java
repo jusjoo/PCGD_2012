@@ -116,7 +116,13 @@ public class DynamicObjectFactory {
 					
 					boolean loops = Boolean.parseBoolean(animationEntry.getValue().get(5).toString());
 					
-					float offset = Float.parseFloat(animationEntry.getValue().get(1).toString());
+					Vector2 offset;
+					float offsetX = Float.parseFloat(animationEntry.getValue().get(1).toString());
+					float offsetY = 0;
+					if (animationEntry.getValue().size() >= 7) {
+						offsetY = Float.parseFloat(animationEntry.getValue().get(6).toString());
+					}
+					offset = new Vector2(offsetX, offsetY);
 					
 					// Insert all keyframes into spriteAnimations, as an Animation, associated
 					// with the correct Animation. (animationEntry.getKey())
@@ -347,7 +353,13 @@ public class DynamicObjectFactory {
 					
 					boolean loops = Boolean.parseBoolean(animationEntry.getValue().get(5).toString());
 					
-					int offset = (int) Float.parseFloat(animationEntry.getValue().get(1).toString());
+					Vector2 offset;
+					float offsetX = Float.parseFloat(animationEntry.getValue().get(1).toString());
+					float offsetY = 0;
+					if (animationEntry.getValue().size() >= 7) {
+						offsetY = Float.parseFloat(animationEntry.getValue().get(6).toString());
+					}
+					offset = new Vector2(offsetX, offsetY);					
 					
 					// Insert all keyframes into spriteAnimations, as an Animation, associated
 					// with the correct Animation. (animationEntry.getKey())
