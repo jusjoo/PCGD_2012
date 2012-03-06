@@ -1,5 +1,8 @@
 package sov;
 
+import java.util.HashMap;
+import java.util.Map.Entry;
+
 import sov.Creature.CreatureType;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
@@ -27,6 +30,8 @@ public class CoffeeGDX implements ApplicationListener {
 	Texture spritesTexture = null;
 	SpriteBatch spriteBatch = null;
 	SpriteBatch menuBatch = null;
+	
+	public HashMap<Integer, CreatureType> creatureTypeMappings = new HashMap<Integer, CreatureType>();
 	
 	
 	//DynamicObjectFactory dynamicObjectFactory;
@@ -91,6 +96,10 @@ public class CoffeeGDX implements ApplicationListener {
 		
 		version.print("SoV v0.4");
 		
+		// Map debug keys to CreatureTypes
+		creatureTypeMappings.put(GameConfiguration.selectBarbarianKey, CreatureType.Barbarian);
+		creatureTypeMappings.put(GameConfiguration.selectNinjaKey, CreatureType.Ninja);
+		creatureTypeMappings.put(GameConfiguration.selectSorceressKey, CreatureType.Sorceress);
 	}	
 	
 	public void createNewGame(String mapName) {
@@ -273,36 +282,20 @@ public class CoffeeGDX implements ApplicationListener {
 			} else GameConfiguration.debugMode = true;
 		}
 		
-		if (Gdx.input.isKeyPressed(GameConfiguration.selectBarbarianKey)) {
-			keyPressed();
-			Vector2 pos = map.getPlayer().getPosition();
-			map.removeCreature(map.getPlayer());
-			//map.getPlayer().removeFromWorld();
-			createPlayer(CreatureType.Barbarian, pos);
-			map.setAItargets(map.getPlayer());
-			System.out.println(map.getPlayer().getComponent(AIComponent.class));
-			hud.setPlayer(map.getPlayer());
-		}
-		if (Gdx.input.isKeyPressed(GameConfiguration.selectNinjaKey)) {
-			keyPressed();
-			Vector2 pos = map.getPlayer().getPosition();
-			map.removeCreature(map.getPlayer());
-			Creature player = createPlayer(CreatureType.Ninja, pos);
-			map.setAItargets(map.getPlayer());
-			//player.addComponent(new AttackComponent(player, 0.8f, 0.5f, 0.2f, SpriteComponent.AnimationState.Attack1 ));
-			System.out.println(map.getPlayer().getComponent(AIComponent.class));
-			hud.setPlayer(map.getPlayer());
-		}
-		if (Gdx.input.isKeyPressed(GameConfiguration.selectSorceressKey)) {
-			keyPressed();
-			Vector2 pos = map.getPlayer().getPosition();
-			map.removeCreature(map.getPlayer());
-			Creature player = createPlayer(CreatureType.Sorceress, pos);
-			map.setAItargets(map.getPlayer());
-			System.out.println(map.getPlayer().getComponent(AIComponent.class));
-			hud.setPlayer(map.getPlayer());
-			
-			
+		for(Entry<Integer, CreatureType> entry : creatureTypeMappings.entrySet()) {
+			if (Gdx.input.isKeyPressed(entry.getKey())) {
+				keyPressed();
+				if(map.getPlayer() != null) {
+					Vector2 pos = map.getPlayer().getPosition();
+					map.removeCreature(map.getPlayer());
+					//map.getPlayer().removeFromWorld();
+					createPlayer(entry.getValue(), pos);
+					map.setAItargets(map.getPlayer());
+					System.out.println(map.getPlayer().getComponent(AIComponent.class));
+					hud.setPlayer(map.getPlayer());
+				}
+				
+			}
 		}
 		
 		if (Gdx.input.isKeyPressed(GameConfiguration.mapSelectKey)) {

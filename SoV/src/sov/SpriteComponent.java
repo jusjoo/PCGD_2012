@@ -89,17 +89,18 @@ public class SpriteComponent extends Component {
 		 *  
 		 *  This is full of shit!
 		 */
-		currentFrame.setPosition(x + 8 - currentFrame.getWidth()/2 - currentOffset,
-								y -8 - currentFrame.getHeight()/2 + (currentFrame.getHeight() - collisionBoxSize.y)/2 ); 
+		float xx = x + 8 - currentFrame.getWidth()/2 - currentOffset;
+		float yy = y -8 - currentFrame.getHeight()/2 + (currentFrame.getHeight() - collisionBoxSize.y)/2 + animations.get(currentAnimationState).offset.y * 16;
+		currentFrame.setPosition(xx,yy); 
 		//currentFrame.setPosition(x ,y);
 		
 		// FIXME: 16 should really be the... unit size or something? (put it into a static variable somewhere)
 				if(facingRight) {
 					currentFrame.flip(false, false);
-					currentOffset = animations.get(currentAnimationState).offset * 16;
+					currentOffset = animations.get(currentAnimationState).offset.x * 16;
 				} else {
 					currentFrame.flip(true, false);
-					currentOffset = -animations.get(currentAnimationState).offset * 16;
+					currentOffset = -animations.get(currentAnimationState).offset.x * 16;
 				}
 		
 		currentFrame.setRotation(angle);
