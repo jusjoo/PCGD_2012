@@ -59,6 +59,8 @@ public class GameHud {
 	private TextElement winScreenText;
 	public ArrayList<TextElement> floatingDamageTexts;
 	public float damageTextTimer;
+	public Sprite startScreenSprite;
+	boolean startScreenActive = false;
 	
 	public GameHud(CoffeeGDX game) {
 		this.game = game;
@@ -71,6 +73,10 @@ public class GameHud {
 		menuConfirmSound = Gdx.audio.newSound(new FileHandle(GameConfiguration.menuConfirmSoundFile));
 		startGameSound = Gdx.audio.newSound(new FileHandle(GameConfiguration.startGameSoundFile));
 		menuBackSound = Gdx.audio.newSound(new FileHandle(GameConfiguration.menuBackSoundFile));	
+		
+		startScreenSprite = new Sprite(new Texture(new FileHandle("assets/menu/startscreen.png")));
+		
+		
 		
 		GameConfiguration.hud = this;
 	}
@@ -229,8 +235,10 @@ public class GameHud {
 	 * (0,0) on the top left corner of the screen 
 	 */
 	public void render(SpriteBatch spriteBatch, float camX, float camY) {
+		if (!startScreenActive) {
 			float x = camX - Gdx.graphics.getWidth() / 4;
 			float y = camY + Gdx.graphics.getHeight() / 4;
+			
 			if(game.map == null) {
 				
 				game.menuBatch.begin();
@@ -251,7 +259,12 @@ public class GameHud {
 			spriteBatch.end();		
 			
 			
-
+		} else {
+			game.menuBatch.begin();
+			startScreenSprite.setPosition(0, 0);
+			startScreenSprite.draw(game.menuBatch);
+			game.menuBatch.end();
+		}
 	}
 
 	public void addElement(HudElement hudElement) {
@@ -344,8 +357,8 @@ public class GameHud {
 		game.paused = true;
 		winScreenElement = new HudElement(new Vector2(0,0), new Texture(new FileHandle("assets/menu/menubackground.jpg")));
 		winScreenText = new TextElement(200,200);
-		
-		
+		this.textElements.clear();
+		floatingDamageTexts.clear();
 		
 		this.textElements.add(winScreenText);
 		winScreenText.print("Victorious! Your score is " + (int)player.getComponent(ExperienceComponent.class).getScore());
@@ -360,8 +373,22 @@ public class GameHud {
 		toggleMainMenu();
 	}
 	
+	public void activateGameOverScreen() {
+		winScreenActive = true;
+		game.paused = true;
+		winScreenElement = new HudElement(new Vector2(0,0), new Texture(new FileHandle("assets/menu/menubackground.jpg")));
+		winScreenText = new TextElement(200,200);
+		this.textElements.clear();
+		floatingDamageTexts.clear();
+		
+		this.textElements.add(winScreenText);
+		winScreenText.print("Game Over, you died! Your score is " + (int)player.getComponent(ExperienceComponent.class).getScore());
+		this.addElement(winScreenElement);
+	}
+	
 	
 	public void handleMenuInput() {
+		
 		
 		if (Gdx.input.isKeyPressed(GameConfiguration.moveLeft) || 
 				Gdx.input.isKeyPressed(GameConfiguration.moveUp)) {
@@ -404,7 +431,7 @@ public class GameHud {
 			//Chargen menu elements
 			else if (activeMenuElement.selected.equals(barbarian)) {
 				playStartGameSound();
-				
+				showStartScreen();
 				if (game.inMenu) {
 					game.createNewGame("barbarian_village_hollowed.tmx");
 					game.inMenu = false;
@@ -416,7 +443,7 @@ public class GameHud {
 			}
 			else if (activeMenuElement.selected.equals(ninja)) {
 				playStartGameSound();
-				
+				showStartScreen();
 				if (game.inMenu) {
 					game.createNewGame("ninja_jungle.tmx");
 					game.inMenu = false;
@@ -429,7 +456,7 @@ public class GameHud {
 			}
 			else if (activeMenuElement.selected.equals(sorceress)) {
 				playStartGameSound();
-
+				showStartScreen();
 				if (game.inMenu) {
 					game.createNewGame("barbarian_cave_hollowed.tmx");
 					game.inMenu = false;
@@ -445,6 +472,11 @@ public class GameHud {
 	
 	}
 	
+	private void showStartScreen() {
+		startScreenActive  = true;
+		
+	}
+
 	private void playStartGameSound() {
 		if (!startGameSoundPlayed) {
 			startGameSound.play();

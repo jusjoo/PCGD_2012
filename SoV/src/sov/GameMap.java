@@ -70,6 +70,8 @@ public class GameMap {
 	
 	// Tile size in pixels.
 	protected float tileSize = 16f;
+
+	private float playerGameOverTimer = 3f;
 	
 	
 	/*
@@ -438,6 +440,12 @@ public class GameMap {
 	public void update(float deltaTime) {
 		for(Creature creature : creatures) {
 			creature.update(deltaTime);
+			if(creature == player && player.getComponent(BodyComponent.class).finalDeath) {
+				playerGameOverTimer -= deltaTime;
+				if (playerGameOverTimer  <= 0){
+					GameConfiguration.hud.activateGameOverScreen();
+				}
+			}
 		}
 		
 		ArrayList<Collectible> removed = new ArrayList<Collectible>();

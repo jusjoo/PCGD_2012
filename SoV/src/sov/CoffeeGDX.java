@@ -257,6 +257,10 @@ public class CoffeeGDX implements ApplicationListener {
 	}
 	
 	public void handleInput() {
+		if (hud.startScreenActive && Gdx.input.isKeyPressed(GameConfiguration.activateMenu)){
+			hud.startScreenActive = false;
+		}
+		
 		if (!inMenu && Gdx.input.isKeyPressed(GameConfiguration.escapeKey)) {
 			keyPressed();
 			hud.toggleMainMenu();
