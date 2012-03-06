@@ -89,8 +89,20 @@ public class SpriteComponent extends Component {
 		 *  
 		 *  This is full of shit!
 		 */
+//		float yOffset;
+//		if (animations.get(currentAnimationState).offset != null) {
+//			yOffset = animations.get(currentAnimationState).offset.y * 16;
+//			
+//		} else {
+//			yOffset = 0;
+//			xOffset = 0;
+//		}
+		
+		
 		float xx = x + 8 - currentFrame.getWidth()/2 - currentOffset;
-		float yy = y -8 - currentFrame.getHeight()/2 + (currentFrame.getHeight() - collisionBoxSize.y)/2 + animations.get(currentAnimationState).offset.y * 16;
+		float yy = y -8 - currentFrame.getHeight()/2 
+				+	(currentFrame.getHeight() - collisionBoxSize.y)/2 
+				+ animations.get(currentAnimationState).offset.y * 16;
 		currentFrame.setPosition(xx,yy); 
 		//currentFrame.setPosition(x ,y);
 		
