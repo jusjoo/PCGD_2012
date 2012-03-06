@@ -99,10 +99,11 @@
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
 	  	"attacks": {
 	  	  "Attack1": ["Magic", 4, 5, 0.0, 16.0, 16.0, 5, "Iceball", 10, 2, "iceball_crackle.ogg"],
-	  	  "Attack2": ["Magic", 4, 5, 0.0, 16.0, 16.0, 20, "Fireball", 10,1]
+	  	  "Attack2": ["Magic", 4, 5, 0.0, 16.0, 16.0, 20, "Fireball", 10, 1, "fireball_impact.ogg"]
 	  	},
 	  	"sounds": {
-	  		"Attack1": "sorceress_attack_ice.ogg"
+	  		"Attack1": "sorceress_attack_ice.ogg",
+	  		"Attack2": "sorceress_attack_fire.ogg"
 	  	}
 	},
 	
