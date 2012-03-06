@@ -50,6 +50,7 @@ public class RangedAttack extends Attack {
 		Projectile projectile = new Projectile(projectileProto.body.getSize(), 
 				projectileProto.spriteComponent.animations, 
 				 true);
+		projectile.setOwner(this.attackComponent.parent);
 		
 		
 		projectile.setDamage(getDamage(Stats.Wisdom), spellType);		

@@ -123,6 +123,8 @@ public class MeleeAttack extends Attack {
 		}
 		
 		target.setToTakeDamage(getDamage(Stats.Strength)*damageMultiplier);		
+		assignAsTarget(target);
+		
 	}
 	
 	public boolean consumeResource() {

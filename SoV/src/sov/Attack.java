@@ -126,4 +126,14 @@ public abstract class Attack {
 		return type; 
 	}
 	
+	protected void assignAsTarget(BodyComponent target) {
+		if (target != null && target.parent != null && (target.parent).hasComponent(AIComponent.class) ) {
+			AIComponent ai = target.parent.getComponent(AIComponent.class);
+			if (ai.vengeful()) {
+			ai.setTarget(this.attackComponent.parent);
+			}
+			
+		}
+	}
+	
 }
