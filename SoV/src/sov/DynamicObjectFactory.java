@@ -210,6 +210,11 @@ public class DynamicObjectFactory {
 						
 						
 						Projectile attackBody = new Projectile(new Vector2(attackBoxSizeX, attackBoxSizeY), miscAnimations.get(projectileType), true);
+						if (attackEntry.getValue().size() > 10 && attackEntry.getValue().get(10) != null){
+							attackBody.addImpactSound(attackEntry.getValue().get(10).toString());
+						}
+							
+						
 						
 						attack = new RangedAttack(attackType, attackComponent, attackTime, preDamageTime, animation, attackBody, attackOffsetY, damage, flightSpeed);
 						if (attackType == AttackType.Magic){		

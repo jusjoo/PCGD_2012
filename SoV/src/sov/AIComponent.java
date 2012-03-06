@@ -15,7 +15,8 @@ public class AIComponent extends InputComponent {
 		Follow,
 		Attack,
 		Alarmed,
-		RangedAttacker
+		RangedAttacker,
+		Vengeful
 	}
 	
 	private AnimationState meleeAttack = null;
@@ -24,10 +25,12 @@ public class AIComponent extends InputComponent {
 	private TreeSet<AIstate> activeStates;	
 	
 	BodyComponent target = null;
+	BodyComponent originalTarget = null;
 	BodyComponent bodyComponent;
 	/*
 	 * AI Behaviour
 	 */
+	private float avengeChance = 0.5f;
 	private float maximumRangedAttackDistanceX = 256;
 	private float maximumMeleeAttackDistanceX = 32;
 	private float maximumAttackDistanceY = 32;
@@ -37,7 +40,7 @@ public class AIComponent extends InputComponent {
 	private float minimumDistanceTolerance = 10;
 	private float distanceRandomizeTimer = 0;
 	private float distanceRandomDuration = 3;
-	private float visibilityX = 128;
+	private float visibilityX = 192;
 	private float visibilityY = 128;
 	private float alarmTime = 60;
 	private float alarmTimer = 0;
@@ -65,12 +68,25 @@ public class AIComponent extends InputComponent {
 			if (rangedAttack != null)
 				activeStates.add(AIstate.RangedAttacker);
 			
+			activeStates.add(AIstate.Vengeful);
 		}
 	}
 	
-	public AIComponent setTarget(Entity entity) {
+	public AIComponent setTarget(Entity entity) {		
 		target = entity.getComponent(BodyComponent.class);
+		if (originalTarget == null)
+			originalTarget = target;		
 		return this;
+	}
+	public void resetTarget() {
+		target = originalTarget;
+	}
+	public boolean vengeful() {
+		if (activeStates.contains(AIstate.Vengeful) && Math.random() <= avengeChance) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 	@Override
@@ -98,6 +114,9 @@ public class AIComponent extends InputComponent {
 			}
 		if (alarmTimer > 0) {
 			alarmTimer -= deltaTime;
+		}
+		if (target==null || !target.alive) {
+			resetTarget();
 		}
 	}
 	

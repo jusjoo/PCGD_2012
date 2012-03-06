@@ -5,6 +5,9 @@ import java.util.HashMap;
 import sov.BodyComponent.SlopeShape;
 import sov.Creature.Stats;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -12,18 +15,22 @@ import com.badlogic.gdx.physics.box2d.MassData;
 
 public class Projectile extends Entity {
 
-	// Components
+	// Components	
 	BodyComponent body;
 	SpriteComponent spriteComponent;
 	private boolean setToDie;
 	public boolean setToDestroy;
 	private float damage;
 	private int damageType;
+	private Entity owner;
+
+	Sound impactSound;
 	
 	/*
 	 * Same as the normal constructor, but supports sensory body setting
 	 */
 	public Projectile(Vector2 size, HashMap<SpriteComponent.AnimationState, Animation> animations, boolean isSensor) {
+		
 		
 		body = new BodyComponent(this, size, false, 1.0f, false, SlopeShape.Even, isSensor);		
 		spriteComponent = new SpriteComponent(this, animations);
@@ -86,16 +93,31 @@ public class Projectile extends Entity {
 	public void dealDamageTo(BodyComponent target) {
 		
 		target.setToTakeDamage(this.damage);
-		if (damageType == 2) {
-			//TODO: need to find a way to figure out if target is creature and then apply the slowdonw buff...
+		if ( target.parent instanceof Creature ) {
 			
-			if ( target.parent instanceof Creature ) {
-			Creature targetCreature = (Creature)target.parent;
-			targetCreature.applyBuff(new Buff(Stats.Dexterity, -3.0f, 6.0f));
-			targetCreature.applyBuff(new Buff(Stats.Freeze, 0.0f, 6.0f));			
+			
+			if (target.parent.hasComponent(AIComponent.class)) {
+				AIComponent ai = target.parent.getComponent(AIComponent.class);
+				if (ai.vengeful())
+					ai.setTarget(this.owner);
+			}
+			
+			if (damageType == 2) {			
+				
+				Creature targetCreature = (Creature)target.parent;
+				targetCreature.applyBuff(new Buff(Stats.Dexterity, -3.0f, 6.0f));
+				targetCreature.applyBuff(new Buff(Stats.Freeze, 0.0f, 6.0f));			
 			}
 		}
+
+		
 		 
+
+		System.out.println("yritet‰‰n toistaa ‰‰ni");
+		if (impactSound != null) {
+			impactSound.play();
+		}		
+
 		this.setToDie();
 		
 	}
@@ -113,5 +135,16 @@ public class Projectile extends Entity {
 		this.damageType = damageType;
 	}
 
+	public void setOwner(Entity parent) {
+		this.owner = parent;
+		
+	}
+
+	public void addImpactSound(String filename) {
+		this.impactSound = Gdx.audio.newSound(new FileHandle("assets/sound/"+filename));
+	}
+	public void addImpactSound(Sound sound){
+		this.impactSound = sound;
+	}
 
 }

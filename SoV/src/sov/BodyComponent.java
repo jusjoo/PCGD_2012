@@ -306,12 +306,13 @@ public class BodyComponent extends Component {
 	
 	// FIXME: If there are any problems, it should really be world.destroyBody(body);
 	public void removeFromWorld() {
-		System.out.println("DESTROYING in BodyComponent");
+		
 		if(body != null && bodyFixture != null) {
-			if(body.getFixtureList().size() > 0) {
-				body.destroyFixture(bodyFixture);
-				//world.destroyBody(body);
-			}
+			//if(body.getFixtureList().size() > 0) {
+				System.out.println("DESTROYING in BodyComponent");
+				//body.destroyFixture(bodyFixture);
+				world.destroyBody(body);
+			//}
 		}
 	}
 	
