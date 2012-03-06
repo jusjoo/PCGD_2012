@@ -99,6 +99,7 @@ public class SpriteComponent extends Component {
 //		}
 		
 		
+		
 		float xx = x + 8 - currentFrame.getWidth()/2 - currentOffset;
 		float yy = y -8 - currentFrame.getHeight()/2 
 				+	(currentFrame.getHeight() - collisionBoxSize.y)/2 
