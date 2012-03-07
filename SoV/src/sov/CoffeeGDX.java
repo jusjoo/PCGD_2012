@@ -94,7 +94,7 @@ public class CoffeeGDX implements ApplicationListener {
 		hud.textElements.add(hudText);
 		hud.textElements.add(version);
 		
-		version.print("SoV v0.4");
+		version.print(GameConfiguration.version);
 		
 		// Map debug keys to CreatureTypes
 		creatureTypeMappings.put(GameConfiguration.selectBarbarianKey, CreatureType.Barbarian);

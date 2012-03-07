@@ -142,6 +142,7 @@ public class GameConfiguration {
 	public static float BarbarianLevelUpWis= 0.25f;
 	public static float NinjaLevelUpWis = 0.5f;
 	public static float SorceressLevelUpWis = 1.0f;
+	public static String version = "SoV v0.6";
 	
 	
 	
