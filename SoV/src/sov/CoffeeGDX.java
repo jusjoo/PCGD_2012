@@ -190,13 +190,15 @@ public class CoffeeGDX implements ApplicationListener {
 			hud.render(spriteBatch, Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/4);
 		}
 		
-		for (TextElement text : hud.textElements) {
-			if (text.isVisible())
-				text.render(spriteBatch);	
-		}		
-		for (TextElement e : hud.floatingDamageTexts) {
-			//System.out.println("Amount of damageText elements: "+hud.floatingDamageTexts.size());
-			e.render(spriteBatch);
+		if (!hud.startScreenActive) {
+			for (TextElement text : hud.textElements) {		
+				if (text.isVisible())
+					text.render(spriteBatch);	
+			}		
+			for (TextElement e : hud.floatingDamageTexts) {
+				//System.out.println("Amount of damageText elements: "+hud.floatingDamageTexts.size());
+				e.render(spriteBatch);
+			}
 		}
 		
 		// TODO: Lighting renderer
