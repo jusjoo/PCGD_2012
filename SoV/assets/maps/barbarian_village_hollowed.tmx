@@ -426,7 +426,7 @@
   </data>
  </layer>
  <objectgroup name="Creatures" width="256" height="140">
-  <object type="Barbarian" x="389" y="552">
+  <object type="Barbarian" x="337" y="1062">
    <properties>
     <property name="IsPlayer" value=""/>
    </properties>

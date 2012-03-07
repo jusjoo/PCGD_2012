@@ -104,8 +104,8 @@ public class RangedAttack extends Attack {
 		boolean result;
 		float consumption = 1;
 		if (isSpell()) {
-			float power = getBaseDamage();
-			consumption = getManaCost(power);			
+			
+			consumption = getManaCost(getBaseDamage());			
 			result = ((Creature)attackComponent.parent).modifyMana(-consumption);
 		}
 		else result = modifyAmmo(-consumption);
@@ -185,8 +185,9 @@ public class RangedAttack extends Attack {
 		if (this.ammo > ammoMax)
 			this.ammo = ammoMax;
 	}
-	public float getManaCost(float power) {
-		float manacost = GameConfiguration.manaCostAttackBase + power * GameConfiguration.manaCostAttackMultiplier;
+	public float getManaCost(float basedamage) {
+		//float manacost = (basedamage * basedamage / 100 + GameConfiguration.manaCostAttackBase) * GameConfiguration.manaCostAttackMultiplier;
+		float manacost = baseDamage+GameConfiguration.manaCostAttackBase;
 		return manacost;
 	}
 

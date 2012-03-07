@@ -357,7 +357,9 @@ public class BodyComponent extends Component {
 		
 		if (setToTakeDamage > 0 && immuneTimer <= 0) {
 			takeDamage(setToTakeDamage);
-			Animation.play(parent, SpriteComponent.AnimationState.Hurt);
+			if (!setToDie) {
+				Animation.play(parent, SpriteComponent.AnimationState.Hurt);
+			}
 			parent.getComponent(SpriteComponent.class).setHue(GameConfiguration.hurtHueColor);
 		}
 		else {
