@@ -360,6 +360,9 @@ public class BodyComponent extends Component {
 			Animation.play(parent, SpriteComponent.AnimationState.Hurt);
 			parent.getComponent(SpriteComponent.class).setHue(GameConfiguration.hurtHueColor);
 		}
+		else {
+			setToTakeDamage = 0;
+		}
 		if(setToDie) {
 			die();
 			if(!finalDeath && Math.abs(body.getLinearVelocity().x) < 0.5f && Math.abs(body.getLinearVelocity().y) < 0.5f) {

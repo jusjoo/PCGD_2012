@@ -437,7 +437,7 @@ public class Creature extends SpriteBody implements Cloneable {
 	}
 	
 	public float getCreatureDangerLevel() {
-		return (float)Math.sqrt((double)(strength + wisdom));
+		return (float)Math.sqrt(strength + wisdom + dexterity/2);
 	}
 	
 	public void applyBuff(Buff buff) {
@@ -549,7 +549,7 @@ public class Creature extends SpriteBody implements Cloneable {
 			//manaDrain  = -2.5f;
 			int level = getComponent(ExperienceComponent.class).getLevel();
 			float duration = -1;
-			applyBuff( new Buff(Stats.Stealth, 100.0f, duration ) );
+			applyBuff( new Buff(Stats.Stealth, 192.0f, duration ) );	//stealth boost should be equal to Ai visibility range X
 			applyBuff( new Buff(Stats.ManaRegen, -10.0f, duration ) );
 			applyBuff( new Buff(Stats.Dexterity, -dexterity*0.5f, duration) );			
 			

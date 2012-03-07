@@ -68,7 +68,7 @@ public class ExperienceComponent extends Component {
 	}
 	
 	public int getScore() {
-		return this.score;
+		return this.score + (level-1)*75;
 	}
 	
 	public void giveScore(int sc) {

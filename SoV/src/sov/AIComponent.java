@@ -30,7 +30,7 @@ public class AIComponent extends InputComponent {
 	/*
 	 * AI Behaviour
 	 */
-	private float avengeChance = 0.5f;
+	private float avengeChance = 0.9f;
 	private float maximumRangedAttackDistanceX = 256;
 	private float maximumMeleeAttackDistanceX = 32;
 	private float maximumAttackDistanceY = 32;
@@ -200,7 +200,7 @@ public class AIComponent extends InputComponent {
 		
 		float stealth = ((Creature)target.parent).getStealth();
 		visibilityX -= stealth;
-		visibilityY -= stealth;
+		visibilityY -= stealth/2;
 		
 		if (visibilityX < 0) visibilityX = 0;
 		

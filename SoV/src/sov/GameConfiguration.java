@@ -84,7 +84,8 @@ public class GameConfiguration {
 	public static boolean manaRegenAsPercentage = true;
 	public static float manaRegenRatePercentage = 0.02f;			//regen per second
 	public static float manaRegenRateStatic = 1;	
-	public static float manaCostAttackMultiplier = 1.25f;
+	public static float manaCostAttackMultiplier = 0.75f;
+	public static float manaCostAttackBase = 5;
 	
 	//loot
 	public static float lootDropChanceDiamond = 0.05f;
@@ -95,7 +96,7 @@ public class GameConfiguration {
 	
 	
 	// immunity time in seconds after taking damage
-	public static float immuneTime = 0.5f;
+	public static float immuneTime = 0.2f;
 	
 	//key mappings
 	// naming

@@ -56,15 +56,15 @@
 		  "Jump": [[1,2], 0, [11,0], 6, 0.07, false],
 		  "Fall": [[1,2], 0, [12,0], 1, 0, true],
 		  "Attack1": [[2,2], -0.5, [0,4], 5, 0.10, false],
-		  "Attack2": [[2,2], -0.5, [0,6], 5, 0.08, false], 
+		  "Attack2": [[2,2], -0.5, [0,6], 5, 0.05, false], 
 		  "Hurt": [[1,2], 0, [1,9], 1, 0.5, false],
 		  "Die": [[2,2], 0, [0,9], 4, 0.15, false]
 	  	},
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
 	  	"attacks": {
-	  	  "Attack1": ["Melee", 3, 4, 1.0, 16.0, 16.0, 8],
-	  	  "Attack2": ["Ranged", 3, 4, 0.0, 8.0, 8.0, 10, "Shuriken", 3.0]
+	  	  "Attack1": ["Melee", 3, 4, 1.0, 16.0, 16.0, 10],
+	  	  "Attack2": ["Ranged", 3, 4, 0.0, 8.0, 8.0, 25, "Shuriken", 3.0]
 
 	  	},
 	  	"sounds": {
@@ -82,13 +82,13 @@
 		"strength": 7,
 		"wisdom": 20,
 		"_frames_description":
-				"Frame size, Origin offset, Start frame coordinates, Length, Speed (s), Looping",
+				"Frame size, Origin offset, Start frame coordinates, Length, Speed (s), Looping, Origin y-offset",
 		"frames": {   
 		  "Idle": [[1,2], 0, [0,0], 1, 0, true],
 		  "Run": [[1,2], 0, [3,0], 6, 0.15, true],
 		  "Jump": [[1,2], 0, [10,0], 1, 0, true],
 		  "Fall": [[1,2], 0, [12,0], 1, 0, true],
-		  "Attack1": [[3,3], 0, [0,4], 5, 0.10, false],
+		  "Attack1": [[3,3], 0, [0,4], 5, 0.08, false],
 		  "Attack2": [[3,3], 0, [0,4], 5, 0.18, false], 
 		  "Hurt": [[1,2], 0, [1,2], 1, 0.1, false],
 		  "Die": [[2,2], 0.5, [0,2], 4, 0.1, false],
@@ -98,8 +98,8 @@
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
 	  	"attacks": {
-	  	  "Attack1": ["Magic", 4, 5, 0.0, 16.0, 16.0, 5, "Iceball", 10, 2, "iceball_crackle.ogg"],
-	  	  "Attack2": ["Magic", 4, 5, 0.0, 16.0, 16.0, 20, "Fireball", 10, 1, "fireball_impact.ogg"]
+	  	  "Attack1": ["Magic", 4, 5, 0.0, 16.0, 16.0, 5, "Iceball", 11, 2, "iceball_crackle.ogg"],
+	  	  "Attack2": ["Magic", 4, 5, 0.0, 16.0, 16.0, 50, "Fireball", 9, 1, "fireball_impact.ogg"]
 	  	},
 	  	"sounds": {
 	  		"Attack1": "sorceress_attack_ice.ogg",
@@ -113,7 +113,7 @@
 		"hitboxSize": [15, 30],
 		"dexterity": 6,
 		"strength": 5,
-		"wisdom": 0,
+		"wisdom": 5,
 		"_frames_description":
 				"Frame size, Origin offset, Start frame coordinates, Length, Speed (ms)",
 		"frames": {   
@@ -129,7 +129,7 @@
 	  	"_attacks_description":
 	  			"AttackType, damageStartFrame, damageEndFrame(ignored on ranged), attackbox y-offset, attackbox size x, y, damage, (enum AnimationType projectile), flightSpeed, spellType",
 	  	"attacks": {
-	  	  "Attack1": ["Melee", 4.5, 5, 1, 24.0, 16.0, 10]
+	  	  "Attack1": ["Melee", 4.5, 5, 1, 24.0, 16.0, 25]
 	  	}
 	},
 	
@@ -139,7 +139,7 @@
 		"hitboxSize": [16, 16],
 		"dexterity": 1,
 		"strength": 1,
-		"wisdom": 5,
+		"wisdom": 10,
 		"_frames_description":
 				"Frame size(16px*x, 16px*y), Origin offset, Start frame coordinates, Length, Speed (ms)",
 		"frames": {   
@@ -162,9 +162,9 @@
 		"creatureType": "Troll",
 		"textureName": "sprites_monster_troll.png",
 		"hitboxSize": [31, 47],
-		"dexterity": 5,
-		"strength": 30,
-		"wisdom": 0,
+		"dexterity": 10,
+		"strength": 40,
+		"wisdom": 10,
 		"_frames_description":
 				"Frame size(16px*x, 16px*y), Origin offset, Start frame coordinates, Length, Speed (ms)",
 		"frames": {   

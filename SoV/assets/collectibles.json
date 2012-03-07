@@ -1,12 +1,12 @@
 [
 	{
 		"type": "RejuvenationPotion",
-		"animations": "RedPotion",
+		"animations": "PurplePotion",
 		"soundFile": "menu_3.ogg",
 		"size": 16,
 		"effects": {
-			"heal": 50,
-			"giveMana": 50
+			"heal": 100,
+			"giveMana": 100
 		}
 	},
 		
@@ -16,7 +16,7 @@
 		"soundFile": "menu_3.ogg",
 		"size": 16,
 		"effects": {
-			"giveMana": 80
+			"giveMana": 200
 		}
 	},
 	
@@ -26,7 +26,7 @@
 		"soundFile": "menu_3.ogg",
 		"size": 16,
 		"effects": {
-			"heal": 80
+			"heal": 200
 		}
 	},
 	
@@ -68,7 +68,7 @@
 		"soundFile": "collect.ogg",
 		"size": 16,
 		"effects": {
-			"giveAmmo": 3
+			"giveAmmo": 5
 			
 		}
 	}

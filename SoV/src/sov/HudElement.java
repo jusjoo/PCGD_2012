@@ -11,6 +11,7 @@ public class HudElement {
 	Vector2 position;
 	//Texture texture;
 	Sprite sprite;
+	boolean visible = true;
 	
 	public HudElement(Vector2 position, Texture texture) {
 		this.position = position;

@@ -28,6 +28,7 @@ public class GameHud {
 	private HudBarElement playerHealthBar;
 	private HudBarElement playerStaminaBar;
 	private HudBarElement playerManaBar;
+	private HudElement hudTexture;
 	
 	private TextElement textStr;
 	private TextElement textDex;
@@ -84,19 +85,23 @@ public class GameHud {
 	private void initHud() {
 		if(game.map != null) {
 			Texture tex = new Texture(new FileHandle("assets/menu/hudForeground.png"));
-			HudElement hudElement = new HudElement(new Vector2(0,0), tex);
+			hudTexture = new HudElement(new Vector2(0,0), tex);
 			//hud foreground
-		
+			
 		
 			elements.add(playerHealthBar);
 			elements.add(playerStaminaBar);
 			elements.add(playerManaBar);
-			elements.add(hudElement);
+			elements.add(hudTexture);
 			
 			initText();
-		}
-		
-		
+		}		
+	}
+	private void toggleHud() {
+		playerHealthBar.visible = !playerHealthBar.visible;
+		playerStaminaBar.visible = !playerStaminaBar.visible;
+		playerManaBar.visible = !playerManaBar.visible;
+		hudTexture.visible = !hudTexture.visible;
 	}
 
 	private void initText() {
@@ -165,7 +170,7 @@ public class GameHud {
 
 	private void initMainMenu() {
 		// define the main menu element
-		Texture texture = new Texture(new FileHandle("assets/menu/logo_v3.png"));
+		Texture texture = new Texture(new FileHandle("assets/menu/logo_v5.png"));
 		Vector2 position = new Vector2(0, 0);
 		mainMenuElement = new MenuElement(position, texture);
 		
@@ -250,7 +255,8 @@ public class GameHud {
 			//System.out.println(Gdx.graphics.getWidth());
 			for (HudElement element: elements) {
 				
-				element.render(spriteBatch, x, y);
+				if (element.visible)
+					element.render(spriteBatch, x, y);
 			}		
 			
 			
@@ -355,35 +361,39 @@ public class GameHud {
 	public void activateWinScreen() {
 		winScreenActive = true;
 		game.paused = true;
-		winScreenElement = new HudElement(new Vector2(0,0), new Texture(new FileHandle("assets/menu/menubackground.jpg")));
-		winScreenText = new TextElement(200,200);
+		Texture texture = new Texture(new FileHandle("assets/menu/victory.png"));
+		winScreenElement = new HudElement(new Vector2(0,Gdx.graphics.getHeight()/4), texture);
+		winScreenText = new TextElement(Gdx.graphics.getWidth()/2-64,Gdx.graphics.getHeight()/2+70);
 		this.textElements.clear();
 		floatingDamageTexts.clear();
 		
 		this.textElements.add(winScreenText);
-		winScreenText.print("Victorious! Your score is " + (int)player.getComponent(ExperienceComponent.class).getScore());
+		winScreenText.print("Final Score " + (int)player.getComponent(ExperienceComponent.class).getScore());
 		this.addElement(winScreenElement);
+		toggleHud();
 	}
 	
 	public void exitWinScreen() {
 		winScreenActive = false;
 		//this.elements.remove(winScreenElement);
 		this.textElements.remove(winScreenText);
-		
+		toggleHud();
 		toggleMainMenu();
 	}
 	
 	public void activateGameOverScreen() {
 		winScreenActive = true;
 		game.paused = true;
-		winScreenElement = new HudElement(new Vector2(0,0), new Texture(new FileHandle("assets/menu/menubackground.jpg")));
-		winScreenText = new TextElement(200,200);
+		Texture gameover = new Texture(new FileHandle("assets/menu/gameover.png"));
+		winScreenElement = new HudElement(new Vector2(0,Gdx.graphics.getHeight()/4), gameover);
+		winScreenText = new TextElement(Gdx.graphics.getWidth()/2-64,Gdx.graphics.getHeight()/2+70);
 		this.textElements.clear();
 		floatingDamageTexts.clear();
 		
 		this.textElements.add(winScreenText);
-		winScreenText.print("Game Over, you died! Your score is " + (int)player.getComponent(ExperienceComponent.class).getScore());
+		winScreenText.print("Final Score:" + (int)player.getComponent(ExperienceComponent.class).getScore());
 		this.addElement(winScreenElement);
+		toggleHud();
 	}
 	
 	

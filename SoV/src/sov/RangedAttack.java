@@ -27,7 +27,7 @@ public class RangedAttack extends Attack {
 		this.flightSpeed = flightSpeed;
 		this.projectileProto = projectile;
 		this.ammo = 20;
-		this.ammoMax = ammo;
+		this.ammoMax = 255;
 				
 	}
 	public void setSpellType(int type) {
@@ -104,7 +104,8 @@ public class RangedAttack extends Attack {
 		boolean result;
 		float consumption = 1;
 		if (isSpell()) {
-			consumption = getBaseDamage() * GameConfiguration.manaCostAttackMultiplier;			
+			float power = getBaseDamage();
+			consumption = getManaCost(power);			
 			result = ((Creature)attackComponent.parent).modifyMana(-consumption);
 		}
 		else result = modifyAmmo(-consumption);
@@ -183,6 +184,10 @@ public class RangedAttack extends Attack {
 		this.ammo += ammo;
 		if (this.ammo > ammoMax)
 			this.ammo = ammoMax;
+	}
+	public float getManaCost(float power) {
+		float manacost = GameConfiguration.manaCostAttackBase + power * GameConfiguration.manaCostAttackMultiplier;
+		return manacost;
 	}
 
 }

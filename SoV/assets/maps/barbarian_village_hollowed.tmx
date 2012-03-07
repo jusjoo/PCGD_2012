@@ -418,6 +418,7 @@
   <object type="HealthPotion" x="1085" y="477"/>
   <object type="BigDiamond" x="1133" y="470" width="16" height="14"/>
   <object type="ExpBall" x="1148" y="393" width="16" height="14"/>
+  <object type="HealthPotion" x="3470" y="1476" width="22" height="22"/>
  </objectgroup>
  <layer name="Foreground" width="256" height="140">
   <data encoding="base64" compression="zlib">
@@ -425,7 +426,7 @@
   </data>
  </layer>
  <objectgroup name="Creatures" width="256" height="140">
-  <object type="Barbarian" x="558" y="1074">
+  <object type="Barbarian" x="389" y="552">
    <properties>
     <property name="IsPlayer" value=""/>
    </properties>

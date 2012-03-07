@@ -102,18 +102,16 @@ public abstract class Attack {
 		}
 		
 		float damage;
-		String dmgString;
+		String dmgString;			
+		float dmgMult = statDamage/10+(float)Math.random();
+		damage = dmgMult * baseDamage;
+		dmgString = "DAMAGE RANGE: "+statDamage/10*baseDamage+"-"+(statDamage/10+1)*baseDamage;
+			
+//			float minDamage = Math.round(statDamage * 0.2f + baseDamage);
+//			float maxDamage = Math.round(statDamage * 1.0f + baseDamage*1.5f);
+//			damage = Math.round( (float)Math.random() * (maxDamage-minDamage) + minDamage );
+//			dmgString = (minDamage+"-"+maxDamage);
 		
-		if (GameConfiguration.randomizedDamage) {
-			float minDamage = Math.round(statDamage * 0.2f + baseDamage);
-			float maxDamage = Math.round(statDamage * 1.0f + baseDamage*1.5f);
-			damage = Math.round( (float)Math.random() * (maxDamage-minDamage) + minDamage );
-			dmgString = (minDamage+"-"+maxDamage);
-		}
-		else {
-			damage = Math.round(statDamage + baseDamage);
-			dmgString = (statDamage+"+"+baseDamage);
-		}
 		System.out.println("damage("+dmgString+"):"+damage+" damage");
 		return damage;		
 	}
