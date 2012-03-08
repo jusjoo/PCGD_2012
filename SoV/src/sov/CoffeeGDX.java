@@ -10,6 +10,7 @@ import box2dLight.RayHandler;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
@@ -397,7 +398,17 @@ public class CoffeeGDX implements ApplicationListener {
 	}
 	
 	public static void main (String[] args) {
-		GameConfiguration.instance = new LwjglApplication(new CoffeeGDX(), "Game", GameConfiguration.windowSizeX, GameConfiguration.windowSizeY, false);
+		LwjglApplicationConfiguration conf = new LwjglApplicationConfiguration();
+		conf.fullscreen = true;
+		conf.useGL20 = false;
+		conf.width = GameConfiguration.windowSizeX;
+		conf.height = GameConfiguration.windowSizeY;
+		//conf.width = 1920;
+		//conf.height = 1080;
+		//conf.
+		
+		//GameConfiguration.instance = new LwjglApplication(new CoffeeGDX(), "Game", GameConfiguration.windowSizeX, GameConfiguration.windowSizeY, false);
+		GameConfiguration.instance = new LwjglApplication(new CoffeeGDX(), conf);
 		 /// new LwjglApplication(new CoffeeGDX(), "Game", 800, 600, false);
 }
 
